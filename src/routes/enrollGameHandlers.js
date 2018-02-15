@@ -13,7 +13,7 @@ const sendToWaitingPage = function(req,res,next){
   if(!playerName){
     res.redirect(`/game/join/${gameId}`);
     return;
-  };
+  }
   let playerId = new Date().getTime();
   let game = req.app.games[gameId];
   game.addPlayer(playerName,playerId);
@@ -21,6 +21,7 @@ const sendToWaitingPage = function(req,res,next){
   res.redirect(`/game/${gameId}/wait`);
   next();
 };
+
 
 module.exports = {
   serveEnrollingForm,

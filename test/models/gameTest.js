@@ -15,9 +15,10 @@ describe('Game',()=>{
       let expectedOutput = {
         _name:'suyog',
         _character:{
-          "name":"Miss Scarlett",
-          "color":"red",
-          "position":1
+          "_name":"Miss Scarlett",
+          "_tokenColor":"red",
+          "_position":1,
+          "_turn":1
         }
       };
       assert.deepEqual(actualOutput,expectedOutput);
