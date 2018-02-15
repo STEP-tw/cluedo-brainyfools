@@ -36,13 +36,13 @@ describe('GET /game/join/:id',()=>{
 });
 
 
-// describe('POST /game/join/:id',()=>{
-//   it('redirects to waiting page',done=>{
-//     request(app)
-//       .post('/game/join/1234')
-//       .set('cookie','gameId=1234;playerId=1')
-//       .expect(302)
-//       .expect('Location','/game/1234/wait')
-//       .end(done);
-//   });
-// });
+describe('POST /game/join/:id',()=>{
+  it('redirects to waiting page',done=>{
+    request(app)
+      .post('/game/join/1234')
+      .set('cookie','playerId=1')
+      .expect(302)
+      .expect('Location','/game/1234/wait')
+      .end(done);
+  });
+});

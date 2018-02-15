@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Enrolling Form</title>
-  </head>
-  <body>
-<<<<<<< HEAD
-    Joining Game : {{ ID }}
-    <form method="post">
-      <label for="playerName">Name</label>
-      <input id="playerName" type="text" name="name" required/>
-=======
-    Joining this <gameId></gameId> Game
-    <form method="post">
-      Name <br>
-      <input type="text" name="name" required/>
->>>>>>> 88d04f44ab21dbbc260adc191f74ced1db764577
-      <input type="submit" value="submit">
-    </form>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Enrolling Form</title>
+</head>
+<body>
+  Joining Game : {{ ID }}
+  <form method="post">
+    <label for="playerName">Name</label>
+    <input id="playerName" type="text" name="name" required/>
+    <input type="submit" value="submit">
+  </form>
+</body>
 </html>
