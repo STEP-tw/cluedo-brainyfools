@@ -73,9 +73,18 @@ describe('POST /game/join/1234',()=>{
   it('redirects to waiting page',done=>{
     request(app)
       .post('/game/join/1234')
+      .send("name=omkar")
       .set('cookie','playerId=1')
       .expect(302)
       .expect('Location','/game/1234/wait')
+      .end(done);
+  });
+  it('redirects to enroll form page if name is not given',done=>{
+    request(app)
+      .post('/game/join/1234')
+      .send("name=")
+      .expect(302)
+      .expect('Location','/game/join/1234')
       .end(done);
   });
 });
