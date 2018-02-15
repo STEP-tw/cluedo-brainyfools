@@ -24,6 +24,26 @@ describe('POST /game/new', function(done){
       .redirectsTo('/game/join/1234')
       .end(done);
   });
+  it('should redirect to home when game created with invalid count',done=>{
+    let invalidCountCookie=[
+      'invalidPlayerCount=true',
+      'message=Select valid number of players (3 to 6)'
+    ];
+    request(app)
+      .post('/game/new')
+      .send('numberOfPlayers=2')
+      .expect(302)
+      .redirectsTo('/game')
+      .cookie.match('invalidPlayerCount',/true/)
+      .end(()=>{
+        request(app)
+          .get('/game')
+          .set('Cookie',invalidCountCookie)
+          .expect(200)
+          .body.include('Select valid number of players (3 to 6)')
+          .end(done);
+      });
+  });
 });
 
 describe('GET /game/join/:id',()=>{
