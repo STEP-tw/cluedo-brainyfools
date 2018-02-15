@@ -18,6 +18,8 @@ const createGame = function(req, res) {
   let numberOfPlayers = req.body['numberOfPlayers'];
   let game = new Game(numberOfPlayers);
   let gameId = '1234';
+  res.clearCookie('invalidPlayerCount');
+  res.clearCookie('message');
   req.app.games[gameId] = game;
   res.redirect(`/game/join/${gameId}`);
 };
