@@ -4,7 +4,7 @@ const app = require('../../app.js');
 
 
 describe('GET /game', function(){
-  it('it should respond with HomePage', function(done){
+  it('should respond with landing page', function(done){
     request(app)
       .get('/game')
       .expect(200)
@@ -13,4 +13,15 @@ describe('GET /game', function(){
       .expect(/Game Id :/)
       .end(done);
   });
+});
+
+describe('POST /game/new', function(done){
+  it('should create game and redirect to player detail form',function(done){
+    request(app)
+      .post('/game/new')
+      .send('numberOfPlayers=3')
+      .expect(302)
+      .redirectsTo('/game/join/1234')
+      .end(done);
+  })
 });

@@ -12,7 +12,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(logRequest);
 
-app.get('/game',createGameHandlers.serveHomepage.bind(app));
+app.get('/game',createGameHandlers.serveHomepage);
+app.post('/game/new',createGameHandlers.createGame);
 
 
 app.use(express.static('public'));
