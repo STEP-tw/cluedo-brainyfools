@@ -8,8 +8,11 @@ const serveEnrollingForm = function(req,res,next){
 };
 
 const sendToWaitingPage = function(req,res,next){
-  let gameId = req.params.id;
   let playerId = new Date().getTime();
+  let gameId = req.params.id;
+  let playerName = req.body.name;
+  let game = req.app.games[gameId];
+  game.addPlayer(playerName,playerId);
   res.cookie('playerId',playerId);
   res.redirect(`/game/${gameId}/wait`);
   next();
