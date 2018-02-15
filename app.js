@@ -1,9 +1,12 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const logRequest = require('./src/utils/logger');
+
 const fs = require('fs');
 
-const logRequest = require('./src/utils/logger');
-const handler = require('./src/routes/handlers.js');
+const createGameHandlers = require('./src/routes/createGameHandlers.js');
+const enrollGameHandlers = require('./src/routes/enrollGameHandlers.js');
+
 
 const app = express();
 
@@ -14,7 +17,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(logRequest);
 
-app.get('/game/join/:id',handler.serveEnrollingForm);
+app.get('/game',createGameHandlers.serveHomepage);
+app.post('/game/new',createGameHandlers.createGame);
+app.get('/game/join/:id',enrollGameHandlers.serveEnrollingForm);
 
 app.use(express.static('public'));
+
 module.exports = app;
