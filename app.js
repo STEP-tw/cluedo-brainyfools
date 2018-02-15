@@ -9,6 +9,7 @@ const enrollGameHandlers = require('./src/routes/enrollGameHandlers.js');
 const verifyPlayersCount = createGameHandlers.verifyPlayersCount;
 
 const app = express();
+
 app.fs = fs;
 app.games = {};
 
@@ -20,6 +21,7 @@ app.use(logRequest);
 app.get('/game',createGameHandlers.serveHomepage);
 app.post('/game/new',verifyPlayersCount,createGameHandlers.createGame);
 app.get('/game/join/:id',enrollGameHandlers.serveEnrollingForm);
+app.post('/game/join/:id',enrollGameHandlers.sendToWaitingPage);
 
 app.use(express.static('public'));
 

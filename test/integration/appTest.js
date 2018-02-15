@@ -2,7 +2,6 @@ const assert = require('chai').assert;
 const request = require('supertest');
 const app = require('../../app.js');
 
-
 describe('GET /game', function(){
   it('should respond with landing page', function(done){
     request(app)
@@ -49,9 +48,21 @@ describe('POST /game/new', function(done){
 describe('GET /game/join/:id',()=>{
   it('serves enrolling form to enter player\'s name',done=>{
     request(app)
-      .get('/game/join/:id')
+      .get('/game/join/1234')
       .expect(200)
-      .expect(/Joining this/)
+      .expect(/Joining Game : 1234/)
+      .end(done);
+  });
+});
+
+
+describe('POST /game/join/:id',()=>{
+  it('redirects to waiting page',done=>{
+    request(app)
+      .post('/game/join/1234')
+      .set('cookie','playerId=1')
+      .expect(302)
+      .expect('Location','/game/1234/wait')
       .end(done);
   });
 });
