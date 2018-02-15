@@ -1,0 +1,42 @@
+#playercards {
+  margin: 5px;
+}
+body {
+  display: flex;
+}
+main {
+  flex-grow: 1;
+  display: flex;
+  height: inherit;
+  flex-direction: column;
+}
+.board {
+  width: 1000px;
+  height: 750px;
+}
+
+#playerDetails {
+  display: flex;
+  border-bottom: 3px solid black;
+}
+
+#playerDetails #token-color{
+  width: 75px;
+  height: 75px;
+}
+
+#playerDetails div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#playerDetails div span {
+  margin: 5px 10px;
+  font-size: 30px;
+}
+
+#token-color{
+  height:100px;
+  background-color: lightcoral;
+}
