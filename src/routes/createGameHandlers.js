@@ -1,7 +1,8 @@
 const Game = require('../models/game.js');
 
 const isValidPlayerCount = function(numberOfPlayers) {
-  return numberOfPlayers > 2 && numberOfPlayers < 7;
+  let validPlayersCount = ['3','4','5','6'];
+  return validPlayersCount.includes(numberOfPlayers);
 };
 
 const serveHomepage = function(req, res) {

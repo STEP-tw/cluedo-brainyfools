@@ -70,6 +70,23 @@ describe('GET /game/join/:id',()=>{
   });
 });
 
+describe('POST /game/join', ()=>{
+  it('should redirect to player detail page for valid game id',done=>{
+    request(app)
+      .post('/game/join')
+      .send('gameId=1234')
+      .redirectsTo('/game/join/1234')
+      .end(done);
+  });
+  it('should redirect to game page for invalid game id',done=>{
+    request(app)
+      .post('/game/join')
+      .send('gameId=123')
+      .redirectsTo('/game')
+      .end(done);
+  });
+});
+
 
 describe('POST /game/join/:id',()=>{
   it('redirects to waiting page',done=>{
