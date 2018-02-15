@@ -1,42 +1,75 @@
+.board {
+  width: 50%;
+}
+
+.board #cards {
+  display: flex;
+  max-height: 20vh;
+  width: auto;
+  height: auto;
+  justify-content: center;
+}
+
+.board #cards img{
+  width: 7vw;
+  margin: 0px 5px;
+}
+
 #playercards {
   margin: 5px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
 }
+
+#playercards #title {
+  font-size: 1.5vw;
+  text-align: center;
+}
+
+#playercards #activitylog {
+  flex-grow: 1;
+  border: 3px solid black;
+}
+
 body {
   display: flex;
 }
+
 main {
   flex-grow: 1;
   display: flex;
   height: inherit;
   flex-direction: column;
 }
-.board {
-  width: 1000px;
-  height: 750px;
-}
 
 #playerDetails {
+  margin: 10px 0px;
   display: flex;
   border-bottom: 3px solid black;
 }
 
-#playerDetails #token-color{
-  width: 75px;
-  height: 75px;
+#playerDetails #token-color {
+  width: 10%;
+  height: 90%
 }
 
 #playerDetails div {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 #playerDetails div span {
   margin: 5px 10px;
-  font-size: 30px;
+  font-size: 1.5vw;
 }
 
-#token-color{
-  height:100px;
+#character-img {
+  height: 100px;
   background-color: lightcoral;
+}
+
+#controls{
+  height: 23vh;
 }
