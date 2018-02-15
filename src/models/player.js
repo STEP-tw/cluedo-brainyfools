@@ -9,6 +9,6 @@ class Player {
   get character(){
     return this._character;
   }
-};
+}
 
 module.exports = Player;
