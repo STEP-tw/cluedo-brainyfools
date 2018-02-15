@@ -25,7 +25,7 @@ describe('POST /game/new', function(done){
   });
 });
 
-describe('GET /game/join/:id',()=>{
+describe('GET /game/join/1234',()=>{
   it('serves enrolling form to enter player\'s name',done=>{
     request(app)
       .get('/game/join/1234')
@@ -34,9 +34,7 @@ describe('GET /game/join/:id',()=>{
       .end(done);
   });
 });
-
-
-describe('POST /game/join/:id',()=>{
+describe('POST /game/join/1234',()=>{
   it('redirects to waiting page',done=>{
     request(app)
       .post('/game/join/1234')
