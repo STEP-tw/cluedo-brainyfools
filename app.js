@@ -1,8 +1,12 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const logRequest = require('./src/utils/logger');
+
 const fs = require('fs');
+
 const createGameHandlers = require('./src/routes/createGameHandlers.js');
+const enrollGameHandlers = require('./src/routes/enrollGameHandlers.js');
+
 
 const app = express();
 app.fs = fs;
@@ -14,7 +18,7 @@ app.use(logRequest);
 
 app.get('/game',createGameHandlers.serveHomepage);
 app.post('/game/new',createGameHandlers.createGame);
-
+app.get('/game/join/:id',enrollGameHandlers.serveEnrollingForm);
 
 app.use(express.static('public'));
 

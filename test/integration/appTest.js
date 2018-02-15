@@ -23,5 +23,15 @@ describe('POST /game/new', function(done){
       .expect(302)
       .redirectsTo('/game/join/1234')
       .end(done);
-  })
+  });
+});
+
+describe('GET /game/join/:id',()=>{
+  it('serves enrolling form to enter player\'s name',done=>{
+    request(app)
+      .get('/game/join/:id')
+      .expect(200)
+      .expect(/Joining this/)
+      .end(done);
+  });
 });
