@@ -10,7 +10,7 @@
     "test": "mocha --recursive",
     "coverage": "nyc _mocha --recursive",
     "lint": "eslint .",
-    "nodemon": "nodemon -i log -i public -i public -i templates -i test",
+    "nodemon": "nodemon -i logs -i public -i templates -i test",
     "start": "node server.js"
   },
   "repository": {
