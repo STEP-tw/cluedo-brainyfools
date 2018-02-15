@@ -1,0 +1,160 @@
+<svg viewBox="0 0 1000 750" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <rect x="-1" y="-1" width="1002" height="752" id="canvas_background" fill="#fff" />
+    <g id="canvasGrid" display="none">
+      <rect id="svg_1" width="100%" height="100%" x="0" y="0" stroke-width="0" fill="url(#gridpattern)" />
+    </g>
+  </g>
+  <g>
+    <path fill="#ffffff" stroke="#000000" stroke-width="1.5" d="m760.5,630.450012l-0.5,86.549988l220,0l0,-149l-102,0l0,63l-117.5,-0.549988z"
+      id="svg_129" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="150.449997" width="30" height="30" id="svg_3" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="180.449997" width="30" height="30" id="svg_4" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="337.5" y="600.449997" width="30" height="30" id="svg_5" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="210.449997" width="30" height="30" id="svg_6" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="240.449997" width="30" height="30" id="svg_7" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="270.449997" width="30" height="30" id="svg_8" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="300.449997" width="30" height="30" id="svg_9" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="330.449997" width="30" height="30" id="svg_10" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="360.449997" width="30" height="30" id="svg_11" />
+    <rect fill="#f4ebd7" stroke="#000000" stroke-width="1.5" x="127.5" y="390.449997" width="30" height="30" id="svg_12" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="420.449997" width="30" height="30" id="svg_13" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="450.449997" width="30" height="30" id="svg_14" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="307.5" y="600.449997" width="30" height="30" id="svg_15" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="480.449997" width="30" height="30" id="svg_16" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="510.449997" width="30" height="30" id="svg_17" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="540.449997" width="30" height="30" id="svg_18" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="570.449997" width="30" height="30" id="svg_19" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="600.449997" width="30" height="30" id="svg_20" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="120.449997" width="30" height="30" id="svg_21" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="150.449997" width="30" height="30" id="svg_22" />
+    <rect fill="#f4ebd7" stroke="#000000" stroke-width="1.5" x="847.5" y="180.449997" width="30" height="30" id="svg_23" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="210.449997" width="30" height="30" id="svg_24" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="337.5" y="120.449997" width="30" height="30" id="svg_25" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="240.449997" width="30" height="30" id="svg_26" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="270.449997" width="30" height="30" id="svg_27" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="300.449997" width="30" height="30" id="svg_28" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="330.449997" width="30" height="30" id="svg_29" />
+    <rect fill="#f4ebd7" stroke="#000000" stroke-width="1.5" x="847.5" y="360.449997" width="30" height="30" id="svg_30" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="390.449997" width="30" height="30" id="svg_31" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="420.449997" width="30" height="30" id="svg_32" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="450.449997" width="30" height="30" id="svg_33" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="307.5" y="120.449997" width="30" height="30" id="svg_34" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="480.449997" width="30" height="30" id="svg_35" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="510.449997" width="30" height="30" id="svg_36" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="540.449997" width="30" height="30" id="svg_37" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="570.449997" width="30" height="30" id="svg_38" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="847.5" y="600.449997" width="30" height="30" id="svg_39" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="157.5" y="600.449997" width="30" height="30" id="svg_40" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="187.5" y="600.449997" width="30" height="30" id="svg_41" />
+    <rect fill="#f4ebd7" stroke="#000000" stroke-width="1.5" x="217.5" y="600.449997" width="30" height="30" id="svg_42" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="247.5" y="600.449997" width="30" height="30" id="svg_43" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="277.5" y="600.449997" width="30" height="30" id="svg_44" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="367.5" y="600.449997" width="30" height="30" id="svg_45" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="397.5" y="600.449997" width="30" height="30" id="svg_46" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="427.5" y="600.449997" width="30" height="30" id="svg_47" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="457.5" y="600.449997" width="30" height="30" id="svg_48" />
+    <rect fill="#f4ebd7" stroke="#000000" stroke-width="1.5" x="487.5" y="600.449997" width="30" height="30" id="svg_49" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="517.5" y="600.449997" width="30" height="30" id="svg_50" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="547.5" y="600.449997" width="30" height="30" id="svg_51" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="577.5" y="600.449997" width="30" height="30" id="svg_52" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="607.5" y="600.449997" width="30" height="30" id="svg_53" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="637.5" y="600.449997" width="30" height="30" id="svg_54" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="667.5" y="600.449997" width="30" height="30" id="svg_55" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="697.5" y="600.449997" width="30" height="30" id="svg_56" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="727.5" y="600.449997" width="30" height="30" id="svg_57" />
+    <rect fill="#fff" stroke="#000000" stroke-width="1.5" fill-opacity="null" x="757.5" y="600.449997" width="30" height="30"
+      id="svg_58" />
+    <rect fill="#f4ebd7" stroke="#000000" stroke-width="1.5" x="787.5" y="600.449997" width="30" height="30" id="svg_59" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="817.5" y="600.449997" width="30" height="30" id="svg_60" />
+    <rect fill="#f4ebd7" stroke="#000000" stroke-width="1.5" x="157.5" y="120.449997" width="30" height="30" id="svg_61" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="187.5" y="120.449997" width="30" height="30" id="svg_62" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="217.5" y="120.449997" width="30" height="30" id="svg_63" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="247.5" y="120.449997" width="30" height="30" id="svg_64" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="277.5" y="120.449997" width="30" height="30" id="svg_65" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="367.5" y="120.449997" width="30" height="30" id="svg_66" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="397.5" y="120.449997" width="30" height="30" id="svg_67" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="427.5" y="120.449997" width="30" height="30" id="svg_68" />
+    <rect fill="#f4ebd7" stroke="#000000" stroke-width="1.5" x="457.5" y="120.449997" width="30" height="30" id="svg_69" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="487.5" y="120.449997" width="30" height="30" id="svg_70" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="517.5" y="120.449997" width="30" height="30" id="svg_71" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="547.5" y="120.449997" width="30" height="30" id="svg_72" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="577.5" y="120.449997" width="30" height="30" id="svg_73" />
+    <rect fill="#f4ebd7" stroke="#000000" stroke-width="1.5" x="607.5" y="120.449997" width="30" height="30" id="svg_74" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="637.5" y="120.449997" width="30" height="30" id="svg_75" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="667.5" y="120.449997" width="30" height="30" id="svg_76" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="697.5" y="120.449997" width="30" height="30" id="svg_77" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="727.5" y="120.449997" width="30" height="30" id="svg_78" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="757.5" y="120.449997" width="30" height="30" id="svg_79" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="787.5" y="120.449997" width="30" height="30" id="svg_80" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="817.5" y="120.449997" width="30" height="30" id="svg_81" />
+
+    <g>
+      <image href="/images/card.jpg" x="269.500001" y="173.450001" width="143.999996" height="203.999997" id="card-person" />
+      <image href="/images/card.jpg" x="435.500001" y="173.450001" width="143.999996" height="203.999997" id="card-room" />
+      <image href="/images/card.jpg" x="602.500001" y="173.450001" width="143.999996" height="203.999997" id="card-weapon" />
+    </g>
+    <image href="/images/dice.jpg" id="dice" x="467" y="476.450001" height="90" width="90" />
+
+    <path fill="#ffffff" stroke="#000000" stroke-width="1.5" d="m277.5,120.449997l-150.5,-0.449997l0,91l-97,0l0,-183l247,0l0.5,92.449997z"
+      id="svg_104" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="30.5" y="270.450001" width="97" height="210" id="svg_105" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="367.5" y="630.450001" width="210" height="90" id="svg_108" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="877.5" y="270.450001" width="91" height="180" id="svg_111" />
+    <path fill="#fff" stroke="#000000" stroke-width="1.5" fill-opacity="null" opacity="0.5" d="m878.5,183.449997" id="svg_112"
+    />
+    <path fill="#ffffff" stroke="#000000" stroke-width="1.5" d="m877.5,240.450012l-0.5,-120.450012l-60,0l0,-97l149,0l0,218l-88.5,-0.549988z"
+      id="svg_113" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="607.5" y="27.450001" width="120" height="93" id="svg_114" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="397.5" y="27.450002" width="150" height="92.999999" id="svg_115"
+    />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="97.5" y="240.449997" width="30" height="30" id="svg_117" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="97.5" y="540.449997" width="30" height="30" id="svg_118" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="877.5" y="510.449997" width="30" height="30" id="svg_120" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="757.5" y="90.449997" width="30" height="30" id="svg_121" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="307.5" y="90.449997" width="30" height="30" id="svg_122" />
+    <path fill="#ffffff" stroke="#000000" stroke-width="1.5" d="m127.5,570.450012l-97.5,-0.450012l0,152l249,0l0,-92l-152,0l0.5,-59.549988z"
+      id="svg_125" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="637.5" y="630.449997" width="30" height="30" id="svg_128" />
+    <text style="cursor: move;" fill="#B8D078" stroke="#999999" stroke-width="2" x="25.5" y="109.449997" id="svg_130" font-size="24"
+      font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve" font-style="normal" font-weight="normal"
+      transform="rotate(-45, 111.9, 103.45)">Conservatory</text>
+    <text fill="none" stroke="#999999" stroke-width="2" fill-opacity="null" x="413.5" y="76.449997" id="svg_131" font-size="24"
+      font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve">Billiard</text>
+    <text fill="#B8D078" stroke="#999999" stroke-width="2" fill-opacity="null" x="621.902895" y="73.449997" id="svg_132" font-size="24"
+      font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve" transform="matrix(1.08764, 0, 0, 1, -63.8228, 0)">Library</text>
+    <text fill="#B8D078" stroke="#999999" stroke-width="2" fill-opacity="null" x="876.202859" y="109.449997" id="svg_133" font-size="24"
+      font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve" transform="rotate(45, 904.516, 102.889) matrix(1.12995, 0, 0, 1, -126.234, 0)">Study</text>
+    <text fill="#B8D078" stroke="#999999" stroke-width="2" fill-opacity="null" x="19.5" y="380.449997" id="svg_134" font-size="24"
+      font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve" transform="rotate(-90, 77.1, 374.45)">Ballroom</text>
+    <text fill="#B8D078" stroke="#999999" stroke-width="2" fill-opacity="null" x="61.5" y="662.449997" id="svg_135" font-size="24"
+      font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve" transform="rotate(45, 111.9, 656.45)">Kitchen</text>
+    <text fill="#B8D078" stroke="#999999" stroke-width="2" fill-opacity="null" x="392.5" y="680.449997" id="svg_136" font-size="24"
+      font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve">Dining Room</text>
+    <text fill="#B8D078" stroke="#999999" stroke-width="2" fill-opacity="null" x="852.5" y="654.449997" id="svg_137" font-size="24"
+      font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve" transform="rotate(-45, 895.7, 648.45)">Lounge</text>
+    <text fill="#999999" stroke="#999999" stroke-width="2" x="890.5" y="361.449997" id="svg_138" font-size="24" font-family="'Courier New', Courier, monospace"
+      text-anchor="start" xml:space="preserve" transform="rotate(90, 919.3, 355.45)">Hall</text>
+    <rect fill="none" stroke="#000000" stroke-width="1.5" fill-opacity="null" x="757.5" y="600.449997" width="30" height="30"
+      id="svg_139" />
+    <rect fill="#ffffff" stroke="#000000" stroke-width="1.5" x="127.5" y="120.449997" width="30" height="30" id="svg_283" />
+
+    <text transform="matrix(1.1859, 0, 0, 1.23007, -125.127, -80.0978)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace"
+      font-size="24" id="message" y="417.449997" x="468.5" stroke-opacity="null" stroke-width="2" stroke="#000000" fill="#B8D078">Neeraj's Turn</text>
+
+    <g>
+      <ellipse ry="12" rx="12" id="orchid" cy="554.950001" cx="112" stroke-opacity="null" stroke-width="1.5" stroke="#000000" fill="#da70d6"
+      />
+      <ellipse ry="12" rx="12" id="green" cy="254.950001" cx="112" stroke-opacity="null" stroke-width="1.5" stroke="#000000" fill="#007f00"
+      />
+      <ellipse ry="12" rx="12" id="peacock" cy="104.950001" cx="323" stroke-opacity="null" stroke-width="1.5" stroke="#000000"
+        fill="#005fbf" />
+      <ellipse ry="12" rx="12" id="plum" cy="105.950001" cx="773" stroke-opacity="null" stroke-width="1.5" stroke="#000000" fill="#3f007f"
+      />
+      <ellipse ry="12" rx="12" id="scarlet" cy="524.950001" cx="893" stroke-opacity="null" stroke-width="1.5" stroke="#000000"
+        fill="#bf0000" />
+      <ellipse ry="12" rx="12" id="mustard" cy="645.950001" cx="653" stroke-opacity="null" stroke-width="1.5" stroke="#000000"
+        fill="#ffdb58" />
+    </g>
+  </g>
+</svg>
