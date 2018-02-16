@@ -7,7 +7,7 @@
   <body>
     <h1>CLUEDO - Solve The Murder Mystery</h1>
     <h2>Create Game</h2>
-    <form action="game/new" method="post">
+    <form action="/game/new" method="post">
       Number Of Players :
       <select name="numberOfPlayers">
         <option value="3">3</option>
@@ -22,7 +22,7 @@
 
     <h2>Join Game</h2>
     Game Id :
-    <form action="game/join" method="post">
+    <form action="/game/join" method="post">
       <input type="text" name="gameId" value="" required>
       <br>
       <input type="submit" value="Join Game">

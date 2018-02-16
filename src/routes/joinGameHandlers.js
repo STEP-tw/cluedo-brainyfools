@@ -12,7 +12,7 @@ const verifyGameId = function(req, res, next) {
 const joinGameHandler = function(req,res) {
   let gameId = req.body['gameId'];
   res.clearCookie('invalidGameId');
-  res.redirect(`${req.url}/${gameId}`);
+  res.redirect(`/game/join/${gameId}`);
 };
 
 module.exports = {
