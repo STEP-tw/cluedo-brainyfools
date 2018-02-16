@@ -99,11 +99,11 @@ describe('app', () => {
         request(app)
           .post('/game/join/1234')
           .send("name=")
-          .redirectsTo('/game/join/1234')
+          .expect(200)
+          .expect(/Enter a valid name/)
           .end(done);
       });
     });
-
 
     describe('GET game/1234/wait', () => {
       it('should serve waiting page', done => {
@@ -160,13 +160,13 @@ describe('app', () => {
           .end(done);
       });
 
-      it('should not allow extra players to join a game', function() {
+      it('should not allow extra players to join a game', function(done) {
         request(app)
           .post('/game/join')
           .send('gameId=1234')
           .expect(302)
           .redirectsTo('/game/join/1234')
-          .end();
+          .end(done);
       });
 
 

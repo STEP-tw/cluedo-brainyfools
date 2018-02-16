@@ -6,6 +6,7 @@ const fs = require('fs');
 
 const homePageHandler = require('./src/routes/homePageHandler.js');
 const enrollGameHandlers = require('./src/routes/enrollGameHandlers.js');
+const waitingPageHandlers = require('./src/routes/waitingPageHandlers.js');
 
 const app = express();
 
@@ -20,12 +21,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(logRequest);
 
+app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
+app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
+app.get('/game/:gameId/wait',waitingPageHandlers.serveWaitingPage);
 app.get('/game',homePageHandler.servePage);
 app.post('/game/new',homePageHandler.createGame);
-app.get('/game/join/:id',enrollGameHandlers.serveEnrollingForm);
-app.post('/game/join/:id',enrollGameHandlers.sendToWaitingPage);
 app.post('/game/join',homePageHandler.joinGame);
-app.get('/game/:id/wait',enrollGameHandlers.serveWaitingPage);
 
 app.use(express.static('public'));
 

@@ -8,10 +8,11 @@
 <body>
   <center> <h1> CLUEDO </h1>
     Welcome {{ player }} <br> <br>
-    <img src="/images/load.gif" id="loadingGif"/> <br>
+    <!-- {{ number }} of {{ totalPlayers }} players have joined the game. <br> -->
+    <img src="/images/load.gif" id="loading-gif"/> <br>
     <h3> Game ID: {{ gameId }} </h3>
-    <h4> OR  <h4>
-    <h3> Game Link: {{ gameLink }} </h3>
+    <!-- <h4> OR  <h4> -->
+    <!-- <h3> Game Link: {{ gameLink }} </h3> -->
     <h4> Share with your friends to let them join. </h4>
   </center>
 </body>

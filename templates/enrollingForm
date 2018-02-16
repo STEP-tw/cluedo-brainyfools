@@ -5,6 +5,7 @@
   <title>Enrolling Form</title>
 </head>
 <body>
+  <invalidMsg> </invalidMsg>
   Joining Game : {{ ID }}
   <form method="post">
     <label for="playerName">Name</label>
