@@ -17,8 +17,6 @@
   <rect id="dining" height="60.000003" width="269.999977" y="562.450008" x="356.499998" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
   <rect id="ballroom" height="210" width="105" y="232.450001" x="11.499999" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
 
-
-
   <rect id="42" height="30" width="30" y="112.449997" x="116.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
   <rect id="41" height="30" width="30" y="142.449997" x="116.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
   <rect id="21" height="30" width="30" y="532.449997" x="326.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
@@ -116,15 +114,13 @@
   <text xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="svg_136" y="599.449997" x="383.5" fill-opacity="null" stroke-width="2" stroke="#999999" fill="#B8D078">Dining Room</text>
   <text transform="rotate(-45, 887.699, 573.45)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="svg_137" y="579.449997" x="844.5" fill-opacity="null" stroke-width="2" stroke="#999999" fill="#B8D078">Lounge</text>
   <text transform="rotate(90, 908.3, 317.45)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="svg_138" y="323.449997" x="879.5" stroke-width="2" stroke="#999999" fill="#999999">Hall</text>
-  <rect id="svg_139" height="30" width="30" y="532.449997" x="746.5" fill-opacity="null" stroke-width="1.5" stroke="#000000" fill="none"/>
   <rect id="43" height="30" width="30" y="82.449997" x="116.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
-  <text fill="#B8D078" stroke="#000000" stroke-width="2" stroke-opacity="null" x="316.225169" y="272.156752" font-size="20" font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve" transform="matrix(0.927616, 0, 0, 0.89109, 50.0812, 9.29999)" id="message-box"></text>
-  
-  
+  <text fill="#B8D078" stroke="#000000" stroke-width="2" stroke-opacity="null" x="316.225169" y="272.156752" font-size="18" font-family="monospace" text-anchor="start" xml:space="preserve" transform="matrix(0.927616, 0, 0, 0.89109, 50.0812, 2.29999)" id="message-box"></text>
+
   <g>
-    <image id="room-card" height="154.000007" width="110.999994" y="364" x="166.500001" href="/images/cards/rooms/hall.jpg" />
-    <image id="weapon-card" height="154.000007" width="110.999994" y="324.449999" x="166.500001" href="/images/cards/weapons/candlestick.jpg"/>
-    <image id="character-card" height="154.000007" width="110.999994"y="283.449999" x="166.500001" href="/images/cards/characters/plum.jpg" />
+    <image id="room-card" height="154.000007" width="110.999994" y="364" x="166.500001" href="" />
+    <image id="weapon-card" height="154.000007" width="110.999994" y="324.449999" x="166.500001" href=""/>
+    <image id="character-card" height="154.000007" width="110.999994"y="283.449999" x="166.500001" href="" />
   </g>
 
   <foreignObject fill="#ffffff" stroke="#000000" stroke-width="1.5" x="162.500024" y="124.449998" width="651.999968" height="86.000006" id="players">
