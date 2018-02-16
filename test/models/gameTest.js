@@ -39,14 +39,14 @@ describe('Game',()=>{
 
 
   describe('#haveAllPlayersJoined', function(){
-    it('should return true when all players required to start a game are joined', function(){
+    it('should return true when game is ready to start', function(){
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
       game.addPlayer("JD",3);
       assert.isOk(game.haveAllPlayersJoined());
     });
 
-    it('should return false when all players required to start a game are not joined', function(){
+    it('should return false when isnt ready to start', function(){
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
       assert.isNotOk(game.haveAllPlayersJoined());

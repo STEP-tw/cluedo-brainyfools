@@ -9,8 +9,8 @@ const serveHomepage = function(req, res) {
   res.statusCode = 200;
   let homepage = req.app.fs.readFileSync('./templates/home.html', 'utf-8');
   homepage = homepage
-  .replace('{{INVALIDCOUNT}}', req.cookies.wrongCount || '')
-  .replace('{{INVALIDGAMEID}}', req.cookies.invalidGameId || '');
+    .replace('{{INVALIDCOUNT}}', req.cookies.wrongCount || '')
+    .replace('{{INVALIDGAMEID}}', req.cookies.invalidGameId || '');
   res.send(homepage);
 };
 
@@ -33,6 +33,7 @@ const verifyPlayersCount = function(req, res, next) {
   res.cookie('wrongCount', 'Select valid number of players (3 to 6)');
   res.redirect('/game');
 };
+
 const verifyGameId = function(req, res, next) {
   let gameId = req.body['gameId'];
   if (req.app.games[gameId]) {
