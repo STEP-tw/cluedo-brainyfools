@@ -14,6 +14,7 @@ describe('GET /game', function(){
   });
 });
 
+
 describe('POST /game/new', function(done){
   it('should create game and redirect to player detail form',function(done){
     request(app)
@@ -29,12 +30,14 @@ describe('POST /game/new', function(done){
       'invalidPlayerCount=true',
       'message=Select valid number of players (3 to 6)'
     ];
+    let expired = 'Expires=Thu, 01 Jan 1970 00:00:00 GMT';
     request(app)
       .post('/game/new')
       .send('numberOfPlayers=4')
       .set('cookie',invalidCountCookie)
       .expect(302)
       .redirectsTo('/game/join/1234')
+      .cookie.include('invalidPlayerCount',expired)
       .end(done);
   });
 
@@ -60,6 +63,7 @@ describe('POST /game/new', function(done){
   });
 });
 
+
 describe('GET /game/join/1234',()=>{
   it('serves enrolling form to enter player\'s name',done=>{
     request(app)
@@ -69,6 +73,54 @@ describe('GET /game/join/1234',()=>{
       .end(done);
   });
 });
+
+
+describe('POST /game/join', ()=>{
+  it('should redirect to player detail page for valid game id',done=>{
+    request(app)
+      .post('/game/join')
+      .send('gameId=1234')
+      .redirectsTo('/game/join/1234')
+      .end(done);
+  });
+
+  it('should clear invalidGameId after creating game', done=>{
+    let invalidGameIdCookie=[
+      'invalidGameId=true',
+      'message=Enter valid game id'
+    ];
+    let expired = 'Expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    request(app)
+      .post('/game/join')
+      .send('gameId=1234')
+      .set('Cookie',invalidGameIdCookie)
+      .expect(302)
+      .redirectsTo('/game/join/1234')
+      .cookie.include('invalidGameId',expired)
+      .end(done);
+  });
+
+  it('should redirect to game page for invalid game id',done=>{
+    let invalidGameIdCookie = [
+      'invalidGameId=true',
+      'message=Enter valid game id'
+    ];
+    request(app)
+      .post('/game/join')
+      .send('gameId=123')
+      .redirectsTo('/game')
+      .cookie.match('invalidGameId',/true/)
+      .end(()=>{
+        request(app)
+          .get('/game')
+          .set('Cookie',invalidGameIdCookie)
+          .expect(200)
+          .end(done);
+      });
+  });
+});
+
+
 describe('POST /game/join/1234',()=>{
   it('redirects to waiting page',done=>{
     request(app)
@@ -79,6 +131,7 @@ describe('POST /game/join/1234',()=>{
       .expect('Location','/game/1234/wait')
       .end(done);
   });
+
   it('redirects to enroll form page if name is not given',done=>{
     request(app)
       .post('/game/join/1234')
