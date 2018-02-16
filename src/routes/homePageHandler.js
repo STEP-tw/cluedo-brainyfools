@@ -40,9 +40,25 @@ const verifyPlayersCount = function(req, res, next) {
   res.cookie('message', 'Select valid number of players (3 to 6)');
   res.redirect('/game');
 };
+const verifyGameId = function(req, res, next) {
+  let gameId = req.body['gameId'];
+  if (req.app.games[gameId]) {
+    next();
+    return;
+  }
+  res.cookie('invalidGameId', 'true');
+  res.cookie('message', 'Enter valid game id');
+  res.redirect('/game');
+};
+
+const joinGame = function(req,res) {
+  let gameId = req.body['gameId'];
+  res.clearCookie('invalidGameId');
+  res.redirect(`/game/join/${gameId}`);
+};
 
 module.exports = {
-  serveHomepage: serveHomepage,
-  createGame: createGame,
-  verifyPlayersCount: verifyPlayersCount
+  createGame:[verifyPlayersCount,createGame],
+  joinGame:[verifyGameId,joinGame],
+  servePage:[serveHomepage]
 };
