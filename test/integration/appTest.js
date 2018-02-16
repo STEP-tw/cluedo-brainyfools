@@ -26,7 +26,7 @@ describe('app', () => {
     });
   });
 
-  describe('POST /game/new', function (done) {
+  describe('POST /game/new', function () {
     it('should create game and redirect to player detail form', (done)=>{
       request(app)
         .post('/game/new')
@@ -36,10 +36,9 @@ describe('app', () => {
         .end(done);
     });
 
-    it('should not create game for invalid no of players', function(){
+    it('should not create game for invalid no of players', function(done){
       let invalidCountCookie = [
-        'invalidPlayerCount=true',
-        'message=Select valid number of players (3 to 6)'
+        'wrongCount=Select valid number of players (3 to 6)'
       ];
       request(app)
         .post('/game/new')
@@ -57,8 +56,7 @@ describe('app', () => {
 
     it('should clear invalidCountCookie after creating game', done => {
       let invalidCountCookie = [
-        'invalidPlayerCount=true',
-        'message=Select valid number of players (3 to 6)'
+        'wrongCount=Select valid number of players (3 to 6)'
       ];
       let expired = 'Expires=Thu, 01 Jan 1970 00:00:00 GMT';
       request(app)
@@ -67,7 +65,7 @@ describe('app', () => {
         .set('cookie', invalidCountCookie)
         .expect(302)
         .redirectsTo('/game/join/1234')
-        .cookie.include('invalidPlayerCount', expired)
+        .cookie.include('wrongCount', expired)
         .end(done);
     });
   });
@@ -135,8 +133,7 @@ describe('app', () => {
 
     it('should clear invalidGameId after creating game', done => {
       let invalidGameIdCookie = [
-        'invalidGameId=true',
-        'message=Enter valid game id'
+        'invalidGameId=Enter valid game id'
       ];
       let expired = 'Expires=Thu, 01 Jan 1970 00:00:00 GMT';
       request(app)
@@ -151,14 +148,13 @@ describe('app', () => {
 
     it('should redirect to game page for invalid game id', done => {
       let invalidGameIdCookie = [
-        'invalidGameId=true',
-        'message=Enter valid game id'
+        'invalidGameId=Enter valid game id'
       ];
       request(app)
         .post('/game/join')
         .send('gameId=123')
         .redirectsTo('/game')
-        .cookie.match('invalidGameId', /true/)
+        .cookie.include('invalidGameId', encodeURI('Enter valid game id'))
         .end(() => {
           request(app)
             .get('/game')

@@ -36,4 +36,21 @@ describe('Game',()=>{
       assert.equal(player.name,'suyog');
     });
   });
+
+
+  describe('#haveAllPlayersJoined', function(){
+    it('should return true when all players required to start a game are joined', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("JD",3);
+      assert.isOk(game.haveAllPlayersJoined());
+    });
+
+    it('should return false when all players required to start a game are not joined', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      assert.isNotOk(game.haveAllPlayersJoined());
+    });
+  });
+
 });

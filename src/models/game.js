@@ -17,6 +17,9 @@ class Game {
   getPlayer(playerId){
     return this.players[playerId];
   }
+  haveAllPlayersJoined(){
+    return this.numberOfPlayers == this.playerCount;
+  }
 }
 
 module.exports = Game;

@@ -7,15 +7,10 @@ const isValidPlayerCount = function(numberOfPlayers) {
 
 const serveHomepage = function(req, res) {
   res.statusCode = 200;
-  let homepage = req.app.fs.readFileSync('./public/home.html', 'utf-8');
-  if (req.cookies.invalidPlayerCount) {
-    let message = req.cookies.message;
-    homepage = homepage.replace('<invalidPlayerCountMsg>', message);
-  }
-  if(req.cookies.invalidGameId) {
-    let message = req.cookies.message;
-    homepage = homepage.replace('<invalidGameId>', message);
-  }
+  let homepage = req.app.fs.readFileSync('./templates/home.html', 'utf-8');
+  homepage = homepage
+  .replace('{{INVALIDCOUNT}}', req.cookies.wrongCount || '')
+  .replace('{{INVALIDGAMEID}}', req.cookies.invalidGameId || '');
   res.send(homepage);
 };
 
@@ -23,9 +18,8 @@ const createGame = function(req, res) {
   let numberOfPlayers = req.body['numberOfPlayers'];
   let game = new Game(numberOfPlayers);
   let gameId = '1234';
-  res.clearCookie('invalidPlayerCount');
+  res.clearCookie('wrongCount');
   res.clearCookie('invalidGameId');
-  res.clearCookie('message');
   req.app.games[gameId] = game;
   res.redirect(`/game/join/${gameId}`);
 };
@@ -36,8 +30,7 @@ const verifyPlayersCount = function(req, res, next) {
     next();
     return;
   }
-  res.cookie('invalidPlayerCount', 'true');
-  res.cookie('message', 'Select valid number of players (3 to 6)');
+  res.cookie('wrongCount', 'Select valid number of players (3 to 6)');
   res.redirect('/game');
 };
 const verifyGameId = function(req, res, next) {
@@ -46,8 +39,7 @@ const verifyGameId = function(req, res, next) {
     next();
     return;
   }
-  res.cookie('invalidGameId', 'true');
-  res.cookie('message', 'Enter valid game id');
+  res.cookie('invalidGameId', 'Enter valid game id');
   res.redirect('/game');
 };
 
