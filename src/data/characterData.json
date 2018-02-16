@@ -1,0 +1,32 @@
+{
+  "1":{
+    "name":"Miss Scarlett",
+    "color":"red",
+    "position":1
+  },
+  "2":{
+    "name":"Col. Mustard",
+    "color":"yellow",
+    "position":11
+  },
+  "3":{
+    "name":"Dr. Orchid",
+    "color":"pink",
+    "position":30
+  },
+  "4":{
+    "name":"Rev. Green",
+    "color":"green",
+    "position":40
+  },
+  "5":{
+    "name":"Mrs. Peacock",
+    "color":"blue",
+    "position":50
+  },
+  "6":{
+    "name":"Prof. Plum",
+    "color":"purple",
+    "position":65
+  }
+}

@@ -5,7 +5,12 @@ const Character = require('../../src/models/character.js');
 describe('Character',()=>{
   let character;
   beforeEach(()=>{
-    character = new Character('Rev. Green','green',0,4);
+    let characterData = {
+      name:"Rev. Green",
+      color:"green",
+      position:"40"
+    };
+    character = new Character(characterData,4);
   });
   describe('#name',()=>{
     it('should return character\'s name',()=>{
@@ -19,7 +24,7 @@ describe('Character',()=>{
   });
   describe('#position',()=>{
     it('should return character\'s position',()=>{
-      assert.equal(character.position,0);
+      assert.equal(character.position,40);
     });
   });
   describe('#turn',()=>{

@@ -8,12 +8,20 @@ const serveEnrollingForm = function(req,res,next){
 };
 
 const sendToWaitingPage = function(req,res,next){
+  let playerName = req.body.name;
   let gameId = req.params.id;
+  if(!playerName){
+    res.redirect(`/game/join/${gameId}`);
+    return;
+  }
   let playerId = new Date().getTime();
+  let game = req.app.games[gameId];
+  game.addPlayer(playerName,playerId);
   res.cookie('playerId',playerId);
   res.redirect(`/game/${gameId}/wait`);
   next();
 };
+
 
 module.exports = {
   serveEnrollingForm,

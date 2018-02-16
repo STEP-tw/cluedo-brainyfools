@@ -14,6 +14,7 @@ describe('GET /game', function(){
   });
 });
 
+
 describe('POST /game/new', function(done){
   it('should create game and redirect to player detail form',function(done){
     request(app)
@@ -62,7 +63,8 @@ describe('POST /game/new', function(done){
   });
 });
 
-describe('GET /game/join/:id',()=>{
+
+describe('GET /game/join/1234',()=>{
   it('serves enrolling form to enter player\'s name',done=>{
     request(app)
       .get('/game/join/1234')
@@ -71,6 +73,7 @@ describe('GET /game/join/:id',()=>{
       .end(done);
   });
 });
+
 
 describe('POST /game/join', ()=>{
   it('should redirect to player detail page for valid game id',done=>{
@@ -118,13 +121,23 @@ describe('POST /game/join', ()=>{
 });
 
 
-describe('POST /game/join/:id',()=>{
+describe('POST /game/join/1234',()=>{
   it('redirects to waiting page',done=>{
     request(app)
       .post('/game/join/1234')
+      .send("name=omkar")
       .set('cookie','playerId=1')
       .expect(302)
       .expect('Location','/game/1234/wait')
+      .end(done);
+  });
+
+  it('redirects to enroll form page if name is not given',done=>{
+    request(app)
+      .post('/game/join/1234')
+      .send("name=")
+      .expect(302)
+      .expect('Location','/game/join/1234')
       .end(done);
   });
 });
