@@ -1,7 +1,7 @@
-const joinGameHandler = function(req,res) {
+const verifyGameId = function(req, res, next) {
   let gameId = req.body['gameId'];
-  if(req.app.games[gameId]) {
-    res.redirect(`${req.url}/${gameId}`);
+  if (req.app.games[gameId]) {
+    next();
     return;
   }
   res.cookie('invalidGameId', 'true');
@@ -9,6 +9,13 @@ const joinGameHandler = function(req,res) {
   res.redirect('/game');
 };
 
+const joinGameHandler = function(req,res) {
+  let gameId = req.body['gameId'];
+  res.clearCookie('invalidGameId');
+  res.redirect(`${req.url}/${gameId}`);
+};
+
 module.exports = {
-  joinGameHandler: joinGameHandler
+  joinGameHandler: joinGameHandler,
+  verifyGameId: verifyGameId
 };

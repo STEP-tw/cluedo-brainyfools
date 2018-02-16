@@ -8,6 +8,7 @@ const createGameHandlers = require('./src/routes/createGameHandlers.js');
 const enrollGameHandlers = require('./src/routes/enrollGameHandlers.js');
 const joinGameHandlers = require('./src/routes/joinGameHandlers.js');
 const verifyPlayersCount = createGameHandlers.verifyPlayersCount;
+const verifyGameId = joinGameHandlers.verifyGameId;
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.get('/game',createGameHandlers.serveHomepage);
 app.post('/game/new',verifyPlayersCount,createGameHandlers.createGame);
 app.get('/game/join/:id',enrollGameHandlers.serveEnrollingForm);
 app.post('/game/join/:id',enrollGameHandlers.sendToWaitingPage);
-app.post('/game/join',joinGameHandlers.joinGameHandler);
+app.post('/game/join',verifyGameId,joinGameHandlers.joinGameHandler);
 
 app.use(express.static('public'));
 

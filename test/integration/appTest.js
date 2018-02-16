@@ -29,12 +29,14 @@ describe('POST /game/new', function(done){
       'invalidPlayerCount=true',
       'message=Select valid number of players (3 to 6)'
     ];
+    let expired = 'Expires=Thu, 01 Jan 1970 00:00:00 GMT';
     request(app)
       .post('/game/new')
       .send('numberOfPlayers=4')
       .set('cookie',invalidCountCookie)
       .expect(302)
       .redirectsTo('/game/join/1234')
+      .cookie.include('invalidPlayerCount',expired)
       .end(done);
   });
 
@@ -78,12 +80,40 @@ describe('POST /game/join', ()=>{
       .redirectsTo('/game/join/1234')
       .end(done);
   });
+
+  it('should clear invalidGameId after creating game', done=>{
+    let invalidGameIdCookie=[
+      'invalidGameId=true',
+      'message=Enter valid game id'
+    ];
+    let expired = 'Expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    request(app)
+      .post('/game/join')
+      .send('gameId=1234')
+      .set('Cookie',invalidGameIdCookie)
+      .expect(302)
+      .redirectsTo('/game/join/1234')
+      .cookie.include('invalidGameId',expired)
+      .end(done);
+  });
+
   it('should redirect to game page for invalid game id',done=>{
+    let invalidGameIdCookie = [
+      'invalidGameId=true',
+      'message=Enter valid game id'
+    ];
     request(app)
       .post('/game/join')
       .send('gameId=123')
       .redirectsTo('/game')
-      .end(done);
+      .cookie.match('invalidGameId',/true/)
+      .end(()=>{
+        request(app)
+          .get('/game')
+          .set('Cookie',invalidGameIdCookie)
+          .expect(200)
+          .end(done);
+      });
   });
 });
 

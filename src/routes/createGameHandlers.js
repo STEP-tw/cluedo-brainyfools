@@ -12,6 +12,10 @@ const serveHomepage = function(req, res) {
     let message = req.cookies.message;
     homepage = homepage.replace('<invalidPlayerCountMsg>', message);
   }
+  if(req.cookies.invalidGameId) {
+    let message = req.cookies.message;
+    homepage = homepage.replace('<invalidGameId>', message);
+  }
   res.send(homepage);
 };
 
