@@ -1,75 +1,72 @@
+@media screen and (min-width: 1000px){
+  body {
+    width: 80%;
+    margin: auto;
+  }
+} 
+
 .board {
-  width: 50%;
+  width: 75%;
+  margin: 5px;
+  border: 2px solid black;
 }
 
-.board #cards {
+#all-players {
+  border: 2px solid black;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+}
+
+#activity-box{
+  border: 2px solid black;
+  margin: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.board #cards-dice {
   display: flex;
   max-height: 20vh;
   width: auto;
   height: auto;
+  flex-grow: 1;
   justify-content: center;
 }
 
+.board #cards-dice #cards {
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.board #cards-dice #dice{
+  background-image: url('/images/dice.jpg');
+  background-repeat:no-repeat;
+  background-size: contain;
+  flex-grow:1;
+}
+
 .board #cards img{
-  width: 7vw;
+  width: 4vw;
   margin: 0px 5px;
 }
 
-#playercards {
-  margin: 5px;
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-}
-
-#playercards #title {
+main #title {
   font-size: 1.5vw;
+  padding : 10px;
   text-align: center;
-}
-
-#playercards #activitylog {
-  flex-grow: 1;
-  border: 3px solid black;
 }
 
 body {
   display: flex;
+  height : 99vh;
 }
 
 main {
+  display: flex;
+  margin : 8px 2px;
   flex-grow: 1;
-  display: flex;
-  height: inherit;
+  border: 3px solid black;
+  height: 97vh;
   flex-direction: column;
-}
-
-#playerDetails {
-  margin: 10px 0px;
-  display: flex;
-  border-bottom: 3px solid black;
-}
-
-#playerDetails #token-color {
-  width: 10%;
-  height: 90%
-}
-
-#playerDetails div {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-
-#playerDetails div span {
-  margin: 5px 10px;
-  font-size: 1.5vw;
-}
-
-#character-img {
-  height: 100px;
-  background-color: lightcoral;
-}
-
-#controls{
-  height: 23vh;
 }

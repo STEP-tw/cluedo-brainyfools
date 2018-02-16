@@ -1,7 +1,8 @@
 const Game = require('../models/game.js');
 
 const isValidPlayerCount = function(numberOfPlayers) {
-  return numberOfPlayers > 2 && numberOfPlayers < 7;
+  let validPlayersCount = ['3','4','5','6'];
+  return validPlayersCount.includes(numberOfPlayers);
 };
 
 const serveHomepage = function(req, res) {
@@ -11,6 +12,10 @@ const serveHomepage = function(req, res) {
     let message = req.cookies.message;
     homepage = homepage.replace('<invalidPlayerCountMsg>', message);
   }
+  if(req.cookies.invalidGameId) {
+    let message = req.cookies.message;
+    homepage = homepage.replace('<invalidGameId>', message);
+  }
   res.send(homepage);
 };
 
@@ -19,6 +24,7 @@ const createGame = function(req, res) {
   let game = new Game(numberOfPlayers);
   let gameId = '1234';
   res.clearCookie('invalidPlayerCount');
+  res.clearCookie('invalidGameId');
   res.clearCookie('message');
   req.app.games[gameId] = game;
   res.redirect(`/game/join/${gameId}`);
