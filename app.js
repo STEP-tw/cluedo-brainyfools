@@ -11,6 +11,9 @@ const app = express();
 
 app.fs = fs;
 app.games = {};
+app.idGenerator = ()=>{
+  return new Date().getTime();
+};
 
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
@@ -22,6 +25,7 @@ app.post('/game/new',homePageHandler.createGame);
 app.get('/game/join/:id',enrollGameHandlers.serveEnrollingForm);
 app.post('/game/join/:id',enrollGameHandlers.sendToWaitingPage);
 app.post('/game/join',homePageHandler.joinGame);
+app.get('/game/:id/wait',enrollGameHandlers.serveWaitingPage);
 
 app.use(express.static('public'));
 

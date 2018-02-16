@@ -14,6 +14,9 @@ class Game {
     let player = new Player(name,character);
     this.players[id] = player;
   }
+  getPlayer(playerId){
+    return this.players[playerId];
+  }
 }
 
 module.exports = Game;

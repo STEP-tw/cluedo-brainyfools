@@ -7,6 +7,8 @@ describe('Game',()=>{
   beforeEach(()=>{
     game = new Game(3);
   });
+
+
   describe('#addPlayer',()=>{
     it('should create new player with diff. characters',()=>{
       game.addPlayer("suyog",1);
@@ -22,6 +24,16 @@ describe('Game',()=>{
         }
       };
       assert.deepEqual(actualOutput,expectedOutput);
+    });
+  });
+
+
+  describe('#getPlayer',()=>{
+    it('should return player by his/her id',()=>{
+      game.addPlayer("suyog",1);
+      game.addPlayer("omkar",2);
+      let player = game.getPlayer(1);
+      assert.equal(player.name,'suyog');
     });
   });
 });
