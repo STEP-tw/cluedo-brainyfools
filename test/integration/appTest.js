@@ -36,6 +36,25 @@ describe('app', () => {
         .end(done);
     });
 
+    it('should not create game for invalid no of players', function(){
+      let invalidCountCookie = [
+        'invalidPlayerCount=true',
+        'message=Select valid number of players (3 to 6)'
+      ];
+      request(app)
+        .post('/game/new')
+        .send('numberOfPlayers=7')
+        .expect(302)
+        .redirectsTo('/game')
+        .end(()=>{
+          request(app)
+          .get('/game')
+          .set('cookie',invalidCountCookie)
+          .expect(200)
+          .end(done);
+        });
+    });
+
     it('should clear invalidCountCookie after creating game', done => {
       let invalidCountCookie = [
         'invalidPlayerCount=true',
