@@ -25,10 +25,11 @@ app.use(logRequest);
 
 app.get('/game',createGameHandlers.serveHomepage);
 app.post('/game/new',verifyPlayersCount,createGameHandlers.createGame);
-app.get('/game/join/:id',enrollGameHandlers.serveEnrollingForm);
-app.post('/game/join/:id',enrollGameHandlers.sendToWaitingPage);
-app.get('/game/:id/wait',enrollGameHandlers.serveWaitingPage);
+app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
+app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
+app.get('/game/:gameId/wait',enrollGameHandlers.serveWaitingPage);
 app.post('/game/join',verifyGameId,joinGameHandlers.joinGameHandler);
+
 
 app.use(express.static('public'));
 

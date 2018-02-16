@@ -68,7 +68,8 @@ describe('app', () => {
       request(app)
         .post('/game/join/1234')
         .send("name=")
-        .redirectsTo('/game/join/1234')
+        .expect(200)
+        .expect(/Enter a valid name/)
         .end(done);
     });
   });
