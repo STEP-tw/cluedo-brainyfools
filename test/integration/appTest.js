@@ -48,10 +48,10 @@ describe('app', () => {
         .redirectsTo('/game')
         .end(()=>{
           request(app)
-          .get('/game')
-          .set('cookie',invalidCountCookie)
-          .expect(200)
-          .end(done);
+            .get('/game')
+            .set('cookie',invalidCountCookie)
+            .expect(200)
+            .end(done);
         });
     });
 
