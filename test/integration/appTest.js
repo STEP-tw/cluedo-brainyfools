@@ -83,7 +83,7 @@ describe('app', () => {
         .end(done);
     });
 
-    it('redirects to enroll form page if name is not given', done => {
+    it('serves enroll form page with message if name is not given', done => {
       request(app)
         .post('/game/join/1234')
         .send("name=")
@@ -112,6 +112,13 @@ describe('app', () => {
             .end(done);
         });
     });
+
+    it('should redirect to home page if game has not been created',done=>{
+      request(app)
+        .get('/game/2435/wait')
+        .redirectsTo("/game")
+        .end(done);
+    });
   });
 
   describe('GET /game/join/1234', () => {
@@ -120,6 +127,13 @@ describe('app', () => {
         .get('/game/join/1234')
         .expect(200)
         .expect(/Joining Game : 1234/)
+        .end(done);
+    });
+
+    it('should redirect to home page if game has not been created',done=>{
+      request(app)
+        .get('/game/join/2345')
+        .redirectsTo("/game")
         .end(done);
     });
   });

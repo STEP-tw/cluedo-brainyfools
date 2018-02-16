@@ -1,4 +1,4 @@
-const getEnrollingForm = function(req){
+const getEnrollingForm = function(req,res){
   let enrollingForm = req.app.fs.readFileSync('templates/enrollingForm');
   let {gameId} = req.params;
   enrollingForm = enrollingForm.toString().replace('{{ ID }}',gameId);
@@ -6,11 +6,16 @@ const getEnrollingForm = function(req){
 };
 
 const serveEnrollingForm = function(req,res){
+  let {gameId} = req.params;
+  if(!req.app.games[gameId]){
+    res.redirect('/game');
+    return;
+  }
   res.contentType('text/html');
   res.send(getEnrollingForm(req));
 };
 
-const invalidNameMessage = function(req,res){
+const invalidNameMessage = function(req){
   let form = getEnrollingForm(req)
     .replace('<invalidMsg> </invalidMsg>','Enter a valid name <br> <br>');
   return form;
