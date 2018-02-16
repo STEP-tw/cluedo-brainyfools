@@ -38,7 +38,18 @@ const addPlayerToGame = function(req,res){
   res.redirect(`/game/${gameId}/wait`);
 };
 
+const sendPlayerToWaitPage = function(req,res,next){
+  let {gameId} = req.params;
+  let game = req.app.games[gameId];
+  let player = game.getPlayer(req.cookies.playerId);
+  if(player){
+    res.redirect(`/game/${gameId}/wait`);
+    return;
+  }
+  next();
+};
+
 module.exports = {
-  serveEnrollingForm,
-  addPlayerToGame:[verifyName,addPlayerToGame],
+  serveEnrollingForm: [sendPlayerToWaitPage,serveEnrollingForm],
+  addPlayerToGame: [sendPlayerToWaitPage,verifyName,addPlayerToGame],
 };

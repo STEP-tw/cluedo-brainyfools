@@ -103,6 +103,36 @@ describe('app', () => {
           .expect(/Enter a valid name/)
           .end(done);
       });
+
+      it('redirect to wait page if player is already joined',(done) => {
+        request(app)
+          .post('/game/join/1234')
+          .send("name=madhuri")
+          .redirectsTo('/game/1234/wait')
+          .end(()=>{
+            request(app)
+              .post('/game/join/1234')
+              .send("name=madhuri")
+              .set("cookie", `playerId=123`)
+              .cookie.isUndefined('playerId')
+              .redirectsTo('/game/1234/wait')
+              .end(done);
+          });
+      });
+      it('redirect to wait page if player is already joined',(done) => {
+        request(app)
+          .post('/game/join/1234')
+          .send("name=madhuri")
+          .redirectsTo('/game/1234/wait')
+          .end(()=>{
+            request(app)
+              .get('/game/join/1234')
+              .set("cookie",`playerId=123`)
+              .cookie.isUndefined('playerId')
+              .redirectsTo('/game/1234/wait')
+              .end(done);
+          });
+      });
     });
 
     describe('GET game/1234/wait', () => {
@@ -134,7 +164,6 @@ describe('app', () => {
           .end(done);
       });
     });
-
 
     describe('POST /game/join', () => {
       it('should redirect to player detail page for valid game id', done => {
@@ -188,5 +217,7 @@ describe('app', () => {
           });
       });
     });
+
+
   });
 });
