@@ -45,5 +45,5 @@ const addPlayerToGame = function(req,res){
 
 module.exports = {
   serveEnrollingForm,
-  addPlayerToGame:[verifyName,addPlayerToGame],
+  addPlayerToGame:[verifyName,addPlayerToGame]
 };
