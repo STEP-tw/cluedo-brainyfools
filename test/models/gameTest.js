@@ -18,7 +18,7 @@ describe('Game',()=>{
         _name:'suyog',
         _character:{
           "_name":"Miss Scarlett",
-          "_tokenColor":"red",
+          "_tokenColor":"#bf0000",
           "_position":1,
           "_turn":1
         }

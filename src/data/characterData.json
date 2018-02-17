@@ -1,32 +1,32 @@
 {
   "1":{
     "name":"Miss Scarlett",
-    "color":"red",
+    "color":"#bf0000",
     "position":1
   },
   "2":{
     "name":"Col. Mustard",
-    "color":"yellow",
+    "color":"#ffdb58",
     "position":11
   },
   "3":{
     "name":"Dr. Orchid",
-    "color":"pink",
+    "color":"#da70d6",
     "position":30
   },
   "4":{
     "name":"Rev. Green",
-    "color":"green",
+    "color":"#007f00",
     "position":40
   },
   "5":{
     "name":"Mrs. Peacock",
-    "color":"blue",
+    "color":"#005fbf",
     "position":50
   },
   "6":{
     "name":"Prof. Plum",
-    "color":"purple",
+    "color":"#3f007f",
     "position":64
   }
 }

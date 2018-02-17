@@ -8,11 +8,7 @@ const getWaitingPage = function(req,gameId,playerName,numOfPlayers){
 
 const serveWaitingPage = function(req,res){
   let {gameId} = req.params;
-  let game = req.app.games[gameId];
-  if(!game){
-    res.redirect('/game');
-    return;
-  }
+  let game = req.game;
   let playerId = req.cookies.playerId;
   let playerName=game.getPlayer(playerId).name;
   let numOfPlayers = game.numberOfPlayers;

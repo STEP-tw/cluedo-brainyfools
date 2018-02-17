@@ -125,14 +125,14 @@
 
   <foreignObject fill="#ffffff" stroke="#000000" stroke-width="1.5" x="162.500024" y="124.449998" width="651.999968" height="86.000006" id="players">
     <div id="all-players">
-      
+
     </div>
   </foreignObject>
   <foreignObject fill="none" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="343.5" y="269.449998" width="470.999994" height="250.999988" id="svg_96">
   <div id="activity-box">
   </div>
   </foreignObject>
-  <rect fill="none" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="167.5" y="224.449997" width="34" height="40" id="svg_104"/>
+  <rect fill="none" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="167.5" y="224.449997" width="34" height="40" id="player-token"/>
   <path fill="none" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" id="svg_106"/>
   <text fill="#B8D078" stroke="#000000" stroke-width="2" stroke-opacity="null" fill-opacity="null" x="207.382133" y="261.18762" font-size="24" font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve" transform="matrix(0.408929, 0, 0, 0.610682, 129.416, 99.0274)" id="player-name"></text>
 

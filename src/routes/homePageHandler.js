@@ -6,11 +6,11 @@ const isValidPlayerCount = function(numberOfPlayers) {
 };
 
 const serveHomepage = function(req, res) {
-  res.statusCode = 200;
   let homepage = req.app.fs.readFileSync('./templates/home.html', 'utf-8');
   homepage = homepage
     .replace('{{INVALIDCOUNT}}', req.cookies.wrongCount || '')
     .replace('{{INVALIDGAMEID}}', req.cookies.invalidGameId || '');
+  res.type('html');
   res.send(homepage);
 };
 

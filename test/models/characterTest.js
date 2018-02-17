@@ -7,7 +7,7 @@ describe('Character',()=>{
   beforeEach(()=>{
     let characterData = {
       name:"Rev. Green",
-      color:"green",
+      color:"#007f00",
       position:"40"
     };
     character = new Character(characterData,4);
@@ -19,7 +19,7 @@ describe('Character',()=>{
   });
   describe('#tokenColor',()=>{
     it('should return character\'s token color',()=>{
-      assert.equal(character.tokenColor,'green');
+      assert.equal(character.tokenColor,'#007f00');
     });
   });
   describe('#position',()=>{

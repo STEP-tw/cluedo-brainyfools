@@ -20,6 +20,20 @@ class Game {
   haveAllPlayersJoined(){
     return this.numberOfPlayers == this.playerCount;
   }
+
+  getAllPlayerDetails(){
+    let players = Object.keys(this.players);
+    return players.reduce((details,playerId)=>{
+      let player = this.players[playerId];
+      details[playerId] = {
+        name: player.name,
+        character : {
+          name : player.character.name,
+          color: player.character.tokenColor
+        }}
+      return details
+    },{});
+  }
 }
 
 module.exports = Game;

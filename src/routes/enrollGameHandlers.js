@@ -8,7 +8,7 @@ const getEnrollingForm = function(req,message){
 };
 
 const serveEnrollingForm = function(req,res){
-  res.contentType('text/html');
+  res.type('html');
   res.send(getEnrollingForm(req,''));
 };
 
@@ -17,7 +17,7 @@ const verifyName = function(req,res,next){
   let {gameId} = req.params;
   playerName = playerName.trim();
   if(!playerName){
-    res.contentType('text/html');
+    res.type('html');
     let enrollPage = getEnrollingForm(req,'Enter a valid name');
     res.send(enrollPage);
     return;
@@ -57,6 +57,7 @@ const redirectToGame = function(req,res,next){
 
 module.exports = {
   serveEnrollingForm: [redirectToGame,sendPlayerToWaitPage,serveEnrollingForm],
-  addPlayerToGame: [sendPlayerToWaitPage,verifyName,addPlayerToGame],
+  addPlayerToGame: [redirectToGame,
+    sendPlayerToWaitPage,verifyName,addPlayerToGame],
   redirectToGame
 };
