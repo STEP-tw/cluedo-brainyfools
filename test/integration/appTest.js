@@ -245,7 +245,7 @@ describe('app', () => {
         request(app)
           .get('/game/join/1234')
           .expect(200)
-          .expect(/Joining Game : 1234/)
+          .expect(/Game ID : 1234/)
           .end(done);
       });
 

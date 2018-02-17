@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8">
   <title>Enrolling Form</title>
+  <link rel="stylesheet" href="/css/join.css">
 </head>
 <body>
-  {{ invalidMsg }} <br>
-  Joining Game : {{ ID }}
+  <h1>Cluedo</h1>
   <form method="post">
+    <h2>Game ID : {{ ID }}</h2>
     <label for="playerName">Name</label>
     <input id="playerName" type="text" name="name" required/>
-    <input type="submit" value="submit">
+    <input type="submit" value="Submit">
+    <span class="error">{{ invalidMsg }}</span>
   </form>
 </body>
 </html>
