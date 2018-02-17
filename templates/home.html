@@ -1,32 +1,61 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>CLUEDO - Solve The Murder Mystery</h1>
-    <h2>Create Game</h2>
-    <form action="/game/new" method="post">
-      Number Of Players :
-      <select name="numberOfPlayers">
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-      </select>
-      <br>
-      <input type="submit" value="Create Game">
-      <span>{{INVALIDCOUNT}}</span>
-    </form>
 
-    <h2>Join Game</h2>
-    Game Id :
-    <form action="/game/join" method="post">
-      <input type="text" name="gameId" value="" required>
-      <br>
-      <input type="submit" value="Join Game">
-      <span>{{INVALIDGAMEID}}</span>
-    </form>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Cluedo</title>
+  <script>
+    function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    window.onload = () => document.getElementById("defaultOpen").click();
+  </script>
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+  <h1>CLUEDO</h1>
+  <main>
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'creategame')" id="defaultOpen">Create Game</button>
+      <button class="tablinks" onclick="openCity(event, 'joingame')">Join Game</button>
+    </div>
+
+    <div class="tabcontent" id="creategame">
+      <form action="/game/new" method="post">
+        <label for="count">Number Of Players</label>
+        <select name="numberOfPlayers" id="count">
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+        <br>
+        <input type="submit" value="Create Game">
+        <span class="error">{{INVALIDCOUNT}}</span>
+      </form>
+    </div>
+
+    <div class="tabcontent" id="joingame">
+      <form action="/game/join" method="post">
+        <label for="gameId">Game Id</label>
+        <input type="text" name="gameId" id="gameId" value="" required>
+        <input type="submit" value="Join Game">
+        <span class="error">{{INVALIDGAMEID}}</span>
+      </form>
+    </div>
+
+  </main>
+</body>
+
 </html>

@@ -22,9 +22,9 @@ describe('app', () => {
       request(app)
         .get('/game')
         .expect(200)
-        .expect(/CLUEDO - Solve The Murder Mystery/)
-        .expect(/Number Of Players :/)
-        .expect(/Game Id :/)
+        .expect(/CLUEDO/)
+        .expect(/Number Of Players/)
+        .expect(/Game Id/)
         .end(done);
     });
   });
