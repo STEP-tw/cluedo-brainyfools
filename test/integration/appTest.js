@@ -5,6 +5,7 @@ const app = require('../../app.js');
 let games = app.games;
 
 const idGen = app.idGenerator;
+
 describe('app', () => {
   before(() => {
     app.idGenerator = () => {

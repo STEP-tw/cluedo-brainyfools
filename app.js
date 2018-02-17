@@ -27,6 +27,7 @@ app.get('/game/:gameId/wait',waitingPageHandlers.serveWaitingPage);
 app.get(['/','/game'],homePageHandler.servePage);
 app.post('/game/new',homePageHandler.createGame);
 app.post('/game/join',homePageHandler.joinGame);
+app.get('/game/:gameId/numOfPlayers',waitingPageHandlers.getNumOfPlayers);
 
 app.use(express.static('public'));
 
