@@ -10,14 +10,15 @@ const fillPlayerDetails = function(data){
   let players = Object.keys(playerDetails);
   players.forEach(id=>{
     let player = playerDetails[id];
-    document.querySelector('#all-players').innerHTML += `<span>${player.name}</span>`;
+    document.querySelector('#all-players').innerHTML +=
+     `<span>${player.name}</span>`;
   });
-}
+};
 
 const getPlayerDetails = function(){
   let url = window.location.pathname;
   sendAjaxRequest('get',`${url}/data`,fillPlayerDetails);
-}
+};
 
 window.onload = function () {
   sendAjaxRequest('get','/svg/board.svg',(res)=>{

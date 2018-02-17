@@ -38,6 +38,16 @@ describe('Game',()=>{
   });
 
 
+  describe('#getPlayerCount',()=>{
+    it('should return count of players joined',()=>{
+      game.addPlayer("suyog",1);
+      game.addPlayer("omkar",2);
+      let playerCount = game.getPlayerCount();
+      assert.equal(playerCount,2);
+    });
+  });
+
+
   describe('#haveAllPlayersJoined', function(){
     it('should return true when game is ready to start', function(){
       game.addPlayer("Pranav",1);

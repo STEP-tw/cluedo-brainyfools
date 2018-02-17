@@ -14,6 +14,9 @@ class Game {
     let player = new Player(name,character);
     this.players[id] = player;
   }
+  getPlayerCount(){
+    return this.playerCount;
+  }
   getPlayer(playerId){
     return this.players[playerId];
   }
@@ -30,8 +33,8 @@ class Game {
         character : {
           name : player.character.name,
           color: player.character.tokenColor
-        }}
-      return details
+        }};
+      return details;
     },{});
   }
 }
