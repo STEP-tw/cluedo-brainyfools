@@ -2,24 +2,22 @@ const assert = require('chai').assert;
 const request = require('supertest');
 const app = require('../../app.js');
 
+let games = app.games;
+
 const idGen = app.idGenerator;
 describe('app', () => {
-  before(() => {
+  beforeEach(() => {
     app.idGenerator = () => {
       return 123;
     };
-  });
-
-  beforeEach(function() {
-    app.games = {};
   });
 
   after(() => {
     app.idGenerator = idGen;
   });
 
-  describe('GET /game', function() {
-    it('should respond with landing page', function(done) {
+  describe('GET /game', function () {
+    it('should respond with landing page', function (done) {
       request(app)
         .get('/game')
         .expect(200)
@@ -30,7 +28,7 @@ describe('app', () => {
     });
   });
 
-  describe('POST /game/new', function() {
+  describe('POST /game/new', function () {
     it('should create game and redirect to player detail form', (done) => {
       request(app)
         .post('/game/new')
@@ -40,7 +38,7 @@ describe('app', () => {
         .end(done);
     });
 
-    it('should not create game for invalid no of players', function(done) {
+    it('should not create game for invalid no of players', function (done) {
       let invalidCountCookie = [
         'wrongCount=Select valid number of players (3 to 6)'
       ];
@@ -74,8 +72,48 @@ describe('app', () => {
     });
   });
 
-  describe('gameHandlers', function() {
-    beforeEach(function(done) {
+  describe('GET /game/:gameId',function (){
+    it('should serve game page',(done)=>{
+      request(app)
+        .post('/game/new')
+        .send('numberOfPlayers=3')
+        .end(()=>{
+          request(app)
+            .get('/game/1234')
+            .contentType('text/html; charset=utf-8')
+            .body.include('<div id="title">Activity Log</div>')
+            .expect(200)
+            .end(done);
+        });
+    });
+    it('should redirect to home page if invalid game id', (done)=>{
+      request(app)
+        .get('/game/3243')
+        .redirectsTo('/game')
+        .end(done);
+    });
+  });
+  describe('', function(){
+    it('serves enroll form page with message if name is not given', done => {
+      request(app)
+        .post('/game/join/1234')
+        .send("name=")
+        .expect(200)
+        .expect(/Enter a valid name/)
+        .end(done);
+    });
+    it('redirects to waiting page', done => {
+      request(app)
+        .post('/game/join/1234')
+        .send("name=omkar")
+        .set('cookie', `playerId=123`)
+        .redirectsTo('/game/1234/wait')
+        .cookie.include('playerId', '123;')
+        .end(done);
+    });
+  });
+  describe('gameHandlers', function () {
+    beforeEach(function (done) {
       request(app)
         .post('/game/new')
         .send('numberOfPlayers=3')
@@ -85,19 +123,17 @@ describe('app', () => {
     });
 
     describe('POST /game/join/1234', () => {
-      let playerId = 0;
-      beforeEach(function(){
+      it('should not allow 4th player to join a 3 player game', function(done){
+        let playerId = 0;
         app.idGenerator = () => {
           return ++playerId;
         };
-      });
-
-      it('should not allow 4th player to join a 3 player game', function(done){
         let gameId = '1234';
         let message = 'All players have already joined in Game';
         //Adding 1st Player
         request(app).post('/game/join/1234').send("name=omkar")
-          .redirectsTo('/game/1234/wait').cookie.include('playerId', '1;')
+          .redirectsTo('/game/1234/wait')
+          .cookie.include('playerId', '1;')
           .end(()=>{
           //Adding 2nd Player
             request(app).post('/game/join/1234').send("name=Pranav")
@@ -118,6 +154,23 @@ describe('app', () => {
               });
           });
       });
+      it('serves enroll form page with message if name is not given', done => {
+        request(app)
+          .post('/game/join/1234')
+          .send("name=")
+          .expect(200)
+          .expect(/Enter a valid name/)
+          .end(done);
+      });
+      it('redirects to waiting page', done => {
+        request(app)
+          .post('/game/join/1234')
+          .send("name=omkar")
+          .set('cookie', `playerId=123`)
+          .redirectsTo('/game/1234/wait')
+          .cookie.include('playerId', '123;')
+          .end(done);
+      });
     });
 
     describe('POST /game/join/1234', function(){
@@ -128,6 +181,22 @@ describe('app', () => {
           .expect(200)
           .expect(/Enter a valid name/)
           .end(done);
+      });
+
+      it('redirect to wait page if player is already joined', (done) => {
+        request(app)
+          .post('/game/join/1234')
+          .send("name=madhuri")
+          .redirectsTo('/game/1234/wait')
+          .end(() => {
+            request(app)
+              .post('/game/join/1234')
+              .send("name=madhuri")
+              .set("cookie", `playerId=123`)
+              .cookie.isUndefined('playerId')
+              .redirectsTo('/game/1234/wait')
+              .end(done);
+          });
       });
     });
 
@@ -162,6 +231,12 @@ describe('app', () => {
               .end(done);
           });
       });
+      it('should redirect to home page if game has not been created', done => {
+        request(app)
+          .get('/game/2435/wait')
+          .redirectsTo("/game")
+          .end(done);
+      });
     });
 
     describe('GET /game/join/1234', () => {
@@ -172,6 +247,23 @@ describe('app', () => {
           .expect(/Joining Game : 1234/)
           .end(done);
       });
+
+      it('should redirect to home page if game has not been created', done => {
+        request(app)
+          .get('/game/join/2345')
+          .redirectsTo('/game')
+          .end(done);
+      });
+    });
+    describe('POST /game/join', () => {
+      it('should redirect to player detail page for valid game id', done => {
+        request(app)
+          .post('/game/join')
+          .send('gameId=1234')
+          .redirectsTo('/game/join/1234')
+          .end(done);
+      });
+
     });
 
 
@@ -199,7 +291,7 @@ describe('app', () => {
           .end(done);
       });
 
-      it('should not allow extra players to join a game', function(done) {
+      it('should not allow extra players to join a game', function (done) {
         request(app)
           .post('/game/join')
           .send('gameId=1234')
@@ -207,7 +299,6 @@ describe('app', () => {
           .redirectsTo('/game/join/1234')
           .end(done);
       });
-
 
       it('should redirect to game page for invalid game id', done => {
         let invalidGameIdCookie = [
@@ -227,5 +318,6 @@ describe('app', () => {
           });
       });
     });
+
   });
 });

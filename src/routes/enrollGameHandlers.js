@@ -1,19 +1,15 @@
-const getEnrollingForm = function(req){
+const getEnrollingForm = function(req,message){
   let enrollingForm = req.app.fs.readFileSync('templates/enrollingForm');
   let {gameId} = req.params;
-  enrollingForm = enrollingForm.toString().replace('{{ ID }}',gameId);
+  enrollingForm = enrollingForm.toString()
+    .replace('{{ ID }}',gameId)
+    .replace('{{ invalidMsg }}',message);
   return enrollingForm;
 };
 
 const serveEnrollingForm = function(req,res){
   res.contentType('text/html');
-  res.send(getEnrollingForm(req));
-};
-
-const invalidNameMessage = function(req,res){
-  let form = getEnrollingForm(req)
-    .replace('<invalidMsg> </invalidMsg>','Enter a valid name <br> <br>');
-  return form;
+  res.send(getEnrollingForm(req,''));
 };
 
 const verifyName = function(req,res,next){
@@ -22,7 +18,8 @@ const verifyName = function(req,res,next){
   playerName = playerName.trim();
   if(!playerName){
     res.contentType('text/html');
-    res.send(invalidNameMessage(req,res));
+    let enrollPage = getEnrollingForm(req,'Enter a valid name');
+    res.send(enrollPage);
     return;
   }
   next();
@@ -38,7 +35,28 @@ const addPlayerToGame = function(req,res){
   res.redirect(`/game/${gameId}/wait`);
 };
 
+const sendPlayerToWaitPage = function(req,res,next){
+  let {gameId} = req.params;
+  let game = req.app.games[gameId];
+  let player = game.getPlayer(req.cookies.playerId);
+  if(player){
+    res.redirect(`/game/${gameId}/wait`);
+    return;
+  }
+  next();
+};
+
+const redirectToGame = function(req,res,next){
+  let {gameId} = req.params;
+  if(!req.app.games[gameId]){
+    res.redirect('/game');
+    return;
+  }
+  next();
+};
+
 module.exports = {
-  serveEnrollingForm,
-  addPlayerToGame:[verifyName,addPlayerToGame],
+  serveEnrollingForm: [redirectToGame,sendPlayerToWaitPage,serveEnrollingForm],
+  addPlayerToGame: [sendPlayerToWaitPage,verifyName,addPlayerToGame],
+  redirectToGame
 };
