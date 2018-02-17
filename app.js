@@ -24,7 +24,7 @@ app.use(logRequest);
 app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
 app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
 app.get('/game/:gameId/wait',waitingPageHandlers.serveWaitingPage);
-app.get('/game',homePageHandler.servePage);
+app.get(['/','/game'],homePageHandler.servePage);
 app.post('/game/new',homePageHandler.createGame);
 app.post('/game/join',homePageHandler.joinGame);
 
