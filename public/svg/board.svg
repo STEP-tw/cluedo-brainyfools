@@ -1,5 +1,5 @@
 <svg viewBox="0 0 960 630" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg">
- 
+
  <g>
   <rect fill="#fff" id="canvas_background" height="632" width="962" y="-1" x="-1"/>
   <g display="none" id="canvasGrid">
@@ -95,9 +95,9 @@
   <rect id="65" height="30" width="30" y="82.449997" x="776.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
   <rect id="66" height="30" width="30" y="82.449997" x="806.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
 
-  
-  
-  
+
+
+
 
   <rect id="svg_117" height="30" width="30" y="172.449997" x="86.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
   <rect id="svg_118" height="30" width="30" y="472.449997" x="86.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
@@ -125,6 +125,7 @@
 
   <foreignObject fill="#ffffff" stroke="#000000" stroke-width="1.5" x="162.500024" y="124.449998" width="651.999968" height="86.000006" id="players">
     <div id="all-players">
+      
     </div>
   </foreignObject>
   <foreignObject fill="none" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="343.5" y="269.449998" width="470.999994" height="250.999988" id="svg_96">

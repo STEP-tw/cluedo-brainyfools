@@ -72,6 +72,28 @@ describe('app', () => {
     });
   });
 
+  describe('GET /game/:gameId',function (){
+    it('should serve game page',(done)=>{
+      request(app)
+        .post('/game/new')
+        .send('numberOfPlayers=3')
+        .end(()=>{
+          request(app)
+            .get('/game/1234')
+            .contentType('text/html; charset=utf-8')
+            .body.include('<div id="title">Activity Log</div>')
+            .expect(200)
+            .end(done);
+        });
+    });
+    it('should redirect to home page if invalid game id', (done)=>{
+      request(app)
+        .get('/game/3243')
+        .redirectsTo('/game')
+        .end(done);
+    });
+  });
+
   describe('gameHandlers', function () {
     beforeEach(function (done) {
       request(app)
@@ -246,5 +268,6 @@ describe('app', () => {
           });
       });
     });
+
   });
 });

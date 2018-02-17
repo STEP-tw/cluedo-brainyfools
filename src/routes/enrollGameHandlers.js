@@ -3,13 +3,13 @@ const getEnrollingForm = function(req,message){
   let {gameId} = req.params;
   enrollingForm = enrollingForm.toString()
     .replace('{{ ID }}',gameId)
-    .replace('{{ invalidMsg }}',message||'');
+    .replace('{{ invalidMsg }}',message);
   return enrollingForm;
 };
 
 const serveEnrollingForm = function(req,res){
   res.contentType('text/html');
-  res.send(getEnrollingForm(req));
+  res.send(getEnrollingForm(req,''));
 };
 
 const verifyName = function(req,res,next){
@@ -57,5 +57,6 @@ const redirectToGame = function(req,res,next){
 
 module.exports = {
   serveEnrollingForm: [redirectToGame,sendPlayerToWaitPage,serveEnrollingForm],
-  addPlayerToGame: [sendPlayerToWaitPage,verifyName,addPlayerToGame]
+  addPlayerToGame: [sendPlayerToWaitPage,verifyName,addPlayerToGame],
+  redirectToGame
 };
