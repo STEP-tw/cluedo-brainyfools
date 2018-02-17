@@ -44,6 +44,18 @@ const verifyGameId = function(req, res, next) {
   res.redirect('/game');
 };
 
+const restrictExtraPlayer = function (req,res,next) {
+  let gameId = req.body['gameId'];
+  let game = req.app.games[gameId];
+  if(!game.haveAllPlayersJoined()) {
+    next();
+    return;
+  }
+  let message = `All players have already joined in Game:${gameId}`;
+  res.cookie('invalidGameId',message);
+  res.redirect('/game');
+};
+
 const joinGame = function(req,res) {
   let gameId = req.body['gameId'];
   res.clearCookie('invalidGameId');
@@ -52,6 +64,6 @@ const joinGame = function(req,res) {
 
 module.exports = {
   createGame:[verifyPlayersCount,createGame],
-  joinGame:[verifyGameId,joinGame],
+  joinGame:[verifyGameId,restrictExtraPlayer,joinGame],
   servePage:[serveHomepage]
 };
