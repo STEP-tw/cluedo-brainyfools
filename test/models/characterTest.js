@@ -8,9 +8,10 @@ describe('Character',()=>{
     let characterData = {
       name:"Rev. Green",
       color:"#007f00",
-      position:"40"
+      position:"40",
+      turn:"4"
     };
-    character = new Character(characterData,4);
+    character = new Character(characterData);
   });
   describe('#name',()=>{
     it('should return character\'s name',()=>{

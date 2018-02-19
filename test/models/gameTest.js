@@ -20,7 +20,8 @@ describe('Game',()=>{
           "_name":"Miss Scarlett",
           "_tokenColor":"#bf0000",
           "_position":1,
-          "_turn":1
+          "_turn":1,
+          "_start" : true
         }
       };
       assert.deepEqual(actualOutput,expectedOutput);
@@ -102,6 +103,25 @@ describe('Game',()=>{
         }
       };
       assert.deepEqual(game.getAllPlayerDetails(), expected);
+    });
+  });
+  describe('#getPlayersPosition', function(){
+    it('should return all player\'s positions', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      let actualOutput = game.getPlayersPosition();
+      let expected = [
+        {
+          name: "Miss Scarlett",
+          position:1
+        },
+        {
+          "name": "Col. Mustard",
+          position:11
+        }
+      ];
+
+      assert.deepEqual(actualOutput,expected);
     });
   });
 });

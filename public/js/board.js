@@ -9,14 +9,14 @@ const setCurrentPlayer = function (player) {
   let pd = document.querySelector('#current-player');
   document.querySelector('#player-token')
     .setAttribute('fill',player.character.color);
-  pd.innerHTML = `<span>${player.name}</span> 
+  pd.innerHTML = `<span>${player.name}</span>
     <span>${player.character.name}</span>`;
 };
 
 const setOtherPlayer = function (player) {
   document.querySelector('#all-players').innerHTML +=
     `<div style="color:${player.character.color}">
-     <span>${player.name}</span> 
+     <span>${player.name}</span>
      <span>${player.character.name}</span></div>`;
 };
 
@@ -26,12 +26,13 @@ const fillPlayerDetails = function (data) {
   let playerId = getCookie('playerId');
   players.forEach(id => {
     let player = playerDetails[id];
-    playerId == id ? setCurrentPlayer(player) : setOtherPlayer(player);
+    playerId == id && setCurrentPlayer(player);
+    setOtherPlayer(player);
   });
 };
 
 const getPlayerDetails = function () {
-  let url = window.location.pathname;
+  let url = window.location.pathname.replace(/\/$/,'');
   sendAjaxRequest('get', `${url}/data`, fillPlayerDetails);
 };
 
