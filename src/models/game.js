@@ -11,6 +11,7 @@ class Game {
     this.cardHandler = new CardHandler();
     this.murderCombination = {};
     this.started = false;
+    this._turn=1;
   }
   addPlayer(name,id){
     let character = characterData[++this.playerCount];
@@ -20,6 +21,10 @@ class Game {
   }
   getMurderCombination(){
     return this.murderCombination;
+  }
+  getPlayerIdByTurn(){
+    let listOfPlayerIds=Object.keys(this.players);
+    return listOfPlayerIds[this._turn-1];
   }
   getPlayerCount(){
     return this.playerCount;
@@ -40,7 +45,8 @@ class Game {
         character : {
           name : player.character.name,
           color: player.character.tokenColor
-        }};
+        }
+      };
       return details;
     },{});
   }
@@ -64,6 +70,12 @@ class Game {
   }
   setMurderCombination(){
     this.murderCombination = this.cardHandler.getRandomCombination();
+  }
+  rollDice(){
+    if(!this.diceVal){
+      this.diceVal = Math.ceil(Math.random()*6);
+    }
+    return this.diceVal;
   }
 }
 

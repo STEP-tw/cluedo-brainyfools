@@ -105,6 +105,15 @@ describe('Game',()=>{
       assert.deepEqual(game.getAllPlayerDetails(), expected);
     });
   });
+
+  describe("#getPlayerIdByTurn",()=>{
+    it("should return id of player according to turn",()=>{
+      game.addPlayer("Suyog", 1);
+      game.addPlayer("Bhanu", 2);
+      game.addPlayer("Omkar", 3);
+      assert.equal(game.getPlayerIdByTurn(),1);
+    });
+  });
   describe('#getPlayersPosition', function(){
     it('should return all player\'s positions', function(){
       game.addPlayer("Pranav",1);
@@ -148,5 +157,13 @@ describe('Game',()=>{
       assert.notDeepInclude(characterCards,murderCombination.character);
     });
   });
-
+  describe('#rollDice',()=>{
+    it('should return value ranging from 1 to 6',()=>{
+      for (let index = 0; index < 10; index++) {
+        let val = game.rollDice();
+        assert.isAbove(val,0);
+        assert.isBelow(val,7);
+      };
+    });
+  });
 });

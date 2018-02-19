@@ -4,6 +4,7 @@ const logRequest = require('./src/utils/logger');
 
 const fs = require('fs');
 
+const getCurrentTurn = require('./src/routes/gameStatusHandler.js');
 const serveGameData = require('./src/routes/gameDataHandler.js');
 const homePageHandler = require('./src/routes/homePageHandler.js');
 const enrollGameHandlers = require('./src/routes/enrollGameHandlers.js');
@@ -12,6 +13,7 @@ const waitingPageHandlers = require('./src/routes/waitingPageHandlers.js');
 const {serveWaitingPage} = waitingPageHandlers;
 const serveGamePage = require('./src/routes/serveGamePageHandler.js');
 const boardStatusHandler = require('./src/routes/boardStatusHandler');
+const turnHandler = require('./src/routes/turnHandler');
 
 const app = express();
 
@@ -40,10 +42,12 @@ app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
 app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
 app.get('/game/:gameId/wait',redirectToGame,setGame,serveWaitingPage);
 app.get('/game/:gameId/numOfPlayers',waitingPageHandlers.getNumOfPlayers);
+app.get('/game/:gameId/status',setGame,getCurrentTurn);
 app.get('/game/:gameId/boardstatus',redirectToGame,setGame,boardStatusHandler);
 app.get('/game/:gameId',redirectToGame,setGame,serveGamePage);
 app.get('/game/:gameId/data',redirectToGame,setGame,serveGameData);
 
+app.get('/game/:gameId/rollDice',redirectToGame,setGame, turnHandler.rollDice);
 app.use(express.static('public'));
 
 module.exports = app;

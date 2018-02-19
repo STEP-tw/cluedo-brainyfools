@@ -4,14 +4,85 @@
     margin: auto;
   }
 }
+#message-box{
+  width: 100%;
+  height: 100%;
+}
+#message-box div{
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 2px;
+  font-size: 1.5em;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
 
 .board {
   width: 75%;
   margin: 5px;
-  border: 2px solid black;
+  border: 2px solid #000000;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+}
+
+.popup .confirm{
+  align-self: flex-end;
+}
+
+.popup button{
+  background-color: #808080;
+  border: none;
+  width: 8vw;
+  height: 1.8vw;
+  font-size: 1vw;
+  padding: 3px;
+}
+
+.popup div{
+  flex-grow: 1;
+  height: auto;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.popup div input{
+  margin: 4px;
+}
+.popup div label{
+  margin: 0px 4px 0px 4px;
+}
+
+.popup div div{
+  margin: 6px;
+  flex-direction: column;
+}
+.popup div div label{
+  margin: 6px;
+}
+.popup div div select{
+  margin: 6px;
+  font-size: 2.2vh;
+}
+
+.popup{
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.2vw;
+}
+
+.popup div button{
+  margin: 5px;
+}
+
+.rolldice{
+  align-self: center;
 }
 
 #current-player {
@@ -26,6 +97,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex-grow: 1;
 }
 
 #current-player div span {
@@ -38,7 +110,7 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   height: 100%;
   width: 100%;
 }
@@ -68,6 +140,8 @@
   -webkit-box-sizing: border-box;
   height: 100%;
   width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .board #cards {

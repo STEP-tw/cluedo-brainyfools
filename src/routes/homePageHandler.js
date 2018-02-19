@@ -9,7 +9,9 @@ const serveHomepage = function(req, res) {
   let homepage = req.app.fs.readFileSync('./templates/home.html', 'utf-8');
   homepage = homepage
     .replace('{{INVALIDCOUNT}}', req.cookies.wrongCount || '')
+    .replace('{{default}}', req.cookies.invalidGameId ? 'join' : 'create')
     .replace('{{INVALIDGAMEID}}', req.cookies.invalidGameId || '');
+  res.clearCookie('invalidGameId');
   res.type('html');
   res.send(homepage);
 };

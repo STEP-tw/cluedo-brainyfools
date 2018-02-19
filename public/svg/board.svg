@@ -115,8 +115,11 @@
   <text transform="rotate(-45, 887.699, 573.45)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="svg_137" y="579.449997" x="844.5" fill-opacity="null" stroke-width="2" stroke="#999999" fill="#B8D078">Lounge</text>
   <text transform="rotate(90, 908.3, 317.45)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="svg_138" y="323.449997" x="879.5" stroke-width="2" stroke="#999999" fill="#999999">Hall</text>
   <rect id="43" height="30" width="30" y="82.449997" x="116.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
-  <text fill="#B8D078" stroke="#000000" stroke-width="2" stroke-opacity="null" x="316.225169" y="272.156752" font-size="18" font-family="monospace" text-anchor="start" xml:space="preserve" transform="matrix(0.927616, 0, 0, 0.89109, 50.0812, 2.29999)" id="message-box"></text>
 
+  <foreignObject  x="345" y="222.156752" width="470" height="43">
+    <div id="message-box">
+    </div>
+  </foreignObject>
   <g>
     <image id="room-card" height="154.000007" width="110.999994" y="364" x="166.500001" href="" />
     <image id="weapon-card" height="154.000007" width="110.999994" y="324.449999" x="166.500001" href=""/>
@@ -130,14 +133,14 @@
   </foreignObject>
   <foreignObject  x="343.5" y="269.449998" width="470.999994" height="250.999988">
   <div id="activity-box">
-  
+
   </div>
   </foreignObject>
   <rect fill="none" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="167.5" y="224.449997" width="34" height="40" id="player-token"/>
 
   <foreignObject x="205.382133" y="222.449997" id="player-name" width="130" height="43">
     <div id="current-player">
-      
+
     </div>
   </foreignObject>
 
