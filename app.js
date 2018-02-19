@@ -31,15 +31,15 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(logRequest);
 
-app.get('/game/:gameId/data',redirectToGame,setGame,serveGameData);
-app.get('/game/:gameId',redirectToGame,setGame,serveGamePage);
-app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
-app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
-app.get('/game/:gameId/wait',redirectToGame,setGame,serveWaitingPage);
 app.get(['/','/game'],homePageHandler.servePage);
 app.post('/game/new',homePageHandler.createGame);
 app.post('/game/join',homePageHandler.joinGame);
+app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
+app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
+app.get('/game/:gameId/wait',redirectToGame,setGame,serveWaitingPage);
 app.get('/game/:gameId/numOfPlayers',waitingPageHandlers.getNumOfPlayers);
+app.get('/game/:gameId',redirectToGame,setGame,serveGamePage);
+app.get('/game/:gameId/data',redirectToGame,setGame,serveGameData);
 
 app.use(express.static('public'));
 
