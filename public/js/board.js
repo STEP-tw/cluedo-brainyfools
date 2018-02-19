@@ -32,7 +32,7 @@ const fillPlayerDetails = function (data) {
 };
 
 const getPlayerDetails = function () {
-  let url = window.location.pathname.replace(/\/$/,'');
+  let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/data`, fillPlayerDetails);
 };
 
@@ -40,6 +40,8 @@ window.onload = function () {
   sendAjaxRequest('get', '/svg/board.svg', (res) => {
     document.querySelector('#board').innerHTML = res;
     getPlayerDetails();
+    showBoardStatus();
+    enableRollDice();
   });
 };
 

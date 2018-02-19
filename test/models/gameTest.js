@@ -126,4 +126,14 @@ describe('Game',()=>{
       assert.deepEqual(actualOutput,expected);
     });
   });
+
+  describe('#rollDice',()=>{
+    it('should return value ranging from 1 to 6',()=>{
+      for (let index = 0; index < 10; index++) {
+        let val = game.rollDice();
+        assert.isAbove(val,0);
+        assert.isBelow(val,7);
+      }
+    });
+  });
 });

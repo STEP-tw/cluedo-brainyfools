@@ -48,6 +48,13 @@ class Game {
       };
     });
   }
+
+  rollDice(){
+    if(!this.diceVal){
+      this.diceVal = Math.ceil(Math.random()*6);
+    }
+    return this.diceVal;
+  }
 }
 
 module.exports = Game;
