@@ -1,10 +1,10 @@
 const Card = require('./card.js');
 
 class Combination {
-  constructor(roomName,weaponName,characterName) {
-    this._room = new Card(roomName,'Room');
-    this._weapon = new Card(weaponName,'Weapon');
-    this._character = new Card(characterName,'Character');
+  constructor(roomCard,weaponCard,characterCard) {
+    this._room = roomCard;
+    this._weapon = weaponCard;
+    this._character = characterCard;
   }
   get room(){
     return this._room;
