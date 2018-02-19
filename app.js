@@ -10,7 +10,9 @@ const enrollGameHandlers = require('./src/routes/enrollGameHandlers.js');
 const redirectToGame = enrollGameHandlers.redirectToGame;
 const waitingPageHandlers = require('./src/routes/waitingPageHandlers.js');
 const {serveWaitingPage} = waitingPageHandlers;
-const serveGamePage= require('./src/routes/serveGamePageHandler.js');
+const serveGamePage = require('./src/routes/serveGamePageHandler.js');
+const boardStatusHandler = require('./src/routes/boardStatusHandler');
+
 const app = express();
 
 app.fs = fs;
@@ -38,6 +40,7 @@ app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
 app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
 app.get('/game/:gameId/wait',redirectToGame,setGame,serveWaitingPage);
 app.get('/game/:gameId/numOfPlayers',waitingPageHandlers.getNumOfPlayers);
+app.get('/game/:gameId/boardstatus',redirectToGame,setGame,boardStatusHandler);
 app.get('/game/:gameId',redirectToGame,setGame,serveGamePage);
 app.get('/game/:gameId/data',redirectToGame,setGame,serveGameData);
 

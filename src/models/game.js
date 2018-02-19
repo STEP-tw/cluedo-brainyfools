@@ -10,7 +10,7 @@ class Game {
   }
   addPlayer(name,id){
     let character = characterData[++this.playerCount];
-    character=new Character(character,this.playerCount);
+    character = new Character(character);
     let player = new Player(name,character);
     this.players[id] = player;
   }
@@ -36,6 +36,17 @@ class Game {
         }};
       return details;
     },{});
+  }
+
+  getPlayersPosition(){
+    return Object.values(this.players).map((player)=>{
+      let char = player.character;
+      return {
+        name:char.name,
+        position:char.position,
+        start : char.start
+      };
+    });
   }
 }
 
