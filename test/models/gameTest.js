@@ -122,8 +122,31 @@ describe('Game',()=>{
           start:true
         }
       ];
-
       assert.deepEqual(actualOutput,expected);
     });
   });
+
+  describe('#hasGameStarted', function(){
+    it('should return true when game has started', function(){
+      assert.isNotOk(game.hasStarted());
+      game.start();
+      assert.isOk(game.hasStarted());
+    });
+  });
+
+  describe('#selectMurderCombination', function(){
+    it('should select murder combination', function(){
+      let roomCards = game.cardHandler.rooms;
+      let weaponCards = game.cardHandler.weapons;
+      let characterCards = game.cardHandler.characters;
+      game.setMurderCombination();
+
+      let murderCombination = game.getMurderCombination();
+
+      assert.notDeepInclude(roomCards,murderCombination.room);
+      assert.notDeepInclude(weaponCards,murderCombination.weapon);
+      assert.notDeepInclude(characterCards,murderCombination.character);
+    });
+  });
+
 });

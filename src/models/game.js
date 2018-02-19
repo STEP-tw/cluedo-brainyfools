@@ -1,18 +1,25 @@
 const Player = require('./player.js');
 const Character = require('./character.js');
+const CardHandler = require('./cardHandler.js');
 const characterData = require('../data/characterData.json');
 
 class Game {
   constructor(numberOfPlayers) {
     this.numberOfPlayers = numberOfPlayers;
     this.players = {};
-    this.playerCount=0;
+    this.playerCount = 0;
+    this.cardHandler = new CardHandler();
+    this.murderCombination = {};
+    this.started = false;
   }
   addPlayer(name,id){
     let character = characterData[++this.playerCount];
     character = new Character(character);
     let player = new Player(name,character);
     this.players[id] = player;
+  }
+  getMurderCombination(){
+    return this.murderCombination;
   }
   getPlayerCount(){
     return this.playerCount;
@@ -47,6 +54,16 @@ class Game {
         start : char.start
       };
     });
+  }
+  hasStarted(){
+    return this.started;
+  }
+  start(){
+    this.setMurderCombination();
+    this.started = true;
+  }
+  setMurderCombination(){
+    this.murderCombination = this.cardHandler.getRandomCombination();
   }
 }
 
