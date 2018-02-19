@@ -7,8 +7,7 @@ let sendAjaxRequest = function (method, url, cb, data='') {
 
 window.onload = setInterval(function () {
   let location = window.location.pathname;
-  let gameId = location.match(/[0-9]+/g)[0];
-  sendAjaxRequest('get',`/game/${gameId}/numOfPlayers`,(res)=>{
+  sendAjaxRequest('get',`numOfPlayers`,(res)=>{
     res = JSON.parse(res);
     if(res.start) {
       window.location = res.link;

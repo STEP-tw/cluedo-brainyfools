@@ -120,21 +120,26 @@
   <g>
     <image id="room-card" height="154.000007" width="110.999994" y="364" x="166.500001" href="" />
     <image id="weapon-card" height="154.000007" width="110.999994" y="324.449999" x="166.500001" href=""/>
-    <image id="character-card" height="154.000007" width="110.999994"y="283.449999" x="166.500001" href="" />
+    <image id="character-card" height="154.000007" width="110.999994" y="283.449999" x="166.500001" href=""/>
   </g>
 
-  <foreignObject fill="#ffffff" stroke="#000000" stroke-width="1.5" x="162.500024" y="124.449998" width="651.999968" height="86.000006" id="players">
+  <foreignObject x="162.500024" y="124.449998" width="651.999968" height="86.000006">
     <div id="all-players">
 
     </div>
   </foreignObject>
-  <foreignObject fill="none" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="343.5" y="269.449998" width="470.999994" height="250.999988" id="svg_96">
+  <foreignObject  x="343.5" y="269.449998" width="470.999994" height="250.999988">
   <div id="activity-box">
+  
   </div>
   </foreignObject>
   <rect fill="none" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="167.5" y="224.449997" width="34" height="40" id="player-token"/>
-  <path fill="none" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" id="svg_106"/>
-  <text fill="#B8D078" stroke="#000000" stroke-width="2" stroke-opacity="null" fill-opacity="null" x="207.382133" y="261.18762" font-size="24" font-family="'Courier New', Courier, monospace" text-anchor="start" xml:space="preserve" transform="matrix(0.408929, 0, 0, 0.610682, 129.416, 99.0274)" id="player-name"></text>
+
+  <foreignObject x="205.382133" y="222.449997" id="player-name" width="130" height="43">
+    <div id="current-player">
+      
+    </div>
+  </foreignObject>
 
   <g>
     <ellipse fill="#da70d6" stroke="#000000" stroke-width="1.5" stroke-opacity="null" cx="101" cy="486.950001" id="orchid" rx="12" ry="12"/>

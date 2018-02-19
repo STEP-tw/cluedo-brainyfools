@@ -1,31 +1,76 @@
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 1000px) {
   body {
     width: 80%;
     margin: auto;
   }
-} 
+}
 
 .board {
   width: 75%;
   margin: 5px;
   border: 2px solid black;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#current-player {
+  border: 2px solid black;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  border-radius: 8%;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#current-player div span {
+  padding: 2px 0px;
 }
 
 #all-players {
-  border: 1px solid black;
-  margin: auto;
-  height: 99%;
-  width: 99%;
+  /* border: 2px solid black; */
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
 }
 
-#activity-box{
-  border: 1px solid black;
-  margin: auto;
-  height: 99%;
-  width: 99%;
+.active {
+  border: 4px solid chocolate;
 }
 
-.board #cards{
+#all-players div {
+  border: 2px solid black;
+  border-radius: 8%;
+  padding: 3px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#all-players div span {
+  padding: 2px 0px;
+}
+
+#activity-box {
+  border: 2px solid black;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+.board #cards {
   display: flex;
   max-height: 20vh;
   width: auto;
@@ -39,25 +84,25 @@
   justify-content: center;
 }
 
-.board #cards img{
+.board #cards img {
   width: 4vw;
   margin: 0px 5px;
 }
 
 main #title {
   font-size: 1.5vw;
-  padding : 10px;
+  padding: 10px;
   text-align: center;
 }
 
 body {
   display: flex;
-  height : 99vh;
+  height: 99vh;
 }
 
 main {
   display: flex;
-  margin : 8px 2px;
+  margin: 8px 2px;
   flex-grow: 1;
   border: 3px solid black;
   height: 97vh;
