@@ -55,9 +55,26 @@ const redirectToGame = function(req,res,next){
   next();
 };
 
+const restrictExtraPlayer = function (req,res,next) {
+  let {gameId} = req.params;
+  let game = req.app.games[gameId];
+  if(!game.haveAllPlayersJoined()) {
+    next();
+    return;
+  }
+  let message = `All players have already joined in Game:${gameId}`;
+  res.cookie('invalidGameId',message);
+  res.redirect('/game');
+};
+
 module.exports = {
-  serveEnrollingForm: [redirectToGame,sendPlayerToWaitPage,serveEnrollingForm],
-  addPlayerToGame: [redirectToGame,
-    sendPlayerToWaitPage,verifyName,addPlayerToGame],
+  serveEnrollingForm: [
+    redirectToGame,
+    restrictExtraPlayer,sendPlayerToWaitPage,
+    serveEnrollingForm],
+  addPlayerToGame: [
+    redirectToGame,restrictExtraPlayer,
+    sendPlayerToWaitPage,verifyName,
+    addPlayerToGame],
   redirectToGame
 };

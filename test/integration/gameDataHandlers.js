@@ -44,7 +44,7 @@ describe('app', () => {
                     "name": "Col. Mustard"
                   }
                 }
-              }
+              };
               request(app).get('/game/1234/data')
                 .expect((res) => {
                   assert.deepEqual(res.body, expected);

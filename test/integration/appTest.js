@@ -146,7 +146,7 @@ describe('app', () => {
                   .cookie.include('playerId', '3;')
                   .end(()=>{
                     //Joining as a 4th Player in a 3 player game
-                    request(app).post('/game/join').send("gameId=1234")
+                    request(app).post('/game/join/1234').send("name=Neeraj")
                       .redirectsTo('/game')
                       .cookie.include('invalidGameId',encodeURI(message))
                       .cookie.include('invalidGameId',`${gameId}`)

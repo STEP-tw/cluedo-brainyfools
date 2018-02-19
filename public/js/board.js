@@ -10,15 +10,15 @@ const setCurrentPlayer = function (player) {
   document.querySelector('#player-token')
     .setAttribute('fill',player.character.color);
   pd.innerHTML = `<span>${player.name}</span> 
-    <span>${player.character.name}</span>`
-}
+    <span>${player.character.name}</span>`;
+};
 
 const setOtherPlayer = function (player) {
   document.querySelector('#all-players').innerHTML +=
     `<div style="color:${player.character.color}">
      <span>${player.name}</span> 
      <span>${player.character.name}</span></div>`;
-}
+};
 
 const fillPlayerDetails = function (data) {
   let playerDetails = JSON.parse(data);
@@ -46,14 +46,14 @@ const getCookie = function (cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
   let ca = decodedCookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
+  for (let index = 0; index < ca.length; index++) {
+    let cookie = ca[index];
+    while (cookie.charAt(0) == ' ') {
+      cookie = cookie.substring(1);
     }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
+    if (cookie.indexOf(name) == 0) {
+      return cookie.substring(name.length, cookie.length);
     }
   }
   return "";
-}
+};

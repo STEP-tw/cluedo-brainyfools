@@ -5,7 +5,7 @@ const app = require('../../app.js');
 const idGen = app.idGenerator;
 describe('app', () => {
   before(() => {
-    app.games = {}
+    app.games = {};
     app.idGenerator = () => {
       return 123;
     };
@@ -33,7 +33,7 @@ describe('app', () => {
                     count: 1,
                     start: false,
                     link: '/game/1234'
-                  }
+                  };
                   assert.deepEqual(res.body, expected);
                 })
                 .end(done);
