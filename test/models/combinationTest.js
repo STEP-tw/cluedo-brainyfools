@@ -7,37 +7,52 @@ describe('Combination', function(){
 
   describe('#room', function(){
     it('should return a room card',function() {
-      let combination = new Combination('Hall','Candlestick','Madhuri');
       let hallCard = new Card('Hall','Room');
+      let candlestickCard = new Card('Candlestick','Weapon');
+      let patelCard = new Card('Patel','Character');
+      let combination = new Combination(hallCard,candlestickCard,patelCard);
       assert.deepEqual(combination.room,hallCard);
     });
   });
   describe('#weapon', function(){
     it('should return a weapon card',function() {
-      let combination = new Combination('Hall','Candlestick','Madhuri');
+      let hallCard = new Card('Hall','Room');
       let candlestickCard = new Card('Candlestick','Weapon');
+      let patelCard = new Card('Patel','Character');
+      let combination = new Combination(hallCard,candlestickCard,patelCard);
       assert.deepEqual(combination.weapon,candlestickCard);
     });
   });
   describe('#character', function(){
     it('should return a character card',function() {
-      let combination = new Combination('Hall','Candlestick','Madhuri');
-      let madhuriCard = new Card('Madhuri','Character');
-      assert.deepEqual(combination.character,madhuriCard);
+      let hallCard = new Card('Hall','Room');
+      let candlestickCard = new Card('Candlestick','Weapon');
+      let patelCard = new Card('Patel','Character');
+      let combination = new Combination(hallCard,candlestickCard,patelCard);
+      assert.deepEqual(combination.character,patelCard);
     });
   });
   describe('#isEqualTo', function(){
     it('should check if the cards are same', function(){
-      let combination = new Combination('Hall','Rope','Patel');
-      let dummyCombination = new Combination('Hall','Rope','Patel');
-      assert.isOk(combination.isEqualTo(dummyCombination));
-      let wrongCombination = new Combination('Hall','Danda','Patel');
-      assert.isNotOk(combination.isEqualTo(wrongCombination));
+      let hallCard = new Card('Hall','Room');
+      let candlestickCard = new Card('Candlestick','Weapon');
+      let ropeCard = new Card('Rope','Weapon');
+      let patelCard = new Card('Patel','Character');
+      let madhuriCard = new Card('Madhuri','Character');
+      let combination = new Combination(hallCard,candlestickCard,patelCard);
+      let combination2 = new Combination(hallCard,candlestickCard,patelCard);
+      assert.isOk(combination.isEqualTo(combination2));
+      let badCombination = new Combination(hallCard,ropeCard,madhuriCard);
+      assert.isNotOk(combination.isEqualTo(badCombination));
     });
   });
+
   describe('#contains', function(){
     it('should check whether combination contains the card', function(){
-      let combination = new Combination('Hall','Rope','Patel');
+      let hallCard = new Card('Hall','Room');
+      let ropeCard = new Card('Rope','Weapon');
+      let patelCard = new Card('Patel','Character');
+      let combination = new Combination(hallCard,ropeCard,patelCard);
       let card = new Card('Hall','Room');
       assert.isOk(combination.contains(card));
       let wrongCard = new Card('Study','Room');
