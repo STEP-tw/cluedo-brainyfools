@@ -63,4 +63,45 @@ describe('Game',()=>{
     });
   });
 
+  describe('#getAllPlayerDetails', function () {
+    it('should return details of 1 players', function () {
+      game.addPlayer("Madhuri", 1);
+      let expected = {
+        1: {
+          name: "Madhuri",
+          character: {
+            name: "Miss Scarlett",
+            color: "#bf0000"
+          }
+        }
+      };
+      assert.deepEqual(game.getAllPlayerDetails(), expected);
+    });
+    it('should return empty for no players', function () {
+      let expected = {
+      };
+      assert.deepEqual(game.getAllPlayerDetails(), expected);
+    });
+    it('should return details of 2 players', function () {
+      game.addPlayer("Madhuri", 1);
+      game.addPlayer("Neeraj", 23);
+      let expected = {
+        1: {
+          name: "Madhuri",
+          character: {
+            name: "Miss Scarlett",
+            color: "#bf0000"
+          }
+        },
+        23: {
+          name: "Neeraj",
+          character: {
+            "color": "#ffdb58",
+            "name": "Col. Mustard"
+          }
+        }
+      };
+      assert.deepEqual(game.getAllPlayerDetails(), expected);
+    });
+  });
 });
