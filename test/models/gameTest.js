@@ -104,4 +104,13 @@ describe('Game',()=>{
       assert.deepEqual(game.getAllPlayerDetails(), expected);
     });
   });
+
+  describe("#getPlayerIdByTurn",()=>{
+    it("should return id of player according to turn",()=>{
+      game.addPlayer("Suyog", 1);
+      game.addPlayer("Bhanu", 2);
+      game.addPlayer("Omkar", 3);
+      assert.equal(game.getPlayerIdByTurn(),1);
+    });
+  });
 });

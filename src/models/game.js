@@ -7,12 +7,17 @@ class Game {
     this.numberOfPlayers = numberOfPlayers;
     this.players = {};
     this.playerCount=0;
+    this._turn=1;
   }
   addPlayer(name,id){
     let character = characterData[++this.playerCount];
     character=new Character(character,this.playerCount);
     let player = new Player(name,character);
     this.players[id] = player;
+  }
+  getPlayerIdByTurn(){
+    let listOfPlayerIds=Object.keys(this.players);
+    return listOfPlayerIds[this._turn-1];
   }
   getPlayerCount(){
     return this.playerCount;
@@ -33,7 +38,8 @@ class Game {
         character : {
           name : player.character.name,
           color: player.character.tokenColor
-        }};
+        }
+      };
       return details;
     },{});
   }
