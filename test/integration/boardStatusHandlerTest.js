@@ -3,7 +3,7 @@ const request = require('supertest');
 const app = require('../../app.js');
 
 const idGen = app.idGenerator;
-describe('app', () => {
+describe('boardStatusHandler', () => {
   before(() => {
     app.idGenerator = () => {
       return 123;
@@ -35,7 +35,9 @@ describe('app', () => {
                   let expected = [
                     {
                       "name":"Miss Scarlett",
-                      "position":1}
+                      "position":1,
+                      "start":true
+                    }
                   ];
                   assert.deepEqual(res.body, expected);
                 })

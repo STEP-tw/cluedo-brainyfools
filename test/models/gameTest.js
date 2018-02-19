@@ -113,11 +113,13 @@ describe('Game',()=>{
       let expected = [
         {
           name: "Miss Scarlett",
-          position:1
+          position:1,
+          start:true
         },
         {
           "name": "Col. Mustard",
-          position:11
+          position:11,
+          start:true
         }
       ];
 

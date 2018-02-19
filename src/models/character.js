@@ -18,6 +18,9 @@ class Character {
   get turn(){
     return this._turn;
   }
+  get start(){
+    return this._start;
+  }
 }
 
 module.exports = Character;

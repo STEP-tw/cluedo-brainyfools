@@ -43,7 +43,8 @@ class Game {
       let char = player.character;
       return {
         name:char.name,
-        position:char.position
+        position:char.position,
+        start : char.start
       };
     });
   }
