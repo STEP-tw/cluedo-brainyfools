@@ -11,7 +11,10 @@ const enrollGameHandlers = require('./src/routes/enrollGameHandlers.js');
 const redirectToGame = enrollGameHandlers.redirectToGame;
 const waitingPageHandlers = require('./src/routes/waitingPageHandlers.js');
 const {serveWaitingPage} = waitingPageHandlers;
-const serveGamePage= require('./src/routes/serveGamePageHandler.js');
+const serveGamePage = require('./src/routes/serveGamePageHandler.js');
+const boardStatusHandler = require('./src/routes/boardStatusHandler');
+const turnHandler = require('./src/routes/turnHandler');
+
 const app = express();
 
 app.fs = fs;
@@ -32,17 +35,19 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(logRequest);
 
-app.get('/game/:gameId/data',redirectToGame,setGame,serveGameData);
-app.get('/game/:gameId',redirectToGame,setGame,serveGamePage);
-app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
-app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
-app.get('/game/:gameId/wait',redirectToGame,setGame,serveWaitingPage);
 app.get(['/','/game'],homePageHandler.servePage);
 app.post('/game/new',homePageHandler.createGame);
 app.post('/game/join',homePageHandler.joinGame);
+app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
+app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
+app.get('/game/:gameId/wait',redirectToGame,setGame,serveWaitingPage);
 app.get('/game/:gameId/numOfPlayers',waitingPageHandlers.getNumOfPlayers);
 app.get('/game/:gameId/status',setGame,getCurrentTurn);
+app.get('/game/:gameId/boardstatus',redirectToGame,setGame,boardStatusHandler);
+app.get('/game/:gameId',redirectToGame,setGame,serveGamePage);
+app.get('/game/:gameId/data',redirectToGame,setGame,serveGameData);
 
+app.get('/game/:gameId/rollDice',redirectToGame,setGame, turnHandler.rollDice);
 app.use(express.static('public'));
 
 module.exports = app;

@@ -2,18 +2,9 @@ const getWaitingPage = function(req,gameId,playerName,numOfPlayers){
   let waitingPage = req.app.fs.readFileSync('templates/waitingPage','utf8');
   waitingPage = waitingPage.replace('{{ gameId }}',gameId)
     .replace('{{ player }}',playerName)
+    .replace('{{ noofplayers }}',req.game.getPlayerCount())
     .replace('{{ totalPlayers }}',numOfPlayers);
   return waitingPage;
-};
-
-const redirectToGame = function(req,res,next){
-  let {gameId} = req.params;
-  let game = req.game;
-  if(!req.app.games[gameId]){
-    res.redirect('/game');
-    return;
-  }
-  next();
 };
 
 const serveWaitingPage = function(req,res){
@@ -35,18 +26,7 @@ const getNumOfPlayers = function(req,res) {
   });
 };
 
-const redirectToPlay = function(req,res,next){
-  let {gameId} = req.params;
-  let game = req.app.games[gameId];
-  if(game.haveAllPlayersJoined()){
-    res.redirect(`/game/${gameId}`);
-    return;
-  }
-  next();
-};
-
 module.exports = {
-  serveWaitingPage:[redirectToPlay,serveWaitingPage],
-  getNumOfPlayers:[getNumOfPlayers],
-  redirectToGame
+  serveWaitingPage:[serveWaitingPage],
+  getNumOfPlayers:[getNumOfPlayers]
 };

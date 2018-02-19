@@ -20,7 +20,8 @@ describe('Game',()=>{
           "_name":"Miss Scarlett",
           "_tokenColor":"#bf0000",
           "_position":1,
-          "_turn":1
+          "_turn":1,
+          "_start" : true
         }
       };
       assert.deepEqual(actualOutput,expectedOutput);
@@ -111,6 +112,37 @@ describe('Game',()=>{
       game.addPlayer("Bhanu", 2);
       game.addPlayer("Omkar", 3);
       assert.equal(game.getPlayerIdByTurn(),1);
+    });
+  });
+  describe('#getPlayersPosition', function(){
+    it('should return all player\'s positions', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      let actualOutput = game.getPlayersPosition();
+      let expected = [
+        {
+          name: "Miss Scarlett",
+          position:1,
+          start:true
+        },
+        {
+          "name": "Col. Mustard",
+          position:11,
+          start:true
+        }
+      ];
+
+      assert.deepEqual(actualOutput,expected);
+    });
+  });
+
+  describe('#rollDice',()=>{
+    it('should return value ranging from 1 to 6',()=>{
+      for (let index = 0; index < 10; index++) {
+        let val = game.rollDice();
+        assert.isAbove(val,0);
+        assert.isBelow(val,7);
+      };
     });
   });
 });

@@ -1,9 +1,10 @@
 class Character {
-  constructor(character,turn) {
+  constructor(character) {
     this._name = character.name;
     this._tokenColor = character.color;
     this._position = character.position;
-    this._turn = turn;
+    this._turn = character.turn;
+    this._start = true;
   }
   get name(){
     return this._name;
@@ -16,6 +17,9 @@ class Character {
   }
   get turn(){
     return this._turn;
+  }
+  get start(){
+    return this._start;
   }
 }
 

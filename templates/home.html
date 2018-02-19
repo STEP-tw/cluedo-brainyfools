@@ -18,7 +18,7 @@
       document.getElementById(cityName).style.display = "block";
       evt.currentTarget.className += " active";
     }
-    window.onload = () => document.getElementById("defaultOpen").click();
+    window.onload = () => document.getElementById('{{default}}').click();
   </script>
   <link rel="stylesheet" href="/css/home.css">
 </head>
@@ -27,8 +27,8 @@
   <h1>CLUEDO</h1>
   <main>
     <div class="tab">
-      <button class="tablinks" onclick="openCity(event, 'creategame')" id="defaultOpen">Create Game</button>
-      <button class="tablinks" onclick="openCity(event, 'joingame')">Join Game</button>
+      <button class="tablinks" onclick="openCity(event, 'creategame')" id="create">Create Game</button>
+      <button class="tablinks" onclick="openCity(event, 'joingame')" id="join">Join Game</button>
     </div>
 
     <div class="tabcontent" id="creategame">

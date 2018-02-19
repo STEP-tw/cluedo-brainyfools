@@ -3,20 +3,23 @@ const request = require('supertest');
 const app = require('../../app.js');
 
 const idGen = app.idGenerator;
-describe('app', () => {
+describe('turnHandler', () => {
   before(() => {
-    app.games = {};
     app.idGenerator = () => {
       return 123;
     };
+  });
+
+  beforeEach(()=>{
+    app.games = {};
   });
 
   after(() => {
     app.idGenerator = idGen;
   });
 
-  describe('GET game/1234/numOfPlayers', () => {
-    it('should return number of players who have joined the game', done => {
+  describe('GET game/1234/rolldice', () => {
+    it('should give a value when player rolls a dice', done => {
       request(app)
         .post('/game/new')
         .send('numberOfPlayers=3')
@@ -27,27 +30,15 @@ describe('app', () => {
             .set('cookie', `playerId=123`)
             .end(() => {
               request(app)
-                .get('/game/1234/numOfPlayers')
+                .get('/game/1234/rolldice')
                 .expect((res) => {
-                  let expected = {
-                    count: 1,
-                    start: false,
-                    link: '/game/1234'
-                  };
-                  assert.deepEqual(res.body, expected);
+                  let actual = res.body['value'];
+                  assert.isAbove(actual,0);
+                  assert.isBelow(actual,7);
                 })
                 .end(done);
             });
         });
-    });
-  });
-
-  describe('GET /game/234/wait',()=>{
-    it('should redirect to home page if game has not been created',done=>{
-      request(app)
-        .get('/game/2344/wait')
-        .redirectsTo('/game')
-        .end(done);
     });
   });
 });

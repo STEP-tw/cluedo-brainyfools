@@ -3,19 +3,22 @@ const request = require('supertest');
 const app = require('../../app.js');
 
 const idGen = app.idGenerator;
-describe('app', () => {
+describe('boardStatusHandler', () => {
   before(() => {
-    app.games = {};
     app.idGenerator = () => {
       return 123;
     };
+  });
+
+  beforeEach(()=>{
+    app.games = {};
   });
 
   after(() => {
     app.idGenerator = idGen;
   });
 
-  describe('GET game/1234/numOfPlayers', () => {
+  describe('GET game/1234/boardstatus', () => {
     it('should return number of players who have joined the game', done => {
       request(app)
         .post('/game/new')
@@ -27,27 +30,20 @@ describe('app', () => {
             .set('cookie', `playerId=123`)
             .end(() => {
               request(app)
-                .get('/game/1234/numOfPlayers')
+                .get('/game/1234/boardstatus')
                 .expect((res) => {
-                  let expected = {
-                    count: 1,
-                    start: false,
-                    link: '/game/1234'
-                  };
+                  let expected = [
+                    {
+                      "name":"Miss Scarlett",
+                      "position":1,
+                      "start":true
+                    }
+                  ];
                   assert.deepEqual(res.body, expected);
                 })
                 .end(done);
             });
         });
-    });
-  });
-
-  describe('GET /game/234/wait',()=>{
-    it('should redirect to home page if game has not been created',done=>{
-      request(app)
-        .get('/game/2344/wait')
-        .redirectsTo('/game')
-        .end(done);
     });
   });
 });

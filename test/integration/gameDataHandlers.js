@@ -7,7 +7,12 @@ let games = app.games;
 const idGen = app.idGenerator;
 
 describe('app', () => {
-  beforeEach(() => {
+  beforeEach((done) => {
+    app.games = {};
+    request(app)
+      .post('/game/new')
+      .send('numberOfPlayers=3')
+      .end(done);
     app.idGenerator = () => {
       return 123;
     };
