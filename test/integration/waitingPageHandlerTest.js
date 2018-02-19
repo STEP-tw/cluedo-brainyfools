@@ -41,4 +41,13 @@ describe('app', () => {
         });
     });
   });
+
+  describe('GET /game/234/wait',()=>{
+    it('should redirect to home page if game has not been created',done=>{
+      request(app)
+        .get('/game/2344/wait')
+        .redirectsTo('/game')
+        .end(done);
+    });
+  });
 });
