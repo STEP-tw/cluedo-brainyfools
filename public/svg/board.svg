@@ -7,15 +7,15 @@
   </g>
  </g>
  <g>
-  <path fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" d="m866.5,201.449997l83.5,-0.449997l0,-188l-144,-1l0,71l61,0l-0.5,118.449997z" id="study"/>
-  <path fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" d="m748.5,562.450012l-0.5,60.549988l202,0l0,-120l-84,0l0,59l-117.5,0.450012z" id="lounge"/>
-  <path fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" d="m116.5,501.450012l-107.5,-0.450012l0,121l260,0l0,-59l-152,0l-0.5,-61.549988z" id="kitchen"/>
-  <path fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" d="m237.5,82.449997l-0.5,-70.449997l-227,-1l0,161l106,0l0,-91l121.5,1.449997z" id="conservatory"/>
-  <rect id="billiard" height="68.999997" width="179.999992" y="13.450006" x="356.50001" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
-  <rect id="library" height="68.999997" width="180.000006" y="13.450003" x="566.499993" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
-  <rect id="hall" height="180" width="83.999996" y="232.450001" x="866.499997" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
-  <rect id="dining" height="60.000003" width="269.999977" y="562.450008" x="356.499998" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
-  <rect id="ballroom" height="210" width="105" y="232.450001" x="11.499999" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
+  <path fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" d="m866.5,201.449997l83.5,-0.449997l0,-188l-144,-1l0,71l61,0l-0.5,118.449997z" class="room" id="study"/>
+  <path fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" d="m748.5,562.450012l-0.5,60.549988l202,0l0,-120l-84,0l0,59l-117.5,0.450012z" class="room" id="lounge"/>
+  <path fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" d="m116.5,501.450012l-107.5,-0.450012l0,121l260,0l0,-59l-152,0l-0.5,-61.549988z" class="room" id="kitchen"/>
+  <path fill="#ffffff" stroke="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" d="m237.5,82.449997l-0.5,-70.449997l-227,-1l0,161l106,0l0,-91l121.5,1.449997z" class="room" id="conservatory"/>
+  <rect class="room" id="billiard" height="68.999997" width="179.999992" y="13.450006" x="356.50001" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
+  <rect class="room" id="library" height="68.999997" width="180.000006" y="13.450003" x="566.499993" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
+  <rect class="room" id="hall" height="180" width="83.999996" y="232.450001" x="866.499997" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
+  <rect class="room" id="dining" height="60.000003" width="269.999977" y="562.450008" x="356.499998" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
+  <rect class="room" id="ballroom" height="210" width="105" y="232.450001" x="11.499999" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
 
   <rect id="42" height="30" width="30" y="112.449997" x="116.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
   <rect id="41" height="30" width="30" y="142.449997" x="116.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>

@@ -4,6 +4,7 @@ let sendAjaxRequest = function (method, url, cb, data = '') {
   let req = new XMLHttpRequest();
   req.open(method, url);
   req.addEventListener('load', () => cb(req.responseText));
+  req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
   req.send(data);
 };
 
@@ -18,7 +19,7 @@ const setCurrentPlayer = function (player) {
 
 const setOtherPlayer = function (player, id) {
   document.querySelector('#all-players').innerHTML +=
-    `<div style="color:${player.character.color}" 
+    `<div style="color:${player.character.color}"
     id='turn_${player.character.turn}'>
      <span>${player.name}</span>
      <span>${player.character.name}</span></div>`;
@@ -39,6 +40,7 @@ const getPlayerDetails = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/data`, fillPlayerDetails);
 };
+
 
 window.onload = function () {
   let url = getBaseUrl();
