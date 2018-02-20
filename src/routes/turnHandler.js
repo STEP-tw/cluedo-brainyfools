@@ -18,6 +18,7 @@ const checkTurn = function(req,res, next){
 const validateData = function(req,res,next){
   if(req.body.position){
     next();
+    return;
   }
   res.json({error:"Provide position to move"});
 };
@@ -27,6 +28,7 @@ const validateMove = function(req,res, next){
   let pos = req.body.position;
   if(game.validateMove(pos)){
     next();
+    return;
   }
   res.json({error:"Invalid move"});
 };

@@ -248,6 +248,8 @@ describe('Game', () => {
       assert.isOk(game.validateMove(2));
       game.diceVal = 5;
       assert.isOk(game.validateMove(5));
+      game.diceVal = 79;
+      assert.isOk(game.validateMove(1));
     });
     it('should return true for valid backward move', () => {
       game.addPlayer("Pranav", 1);
@@ -273,6 +275,7 @@ describe('Game', () => {
       assert.isFalse(game.validateMove(74));
     });
   });
+
   describe('#getPlayerdata', function(){
     it('should return player data of given id', function(){
       game.addPlayer("Pranav", 1);
@@ -287,6 +290,24 @@ describe('Game', () => {
         cards:[]
       };
       assert.deepEqual(game.getPlayerData(1),expected);
+    });
+  });
+
+  describe('#updatePlayerPos()',()=>{
+    it('should update player\'s position',()=>{
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 2;
+      assert.isOk(game.updatePlayerPos(75));
+      let player = game.players[1];
+      let characterPos = player.character.position;
+      assert.equal(characterPos,75);
+      assert.isFalse(player.character.start);
+    });
+    it('should return false if already moved',()=>{
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 2;
+      game.updatePlayerPos(2);
+      assert.isFalse(game.updatePlayerPos(3));
     });
   });
 });

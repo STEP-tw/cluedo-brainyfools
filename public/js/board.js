@@ -4,7 +4,7 @@ let sendAjaxRequest = function (method, url, cb, data = '') {
   let req = new XMLHttpRequest();
   req.open(method, url);
   req.addEventListener('load', () => cb(req.responseText));
-  req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+  req.setRequestHeader("Content-Type","application/json");
   req.send(data);
 };
 

@@ -4,6 +4,7 @@ const updateTokenPos = function(positions){
     if(!char.start){
       let id = name.split(' ').pop().toLowerCase();
       updateCharPosition(id, char.position);
+      document.getElementById('board').onclick=null;
     }
   });
 };
@@ -25,7 +26,8 @@ const showBoardStatus = function() {
 };
 
 const isRoom=function(id){
-  let className=document.getElementById(`${id}`).className;
+  let boardElement=document.getElementById(`${id}`);
+  let className=boardElement && boardElement.className;
   return className=="room";
 };
 
@@ -39,7 +41,7 @@ const validatePosition = function(event) {
   if(isRoom(id)||isPath(id)){
     sendAjaxRequest("post",`${url}/move`,(res)=>{
       res = JSON.parse(res);
-    },`position=${id}`);
+    },`{"position":${id}}`);
   }
 };
 

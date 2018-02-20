@@ -124,22 +124,25 @@ class Game {
   validateMove(pos){
     let currentPlayerId = this.getCurrentPlayerId();
     let currentPlayer = this.getPlayer(currentPlayerId);
-    if(currentPlayer.character.start){
-      this.diceVal--;
-    }
+    let val = this.diceVal;
+    currentPlayer.character.start && val--;
     let currentPlayerPos = currentPlayer.character.position;
-    let newPos = currentPlayerPos + this.diceVal % 79;
-    let newPos2 = (78 + (currentPlayerPos - this.diceVal)) % 79;
-    if(newPos == 0) {
-      newPos++;
+    let forwardPos = (currentPlayerPos + val) % 79;
+    let backPos = (78 + (currentPlayerPos - val)) % 79;
+    if(forwardPos == 0) {
+      forwardPos++;
     }
-    return pos == newPos || pos == newPos2;
+    return +pos == forwardPos || +pos == backPos;
   }
 
   updatePlayerPos(pos){
+    if(this.playerMoved){
+      return false;
+    }
     let currentPlayerId = this.getCurrentPlayerId();
+    this.playerMoved = true;
     let currentPlayer = this.getPlayer(currentPlayerId);
-    return currentPlayer.updatePos(pos);
+    return currentPlayer.updatePos(+pos);
   }
 }
 
