@@ -4,7 +4,15 @@ const rollDice = function(req,res){
 };
 
 const checkTurn = function(req,res, next){
-  next();
+  let game = req.game;
+  let {playerId} = req.cookies;
+  if(game.isCurrentPlayer(playerId)){
+    next();
+    return;
+  }
+  res.json({
+    error:"Not your turn."
+  });
 };
 
 module.exports = {

@@ -19,35 +19,39 @@ const app = express();
 
 app.fs = fs;
 app.games = {};
-app.idGenerator = ()=>{
+app.idGenerator = () => {
   return new Date().getTime();
 };
 
-const setGame = function(req,res,next){
+const setGame = function (req, res, next) {
   let {gameId} = req.params;
   let game = req.app.games[gameId];
   req.game = game;
   next();
 };
 
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(logRequest);
 
-app.get(['/','/game'],homePageHandler.servePage);
-app.post('/game/new',homePageHandler.createGame);
-app.post('/game/join',homePageHandler.joinGame);
-app.get('/game/join/:gameId',enrollGameHandlers.serveEnrollingForm);
-app.post('/game/join/:gameId',enrollGameHandlers.addPlayerToGame);
-app.get('/game/:gameId/wait',redirectToGame,setGame,serveWaitingPage);
-app.get('/game/:gameId/numOfPlayers',waitingPageHandlers.getNumOfPlayers);
-app.get('/game/:gameId/status',setGame,getCurrentTurn);
-app.get('/game/:gameId/boardstatus',redirectToGame,setGame,boardStatusHandler);
-app.get('/game/:gameId',redirectToGame,setGame,serveGamePage);
-app.get('/game/:gameId/data',redirectToGame,setGame,serveGameData);
+app.use('/game/:gameId([\\d]+)', redirectToGame, setGame);
+app.use('/game/join/:gameId([\\d]+)', redirectToGame, setGame);
 
-app.get('/game/:gameId/rollDice',redirectToGame,setGame, turnHandler.rollDice);
+app.get(['/', '/game'], homePageHandler.servePage);
+app.post('/game/new', homePageHandler.createGame);
+app.post('/game/join', homePageHandler.joinGame);
+app.get('/game/join/:gameId', enrollGameHandlers.serveEnrollingForm);
+app.post('/game/join/:gameId', enrollGameHandlers.addPlayerToGame);
+
+app.get('/game/:gameId/wait', serveWaitingPage);
+app.get('/game/:gameId/numOfPlayers', waitingPageHandlers.getNumOfPlayers);
+app.get('/game/:gameId/status', getCurrentTurn);
+app.get('/game/:gameId/boardstatus', boardStatusHandler);
+app.get('/game/:gameId', serveGamePage);
+app.get('/game/:gameId/data', serveGameData);
+
+app.get('/game/:gameId/rollDice', turnHandler.rollDice);
 app.use(express.static('public'));
 
 module.exports = app;

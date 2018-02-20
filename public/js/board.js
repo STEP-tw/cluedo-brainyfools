@@ -1,3 +1,5 @@
+let playerTurn = 0;
+
 let sendAjaxRequest = function (method, url, cb, data = '') {
   let req = new XMLHttpRequest();
   req.open(method, url);
@@ -7,15 +9,17 @@ let sendAjaxRequest = function (method, url, cb, data = '') {
 
 const setCurrentPlayer = function (player) {
   let pd = document.querySelector('#current-player');
+  playerTurn = player.character.turn;
   document.querySelector('#player-token')
-    .setAttribute('fill',player.character.color);
+    .setAttribute('fill', player.character.color);
   pd.innerHTML = `<span>${player.name}</span>
     <span>${player.character.name}</span>`;
 };
 
-const setOtherPlayer = function (player,id) {
+const setOtherPlayer = function (player, id) {
   document.querySelector('#all-players').innerHTML +=
-    `<div style="color:${player.character.color}" id=${id}>
+    `<div style="color:${player.character.color}" 
+    id='turn_${player.character.turn}'>
      <span>${player.name}</span>
      <span>${player.character.name}</span></div>`;
 };
@@ -27,7 +31,7 @@ const fillPlayerDetails = function (data) {
   players.forEach(id => {
     let player = playerDetails[id];
     playerId == id && setCurrentPlayer(player);
-    setOtherPlayer(player,id);
+    setOtherPlayer(player, id);
   });
 };
 
@@ -37,18 +41,21 @@ const getPlayerDetails = function () {
 };
 
 window.onload = function () {
-  let url = window.location.pathname;
+  let url = getBaseUrl();
   setInterval(function () {
-    sendAjaxRequest('get',`${url}/status`,(res)=>{
-      res=JSON.parse(res);
-      document.getElementById(`${res['id']}`).style.border ='4px solid blue';
+    sendAjaxRequest('get', `${url}/status`, (res) => {
+      res = JSON.parse(res);
+      let turn = res.currentPlayer.character.turn;
+      if (playerTurn == turn) {
+        enableRollDice();
+      }
+      document.getElementById(`turn_${turn}`).style.border = '4px solid blue';
     });
-  },1000);
+  }, 1000);
   sendAjaxRequest('get', '/svg/board.svg', (res) => {
     document.querySelector('#board').innerHTML = res;
     getPlayerDetails();
     showBoardStatus();
-    enableRollDice();
   });
 };
 

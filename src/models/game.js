@@ -11,69 +11,82 @@ class Game {
     this.cardHandler = new CardHandler();
     this.murderCombination = {};
     this.started = false;
-    this._turn=1;
+    this._turn = 1;
   }
-  addPlayer(name,id){
+  addPlayer(name, id) {
     let character = characterData[++this.playerCount];
     character = new Character(character);
-    let player = new Player(name,character);
+    let player = new Player(name, character);
     this.players[id] = player;
   }
-  getMurderCombination(){
+  getMurderCombination() {
     return this.murderCombination;
   }
-  getPlayerIdByTurn(){
-    let listOfPlayerIds=Object.keys(this.players);
-    return listOfPlayerIds[this._turn-1];
+  getCurrentPlayer() {
+    let players = Object.keys(this.players);
+    let playerId = players.find(playerId => {
+      let player = this.players[playerId];
+      return player.character.turn == this._turn;
+    });
+
+    return this.getPlayerDetails(playerId);
   }
-  getPlayerCount(){
+  getPlayerCount() {
     return this.playerCount;
   }
-  getPlayer(playerId){
+  getPlayer(playerId) {
     return this.players[playerId];
   }
-  haveAllPlayersJoined(){
+  haveAllPlayersJoined() {
     return this.numberOfPlayers == this.playerCount;
   }
-
-  getAllPlayerDetails(){
-    let players = Object.keys(this.players);
-    return players.reduce((details,playerId)=>{
-      let player = this.players[playerId];
-      details[playerId] = {
-        name: player.name,
-        character : {
-          name : player.character.name,
-          color: player.character.tokenColor
-        }
-      };
-      return details;
-    },{});
+  isCurrentPlayer(playerId){
+    let player = this.getPlayer(playerId);
+    return player && player.character.turn == this._turn;
   }
-
-  getPlayersPosition(){
-    return Object.values(this.players).map((player)=>{
+  getAllPlayerDetails(Id) {
+    let players = Object.keys(this.players);
+    return players.reduce((details, playerId, index) => {
+      let player = this.players[playerId];
+      let id = playerId == Id ? Id : index + 1;
+      details[id] = this.getPlayerDetails(playerId);
+      return details;
+    }, {});
+  }
+  getPlayerDetails(id) {
+    let player = this.players[id];
+    return {
+      name: player.name,
+      character: {
+        name: player.character.name,
+        color: player.character.tokenColor,
+        turn:player.character.turn
+      }
+    };
+  }
+  getPlayersPosition() {
+    return Object.values(this.players).map((player) => {
       let char = player.character;
       return {
-        name:char.name,
-        position:char.position,
-        start : char.start
+        name: char.name,
+        position: char.position,
+        start: char.start
       };
     });
   }
-  hasStarted(){
+  hasStarted() {
     return this.started;
   }
-  start(){
+  start() {
     this.setMurderCombination();
     this.started = true;
   }
-  setMurderCombination(){
+  setMurderCombination() {
     this.murderCombination = this.cardHandler.getRandomCombination();
   }
-  rollDice(){
-    if(!this.diceVal){
-      this.diceVal = Math.ceil(Math.random()*6);
+  rollDice() {
+    if (!this.diceVal) {
+      this.diceVal = Math.ceil(Math.random() * 6);
     }
     return this.diceVal;
   }
