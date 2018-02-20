@@ -284,5 +284,11 @@ describe('Game', () => {
       assert.equal(characterPos,75);
       assert.isFalse(player.character.start);
     });
+    it('should return false if already moved',()=>{
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 2;
+      game.updatePlayerPos(2);
+      assert.isFalse(game.updatePlayerPos(3));
+    });
   });
 });
