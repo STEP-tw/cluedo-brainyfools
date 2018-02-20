@@ -17,7 +17,7 @@ let cardsData = {
   ],
   "Rooms": [
     "Ballroom",
-    "Billiard room",
+    "Billiard Room",
     "Conservatory",
     "Dining Room",
     "Hall",

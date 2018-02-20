@@ -29,6 +29,7 @@ const objectValues = function(obj){
 };
 const fillPlayerDetails = function (data) {
   let playerDetails = JSON.parse(data);
+  console.log(playerDetails);
   let players = Object.keys(playerDetails);
   let playerId = getCookie('playerId');
   players.forEach(id => {
