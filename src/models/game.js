@@ -43,14 +43,25 @@ class Game {
     let player = this.getPlayer(playerId);
     return player && player.character.turn == this._turn;
   }
-  getAllPlayerDetails(Id) {
+
+  getAllPlayerDetails(id) {
     let players = Object.keys(this.players);
     return players.reduce((details, playerId, index) => {
       let player = this.players[playerId];
-      let id = playerId == Id ? Id : index + 1;
-      details[id] = this.getPlayerDetails(playerId);
+      if(playerId == id){
+        details[id] = this.getPlayerData(playerId);
+        return details;
+      }
+      details[index+1] = this.getPlayerDetails(playerId);
       return details;
     }, {});
+  }
+
+  getPlayerData(id){
+    let player = this.players[id];
+    let playerDetails = this.getPlayerDetails(id);
+    playerDetails.cards = player._cards;
+    return playerDetails;
   }
   getPlayerDetails(id) {
     let player = this.players[id];

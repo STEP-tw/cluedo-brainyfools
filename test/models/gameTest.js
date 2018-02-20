@@ -75,7 +75,8 @@ describe('Game', () => {
             name: "Miss Scarlett",
             color: "#bf0000",
             turn:1
-          }
+          },
+          cards:[]
         }
       };
       assert.deepEqual(game.getAllPlayerDetails(1), expected);
@@ -99,6 +100,7 @@ describe('Game', () => {
         },
         23: {
           name: "Neeraj",
+          cards:[],
           character: {
             "color": "#ffdb58",
             "name": "Col. Mustard",
@@ -269,6 +271,22 @@ describe('Game', () => {
       assert.isFalse(game.validateMove(76));
       game.diceVal = 5;
       assert.isFalse(game.validateMove(74));
+    });
+  });
+  describe('#getPlayerdata', function(){
+    it('should return player data of given id', function(){
+      game.addPlayer("Pranav", 1);
+      game.addPlayer("Madhuri", 2);
+      let expected = {
+        name: "Pranav",
+        character: {
+          color: "#bf0000",
+          name: "Miss Scarlett",
+          turn: 1
+        },
+        cards:[]
+      };
+      assert.deepEqual(game.getPlayerData(1),expected);
     });
   });
 });
