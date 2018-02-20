@@ -19,9 +19,6 @@ class CardHandler {
   get weapons(){
     return this._weapons;
   }
-  getRemainingCards(){
-    return this._remainingCards;
-  }
   generateCards(){
     let characterCards = cardsData['Characters'];
     characterCards.forEach((cardName)=>{
@@ -56,11 +53,14 @@ class CardHandler {
   }
   getRandomCard(cards){
     let randomIndex = Math.floor(Math.random()*cards.length);
-    return cards.splice(randomIndex,1);
+    return cards.splice(randomIndex,1)[0];
   }
   gatherRemainingCards(){
-    this.remainingCards = [...this.rooms,...this.weapons,...this.characters];
+    this._remainingCards = [...this.rooms,...this.weapons,...this.characters];
     this._rooms = this._weapons = this._characters = [];
+  }
+  hasRemainingCard(){
+    return this._remainingCards.length != 0;
   }
 }
 

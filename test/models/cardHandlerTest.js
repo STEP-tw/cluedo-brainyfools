@@ -74,13 +74,18 @@ describe('CardHandler', function(){
       let characters = cardHandler.characters;
       let allCards = [...rooms,...weapons,...characters];
       cardHandler.gatherRemainingCards();
-      assert.deepEqual(allCards,cardHandler.remainingCards);
+      assert.deepEqual(allCards,cardHandler._remainingCards);
       assert.deepEqual(cardHandler.rooms,[]);
       assert.deepEqual(cardHandler.weapons,[]);
       assert.deepEqual(cardHandler.characters,[]);
     });
-
   });
-
-
+  describe('#hasRemainingCard', function(){
+    it('should check wheather it has any remaining card', function(){
+      let cardHandler = new CardHandler();
+      assert.isNotOk(cardHandler.hasRemainingCard());
+      cardHandler.gatherRemainingCards();
+      assert.isOk(cardHandler.hasRemainingCard());
+    });
+  });
 });

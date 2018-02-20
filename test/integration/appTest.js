@@ -1,6 +1,7 @@
 const assert = require('chai').assert;
 const request = require('supertest');
 const app = require('../../app.js');
+const Game = require('../../src/models/game.js');
 
 let games = app.games;
 
@@ -75,17 +76,17 @@ describe('app', () => {
 
   describe('GET /game/:gameId',function (){
     it('should serve game page',(done)=>{
+      app.games['1234'] = new Game(3);
+      let game = app.games['1234'];
+      game.addPlayer('Patel',1);
+      game.addPlayer('Pranav',2);
+      game.addPlayer('Madhuri',3);
       request(app)
-        .post('/game/new')
-        .send('numberOfPlayers=3')
-        .end(()=>{
-          request(app)
-            .get('/game/1234')
-            .contentType('text/html; charset=utf-8')
-            .body.include('<div id="title">Activity Log</div>')
-            .expect(200)
-            .end(done);
-        });
+        .get('/game/1234')
+        .contentType('text/html; charset=utf-8')
+        .body.include('<div id="title">Activity Log</div>')
+        .expect(200)
+        .end(done);
     });
     it('should redirect to home page if invalid game id', (done)=>{
       request(app)
@@ -96,6 +97,7 @@ describe('app', () => {
   });
   describe('', function(){
     it('serves enroll form page with message if name is not given', done => {
+      app.games['1234'] = new Game(3);
       request(app)
         .post('/game/join/1234')
         .send("name=")

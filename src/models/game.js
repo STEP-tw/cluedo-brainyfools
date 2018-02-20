@@ -35,7 +35,6 @@ class Game {
   haveAllPlayersJoined(){
     return this.numberOfPlayers == this.playerCount;
   }
-
   getAllPlayerDetails(){
     let players = Object.keys(this.players);
     return players.reduce((details,playerId)=>{
@@ -50,7 +49,6 @@ class Game {
       return details;
     },{});
   }
-
   getPlayersPosition(){
     return Object.values(this.players).map((player)=>{
       let char = player.character;
@@ -66,10 +64,28 @@ class Game {
   }
   start(){
     this.setMurderCombination();
+    this.gatherRemainingCards();
+    this.distributeCards();
     this.started = true;
   }
   setMurderCombination(){
     this._murderCombination = this.cardHandler.getRandomCombination();
+  }
+  getRandomCard(cards){
+    return this.cardHandler.getRandomCard(cards);
+  }
+  hasRemainingCard(){
+    return this.cardHandler.hasRemainingCard();
+  }
+  distributeCards(){
+    let playerIds = Object.keys(this.players);
+    while(this.hasRemainingCard()) {
+      let currentPlayerId = playerIds.shift();
+      let currentPlayer = this.players[`${currentPlayerId}`];
+      let remainingCards = this.cardHandler._remainingCards;
+      currentPlayer.addCard(this.getRandomCard(remainingCards));
+      playerIds.push(currentPlayerId);
+    }
   }
   rollDice(){
     if(!this.diceVal){

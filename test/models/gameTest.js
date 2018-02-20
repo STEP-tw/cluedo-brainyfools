@@ -22,7 +22,8 @@ describe('Game',()=>{
           "_position":1,
           "_turn":1,
           "_start" : true
-        }
+        },
+        _cards:[]
       };
       assert.deepEqual(actualOutput,expectedOutput);
     });
@@ -138,6 +139,7 @@ describe('Game',()=>{
   describe('#hasGameStarted', function(){
     it('should return true when game has started', function(){
       assert.isNotOk(game.hasStarted());
+      game.addPlayer('Patel',205)
       game.start();
       assert.isOk(game.hasStarted());
     });
@@ -173,10 +175,42 @@ describe('Game',()=>{
       let characters = game.cardHandler.characters;
       let allCards = [...rooms,...weapons,...characters];
       game.gatherRemainingCards();
-      assert.deepEqual(allCards,game.cardHandler.remainingCards);
+      assert.deepEqual(allCards,game.cardHandler._remainingCards);
       assert.deepEqual(game.cardHandler.rooms,[]);
       assert.deepEqual(game.cardHandler.weapons,[]);
       assert.deepEqual(game.cardHandler.characters,[]);
+    });
+  });
+
+  describe('#getRandomCard', function(){
+    it('should return random card from remaining card', function(){
+      let rooms = game.cardHandler.rooms;
+      let weapons = game.cardHandler.weapons;
+      let characters = game.cardHandler.characters;
+      let allCards = [...rooms,...weapons,...characters];
+      game.gatherRemainingCards();
+      let randomCard = game.getRandomCard(allCards);
+      assert.notDeepInclude(randomCard,allCards);
+    });
+  });
+
+  describe('#hasRemainingCard', function(){
+    it('should check wheather it has any remaining card', function(){
+      assert.isNotOk(game.hasRemainingCard());
+      game.gatherRemainingCards();
+      assert.isOk(game.hasRemainingCard());
+    });
+  });
+
+  describe('#distributeCards', function(){
+    it('should distribute cards among all players', function(){
+      game.addPlayer('Patel',1);
+      game.addPlayer('Pranav',2);
+      assert.isNotOk(game.hasRemainingCard());
+      game.gatherRemainingCards()
+      assert.isOk(game.hasRemainingCard());
+      game.distributeCards();
+      assert.isNotOk(game.hasRemainingCard());
     });
   });
 
