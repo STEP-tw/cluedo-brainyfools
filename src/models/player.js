@@ -9,6 +9,11 @@ class Player {
   get character(){
     return this._character;
   }
+  updatePos(pos){
+    this.character.position = pos;
+    this.character.start = false;
+    return true;
+  }
 }
 
 module.exports = Player;

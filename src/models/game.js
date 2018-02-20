@@ -23,13 +23,15 @@ class Game {
     return this.murderCombination;
   }
   getCurrentPlayer() {
+    let playerId = this.getCurrentPlayerId();
+    return this.getPlayerDetails(playerId);
+  }
+  getCurrentPlayerId(){
     let players = Object.keys(this.players);
-    let playerId = players.find(playerId => {
+    return players.find(playerId => {
       let player = this.players[playerId];
       return player.character.turn == this._turn;
     });
-
-    return this.getPlayerDetails(playerId);
   }
   getPlayerCount() {
     return this.playerCount;
@@ -89,6 +91,26 @@ class Game {
       this.diceVal = Math.ceil(Math.random() * 6);
     }
     return this.diceVal;
+  }
+  validateMove(pos){
+    let currentPlayerId = this.getCurrentPlayerId();
+    let currentPlayer = this.getPlayer(currentPlayerId);
+    if(currentPlayer.character.start){
+      this.diceVal--;
+    }
+    let currentPlayerPos = currentPlayer.character.position;
+    let newPos = currentPlayerPos + this.diceVal % 79;
+    let newPos2 = (78 + (currentPlayerPos - this.diceVal)) % 79;
+    if(newPos == 0) {
+      newPos++;
+    }
+    return pos == newPos || pos == newPos2;
+  }
+
+  updatePlayerPos(pos){
+    let currentPlayerId = this.getCurrentPlayerId();
+    let currentPlayer = this.getPlayer(currentPlayerId);
+    return currentPlayer.updatePos(pos);
   }
 }
 

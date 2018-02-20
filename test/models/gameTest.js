@@ -188,4 +188,38 @@ describe('Game', () => {
       assert.isFalse(game.isCurrentPlayer(2));
     });
   });
+  describe('#validateMove', () => {
+    it('should return true for valid forward move', () => {
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 1;
+      assert.isOk(game.validateMove(1));
+      game.diceVal = 2;
+      assert.isOk(game.validateMove(2));
+      game.diceVal = 5;
+      assert.isOk(game.validateMove(5));
+    });
+    it('should return true for valid backward move', () => {
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 2;
+      assert.isOk(game.validateMove(78));
+      game.diceVal = 5;
+      assert.isOk(game.validateMove(75));
+    });
+    it('should return false for invalid forward move', () => {
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 1;
+      assert.isFalse(game.validateMove(4));
+      game.diceVal = 2;
+      assert.isFalse(game.validateMove(6));
+      game.diceVal = 5;
+      assert.isFalse(game.validateMove(1));
+    });
+    it('should return false for invalid backward move', () => {
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 2;
+      assert.isFalse(game.validateMove(76));
+      game.diceVal = 5;
+      assert.isFalse(game.validateMove(74));
+    });
+  });
 });
