@@ -50,8 +50,8 @@ app.get('/game/:gameId/status', getCurrentTurn);
 app.get('/game/:gameId/boardstatus', boardStatusHandler);
 app.get('/game/:gameId', serveGamePage);
 app.get('/game/:gameId/data', serveGameData);
-
 app.get('/game/:gameId/rollDice', turnHandler.rollDice);
+
 app.use(express.static('public'));
 
 module.exports = app;
