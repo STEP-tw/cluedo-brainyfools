@@ -39,7 +39,7 @@ const validatePosition = function(event) {
   if(isRoom(id)||isPath(id)){
     sendAjaxRequest("post",`${url}/move`,(res)=>{
       res = JSON.parse(res);
-    },`position=${id}`);
+    },`{"position":${id}}`);
   }
 };
 

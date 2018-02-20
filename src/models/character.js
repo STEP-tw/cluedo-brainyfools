@@ -21,6 +21,12 @@ class Character {
   get start(){
     return this._start;
   }
+  set position(pos){
+    this._position = pos;
+  }
+  set start(started){
+    this._start = started;
+  }
 }
 
 module.exports = Character;

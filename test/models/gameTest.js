@@ -246,6 +246,8 @@ describe('Game', () => {
       assert.isOk(game.validateMove(2));
       game.diceVal = 5;
       assert.isOk(game.validateMove(5));
+      game.diceVal = 79;
+      assert.isOk(game.validateMove(1));
     });
     it('should return true for valid backward move', () => {
       game.addPlayer("Pranav", 1);
@@ -269,6 +271,18 @@ describe('Game', () => {
       assert.isFalse(game.validateMove(76));
       game.diceVal = 5;
       assert.isFalse(game.validateMove(74));
+    });
+  });
+
+  describe('#updatePlayerPos()',()=>{
+    it('should update player\'s position',()=>{
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 2;
+      assert.isOk(game.updatePlayerPos(75));
+      let player = game.players[1];
+      let characterPos = player.character.position;
+      assert.equal(characterPos,75);
+      assert.isFalse(player.character.start);
     });
   });
 });

@@ -23,6 +23,48 @@ describe('turnHandler', () => {
     app.idGenerator = idGen;
   });
 
+  describe('POST /game/1234/move',()=>{
+    it('should return error for invalid pos',(done)=>{
+      app.games['1234'].rollDice();
+      request(app)
+        .post('/game/1234/move')
+        .send({position:23})
+        .set('cookie','playerId=11')
+        .expect((res)=>{
+          assert.deepEqual(res.body, {error:'Invalid move'})
+        }).end(done);
+    });
+    it('should return moved true for valid pos',(done)=>{
+      let val = app.games['1234'].rollDice();
+      request(app)
+        .post('/game/1234/move')
+        .set('cookie','playerId=11')
+        .send({position:val})
+        .expect((res)=>{
+          assert.deepEqual(res.body, {moved:true})
+        }).end(done);
+    });
+    it('should return error for wrong turn',(done)=>{
+      app.games['1234'].rollDice();
+      request(app)
+        .post('/game/1234/move')
+        .send({position:23})
+        .set('cookie','playerId=12')
+        .expect((res)=>{
+          assert.deepEqual(res.body, {error:'Not your turn.'})
+        }).end(done);
+    });
+    it('should return error when no pos is given',(done)=>{
+      app.games['1234'].rollDice();
+      request(app)
+        .post('/game/1234/move')
+        .set('cookie','playerId=11')
+        .expect((res)=>{
+          assert.deepEqual(res.body, {error:'Provide position to move'})
+        }).end(done);
+    });
+  });
+
   describe('GET game/1234/rolldice', () => {
     it('should give a value when player rolls a dice', done => {
       request(app)
