@@ -66,6 +66,21 @@ describe('CardHandler', function(){
       assert.notDeepInclude(characterCards,randomCombination.character);
     });
   });
+  describe('#gatherRemainingCards', function(){
+    it('should collect remaining cards', function(){
+      let cardHandler = new CardHandler();
+      let rooms = cardHandler.rooms;
+      let weapons = cardHandler.weapons;
+      let characters = cardHandler.characters;
+      let allCards = [...rooms,...weapons,...characters];
+      cardHandler.gatherRemainingCards();
+      assert.deepEqual(allCards,cardHandler.remainingCards);
+      assert.deepEqual(cardHandler.rooms,[]);
+      assert.deepEqual(cardHandler.weapons,[]);
+      assert.deepEqual(cardHandler.characters,[]);
+    });
+
+  });
 
 
 });

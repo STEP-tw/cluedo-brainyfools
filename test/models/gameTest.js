@@ -150,7 +150,7 @@ describe('Game',()=>{
       let characterCards = game.cardHandler.characters;
       game.setMurderCombination();
 
-      let murderCombination = game.getMurderCombination();
+      let murderCombination = game.murderCombination;
 
       assert.notDeepInclude(roomCards,murderCombination.room);
       assert.notDeepInclude(weaponCards,murderCombination.weapon);
@@ -166,4 +166,18 @@ describe('Game',()=>{
       };
     });
   });
+  describe('#collectRemainingCards', function(){
+    it('should collect remaining cards', function(){
+      let rooms = game.cardHandler.rooms;
+      let weapons = game.cardHandler.weapons;
+      let characters = game.cardHandler.characters;
+      let allCards = [...rooms,...weapons,...characters];
+      game.gatherRemainingCards();
+      assert.deepEqual(allCards,game.cardHandler.remainingCards);
+      assert.deepEqual(game.cardHandler.rooms,[]);
+      assert.deepEqual(game.cardHandler.weapons,[]);
+      assert.deepEqual(game.cardHandler.characters,[]);
+    });
+  });
+
 });

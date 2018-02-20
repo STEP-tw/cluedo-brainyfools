@@ -9,7 +9,7 @@ class Game {
     this.players = {};
     this.playerCount = 0;
     this.cardHandler = new CardHandler();
-    this.murderCombination = {};
+    this._murderCombination = {};
     this.started = false;
     this._turn=1;
   }
@@ -19,8 +19,8 @@ class Game {
     let player = new Player(name,character);
     this.players[id] = player;
   }
-  getMurderCombination(){
-    return this.murderCombination;
+  get murderCombination(){
+    return this._murderCombination;
   }
   getPlayerIdByTurn(){
     let listOfPlayerIds=Object.keys(this.players);
@@ -69,13 +69,16 @@ class Game {
     this.started = true;
   }
   setMurderCombination(){
-    this.murderCombination = this.cardHandler.getRandomCombination();
+    this._murderCombination = this.cardHandler.getRandomCombination();
   }
   rollDice(){
     if(!this.diceVal){
       this.diceVal = Math.ceil(Math.random()*6);
     }
     return this.diceVal;
+  }
+  gatherRemainingCards(){
+    this.cardHandler.gatherRemainingCards();
   }
 }
 
