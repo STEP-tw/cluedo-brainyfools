@@ -1,7 +1,8 @@
-const getCurrentTurn = function(req,res,next) {
-  let currentTurn = {"id":req.game.getPlayerIdByTurn()};
+const getCurrentTurn = function (req, res) {
+  let currentTurn = {
+    "currentPlayer": req.game.getCurrentPlayer()
+  };
   res.json(currentTurn);
-  next();
 };
 
 module.exports = getCurrentTurn;

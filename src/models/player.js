@@ -13,6 +13,11 @@ class Player {
   addCard(card){
     this._cards.push(card);
   }
+  updatePos(pos){
+    this.character.position = pos;
+    this.character.start = false;
+    return true;
+  }
 }
 
 module.exports = Player;

@@ -39,14 +39,16 @@ describe('app', () => {
                   name: "Madhuri",
                   character: {
                     name: "Miss Scarlett",
-                    color: "#bf0000"
+                    color: "#bf0000",
+                    turn:1
                   }
                 },
                 2: {
                   name: "Neeraj",
                   character: {
                     "color": "#ffdb58",
-                    "name": "Col. Mustard"
+                    "name": "Col. Mustard",
+                    turn:2
                   }
                 }
               };

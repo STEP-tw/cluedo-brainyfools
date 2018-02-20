@@ -1,5 +1,6 @@
 const getGameData = function(req, res){
-  let playerDetails = req.game.getAllPlayerDetails();
+  let {playerId} = req.cookies;
+  let playerDetails = req.game.getAllPlayerDetails(playerId);
   res.json(playerDetails);
 };
 
