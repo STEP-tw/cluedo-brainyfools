@@ -15,14 +15,15 @@ describe('Game', () => {
       game.addPlayer("omkar", 2);
       let actualOutput = game.players[1];
       let expectedOutput = {
-        _name: 'suyog',
-        _character: {
-          "_name": "Miss Scarlett",
-          "_tokenColor": "#bf0000",
-          "_position": 1,
-          "_turn": 1,
-          "_start": true
-        }
+        _name:'suyog',
+        _character:{
+          "_name":"Miss Scarlett",
+          "_tokenColor":"#bf0000",
+          "_position":1,
+          "_turn":1,
+          "_start" : true
+        },
+        _cards:[]
       };
       assert.deepEqual(actualOutput, expectedOutput);
     });
@@ -148,6 +149,7 @@ describe('Game', () => {
   describe('#hasGameStarted', function () {
     it('should return true when game has started', function () {
       assert.isNotOk(game.hasStarted());
+      game.addPlayer('Patel',205)
       game.start();
       assert.isOk(game.hasStarted());
     });
@@ -160,7 +162,7 @@ describe('Game', () => {
       let characterCards = game.cardHandler.characters;
       game.setMurderCombination();
 
-      let murderCombination = game.getMurderCombination();
+      let murderCombination = game._murderCombination;
 
       assert.notDeepInclude(roomCards, murderCombination.room);
       assert.notDeepInclude(weaponCards, murderCombination.weapon);
@@ -176,6 +178,53 @@ describe('Game', () => {
       };
     });
   });
+
+  describe('#collectRemainingCards', function(){
+    it('should collect remaining cards', function(){
+      let rooms = game.cardHandler.rooms;
+      let weapons = game.cardHandler.weapons;
+      let characters = game.cardHandler.characters;
+      let allCards = [...rooms,...weapons,...characters];
+      game.gatherRemainingCards();
+      assert.deepEqual(allCards,game.cardHandler._remainingCards);
+      assert.deepEqual(game.cardHandler.rooms,[]);
+      assert.deepEqual(game.cardHandler.weapons,[]);
+      assert.deepEqual(game.cardHandler.characters,[]);
+    });
+  });
+
+  describe('#getRandomCard', function(){
+    it('should return random card from remaining card', function(){
+      let rooms = game.cardHandler.rooms;
+      let weapons = game.cardHandler.weapons;
+      let characters = game.cardHandler.characters;
+      let allCards = [...rooms,...weapons,...characters];
+      game.gatherRemainingCards();
+      let randomCard = game.getRandomCard(allCards);
+      assert.notDeepInclude(randomCard,allCards);
+    });
+  });
+
+  describe('#hasRemainingCard', function(){
+    it('should check wheather it has any remaining card', function(){
+      assert.isNotOk(game.hasRemainingCard());
+      game.gatherRemainingCards();
+      assert.isOk(game.hasRemainingCard());
+    });
+  });
+
+  describe('#distributeCards', function(){
+    it('should distribute cards among all players', function(){
+      game.addPlayer('Patel',1);
+      game.addPlayer('Pranav',2);
+      assert.isNotOk(game.hasRemainingCard());
+      game.gatherRemainingCards()
+      assert.isOk(game.hasRemainingCard());
+      game.distributeCards();
+      assert.isNotOk(game.hasRemainingCard());
+    });
+  });
+
   describe('#isCurrentPlayer', () => {
     it('should return true for first player', () => {
       game.addPlayer("Pranav", 1);
@@ -186,6 +235,40 @@ describe('Game', () => {
       game.addPlayer("Pranav", 1);
       game.addPlayer("Patel", 2);
       assert.isFalse(game.isCurrentPlayer(2));
+    });
+  });
+  describe('#validateMove', () => {
+    it('should return true for valid forward move', () => {
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 1;
+      assert.isOk(game.validateMove(1));
+      game.diceVal = 2;
+      assert.isOk(game.validateMove(2));
+      game.diceVal = 5;
+      assert.isOk(game.validateMove(5));
+    });
+    it('should return true for valid backward move', () => {
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 2;
+      assert.isOk(game.validateMove(78));
+      game.diceVal = 5;
+      assert.isOk(game.validateMove(75));
+    });
+    it('should return false for invalid forward move', () => {
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 1;
+      assert.isFalse(game.validateMove(4));
+      game.diceVal = 2;
+      assert.isFalse(game.validateMove(6));
+      game.diceVal = 5;
+      assert.isFalse(game.validateMove(1));
+    });
+    it('should return false for invalid backward move', () => {
+      game.addPlayer("Pranav", 1);
+      game.diceVal = 2;
+      assert.isFalse(game.validateMove(76));
+      game.diceVal = 5;
+      assert.isFalse(game.validateMove(74));
     });
   });
 });

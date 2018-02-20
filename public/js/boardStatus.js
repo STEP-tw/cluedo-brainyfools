@@ -27,11 +27,11 @@ const showBoardStatus = function() {
 const isRoom=function(id){
   let className=document.getElementById(`${id}`).className;
   return className=="room";
-}
+};
 
 const isPath=function(id){
   return Number.isInteger(+id);
-}
+};
 
 const validatePosition = function(event) {
   let url = getBaseUrl();
@@ -39,9 +39,9 @@ const validatePosition = function(event) {
   if(isRoom(id)||isPath(id)){
     sendAjaxRequest("post",`${url}/move`,(res)=>{
       res = JSON.parse(res);
-    },`position=${id}`)
+    },`position=${id}`);
   }
-}
+};
 
 const enableRollDice = function(){
   document.querySelector('#activity-box').innerHTML = `<div class="popup">

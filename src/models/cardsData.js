@@ -23,6 +23,7 @@ let cardsData = {
     "Hall",
     "Kitchen",
     "Library",
+    "Lounge",
     "Study"
   ]
 };

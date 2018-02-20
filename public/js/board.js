@@ -17,14 +17,16 @@ const setCurrentPlayer = function (player) {
     <span>${player.character.name}</span>`;
 };
 
-const setOtherPlayer = function (player, id) {
+const setOtherPlayer = function (player) {
   document.querySelector('#all-players').innerHTML +=
     `<div style="color:${player.character.color}"
     id='turn_${player.character.turn}'>
      <span>${player.name}</span>
      <span>${player.character.name}</span></div>`;
 };
-
+const objectValues = function(obj){
+  return Object.keys(obj).map(key=>obj[key]);
+};
 const fillPlayerDetails = function (data) {
   let playerDetails = JSON.parse(data);
   let players = Object.keys(playerDetails);
@@ -32,8 +34,12 @@ const fillPlayerDetails = function (data) {
   players.forEach(id => {
     let player = playerDetails[id];
     playerId == id && setCurrentPlayer(player);
-    setOtherPlayer(player, id);
   });
+  objectValues(playerDetails)
+    .sort((player1,player2)=>{
+      return player1.character.turn - player2.character.turn;
+    })
+    .forEach(setOtherPlayer);
 };
 
 const getPlayerDetails = function () {

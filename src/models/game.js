@@ -9,7 +9,7 @@ class Game {
     this.players = {};
     this.playerCount = 0;
     this.cardHandler = new CardHandler();
-    this.murderCombination = {};
+    this._murderCombination = {};
     this.started = false;
     this._turn = 1;
   }
@@ -19,17 +19,16 @@ class Game {
     let player = new Player(name, character);
     this.players[id] = player;
   }
-  getMurderCombination() {
-    return this.murderCombination;
-  }
   getCurrentPlayer() {
+    let playerId = this.getCurrentPlayerId();
+    return this.getPlayerDetails(playerId);
+  }
+  getCurrentPlayerId(){
     let players = Object.keys(this.players);
-    let playerId = players.find(playerId => {
+    return players.find(playerId => {
       let player = this.players[playerId];
       return player.character.turn == this._turn;
     });
-
-    return this.getPlayerDetails(playerId);
   }
   getPlayerCount() {
     return this.playerCount;
@@ -79,16 +78,57 @@ class Game {
   }
   start() {
     this.setMurderCombination();
+    this.gatherRemainingCards();
+    this.distributeCards();
     this.started = true;
   }
-  setMurderCombination() {
-    this.murderCombination = this.cardHandler.getRandomCombination();
+  setMurderCombination(){
+    this._murderCombination = this.cardHandler.getRandomCombination();
+  }
+  getRandomCard(cards){
+    return this.cardHandler.getRandomCard(cards);
+  }
+  hasRemainingCard(){
+    return this.cardHandler.hasRemainingCard();
+  }
+  distributeCards(){
+    let playerIds = Object.keys(this.players);
+    while(this.hasRemainingCard()) {
+      let currentPlayerId = playerIds.shift();
+      let currentPlayer = this.players[`${currentPlayerId}`];
+      let remainingCards = this.cardHandler._remainingCards;
+      currentPlayer.addCard(this.getRandomCard(remainingCards));
+      playerIds.push(currentPlayerId);
+    }
   }
   rollDice() {
     if (!this.diceVal) {
       this.diceVal = Math.ceil(Math.random() * 6);
     }
     return this.diceVal;
+  }
+  gatherRemainingCards(){
+    this.cardHandler.gatherRemainingCards();
+  }
+  validateMove(pos){
+    let currentPlayerId = this.getCurrentPlayerId();
+    let currentPlayer = this.getPlayer(currentPlayerId);
+    if(currentPlayer.character.start){
+      this.diceVal--;
+    }
+    let currentPlayerPos = currentPlayer.character.position;
+    let newPos = currentPlayerPos + this.diceVal % 79;
+    let newPos2 = (78 + (currentPlayerPos - this.diceVal)) % 79;
+    if(newPos == 0) {
+      newPos++;
+    }
+    return pos == newPos || pos == newPos2;
+  }
+
+  updatePlayerPos(pos){
+    let currentPlayerId = this.getCurrentPlayerId();
+    let currentPlayer = this.getPlayer(currentPlayerId);
+    return currentPlayer.updatePos(pos);
   }
 }
 
