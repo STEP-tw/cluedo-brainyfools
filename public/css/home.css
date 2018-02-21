@@ -1,12 +1,11 @@
 body {
   font-family: 'Roboto', sans-serif;
-  height: 100vh;
 }
 
 h1 {
-  color: #22658C;
+  color: #1D247B;
   text-align: center;
-  font-size: 6vh;
+  font-size: 9vh;
   font-weight: 400;
 }
 

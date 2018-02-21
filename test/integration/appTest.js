@@ -25,7 +25,7 @@ describe('app', () => {
         .expect(200)
         .expect(/CLUEDO/)
         .expect(/Number Of Players/)
-        .expect(/Game Id/)
+        .expect(/Game ID/)
         .end(done);
     });
   });
