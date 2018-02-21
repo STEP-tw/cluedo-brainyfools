@@ -1,8 +1,8 @@
-const getCurrentTurn = function (req, res) {
-  let currentTurn = {
-    "currentPlayer": req.game.getCurrentPlayer()
+const getGameStatus = function (req, res) {
+  let gameStatus = {
+    "currentPlayer": req.game.getCurrentPlayer(),
   };
-  res.json(currentTurn);
+  res.json(gameStatus);
 };
 
-module.exports = getCurrentTurn;
+module.exports = getGameStatus;

@@ -79,6 +79,7 @@ describe('Game', () => {
           cards:[]
         }
       };
+
       assert.deepEqual(game.getAllPlayerDetails(1), expected);
     });
     it('should return empty for no players', function () {

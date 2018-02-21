@@ -4,7 +4,7 @@ const logRequest = require('./src/utils/logger');
 
 const fs = require('fs');
 
-const getCurrentTurn = require('./src/routes/gameStatusHandler.js');
+const getGameStatus = require('./src/routes/gameStatusHandler.js');
 const serveGameData = require('./src/routes/gameDataHandler.js');
 const homePageHandler = require('./src/routes/homePageHandler.js');
 const enrollGameHandlers = require('./src/routes/enrollGameHandlers.js');
@@ -46,7 +46,7 @@ app.post('/game/join/:gameId', enrollGameHandlers.addPlayerToGame);
 
 app.get('/game/:gameId/wait', serveWaitingPage);
 app.get('/game/:gameId/numOfPlayers', waitingPageHandlers.getNumOfPlayers);
-app.get('/game/:gameId/status', getCurrentTurn);
+app.get('/game/:gameId/status', getGameStatus);
 app.get('/game/:gameId/boardstatus', boardStatusHandler);
 app.get('/game/:gameId', serveGamePage);
 app.get('/game/:gameId/data', serveGameData);

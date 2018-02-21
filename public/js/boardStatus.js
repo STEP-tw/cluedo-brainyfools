@@ -56,6 +56,42 @@ const enableRollDice = function(){
     </div>`;
 };
 
+const enableSuspicion = function(){
+  document.querySelector('#activity-box').innerHTML = `<div class="popup">
+    <div>
+      <div>
+        <label for='character'>Character</label>
+        <select name="character" id="character">
+          <option value="Scarlett">Miss Scarlett</option>
+          <option value="Mustard">Col. Mustard</option>
+          <option value="Orchid">Dr. Orchid</option>
+          <option value="Green">Rev. Green</option>
+          <option value="Peacock">Mrs. Peacock</option>
+          <option value="Plum">Prof. Plum</option>
+        </select>
+      </div>
+      <div>
+        <label for='weapon'>Weapon</label>
+        <select name="weapon" id="weapon">
+          <option value="Rope">Rope</option>
+          <option value="Dagger">Dagger</option>
+          <option value="Wrench">Wrench</option>
+          <option value="Revolver">Revolver</option>
+          <option value="Candlestick">Candlestick</option>
+          <option value="Leadpipe">Lead Pipe</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <input type="radio" name="action" value="Accuse"/><label>Suspect</label>
+      <input type="radio" name="action" value="Pass"/><label>Pass</label>
+    </div>
+    <div class="confirm">
+      <button>Confirm</button>
+    </div>
+  </div>`;
+};
+
 const disableRollDice = function () {
   document.querySelector('#activity-box').innerHTML = '';
 };

@@ -63,9 +63,11 @@ class Game {
   getPlayerData(id) {
     let player = this.players[id];
     let playerDetails = this.getPlayerDetails(id);
-    playerDetails.cards = player._cards;
+    let cards = player._cards;
+    playerDetails.cards = cards;
     return playerDetails;
   }
+
   getPlayerDetails(id) {
     let player = this.players[id];
     return {
