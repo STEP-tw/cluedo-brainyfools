@@ -37,7 +37,8 @@ const updatePos = function(req,res){
   let pos = req.body.position;
   let game = req.game;
   let moved = game.updatePlayerPos(pos);
-  res.json({moved});
+  game.pass(); //remove this when enter room is done
+  res.json({moved:moved});
 };
 
 module.exports = {

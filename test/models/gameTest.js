@@ -248,15 +248,17 @@ describe('Game', () => {
       assert.isOk(game.validateMove(2));
       game.diceVal = 5;
       assert.isOk(game.validateMove(5));
-      game.diceVal = 79;
+      game.diceVal = 1;
+      game.players[1].updatePos(78);
       assert.isOk(game.validateMove(1));
     });
     it('should return true for valid backward move', () => {
       game.addPlayer("Pranav", 1);
       game.diceVal = 2;
       assert.isOk(game.validateMove(78));
-      game.diceVal = 5;
-      assert.isOk(game.validateMove(75));
+      game.diceVal = 3;
+      game.players[1].updatePos(4);
+      assert.isOk(game.validateMove(1));
     });
     it('should return false for invalid forward move', () => {
       game.addPlayer("Pranav", 1);

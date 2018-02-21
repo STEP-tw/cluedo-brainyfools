@@ -4,7 +4,6 @@ const updateTokenPos = function(positions){
     if(!char.start){
       let id = name.split(' ').pop().toLowerCase();
       updateCharPosition(id, char.position);
-      document.getElementById('board').onclick=null;
     }
   });
 };
@@ -38,10 +37,16 @@ const isPath=function(id){
 const validatePosition = function(event) {
   let url = getBaseUrl();
   let id = event.target.id;
-  if(isRoom(id)||isPath(id)){
+  if(id && (isRoom(id)||isPath(id))){
     sendAjaxRequest("post",`${url}/move`,(res)=>{
       res = JSON.parse(res);
-    },`{"position":${id}}`);
+      disableRollDice();
+      showMessage(res.error || '');
+      if(res.moved) {
+        document.getElementById('board').onclick=null;
+      }
+      showBoardStatus();
+    },`{"position":"${id}"}`);
   }
 };
 
@@ -51,14 +56,22 @@ const enableRollDice = function(){
     </div>`;
 };
 
+const disableRollDice = function () {
+  document.querySelector('#activity-box').innerHTML = '';
+};
+
 const rollDice = function(){
   let url= getBaseUrl();
   sendAjaxRequest('get',`${url}/rolldice`,(res)=>{
     let dice = JSON.parse(res);
-    document.querySelector('#message-box')
-      .innerHTML = `<div>You got ${dice.error || dice.value}</div>`;
+    showMessage(`You got ${dice.error || dice.value}`);
+    document.getElementById("board").onclick = validatePosition;
   });
-  document.getElementById("board").onclick = validatePosition;
+};
+
+const showMessage = function(message){
+  document.querySelector('#message-box')
+    .innerHTML = `<div>${message}</div>`;
 };
 
 const getBaseUrl = function(){

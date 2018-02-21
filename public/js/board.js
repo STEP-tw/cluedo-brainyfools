@@ -4,7 +4,7 @@ let sendAjaxRequest = function (method, url, cb, data = '') {
   let req = new XMLHttpRequest();
   req.open(method, url);
   req.addEventListener('load', () => cb(req.responseText));
-  req.setRequestHeader("Content-Type","application/json");
+  req.setRequestHeader("Content-Type", "application/json");
   req.send(data);
 };
 
@@ -19,13 +19,13 @@ const setCurrentPlayer = function (player) {
 
 const setOtherPlayer = function (player) {
   document.querySelector('#all-players').innerHTML +=
-    `<div style="color:${player.character.color}"
+    `<div style="color:${player.character.color}" class="player"
     id='turn_${player.character.turn}'>
      <span>${player.name}</span>
      <span>${player.character.name}</span></div>`;
 };
-const objectValues = function(obj){
-  return Object.keys(obj).map(key=>obj[key]);
+const objectValues = function (obj) {
+  return Object.keys(obj).map(key => obj[key]);
 };
 const fillPlayerDetails = function (data) {
   let playerDetails = JSON.parse(data);
@@ -36,10 +36,12 @@ const fillPlayerDetails = function (data) {
     playerId == id && setCurrentPlayer(player);
   });
   objectValues(playerDetails)
-    .sort((player1,player2)=>{
+    .sort((player1, player2) => {
       return player1.character.turn - player2.character.turn;
     })
     .forEach(setOtherPlayer);
+
+  updateStatus();
 };
 
 const getPlayerDetails = function () {
@@ -47,21 +49,34 @@ const getPlayerDetails = function () {
   sendAjaxRequest('get', `${url}/data`, fillPlayerDetails);
 };
 
+const updateStatus = function () {
+  let url = getBaseUrl();
+  sendAjaxRequest('get', `${url}/status`, (res) => {
+    res = JSON.parse(res);
+    let turn = res.currentPlayer.character.turn;
+    if (playerTurn == turn) {
+      enableRollDice();
+    }
+    removeTurnHighlight();
+    document.getElementById(`turn_${turn}`).style.border = '4px solid blue';
+  });
+};
+
+const removeTurnHighlight = function(){
+  let players = document.querySelectorAll('.player');
+  players.forEach(player=>{
+    player.style.border = "";
+  });
+};
+
+const startStatusUpdater = function () {
+  setInterval(updateStatus, 1000);
+};
 
 window.onload = function () {
-  let url = getBaseUrl();
-  setInterval(function () {
-    sendAjaxRequest('get', `${url}/status`, (res) => {
-      res = JSON.parse(res);
-      let turn = res.currentPlayer.character.turn;
-      if (playerTurn == turn) {
-        enableRollDice();
-      }
-      document.getElementById(`turn_${turn}`).style.border = '4px solid blue';
-    });
-  }, 1000);
   sendAjaxRequest('get', '/svg/board.svg', (res) => {
     document.querySelector('#board').innerHTML = res;
+    startStatusUpdater();
     getPlayerDetails();
     showBoardStatus();
   });
