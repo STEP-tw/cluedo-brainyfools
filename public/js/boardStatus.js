@@ -44,29 +44,67 @@ const validatePosition = function(event) {
       showMessage(res.error || '');
       if(res.moved) {
         document.getElementById('board').onclick=null;
+        set = false;
       }
       showBoardStatus();
     },`{"position":"${id}"}`);
   }
 };
 
+let dice;
+let dices = ['&#9856;', '&#9857;', '&#9858;', '&#9859;', '&#9860;', '&#9861;'];
+let stopped = true;
+let timer;
+
+function change(val) {
+  let random = Math.floor(Math.random()*6);
+  if(val){
+    dice.innerHTML = dices[+val-1];
+    return;
+  }
+  dice.innerHTML = dices[random];
+}
+
+function stopstart() {
+  if(stopped) {
+    stopped = false;
+    timer = setInterval(change, 100);
+  } else {
+    clearInterval(timer);
+    stopped = true;
+  }
+}
+let set = false;
 const enableRollDice = function(){
+  if(set) {
+    return;
+  }
+  set = true;
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
-    <button class="rolldice" onclick="rollDice()">Roll Dice</button>
+    <span class="rolldice" onclick="rollDice()" id="dice"></span>
     </div>`;
+  dice = document.getElementById("dice");
+  showMessage('Roll Dice');
+  change(1);
 };
 
 const disableRollDice = function () {
   document.querySelector('#activity-box').innerHTML = '';
+  showMessage('');
 };
 
 const rollDice = function(){
   let url= getBaseUrl();
-  sendAjaxRequest('get',`${url}/rolldice`,(res)=>{
-    let dice = JSON.parse(res);
-    showMessage(`You got ${dice.error || dice.value}`);
-    document.getElementById("board").onclick = validatePosition;
-  });
+  stopstart();
+  setTimeout(()=>{
+    sendAjaxRequest('get',`${url}/rolldice`,(res)=>{
+      let dice = JSON.parse(res);
+      stopstart();
+      change(dice.value);
+      showMessage('Select a position');
+      document.getElementById("board").onclick = validatePosition;
+    });
+  },2000);
 };
 
 const showMessage = function(message){

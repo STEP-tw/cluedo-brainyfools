@@ -33,13 +33,11 @@
   align-self: flex-end;
 }
 
-.popup button{
-  background-color: #808080;
-  border: none;
-  width: 8vw;
-  height: 1.8vw;
-  font-size: 1vw;
-  padding: 3px;
+#dice {
+  font-size: 100px;
+}
+#dice:hover {
+  cursor: pointer;
 }
 
 .popup div{
