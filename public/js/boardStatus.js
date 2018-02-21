@@ -40,9 +40,9 @@ const validatePosition = function(event) {
   if(id && (isRoom(id)||isPath(id))){
     sendAjaxRequest("post",`${url}/move`,(res)=>{
       res = JSON.parse(res);
-      disableRollDice();
       showMessage(res.error || '');
       if(res.moved) {
+        disableRollDice();
         document.getElementById('board').onclick=null;
         set = false;
       }
