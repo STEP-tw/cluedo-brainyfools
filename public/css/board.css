@@ -33,13 +33,11 @@
   align-self: flex-end;
 }
 
-.popup button{
-  background-color: #808080;
-  border: none;
-  width: 8vw;
-  height: 1.8vw;
-  font-size: 1vw;
-  padding: 3px;
+#dice {
+  font-size: 100px;
+}
+#dice:hover {
+  cursor: pointer;
 }
 
 .popup div{
@@ -153,14 +151,10 @@
   justify-content: center;
 }
 
-.board #cards {
-  flex-grow: 1;
-  justify-content: center;
-}
-
 .board #cards img {
   width: 4vw;
   margin: 0px 5px;
+  border: 3px solid black;
 }
 
 main #title {
