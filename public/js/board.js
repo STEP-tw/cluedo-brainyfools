@@ -15,6 +15,16 @@ const setCurrentPlayer = function (player) {
     .setAttribute('fill', player.character.color);
   pd.innerHTML = `<span>${player.name}</span>
     <span>${player.character.name}</span>`;
+  showPlayerCards(player.cards);
+};
+
+const showPlayerCards = function(cards){
+  let cardsDiv = document.getElementById('cards');
+  cards.forEach((card)=>{
+    let cardName = card.name.replace(/[.\s]+/,'_');
+    cardsDiv.innerHTML +=
+  `<img src='/images/cards/${card.type}/${cardName}.jpg'/>`;
+  });
 };
 
 const setOtherPlayer = function (player) {

@@ -283,16 +283,13 @@ describe('Game', () => {
     it('should return player data of given id', function(){
       game.addPlayer("Pranav", 1);
       game.addPlayer("Madhuri", 2);
-      let expected = {
-        name: "Pranav",
-        character: {
-          color: "#bf0000",
-          name: "Miss Scarlett",
-          turn: 1
-        },
-        cards:[]
-      };
-      assert.deepEqual(game.getPlayerData(1),expected);
+      game.addPlayer("Patel",3);
+      game.setMurderCombination();
+      game.gatherRemainingCards();
+      game.distributeCards();
+      let pranavCards = game.getPlayerData(1).cards;
+      assert.equal(pranavCards.length,6);
+      assert.deepEqual(Object.keys(pranavCards[1]),['name','type']);
     });
   });
 
