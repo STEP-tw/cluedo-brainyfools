@@ -142,17 +142,29 @@ class Game {
     let val = this.diceVal;
     currentPlayer.character.start && val--;
     let currentPlayerPos = currentPlayer.character.position;
+    if(currentPlayerPos == pos && val > 0) {
+      return false;
+    }
     let room = this._path.getRoom(currentPlayerPos);
     if(room){
       currentPlayerPos = +room.doorPosition;
       val--;
     }
-    let forwardPos = (+currentPlayerPos + val) % 78;
-    let backPos = +currentPlayerPos - val;
-    forwardPos = forwardPos == 0 ? 1 : forwardPos;
-    backPos = backPos < 1 ? 78 + backPos : backPos;
+    let forwardPos = this.getForwardPos(currentPlayerPos,val);
+    let backPos = this.getBackPos(currentPlayerPos,val);
     return +pos == forwardPos || +pos == backPos
     || this._path.canEnterIntoRoom(pos, forwardPos,backPos);
+  }
+
+  getForwardPos(currentPos, val){
+    let forwardPos =(+currentPos + val) % 78;
+    forwardPos = forwardPos == 0 ? 1 : forwardPos;
+    return forwardPos;
+  }
+  getBackPos(currentPos, val){
+    let backPos = +currentPos - val;
+    backPos = backPos < 1 ? 78 + backPos : backPos;
+    return backPos;
   }
 
   updatePlayerPos(pos) {

@@ -48,7 +48,6 @@ const showBoardStatus = function() {
 };
 
 const isRoom=function(id){
-  id = id.replace('room_','');
   let boardElement=document.getElementById(`${id}`);
   let className=boardElement && boardElement.getAttribute('class');
   return className=="room";
@@ -61,9 +60,9 @@ const isPath=function(id){
 const validatePosition = function(event) {
   let url = getBaseUrl();
   let id = event.target.id;
+  id = id.replace('room_','');
   if(id && (isRoom(id)||isPath(id))){
     sendAjaxRequest("post",`${url}/move`,(res)=>{
-      console.log(res);
       res = JSON.parse(res);
       showMessage(res.error || '');
       if(res.moved) {

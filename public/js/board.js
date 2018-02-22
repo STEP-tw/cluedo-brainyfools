@@ -39,7 +39,6 @@ const objectValues = function (obj) {
 };
 const fillPlayerDetails = function (data) {
   let playerDetails = JSON.parse(data);
-  console.log(playerDetails);
   let players = Object.keys(playerDetails);
   let playerId = getCookie('playerId');
   players.forEach(id => {
@@ -76,7 +75,7 @@ const updateStatus = function () {
 const removeTurnHighlight = function(){
   let players = document.querySelectorAll('.player');
   players.forEach(player=>{
-    player.style.border = "";
+    player.style['background-color'] = "";
   });
 };
 
