@@ -69,7 +69,7 @@ const updateStatus = function () {
       enableRollDice();
     }
     removeTurnHighlight();
-    document.getElementById(`turn_${turn}`).style.border = '4px solid blue';
+    document.getElementById(`turn_${turn}`).style['background-color'] = 'gray';
   });
 };
 

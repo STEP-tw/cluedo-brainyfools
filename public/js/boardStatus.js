@@ -12,9 +12,32 @@ const updateCharPosition = function(id,pos){
   let posElement = document.getElementById(`${pos}`);
   let posX = posElement.getAttribute('x');
   let posY = posElement.getAttribute('y');
+  if(isRoom(pos)){
+    posX = getXCoordOfRoom(pos);
+    posY = getYCoordOfRoom(pos);
+  };
   document.getElementById(`${id}`).setAttribute('cx',+posX + 15);
   document.getElementById(`${id}`).setAttribute('cy',+posY + 15);
 };
+
+const getXCoordOfRoom = function(pos){
+  let changeX = ['biliiard','library','dining'];
+  let corners = ['conservatory','study','lounge','kitchen'];
+  let room = document.getElementById(`room_${pos}`);
+  if(corners.includes(pos) || changeX.includes(pos)){
+    return +room.getAttribute('x') + (playerTurn-1) * 15;
+  }
+  return +room.getAttribute('x');
+}
+const getYCoordOfRoom = function(pos){
+  let changeY = ['ballroom','hall'];
+  let corners = ['conservatory','study','lounge','kitchen'];
+  let room = document.getElementById(`room_${pos}`);
+  if(corners.includes(pos) || changeY.includes(pos)){
+    return +room.getAttribute('y') + (playerTurn-1) * 15;
+  }
+  return +room.getAttribute('y');
+}
 
 const showBoardStatus = function() {
   let path = getBaseUrl();
