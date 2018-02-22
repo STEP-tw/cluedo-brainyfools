@@ -23,7 +23,11 @@ describe('Game', () => {
           "_turn":1,
           "_start" : true
         },
-        _cards:[]
+        _cards:[],
+        _lastSuspicion:{
+          _combination:{},
+          _suspector:'suyog'
+        }
       };
       assert.deepEqual(actualOutput, expectedOutput);
     });

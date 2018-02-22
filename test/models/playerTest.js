@@ -2,6 +2,7 @@ const chai = require('chai');
 const assert = chai.assert;
 const Card = require('../../src/models/card.js');
 const Player = require('../../src/models/player.js');
+const Suspicion = require('../../src/models/suspicion.js');
 
 describe('Player',()=>{
   let player;
@@ -41,5 +42,32 @@ describe('Player',()=>{
       assert.deepEqual(player._cards,[characterCard,weaponCard]);
     });
   });
-
+  describe('#canSuspect',()=>{
+    it('should give true if player can suspect',()=>{
+      assert.isOk(player.canSuspect('Hall'));
+    });
+    it('should give false if player can\'t suspect',()=>{
+      let combination = {
+        character:'Dr. Orchid',
+        weapon:'Revolver',
+        room:"Hall"
+      }
+      player._lastSuspicion = new Suspicion(combination,'suyog');
+      assert.isNotOk(player.canSuspect('Hall'));
+    });
+  });
+  describe('#canSuspect',()=>{
+    it('should give true if player can suspect',()=>{
+      assert.isOk(player.canSuspect('Hall'));
+    });
+    it('should give false if player can\'t suspect',()=>{
+      let expected = {'_combination':{
+        character:'Dr. Orchid',
+        weapon:'Revolver',
+        room:"Hall"
+      },'_suspector':'suyog'};
+      assert.ok(player.updateSuspicion(expected._combination));
+      assert.deepEqual(player._lastSuspicion,expected);
+    });
+  });
 });
