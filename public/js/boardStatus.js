@@ -48,6 +48,7 @@ const showBoardStatus = function() {
 };
 
 const isRoom=function(id){
+  id = id.replace('room_','');
   let boardElement=document.getElementById(`${id}`);
   let className=boardElement && boardElement.getAttribute('class');
   return className=="room";
