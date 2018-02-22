@@ -37,11 +37,20 @@ const updatePos = function(req,res){
   let pos = req.body.position;
   let game = req.game;
   let moved = game.updatePlayerPos(pos);
-  game.pass(); //remove this when enter room is done
+  let currentPlayer = game.getCurrentPlayer();
+  if(!currentPlayer.inRoom){
+    game.pass();
+  }
   res.json({moved:moved});
+};
+
+const passTurn = function (req,res) {
+  req.game.pass();
+  res.json({passed : true});
 };
 
 module.exports = {
   rollDice : [checkTurn, rollDice],
-  move : [checkTurn,validateData ,validateMove, updatePos]
+  move : [checkTurn,validateData ,validateMove, updatePos],
+  pass : [checkTurn,passTurn]
 };

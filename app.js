@@ -53,6 +53,9 @@ app.get('/game/:gameId/data', serveGameData);
 app.get('/game/:gameId/rollDice', turnHandler.rollDice);
 app.post('/game/:gameId/move',turnHandler.move);
 
+
+app.get('/game/:gameId/pass',turnHandler.pass);
+
 app.use(express.static('public'));
 
 module.exports = app;

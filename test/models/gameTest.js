@@ -16,6 +16,7 @@ describe('Game', () => {
       let actualOutput = game.players[1];
       let expectedOutput = {
         _name:'suyog',
+        _inRoom: false,
         _character:{
           "_name":"Miss Scarlett",
           "_tokenColor":"#bf0000",
@@ -75,6 +76,7 @@ describe('Game', () => {
       let expected = {
         1: {
           name: "Madhuri",
+          inRoom: false,
           character: {
             name: "Miss Scarlett",
             color: "#bf0000",
@@ -97,6 +99,7 @@ describe('Game', () => {
       let expected = {
         1: {
           name: "Madhuri",
+          inRoom: false,
           character: {
             name: "Miss Scarlett",
             color: "#bf0000",
@@ -106,6 +109,7 @@ describe('Game', () => {
         23: {
           name: "Neeraj",
           cards:[],
+          inRoom: false,
           character: {
             "color": "#ffdb58",
             "name": "Col. Mustard",
@@ -124,6 +128,7 @@ describe('Game', () => {
       game.addPlayer("Omkar", 3);
       assert.deepEqual(game.getCurrentPlayer(), {
         name: 'Suyog',
+        inRoom: false,
         character: {
           "color": "#bf0000",
           "name": "Miss Scarlett",

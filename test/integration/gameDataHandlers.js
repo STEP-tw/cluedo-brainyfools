@@ -37,6 +37,7 @@ describe('app', () => {
               let expected = {
                 1: {
                   name: "Madhuri",
+                  inRoom: false,
                   character: {
                     name: "Miss Scarlett",
                     color: "#bf0000",
@@ -45,6 +46,7 @@ describe('app', () => {
                 },
                 2: {
                   name: "Neeraj",
+                  inRoom: false,
                   character: {
                     "color": "#ffdb58",
                     "name": "Col. Mustard",

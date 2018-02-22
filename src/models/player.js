@@ -5,9 +5,16 @@ class Player {
     this._character = character;
     this._cards = [];
     this._lastSuspicion=new Suspicion({},this._name);
+    this._inRoom = false;
   }
   get name(){
     return this._name;
+  }
+  get inRoom(){
+    return this._inRoom;
+  }
+  set inRoom(val){
+    this._inRoom = val;
   }
   get character(){
     return this._character;

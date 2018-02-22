@@ -24,14 +24,15 @@
 </head>
 
 <body>
-  <h1>CLUEDO</h1>
-  <main>
+  <!-- <h1>CLUEDO</h1> -->
+  <img src="images/cluedoLogo.jpg" alt="">
+  <main class="cluedoForm" >
     <div class="tab">
       <button class="tablinks" onclick="openCity(event, 'creategame')" id="create">Create Game</button>
       <button class="tablinks" onclick="openCity(event, 'joingame')" id="join">Join Game</button>
     </div>
 
-    <div class="tabcontent" id="creategame">
+    <div class="tabcontent" id ="creategame">
       <form action="/game/new" method="post">
         <label for="count">Number Of Players</label>
         <select name="numberOfPlayers" id="count">

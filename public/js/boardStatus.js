@@ -12,8 +12,31 @@ const updateCharPosition = function(id,pos){
   let posElement = document.getElementById(`${pos}`);
   let posX = posElement.getAttribute('x');
   let posY = posElement.getAttribute('y');
+  if(isRoom(pos)){
+    posX = getXCoordOfRoom(pos);
+    posY = getYCoordOfRoom(pos);
+  }
   document.getElementById(`${id}`).setAttribute('cx',+posX + 15);
   document.getElementById(`${id}`).setAttribute('cy',+posY + 15);
+};
+
+const getXCoordOfRoom = function(pos){
+  let changeX = ['biliiard','library','dining'];
+  let corners = ['conservatory','study','lounge','kitchen'];
+  let room = document.getElementById(`room_${pos}`);
+  if(corners.includes(pos) || changeX.includes(pos)){
+    return +room.getAttribute('x') + (playerTurn-1) * 15;
+  }
+  return +room.getAttribute('x');
+};
+const getYCoordOfRoom = function(pos){
+  let changeY = ['ballroom','hall'];
+  let corners = ['conservatory','study','lounge','kitchen'];
+  let room = document.getElementById(`room_${pos}`);
+  if(corners.includes(pos) || changeY.includes(pos)){
+    return +room.getAttribute('y') + (playerTurn-1) * 15;
+  }
+  return +room.getAttribute('y');
 };
 
 const showBoardStatus = function() {
@@ -26,7 +49,7 @@ const showBoardStatus = function() {
 
 const isRoom=function(id){
   let boardElement=document.getElementById(`${id}`);
-  let className=boardElement && boardElement.className;
+  let className=boardElement && boardElement.getAttribute('class');
   return className=="room";
 };
 
@@ -39,10 +62,11 @@ const validatePosition = function(event) {
   let id = event.target.id;
   if(id && (isRoom(id)||isPath(id))){
     sendAjaxRequest("post",`${url}/move`,(res)=>{
+      console.log(res);
       res = JSON.parse(res);
       showMessage(res.error || '');
       if(res.moved) {
-        disableRollDice();
+        disablePopup();
         document.getElementById('board').onclick=null;
         set = false;
       }
@@ -81,50 +105,56 @@ const enableRollDice = function(){
   }
   set = true;
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
-    <span class="rolldice" onclick="rollDice()" id="dice"></span>
-    </div>`;
+  <span class="rolldice" onclick="rollDice()" id="dice"></span>
+  </div>`;
   dice = document.getElementById("dice");
   showMessage('Roll Dice');
   change(1);
 };
 
 const enableSuspicion = function(){
+  showMessage('Select a combination or pass');
+  if(set) {
+    return;
+  }
+  set = true;
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
-    <div>
-      <div>
-        <label for='character'>Character</label>
-        <select name="character" id="character">
-          <option value="Scarlett">Miss Scarlett</option>
-          <option value="Mustard">Col. Mustard</option>
-          <option value="Orchid">Dr. Orchid</option>
-          <option value="Green">Rev. Green</option>
-          <option value="Peacock">Mrs. Peacock</option>
-          <option value="Plum">Prof. Plum</option>
-        </select>
-      </div>
-      <div>
-        <label for='weapon'>Weapon</label>
-        <select name="weapon" id="weapon">
-          <option value="Rope">Rope</option>
-          <option value="Dagger">Dagger</option>
-          <option value="Wrench">Wrench</option>
-          <option value="Revolver">Revolver</option>
-          <option value="Candlestick">Candlestick</option>
-          <option value="Leadpipe">Lead Pipe</option>
-        </select>
-      </div>
-    </div>
-    <div>
-      <input type="radio" name="action" value="Accuse"/><label>Suspect</label>
-      <input type="radio" name="action" value="Pass"/><label>Pass</label>
-    </div>
-    <div class="confirm">
-      <button>Confirm</button>
-    </div>
+  <div>
+  <div>
+  <label for='character'>Character</label>
+  <select name="character" id="character">
+  <option value="Scarlett">Miss Scarlett</option>
+  <option value="Mustard">Col. Mustard</option>
+  <option value="Orchid">Dr. Orchid</option>
+  <option value="Green">Rev. Green</option>
+  <option value="Peacock">Mrs. Peacock</option>
+  <option value="Plum">Prof. Plum</option>
+  </select>
+  </div>
+  <div>
+  <label for='weapon'>Weapon</label>
+  <select name="weapon" id="weapon">
+  <option value="Rope">Rope</option>
+  <option value="Dagger">Dagger</option>
+  <option value="Wrench">Wrench</option>
+  <option value="Revolver">Revolver</option>
+  <option value="Candlestick">Candlestick</option>
+  <option value="Leadpipe">Lead Pipe</option>
+  </select>
+  </div>
+  </div>
+  <div>
+  <input type="radio" name="action" value="Accuse"/><label>Suspect</label>
+  </div>
+  <div class="confirm">
+  <button onclick="passTurn()">Pass</button>
+  <button>Confirm</button>
+  </div>
   </div>`;
 };
 
-const disableRollDice = function () {
+const disablePopup = function () {
+  set = false;
   document.querySelector('#activity-box').innerHTML = '';
   showMessage('');
 };

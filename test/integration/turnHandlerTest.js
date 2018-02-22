@@ -86,12 +86,34 @@ describe('turnHandler', () => {
         })
         .end(done);
     });
-    it('should give a error when player is not in game', done => {
+    it('should give an error when player is not in game', done => {
       request(app)
         .get('/game/1234/rolldice')
         .set('cookie', 'playerId=123456')
         .expect((res) => {
           assert.deepEqual(res.body, { error: "Not your turn." });
+        })
+        .end(done);
+    });
+  });
+
+  describe('GET /game/1234/pass',()=>{
+    it('should pass turn to the next player',done=>{
+      request(app)
+        .get('/game/1234/pass')
+        .set('cookie', 'playerId=11')
+        .expect(res=>{
+          assert.deepEqual(res.body, { passed: true});
+        })
+        .end(done);
+    });
+
+    it('should give an error if it is not player\'s turn',done=>{
+      request(app)
+        .get('/game/1234/pass')
+        .set('cookie', 'playerId=1234')
+        .expect(res=>{
+          assert.deepEqual(res.body, { error: "Not your turn."});
         })
         .end(done);
     });
