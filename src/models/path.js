@@ -26,6 +26,11 @@ class Path {
       return new Room(room);
     });
   }
+  canGoToConnectedRoom(roomName,connectedRoomName){
+    let room = this.getRoom(roomName);
+    console.log(room);
+    return room && room.connectedRoom.toLowerCase() == connectedRoomName;
+  }
 }
 
 module.exports = Path;

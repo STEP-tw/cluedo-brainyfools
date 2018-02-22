@@ -40,8 +40,8 @@ describe("Path",()=>{
       };
       let expected=new Room(room);
       assert.deepEqual(actual,expected);
-    })
-  })
+    });
+  });
   describe("#canEnterIntoRoom",()=>{
     it('should return can player enter into room or not',()=>{
       path.addRooms(rooms);
@@ -52,6 +52,12 @@ describe("Path",()=>{
       path.addRooms(rooms);
       let actual=path.canEnterIntoRoom('hall',2,73);
       assert.ok(actual);
-    })
-  })
-})
+    });
+  });
+  describe('#canGoToConnectedRoom',()=>{
+    it('should return whether selected room is connected',()=>{
+      path.addRooms(rooms);
+      assert.isOk(path.canGoToConnectedRoom('lounge','conservatory'));
+    });
+  });
+});

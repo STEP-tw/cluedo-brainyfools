@@ -145,6 +145,7 @@ class Game {
     if(currentPlayerPos == pos && val > 0) {
       return false;
     }
+    let connectedRoom = currentPlayerPos;
     let room = this._path.getRoom(currentPlayerPos);
     if(room){
       currentPlayerPos = +room.doorPosition;
@@ -152,10 +153,14 @@ class Game {
     }
     let forwardPos = this.getForwardPos(currentPlayerPos,val);
     let backPos = this.getBackPos(currentPlayerPos,val);
-    return +pos == forwardPos || +pos == backPos
-    || this._path.canEnterIntoRoom(pos, forwardPos,backPos);
+    return this.validatePosition(pos,forwardPos,backPos,connectedRoom);
   }
 
+  validatePosition(pos,forwardPos,backPos,connectedRoom){
+    return +pos == forwardPos || +pos == backPos
+    || this._path.canGoToConnectedRoom(pos,connectedRoom)
+    || this._path.canEnterIntoRoom(pos, forwardPos,backPos);
+  }
   getForwardPos(currentPos, val){
     let forwardPos =(+currentPos + val) % 78;
     forwardPos = forwardPos == 0 ? 1 : forwardPos;
