@@ -1,13 +1,12 @@
 body {
   font-family: 'Roboto', sans-serif;
-  height: 100vh;
 }
 
 h1 {
   color: #1D247B;
   text-align: center;
   font-size: 8vh;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 h3 {
@@ -35,13 +34,22 @@ h4 {
   position: relative;
   margin: auto;
   width: 400px;
-  height: 500px;
+  height: 550px;
+  font-size: 15px;
 }
 
 .wait {
   font-family: 'Roboto Condensed', sans-serif;
   font-size: 20px;
-  padding: 20px;
+  padding: 5px;
   text-align: center;
-  font-weight: 300;
+  font-weight: 400;
+}
+.wait div{
+  padding: 5px;
+  font-size: 22px;
+}
+.wait span{
+  padding: 5px;
+  font-size: 26px;
 }

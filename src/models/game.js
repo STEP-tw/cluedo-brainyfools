@@ -63,7 +63,12 @@ class Game {
   getPlayerData(id) {
     let player = this.players[id];
     let playerDetails = this.getPlayerDetails(id);
-    let cards = player._cards;
+    let cards = player._cards.map((originalCard)=>{
+      let card = {};
+      card.name = originalCard._name;
+      card.type = originalCard._type;
+      return card;
+    });
     playerDetails.cards = cards;
     return playerDetails;
   }
@@ -111,7 +116,7 @@ class Game {
     let playerIds = Object.keys(this.players);
     while (this.hasRemainingCard()) {
       let currentPlayerId = playerIds.shift();
-      let currentPlayer = this.players[`${currentPlayerId}`];
+      let currentPlayer = this.players[currentPlayerId];
       let remainingCards = this.cardHandler._remainingCards;
       currentPlayer.addCard(this.getRandomCard(remainingCards));
       playerIds.push(currentPlayerId);
