@@ -1,7 +1,9 @@
 const Player = require('./player.js');
 const Character = require('./character.js');
+const Path = require('./path.js');
 const CardHandler = require('./cardHandler.js');
 const characterData = require('../data/characterData.json');
+const rooms = require('../data/roomData.json');
 
 class Game {
   constructor(numberOfPlayers) {
@@ -11,6 +13,7 @@ class Game {
     this.cardHandler = new CardHandler();
     this._murderCombination = {};
     this.started = false;
+    this._path = new Path();
     this._turn = 1;
   }
   get turn() {
@@ -101,6 +104,7 @@ class Game {
     this.setMurderCombination();
     this.gatherRemainingCards();
     this.distributeCards();
+    this._path.addRooms(rooms);
     this.started = true;
   }
   setMurderCombination() {
@@ -137,11 +141,17 @@ class Game {
     let val = this.diceVal;
     currentPlayer.character.start && val--;
     let currentPlayerPos = currentPlayer.character.position;
-    let forwardPos = (currentPlayerPos + val) % 78;
-    let backPos = currentPlayerPos - val;
+    let room = this._path.getRoom(currentPlayerPos);
+    if(room){
+      currentPlayerPos = +room.doorPosition;
+      val--;
+    }
+    let forwardPos = (+currentPlayerPos + val) % 78;
+    let backPos = +currentPlayerPos - val;
     forwardPos = forwardPos == 0 ? 1 : forwardPos;
     backPos = backPos < 1 ? 78 + backPos : backPos;
-    return +pos == forwardPos || +pos == backPos;
+    return +pos == forwardPos || +pos == backPos
+    || this._path.canEnterIntoRoom(pos, forwardPos,backPos);
   }
 
   updatePlayerPos(pos) {
@@ -151,7 +161,7 @@ class Game {
     let currentPlayerId = this.getCurrentPlayerId();
     this.playerMoved = true;
     let currentPlayer = this.getPlayer(currentPlayerId);
-    return currentPlayer.updatePos(+pos);
+    return currentPlayer.updatePos(pos);
   }
 
   pass() {

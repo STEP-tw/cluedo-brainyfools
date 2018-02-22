@@ -26,7 +26,7 @@ const showBoardStatus = function() {
 
 const isRoom=function(id){
   let boardElement=document.getElementById(`${id}`);
-  let className=boardElement && boardElement.className;
+  let className=boardElement && boardElement.getAttribute('class');
   return className=="room";
 };
 
@@ -39,6 +39,7 @@ const validatePosition = function(event) {
   let id = event.target.id;
   if(id && (isRoom(id)||isPath(id))){
     sendAjaxRequest("post",`${url}/move`,(res)=>{
+      console.log(res);
       res = JSON.parse(res);
       showMessage(res.error || '');
       if(res.moved) {
