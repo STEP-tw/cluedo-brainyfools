@@ -31,6 +31,7 @@ describe('#app', () => {
           let expected = {
             currentPlayer: {
               name: 'neeraj',
+              inRoom: false,
               character: {
                 "color": "#bf0000",
                 "name": "Miss Scarlett",

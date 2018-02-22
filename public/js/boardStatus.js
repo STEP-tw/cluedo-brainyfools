@@ -15,7 +15,7 @@ const updateCharPosition = function(id,pos){
   if(isRoom(pos)){
     posX = getXCoordOfRoom(pos);
     posY = getYCoordOfRoom(pos);
-  };
+  }
   document.getElementById(`${id}`).setAttribute('cx',+posX + 15);
   document.getElementById(`${id}`).setAttribute('cy',+posY + 15);
 };
@@ -28,7 +28,7 @@ const getXCoordOfRoom = function(pos){
     return +room.getAttribute('x') + (playerTurn-1) * 15;
   }
   return +room.getAttribute('x');
-}
+};
 const getYCoordOfRoom = function(pos){
   let changeY = ['ballroom','hall'];
   let corners = ['conservatory','study','lounge','kitchen'];
@@ -37,7 +37,7 @@ const getYCoordOfRoom = function(pos){
     return +room.getAttribute('y') + (playerTurn-1) * 15;
   }
   return +room.getAttribute('y');
-}
+};
 
 const showBoardStatus = function() {
   let path = getBaseUrl();

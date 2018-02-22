@@ -7,10 +7,12 @@ class Path {
     let room = this.getRoom(roomName);
     if(room){
       let doorPosition = +room.doorPosition;
-      if(doorPosition<forwardPos && doorPosition>backwardPos )
+      if(doorPosition<forwardPos && doorPosition>backwardPos ) {
         return true;
-      if(doorPosition>backwardPos)
+      }
+      if(doorPosition>backwardPos) {
         return true;
+      }
     }
     return false;
   }

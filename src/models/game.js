@@ -80,6 +80,7 @@ class Game {
     let player = this.players[id];
     return {
       name: player.name,
+      inRoom: player.inRoom,
       character: {
         name: player.character.name,
         color: player.character.tokenColor,
@@ -159,8 +160,10 @@ class Game {
       return false;
     }
     let currentPlayerId = this.getCurrentPlayerId();
-    this.playerMoved = true;
     let currentPlayer = this.getPlayer(currentPlayerId);
+    let room = this._path.getRoom(pos);
+    currentPlayer.inRoom = !!room;
+    this.playerMoved = true;
     return currentPlayer.updatePos(pos);
   }
 
