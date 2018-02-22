@@ -10,6 +10,9 @@ class Path {
       if(doorPosition<forwardPos && doorPosition>backwardPos ) {
         return true;
       }
+      if(doorPosition<backwardPos && doorPosition<forwardPos) {
+        return true;
+      }
       if(doorPosition>backwardPos) {
         return true;
       }

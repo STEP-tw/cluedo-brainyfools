@@ -163,12 +163,12 @@ class Game {
 
   validatePosition(pos,forwardPos,backPos,connectedRoom){
     return +pos == forwardPos || +pos == backPos
-    || this._path.canGoToConnectedRoom(pos,connectedRoom)
-    || this._path.canEnterIntoRoom(pos, forwardPos,backPos);
+    || this._path.canEnterIntoRoom(pos, forwardPos,backPos)
+    || this._path.canGoToConnectedRoom(pos,connectedRoom);
   }
   getForwardPos(currentPos, val){
     let forwardPos =(+currentPos + val) % 78;
-    forwardPos = forwardPos == 0 ? 1 : forwardPos;
+    forwardPos = forwardPos == 0 ? 78 : forwardPos;
     return forwardPos;
   }
   getBackPos(currentPos, val){
