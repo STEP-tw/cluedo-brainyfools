@@ -4,9 +4,11 @@ const Path = require('./path.js');
 const CardHandler = require('./cardHandler.js');
 const characterData = require('../data/characterData.json');
 const rooms = require('../data/roomData.json');
+const ActivityLog = require('./activityLog');
+const getTime = require('../utils/time.js');
 
 class Game {
-  constructor(numberOfPlayers) {
+  constructor(numberOfPlayers, getDate = getTime) {
     this.numberOfPlayers = numberOfPlayers;
     this.players = {};
     this.playerCount = 0;
@@ -15,6 +17,7 @@ class Game {
     this.started = false;
     this._path = new Path();
     this._turn = 1;
+    this._activityLog = new ActivityLog(getDate);
   }
   get turn() {
     return this._turn;
