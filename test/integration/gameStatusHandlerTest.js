@@ -7,10 +7,11 @@ let games = app.games;
 
 const idGen = app.idGenerator;
 
-describe('#app', () => {
+describe('#gameStatusHandler', () => {
+  let game;
   beforeEach(() => {
     app.games = { '1234': new Game(3) };
-    let game = app.games['1234'];
+    game = app.games['1234'];
     game.addPlayer('neeraj', 11);
     game.addPlayer('omkar', 12);
     game.addPlayer('pranav', 13);
@@ -38,11 +39,42 @@ describe('#app', () => {
                 turn: 1,
                 position:1
               }
-            }
+            },
+            combination: {},
+            suspecting: false
           };
           assert.deepEqual(res.body, expected);
         })
         .end(done);
     });
+  });
+  it("should return json object with combination object if suspecting is true",
+   done => {
+    let combination = {
+      character:'Dr. Orchid',
+      weapon:'Revolver',
+      room:"Hall"
+    };
+    game.updateSuspicionOf(11,combination);
+    request(app)
+      .get('/game/1234/status')
+      .expect(res => {
+        let expected = {
+          currentPlayer: {
+            name: 'neeraj',
+            inRoom: false,
+            character: {
+              "color": "#bf0000",
+              "name": "Miss Scarlett",
+              turn: 1,
+              position:1
+            }
+          },
+          combination: combination,
+          suspecting: true
+        };
+        assert.deepEqual(res.body, expected);
+      })
+      .end(done);
   });
 });

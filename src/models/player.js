@@ -25,15 +25,22 @@ class Player {
   updatePos(pos){
     this.character.position = pos;
     this.character.start = false;
+    this.updateSuspicion({});
     return true;
   }
-  updateSuspicion(combination){
+  updateSuspicion(combination) {
     let suspicion = new Suspicion(combination,this._name);
     this._lastSuspicion = suspicion;
     return true;
   }
-  canSuspect(room){
+  canSuspect(room) {
     return this._lastSuspicion.combination.room!=room;
+  }
+  isSuspecting() {
+    return Object.keys(this._lastSuspicion['combination']).length!=0;
+  }
+  getCombination() {
+    return this._lastSuspicion['combination'];
   }
 }
 

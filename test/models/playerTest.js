@@ -70,4 +70,32 @@ describe('Player',()=>{
       assert.deepEqual(player._lastSuspicion,expected);
     });
   });
+  describe('#isSuspecting',()=>{
+    it('should give true if player is suspecting',()=>{
+      let combination = {
+        character:'Dr. Orchid',
+        weapon:'Revolver',
+        room:"Hall"
+      };
+      player.updateSuspicion(combination);
+      assert.ok(player.isSuspecting());
+    });
+    it('should give false if player is not suspecting',()=>{
+      assert.isNotOk(player.isSuspecting());
+    });
+  });
+  describe('#getCombination',()=>{
+    it('should give suspicion combination',()=>{
+      let combination = {
+        character:'Dr. Orchid',
+        weapon:'Revolver',
+        room:"Hall"
+      };
+      player.updateSuspicion(combination);
+      assert.deepEqual(player.getCombination(),combination);
+    });
+    it('should give empty object if combination is not defined',()=>{
+      assert.deepEqual(player.getCombination(),{});
+    });
+  });
 });

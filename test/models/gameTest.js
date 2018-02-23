@@ -338,4 +338,36 @@ describe('Game', () => {
       assert.deepEqual(player._lastSuspicion,expected);
     });
   });
+  describe('#isSuspecting',()=>{
+    it('should give true if player is suspecting',()=>{
+      game.addPlayer("Pranav", 1);
+      let combination = {
+        character:'Dr. Orchid',
+        weapon:'Revolver',
+        room:"Hall"
+      };
+      game.updateSuspicionOf(1,combination);
+      assert.ok(game.isSuspecting());
+    });
+    it('should give false if player is not suspecting',()=>{
+      game.addPlayer("Pranav", 1);
+      assert.isNotOk(game.isSuspecting());
+    });
+  });
+  describe('#getCurrentSuspicion',()=>{
+    it('should give suspicion combination',()=>{
+      game.addPlayer("Pranav", 1);
+      let combination = {
+        character:'Dr. Orchid',
+        weapon:'Revolver',
+        room:"Hall"
+      };
+      game.updateSuspicionOf(1,combination);
+      assert.deepEqual(game.getCurrentSuspicion(),combination);
+    });
+    it('should give empty object if combination is not defined',()=>{
+      game.addPlayer("Pranav", 1);
+      assert.deepEqual(game.getCurrentSuspicion(),{});
+    });
+  });
 });

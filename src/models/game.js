@@ -207,6 +207,14 @@ class Game {
   updateSuspicionOf(id,combination) {
     return this.players[id].updateSuspicion(combination);
   }
+  isSuspecting() {
+    let id=this.getCurrentPlayerId();
+    return this.players[id].isSuspecting();
+  }
+  getCurrentSuspicion() {
+    let id=this.getCurrentPlayerId();
+    return this.players[id].getCombination();
+  }
 }
 
 module.exports = Game;
