@@ -206,6 +206,14 @@ class Game {
     return player.character.turn;
   }
   updateSuspicionOf(id,combination) {
+    let character = combination.character;
+    let players = Object.values(this.players);
+    let player = players.find(player => {
+      return player.character.name == character;
+    });
+    if (player){
+      player.character.position = combination.room;
+    }
     return this.players[id].updateSuspicion(combination);
   }
   isSuspecting() {

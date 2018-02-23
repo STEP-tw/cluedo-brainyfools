@@ -198,6 +198,7 @@ const showSuspicionCards = function(cards) {
   document.getElementById('room-card').setAttribute('href',
     `/images/cards/Room/${roomCard}.jpg`);
 };
+
 window.addEventListener('load',()=>{
   setInterval(showBoardStatus,3000);
 });

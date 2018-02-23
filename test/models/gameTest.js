@@ -331,13 +331,16 @@ describe('Game', () => {
   describe('#updateSuspicionOf()',()=>{
     it('should update player\'s last suspicion',()=>{
       game.addPlayer("Pranav", 1);
+      game.addPlayer("Ketan", 2);
       let combination={
-        character:'Col. Musturd',
+        character:'Col. Mustard',
         weapon:'spanner',
         room:'Hall'
       };
       game.updateSuspicionOf(1,combination);
       let player = game.players[1];
+      let suspicion = game.players[2];
+      assert.equal(suspicion.character.position,'Hall');
       let expected = {_combination:combination,_suspector:'Pranav'};
       assert.deepEqual(player._lastSuspicion,expected);
     });
@@ -412,7 +415,6 @@ describe('Game', () => {
       }
       assert.deepEqual(expectedActivities,activities)
     });
-
   });
 
 });
