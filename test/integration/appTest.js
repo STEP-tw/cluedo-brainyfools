@@ -23,7 +23,7 @@ describe('app', () => {
       request(app)
         .get('/game')
         .expect(200)
-        .expect(/CLUEDO/)
+        .expect(/creategame/i)
         .expect(/Number Of Players/)
         .expect(/Game ID/)
         .end(done);

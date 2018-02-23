@@ -27,7 +27,7 @@ class Game {
   }
   getCurrentPlayer() {
     let playerId = this.getCurrentPlayerId();
-    return this.getPlayerDetails(playerId);
+    return playerId && this.getPlayerDetails(playerId);
   }
   getCurrentPlayerId() {
     let players = Object.keys(this.players);

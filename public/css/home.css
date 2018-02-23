@@ -1,6 +1,8 @@
+html {
+  height: 100%;
+}
 body {
   font-family: 'Roboto', sans-serif;
-  background-image: url('/images/red.jpg');
 }
 
 main {

@@ -4,6 +4,9 @@
     margin: auto;
   }
 }
+html, body{
+  height: 100%;
+}
 #message-box{
   width: 100%;
   height: 100%;
@@ -64,7 +67,7 @@
 }
 .popup div div select{
   margin: 6px;
-  font-size: 2.2vh;
+  font-size: 2em;
 }
 
 .popup{
@@ -72,7 +75,7 @@
   flex-grow: 1;
   flex-direction: column;
   justify-content: center;
-  font-size: 1.2vw;
+  font-size: 1em;
 }
 
 .popup div button{
@@ -139,7 +142,7 @@
 
 .board #cards {
   display: flex;
-  max-height: 20vh;
+  max-height: 20%;
   width: auto;
   height: auto;
   flex-grow: 1;
@@ -147,27 +150,47 @@
 }
 
 .board #cards img {
-  width: 4vw;
+  width: 4%;
   margin: 0px 5px;
   border: 3px solid black;
 }
 
 main #title {
-  font-size: 1.5vw;
+  font-size: 1.8em;
   padding: 10px;
+  font-weight: bold;
   text-align: center;
 }
 
 body {
   display: flex;
-  height: 99vh;
 }
 
 main {
   display: flex;
-  margin: 8px 2px;
+  margin: 5px;
   flex-grow: 1;
-  border: 3px solid black;
-  height: 97vh;
+  border: 2px solid black;
   flex-direction: column;
+}
+
+#activity-log{
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+#activity-log div{
+  display: flex;
+  flex-grow: 1;
+  margin-bottom: 10px;
+}
+#activity-log div span{
+  padding: 0px 2px;
+}
+#activity-log div .time{
+  white-space: nowrap;
+  font-weight: bold;
 }
