@@ -1,24 +1,49 @@
 const Room = require('./room.js');
 class Path {
-  constructor() {
+  constructor(startingPoint,endingPoint) {
     this._rooms=[];
+    this.startingPoint = startingPoint;
+    this.endingPoint = endingPoint;
   }
-  canEnterIntoRoom(roomName, forwardPos, backwardPos){
+  get cells(){
+    return Array(this.endingPoint)
+      .fill(this.startingPoint)
+      .map((ele,index)=>index+ele);
+  }
+  canEnterIntoRoom(val,curPlayerPos,roomName,forwardDistance,backDistance){
     let room = this.getRoom(roomName);
     if(room){
-      let doorPosition = +room.doorPosition;
-      if(doorPosition<forwardPos && doorPosition>backwardPos ) {
+      let doorPos = +room.doorPosition;
+      let doorDistance = this.distanceForward(this.cells,doorPos,curPlayerPos);
+      if(doorDistance <= forwardDistance) {
         return true;
       }
-      if(doorPosition<backwardPos && doorPosition<forwardPos) {
-        return true;
-      }
-      if(doorPosition>backwardPos) {
+      doorDistance = this.distanceBack(this.cells,doorPos,curPlayerPos);
+      if(doorDistance <= backDistance) {
         return true;
       }
     }
     return false;
   }
+
+  distanceForward(cells,from, to){
+    let fromIndex = cells.indexOf(from);
+    let toIndex= cells.indexOf(to);
+    if(fromIndex<0 || toIndex<0) {
+      return;
+    }
+    let distance = 0;
+    while(fromIndex != toIndex){
+      distance++;
+      fromIndex = (fromIndex+1) % cells.length;
+    }
+    return distance;
+  }
+
+  distanceBack(cells,from, to){
+    return this.distanceForward(cells,to,from);
+  }
+
   getRoom(name){
     return this._rooms.find(room=>{
       return room.name.toLowerCase().includes(name);

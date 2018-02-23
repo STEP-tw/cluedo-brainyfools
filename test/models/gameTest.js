@@ -294,6 +294,21 @@ describe('Game', () => {
       game.diceVal = 5;
       assert.isNotOk(game.validateMove(74));
     });
+    it('should return false for moving to same room',()=>{
+      game.addPlayer('Raghu',1);
+      game.start();
+      game.diceVal = 1;
+      game.players[1].updatePos('hall');
+      assert.isNotOk(game.validateMove('hall'));
+      assert.isOk(game.validateMove('74'));
+    });
+    it('should return false for moving to invalid room',()=>{
+      game.addPlayer('Raghu',1);
+      game.start();
+      game.diceVal = 1;
+      game.players[1].updatePos('hall');
+      assert.isNotOk(game.validateMove('lounge'));
+    });
   });
 
   describe('#getPlayerdata', function(){
