@@ -10,6 +10,11 @@ let rooms=[
     "connectedRoom" : "Conservatory"
   },
   {
+    "name":"Conservatory",
+    "doorPosition" : 35,
+    "connectedRoom" : "Lounge"
+  },
+  {
     "name":"Dinning Room",
     "doorPosition" : 16,
     "connectedRoom" : ""
@@ -29,7 +34,7 @@ describe("Path",()=>{
   })
   describe("#addRooms",()=>{
     it('should add rooms to path',()=>{
-      assert.equal(path._rooms.length,3);
+      assert.equal(path._rooms.length,4);
     })
   })
   describe("#getRoom",()=>{
@@ -50,14 +55,14 @@ describe("Path",()=>{
       assert.isOk(path.canEnterIntoRoom(2,1,'lounge',3,75));
     })
     it('should return false if player can not enter into room',()=>{
-      let actual=path.canEnterIntoRoom(3,3,'conservatory',75,1);
+      let actual=path.canEnterIntoRoom(3,3,'kitchen',75,1);
       assert.isNotOk(path.canEnterIntoRoom(2,1,'lounge',0,0));
       assert.isNotOk(actual);
     });
   });
   describe('#canGoToConnectedRoom',()=>{
     it('should return true when given both inputs are rooms and room is connected',()=>{
-      assert.isOk(path.canGoToConnectedRoom('lounge','conservatory'));
+      assert.isOk(path.canGoToConnectedRoom('lounge',35));
     });
 
     it('should return false when given both inputs are rooms and room is not connected',()=>{

@@ -155,23 +155,30 @@ class Game {
     let clickpos = pos;
     let curPlayerPos = this.players[player].character.position;
     let room = this._path.getRoom(curPlayerPos);
+    let inRoom = false;
     if(curPlayerPos == pos && !atStart){
       return false;
     }
     if(room){
+      inRoom = true;
       curPlayerPos = +room.doorPosition;
       val--;
     }
     room = this._path.getRoom(pos);
     if(room){
       pos = +room.doorPosition;
-      val--;
+      !inRoom && val--;
     }
     let distance = this.getDistances(curPlayerPos,pos);
     return this.validatePos(val,+curPlayerPos,clickpos,...distance, atStart);
   }
-
+  isSameDistance(forwardDistance,backDistance){
+    return forwardDistance == backDistance
+  }
   validatePos(val,curPlayerPos,clickpos,forwardDistance,backDistance,atStart){
+    if(this.isSameDistance(forwardDistance,backDistance) && this._path.isRoom(clickpos)){
+      return this._path.canGoToConnectedRoom(clickpos,+curPlayerPos);
+    }
     if(forwardDistance > val && backDistance > val) {
       return false;
     }
@@ -179,8 +186,9 @@ class Game {
       return true;
     }
     let args= [val,+curPlayerPos, clickpos,forwardDistance,backDistance];
-    return (this._path.canEnterIntoRoom(...args))||
-    (forwardDistance == backDistance && atStart && (val == 1));
+    return (this._path.canEnterIntoRoom(...args)) ||
+    (this.isSameDistance(forwardDistance,backDistance) && atStart && (val == 1))
+    || this._path.canGoToConnectedRoom(clickpos,+curPlayerPos);
   }
   /*eslint-enable */
   updatePlayerPos(pos) {

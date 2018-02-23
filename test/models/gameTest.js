@@ -309,6 +309,15 @@ describe('Game', () => {
       game.players[1].updatePos('hall');
       assert.isNotOk(game.validateMove('lounge'));
     });
+    it('should return true if player selected valid connected room from room',()=>{
+      game.addPlayer('Raghu',1);
+      game.start();
+      game.diceVal = 2;
+      game.players[1].updatePos('lounge');
+      assert.isOk(game.validateMove('conservatory'));
+      game.players[1].updatePos('conservatory');
+      assert.isOk(game.validateMove('lounge'));
+    })
   });
 
   describe('#getPlayerdata', function(){

@@ -54,9 +54,16 @@ class Path {
       return new Room(room);
     });
   }
-  canGoToConnectedRoom(roomName,connectedRoomName){
+  isRoom(roomName){
+    return this.getRoom(roomName) && true;
+  }
+  canGoToConnectedRoom(roomName,curPlayerPos){
     let room = this.getRoom(roomName);
-    return room && room.connectedRoom.toLowerCase() == connectedRoomName;
+    if(this.isRoom(roomName)){
+      let connectedRoomName = room.connectedRoom.toLowerCase();
+      let connectedRoom = this.getRoom(connectedRoomName);
+      return connectedRoom && connectedRoom.doorPosition == curPlayerPos;
+    }
   }
 }
 
