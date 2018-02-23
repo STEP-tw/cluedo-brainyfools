@@ -21,6 +21,7 @@ const suspectOrAccuse = function () {
   let url = getBaseUrl();
   let suspicion = document.getElementById('suspect').checked;
   let accusation = document.getElementById('accuse').checked;
+  let character = document.getElementById('character').value;
   let weapon = document.getElementById('weapon').value;
   if (suspicion) {
     sendAjaxRequest('post',`${url}/suspect`,res=>{

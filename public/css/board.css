@@ -150,7 +150,8 @@ html, body{
 }
 
 .board #cards img {
-  width: 4%;
+  width: 80px;
+  height: 120px;
   margin: 0px 5px;
   border: 3px solid black;
 }
@@ -176,8 +177,8 @@ main {
 
 #activity-log{
   display: flex;
+  position: relative;
   flex-direction: column;
-  overflow-y: scroll;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
@@ -186,6 +187,7 @@ main {
   display: flex;
   flex-grow: 1;
   margin-bottom: 10px;
+  min-height: 25px;
 }
 #activity-log div span{
   padding: 0px 2px;
