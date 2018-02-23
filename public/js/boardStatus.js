@@ -67,6 +67,7 @@ const validatePosition = function(event) {
       showMessage(res.error || '');
       if(res.moved) {
         disablePopup();
+        showMessage('');
         document.getElementById('board').onclick=null;
         set = false;
       }
@@ -157,7 +158,6 @@ const enableSuspicion = function(){
 const disablePopup = function () {
   set = false;
   document.querySelector('#activity-box').innerHTML = '';
-  showMessage('');
 };
 
 const rollDice = function(){

@@ -12,6 +12,7 @@ const passTurn = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get',`${url}/pass`,()=>{
     disablePopup();
+    showMessage('');
     updateStatus();
   });
 };
@@ -86,7 +87,10 @@ const updateStatus = function () {
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
     let turn = res.currentPlayer.character.turn;
-    if (playerTurn == turn && !res.moved) {
+    if(res.suspecting){
+      showMessage('suspecting...');
+      disablePopup();
+    } else if (playerTurn == turn && !res.moved) {
       enableRollDice();
     } else if(res.currentPlayer.inRoom && playerTurn==turn){
       enableSuspicion();
