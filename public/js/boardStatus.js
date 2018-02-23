@@ -148,12 +148,14 @@ const enableSuspicion = function(){
   </div>
   </div>
   <div>
-  <input type="radio" name="action" value="Accuse" id="suspect"/>
+  <input type="radio" name="action" value="suspect" id="suspect"/>
   <label>Suspect</label>
+  <input type="radio" name="action" value="accuse" id="accuse"/>
+  <label>Accuse</label>
   </div>
   <div class="confirm">
   <button onclick="passTurn()">Pass</button>
-  <button onclick="suspect()">Confirm</button>
+  <button onclick="suspectOrAccuse()">Confirm</button>
   </div>
   </div>`;
 };

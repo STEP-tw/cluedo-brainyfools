@@ -110,7 +110,9 @@ form input[type=submit]:hover {
 .cluedoForm{
   background-color: #c19e67;
 }
-
+:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
 img{
   width: 50vh;
   height: 15vh;

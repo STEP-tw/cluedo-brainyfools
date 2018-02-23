@@ -17,13 +17,20 @@ const passTurn = function () {
   });
 };
 
-const suspect = function () {
+const suspectOrAccuse = function () {
   let url = getBaseUrl();
   let suspicion = document.getElementById('suspect').checked;
-  let character = document.getElementById('character').value;
+  let accusation = document.getElementById('accuse').checked;
   let weapon = document.getElementById('weapon').value;
   if (suspicion) {
     sendAjaxRequest('post',`${url}/suspect`,res=>{
+      updateStatus();
+    },`{
+      "character":"${character}",
+      "weapon":"${weapon}"
+    }`);
+  } else if(accusation) {
+    sendAjaxRequest('post',`${url}/accuse`,res=>{
       updateStatus();
     },`{
       "character":"${character}",
