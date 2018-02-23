@@ -203,6 +203,15 @@ class Game {
     }
     return player.character.turn;
   }
+
+  addActivity(activity){
+    let timeOfActivity = this._activityLog.addActivity(activity);
+    return timeOfActivity;
+  }
+
+  getActivitesAfter(time) {
+    return this._activityLog.getActivitesAfter(time);
+  }
 }
 
 module.exports = Game;
