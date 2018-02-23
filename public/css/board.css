@@ -177,8 +177,8 @@ main {
 
 #activity-log{
   display: flex;
+  position: relative;
   flex-direction: column;
-  overflow-y: scroll;
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
@@ -187,6 +187,7 @@ main {
   display: flex;
   flex-grow: 1;
   margin-bottom: 10px;
+  min-height: 25px;
 }
 #activity-log div span{
   padding: 0px 2px;

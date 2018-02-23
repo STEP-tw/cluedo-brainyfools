@@ -6,7 +6,7 @@ const updateLog = function(){
   sendAjaxRequest('get',`${url}/log/${lastActivityTime}`,(res)=>{
     let data = JSON.parse(res);
     let allActivitiesTime = Object.keys(data);
-    allActivitiesTime = allActivitiesTime.sort((t1,t2)=>+t1<+t2);
+    allActivitiesTime = allActivitiesTime.sort((t1,t2)=>+t1>+t2);
     allActivitiesTime.forEach((time)=>{
       let activity = data[time];
       lastActivityTime = time;
