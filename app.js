@@ -14,6 +14,7 @@ const {serveWaitingPage} = waitingPageHandlers;
 const serveGamePage = require('./src/routes/serveGamePageHandler.js');
 const boardStatusHandler = require('./src/routes/boardStatusHandler');
 const turnHandler = require('./src/routes/turnHandler');
+const logHandler = require('./src/routes/logHandler');
 
 const app = express();
 
@@ -52,7 +53,7 @@ app.get('/game/:gameId', serveGamePage);
 app.get('/game/:gameId/data', serveGameData);
 app.get('/game/:gameId/rollDice', turnHandler.rollDice);
 app.post('/game/:gameId/move',turnHandler.move);
-
+app.get('/game/:gameId/log/:time',logHandler);
 
 app.get('/game/:gameId/pass',turnHandler.pass);
 

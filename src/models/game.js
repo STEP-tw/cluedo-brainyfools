@@ -109,6 +109,7 @@ class Game {
     this.gatherRemainingCards();
     this.distributeCards();
     this._path.addRooms(rooms);
+    this.addActivity("Game has started");
     this.started = true;
   }
   setMurderCombination() {

@@ -1,5 +1,12 @@
 const rollDice = function(req,res){
-  let diceVal = req.game.rollDice();
+  let game = req.game;
+  let currentPlayerName = game.getCurrentPlayer().name;
+  if(game.diceVal){
+    res.json({value:game.diceVal});
+    return;
+  }
+  let diceVal = game.rollDice();
+  game.addActivity(`${currentPlayerName} got ${diceVal}`);
   res.json({value:diceVal});
 };
 

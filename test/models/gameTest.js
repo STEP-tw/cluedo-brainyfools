@@ -343,4 +343,22 @@ describe('Game', () => {
       assert.deepEqual(game.getActivitesAfter(1),expected)
     });
   });
+
+  describe('#start', function(){
+    it('should start the game', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      assert.isNotOk(game.hasStarted());
+      game.start();
+      assert.isOk(game.hasStarted());
+      let activities = game.getActivitesAfter(0)
+      let expectedActivities = {
+        '1':'Game has started'
+      }
+      assert.deepEqual(expectedActivities,activities)
+    });
+
+  });
+
 });
