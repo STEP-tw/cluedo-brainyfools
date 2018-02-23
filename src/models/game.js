@@ -176,8 +176,8 @@ class Game {
     return forwardDistance == backDistance
   }
   validatePos(val,curPlayerPos,clickpos,forwardDistance,backDistance,atStart){
-    if(this.isSameDistance(forwardDistance,backDistance) && this._path.isRoom(clickpos)){
-      return this._path.canGoToConnectedRoom(clickpos,+curPlayerPos);
+    if(this._path.canGoToConnectedRoom(clickpos,+curPlayerPos)){
+      return true;
     }
     if(forwardDistance > val && backDistance > val) {
       return false;

@@ -317,6 +317,10 @@ describe('Game', () => {
       assert.isOk(game.validateMove('conservatory'));
       game.players[1].updatePos('conservatory');
       assert.isOk(game.validateMove('lounge'));
+      game.players[1].updatePos('kitchen');
+      assert.isOk(game.validateMove('study'));
+      game.players[1].updatePos('study');
+      assert.isOk(game.validateMove('kitchen'));
     })
   });
 

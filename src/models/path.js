@@ -46,7 +46,7 @@ class Path {
 
   getRoom(name){
     return this._rooms.find(room=>{
-      return room.name.toLowerCase().includes(name);
+      return room.name.toLowerCase() == name;
     });
   }
   addRooms(rooms){
@@ -64,6 +64,7 @@ class Path {
       let connectedRoom = this.getRoom(connectedRoomName);
       return connectedRoom && connectedRoom.doorPosition == curPlayerPos;
     }
+    return false;
   }
 }
 
