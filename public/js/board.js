@@ -96,6 +96,7 @@ const updateStatus = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
+    console.log(res);
     let turn = res.currentPlayer.character.turn;
     if(res.suspecting){
       showMessage(`${res.currentPlayer.name} has raised a suspicion`);

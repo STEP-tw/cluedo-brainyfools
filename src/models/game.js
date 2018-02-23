@@ -15,7 +15,7 @@ class Game {
     this.cardHandler = new CardHandler();
     this._murderCombination = {};
     this.started = false;
-    this._path = new Path();
+    this._path = new Path(1,78);
     this._turn = 1;
     this._activityLog = new ActivityLog(getDate);
   }
@@ -141,42 +141,48 @@ class Game {
   gatherRemainingCards() {
     this.cardHandler.gatherRemainingCards();
   }
+  getDistances(curPlayerPos,pos){
+    let cells = this._path.cells;
+    let forwardDistance = this._path.distanceForward(cells,+curPlayerPos,+pos);
+    let backDistance = this._path.distanceBack(cells,+curPlayerPos,+pos);
+    return [forwardDistance,backDistance];
+  }
+  /*eslint-disable */
   validateMove(pos) {
-    let currentPlayerId = this.getCurrentPlayerId();
-    let currentPlayer = this.getPlayer(currentPlayerId);
-    let val = this.diceVal;
-    currentPlayer.character.start && val--;
-    let currentPlayerPos = currentPlayer.character.position;
-    if(currentPlayerPos == pos && val > 0) {
+    let player = this.getCurrentPlayerId();
+    let atStart = this.players[player].character.start;
+    let val = this.diceVal - atStart;
+    let clickpos = pos;
+    let curPlayerPos = this.players[player].character.position;
+    let room = this._path.getRoom(curPlayerPos);
+    if(curPlayerPos == pos && !atStart){
       return false;
     }
-    let connectedRoom = currentPlayerPos;
-    let room = this._path.getRoom(currentPlayerPos);
     if(room){
-      currentPlayerPos = +room.doorPosition;
+      curPlayerPos = +room.doorPosition;
       val--;
     }
-    let forwardPos = this.getForwardPos(currentPlayerPos,val);
-    let backPos = this.getBackPos(currentPlayerPos,val);
-    return this.validatePosition(pos,forwardPos,backPos,connectedRoom);
+    room = this._path.getRoom(pos);
+    if(room){
+      pos = +room.doorPosition;
+      val--;
+    }
+    let distance = this.getDistances(curPlayerPos,pos);
+    return this.validatePos(val,+curPlayerPos,clickpos,...distance, atStart);
   }
 
-  validatePosition(pos,forwardPos,backPos,connectedRoom){
-    return +pos == forwardPos || +pos == backPos
-    || this._path.canGoToConnectedRoom(pos,connectedRoom)
-    || this._path.canEnterIntoRoom(pos, forwardPos,backPos);
+  validatePos(val,curPlayerPos,clickpos,forwardDistance,backDistance,atStart){
+    if(forwardDistance > val && backDistance > val) {
+      return false;
+    }
+    if(val == forwardDistance || val == backDistance){
+      return true;
+    }
+    let args= [val,+curPlayerPos, clickpos,forwardDistance,backDistance];
+    return (this._path.canEnterIntoRoom(...args))||
+    (forwardDistance == backDistance && atStart && (val == 1));
   }
-  getForwardPos(currentPos, val){
-    let forwardPos =(+currentPos + val) % 78;
-    forwardPos = forwardPos == 0 ? 1 : forwardPos;
-    return forwardPos;
-  }
-  getBackPos(currentPos, val){
-    let backPos = +currentPos - val;
-    backPos = backPos < 1 ? 78 + backPos : backPos;
-    return backPos;
-  }
-
+  /*eslint-enable */
   updatePlayerPos(pos) {
     if (this.playerMoved) {
       return false;

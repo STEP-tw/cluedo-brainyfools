@@ -42,7 +42,8 @@ describe('turnHandler', () => {
         .send({position:val})
         .expect((res)=>{
           assert.deepEqual(res.body, {moved:true})
-        }).end(done);
+        })
+        .end(done);
     });
     it('should return error for wrong turn',(done)=>{
       app.games['1234'].rollDice();
