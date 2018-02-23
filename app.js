@@ -52,8 +52,7 @@ app.get('/game/:gameId', serveGamePage);
 app.get('/game/:gameId/data', serveGameData);
 app.get('/game/:gameId/rollDice', turnHandler.rollDice);
 app.post('/game/:gameId/move',turnHandler.move);
-
-
+app.post('/game/:gameId/suspect',turnHandler.suspect);
 app.get('/game/:gameId/pass',turnHandler.pass);
 
 app.use(express.static('public'));

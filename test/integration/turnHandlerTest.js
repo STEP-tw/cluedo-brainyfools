@@ -118,4 +118,28 @@ describe('turnHandler', () => {
         .end(done);
     });
   });
+  describe('GET /game/1234/pass',()=>{
+    it('should pass turn to the next player',done=>{
+      request(app)
+        .get('/game/1234/pass')
+        .set('cookie', 'playerId=11')
+        .expect(res=>{
+          assert.deepEqual(res.body, { passed: true});
+        })
+        .end(done);
+    });
+  });
+
+  describe('POST /game/1234/suspect',()=>{
+    it('should craete a suspicion',done=>{
+      request(app)
+        .post('/game/1234/suspect')
+        .set('cookie', 'playerId=11')
+        .send({character:'a',weapon:'b'})
+        .expect(res=>{
+          assert.deepEqual(res.body, { suspected: true});
+        })
+        .end(done);
+    });
+  });
 });

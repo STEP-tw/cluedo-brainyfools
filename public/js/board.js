@@ -16,6 +16,21 @@ const passTurn = function () {
   });
 };
 
+const suspect = function () {
+  let url = getBaseUrl();
+  let suspicion = document.getElementById('suspect').checked;
+  let character = document.getElementById('character').value;
+  let weapon = document.getElementById('weapon').value;
+  if (suspicion) {
+    sendAjaxRequest('post',`${url}/suspect`,res=>{
+      updateStatus();
+    },`{
+      "character":"${character}",
+      "weapon":"${weapon}"
+    }`);
+  }
+};
+
 const setCurrentPlayer = function (player) {
   let pd = document.querySelector('#current-player');
   playerTurn = player.character.turn;

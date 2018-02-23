@@ -35,7 +35,8 @@ describe('#app', () => {
               character: {
                 "color": "#bf0000",
                 "name": "Miss Scarlett",
-                turn: 1
+                turn: 1,
+                position:1
               }
             }
           };

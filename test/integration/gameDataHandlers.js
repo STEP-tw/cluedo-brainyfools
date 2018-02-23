@@ -41,7 +41,8 @@ describe('app', () => {
                   character: {
                     name: "Miss Scarlett",
                     color: "#bf0000",
-                    turn:1
+                    turn:1,
+                    position:1
                   }
                 },
                 2: {
@@ -50,7 +51,8 @@ describe('app', () => {
                   character: {
                     "color": "#ffdb58",
                     "name": "Col. Mustard",
-                    turn:2
+                    turn:2,
+                    position:11
                   }
                 }
               };

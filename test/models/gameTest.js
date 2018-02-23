@@ -80,7 +80,8 @@ describe('Game', () => {
           character: {
             name: "Miss Scarlett",
             color: "#bf0000",
-            turn:1
+            turn:1,
+            position:1
           },
           cards:[]
         }
@@ -103,7 +104,8 @@ describe('Game', () => {
           character: {
             name: "Miss Scarlett",
             color: "#bf0000",
-            turn:1
+            turn:1,
+            position:1
           }
         },
         23: {
@@ -113,7 +115,8 @@ describe('Game', () => {
           character: {
             "color": "#ffdb58",
             "name": "Col. Mustard",
-            turn:2
+            turn:2,
+            position:11
           }
         }
       };
@@ -132,7 +135,8 @@ describe('Game', () => {
         character: {
           "color": "#bf0000",
           "name": "Miss Scarlett",
-          'turn':1
+          'turn':1,
+          position:1
         }
       });
     });
@@ -317,6 +321,21 @@ describe('Game', () => {
       game.diceVal = 2;
       game.updatePlayerPos(2);
       assert.isFalse(game.updatePlayerPos(3));
+    });
+  });
+
+  describe('#updateSuspicionOf()',()=>{
+    it('should update player\'s last suspicion',()=>{
+      game.addPlayer("Pranav", 1);
+      let combination={
+        character:'Col. Musturd',
+        weapon:'spanner',
+        room:'Hall'
+      };
+      game.updateSuspicionOf(1,combination);
+      let player = game.players[1];
+      let expected = {_combination:combination,_suspector:'Pranav'};
+      assert.deepEqual(player._lastSuspicion,expected);
     });
   });
 });

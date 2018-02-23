@@ -49,8 +49,21 @@ const passTurn = function (req,res) {
   res.json({passed : true});
 };
 
+const createSuspicion = function(req,res){
+  let playerId = req.game.getCurrentPlayerId();
+  let player = req.game.getCurrentPlayer();
+  let combination = {
+    character:req.body.character,
+    weapon:req.body.weapon,
+    room:player.character.position
+  };
+  req.game.updateSuspicionOf(playerId,combination);
+  res.json({suspected:true});
+};
+
 module.exports = {
   rollDice : [checkTurn, rollDice],
   move : [checkTurn,validateData ,validateMove, updatePos],
-  pass : [checkTurn,passTurn]
+  pass : [checkTurn,passTurn],
+  suspect : [checkTurn,createSuspicion]
 };

@@ -2,8 +2,8 @@ const Player = require('./player.js');
 const Character = require('./character.js');
 const Path = require('./path.js');
 const CardHandler = require('./cardHandler.js');
-const characterData = require('../data/characterData.json');
-const rooms = require('../data/roomData.json');
+const characterData = require('./data/characterData.json');
+const rooms = require('./data/roomData.json');
 const ActivityLog = require('./activityLog');
 const getTime = require('../utils/time.js');
 
@@ -87,7 +87,8 @@ class Game {
       character: {
         name: player.character.name,
         color: player.character.tokenColor,
-        turn: player.character.turn
+        turn: player.character.turn,
+        position: player.character.position
       }
     };
   }
@@ -202,6 +203,9 @@ class Game {
       player = players[0];
     }
     return player.character.turn;
+  }
+  updateSuspicionOf(id,combination) {
+    return this.players[id].updateSuspicion(combination);
   }
 }
 
