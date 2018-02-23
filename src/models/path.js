@@ -28,7 +28,6 @@ class Path {
   }
   canGoToConnectedRoom(roomName,connectedRoomName){
     let room = this.getRoom(roomName);
-    console.log(room);
     return room && room.connectedRoom.toLowerCase() == connectedRoomName;
   }
 }

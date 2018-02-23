@@ -1,13 +1,17 @@
 const chai = require('chai');
 const assert = chai.assert;
 const Game = require('../../src/models/game.js');
+const ActivityLog = require('../../src/models/activityLog.js');
+
+let getTime = function(start){
+  return ()=>start++;
+}
 
 describe('Game', () => {
   let game;
   beforeEach(() => {
-    game = new Game(3);
+    game = new Game(3, getTime(1));
   });
-
 
   describe('#addPlayer', () => {
     it('should create new player with diff. characters', () => {
@@ -306,7 +310,7 @@ describe('Game', () => {
     });
   });
 
-  describe('#updatePlayerPos()',()=>{
+  describe('#updatePlayerPos',()=>{
     it('should update player\'s position',()=>{
       game.addPlayer("Pranav", 1);
       game.diceVal = 2;
@@ -338,6 +342,7 @@ describe('Game', () => {
       assert.deepEqual(player._lastSuspicion,expected);
     });
   });
+
   describe('#isSuspecting',()=>{
     it('should give true if player is suspecting',()=>{
       game.addPlayer("Pranav", 1);
@@ -354,6 +359,7 @@ describe('Game', () => {
       assert.isNotOk(game.isSuspecting());
     });
   });
+
   describe('#getCurrentSuspicion',()=>{
     it('should give suspicion combination',()=>{
       game.addPlayer("Pranav", 1);
@@ -370,4 +376,43 @@ describe('Game', () => {
       assert.deepEqual(game.getCurrentSuspicion(),{});
     });
   });
+
+  describe('#addActivity', function(){
+    it('should add activity to the activityLog', function(){
+      let activityTime = game.addActivity('activity 1');
+      let activities = game._activityLog.activities;
+      assert.equal(activities[activityTime],'activity 1');
+    });
+  });
+
+  describe('#getActivitesAfter', function(){
+    it('should return all activities after given time', function(){
+      game.addActivity('activity 1');
+      game.addActivity('activity 2');
+      game.addActivity('activity 3');
+      let expected = {
+        '2' : 'activity 2',
+        '3' : 'activity 3'
+      };
+      assert.deepEqual(game.getActivitesAfter(1),expected)
+    });
+  });
+
+  describe('#start', function(){
+    it('should start the game', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      assert.isNotOk(game.hasStarted());
+      game.start();
+      assert.isOk(game.hasStarted());
+      let activities = game.getActivitesAfter(0)
+      let expectedActivities = {
+        '1':'Game has started'
+      }
+      assert.deepEqual(expectedActivities,activities)
+    });
+
+  });
+
 });

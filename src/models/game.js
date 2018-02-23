@@ -110,6 +110,7 @@ class Game {
     this.gatherRemainingCards();
     this.distributeCards();
     this._path.addRooms(rooms);
+    this.addActivity("Game has started");
     this.started = true;
   }
   setMurderCombination() {
@@ -214,6 +215,15 @@ class Game {
   getCurrentSuspicion() {
     let id=this.getCurrentPlayerId();
     return this.players[id].getCombination();
+  }
+
+  addActivity(activity){
+    let timeOfActivity = this._activityLog.addActivity(activity);
+    return timeOfActivity;
+  }
+
+  getActivitesAfter(time) {
+    return this._activityLog.getActivitesAfter(time);
   }
 }
 
