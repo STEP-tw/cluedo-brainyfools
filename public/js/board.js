@@ -58,9 +58,11 @@ const setOtherPlayer = function (player) {
   <span>${player.name}</span>
   <span>${player.character.name}</span></div>`;
 };
+
 const objectValues = function (obj) {
   return Object.keys(obj).map(key => obj[key]);
 };
+
 const fillPlayerDetails = function (data) {
   let playerDetails = JSON.parse(data);
   let players = Object.keys(playerDetails);
@@ -88,8 +90,9 @@ const updateStatus = function () {
     res = JSON.parse(res);
     let turn = res.currentPlayer.character.turn;
     if(res.suspecting){
-      showMessage('suspecting...');
+      showMessage(`${res.currentPlayer.name} has raised a suspicion`);
       disablePopup();
+      showSuspicionCards(res.combination);
     } else if (playerTurn == turn && !res.moved) {
       enableRollDice();
     } else if(res.currentPlayer.inRoom && playerTurn==turn){
@@ -111,15 +114,6 @@ const startStatusUpdater = function () {
   setInterval(updateStatus, 1000);
 };
 
-window.onload = function () {
-  sendAjaxRequest('get', '/svg/board.svg', (res) => {
-    document.querySelector('#board').innerHTML = res;
-    startStatusUpdater();
-    getPlayerDetails();
-    showBoardStatus();
-  });
-};
-
 const getCookie = function (cname) {
   let name = cname + "=";
   let decodedCookie = decodeURIComponent(document.cookie);
@@ -134,4 +128,13 @@ const getCookie = function (cname) {
     }
   }
   return "";
+};
+
+window.onload = function () {
+  sendAjaxRequest('get', '/svg/board.svg', (res) => {
+    document.querySelector('#board').innerHTML = res;
+    startStatusUpdater();
+    getPlayerDetails();
+    showBoardStatus();
+  });
 };

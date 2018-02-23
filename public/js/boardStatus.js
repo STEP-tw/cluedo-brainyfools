@@ -29,6 +29,7 @@ const getXCoordOfRoom = function(pos){
   }
   return +room.getAttribute('x');
 };
+
 const getYCoordOfRoom = function(pos){
   let changeY = ['ballroom','hall'];
   let corners = ['conservatory','study','lounge','kitchen'];
@@ -99,7 +100,9 @@ function stopstart() {
     stopped = true;
   }
 }
+
 let set = false;
+
 const enableRollDice = function(){
   if(set) {
     return;
@@ -124,12 +127,12 @@ const enableSuspicion = function(){
   <div>
   <label for='character'>Character</label>
   <select name="character" id="character">
-  <option value="Scarlett">Miss Scarlett</option>
-  <option value="Mustard">Col. Mustard</option>
-  <option value="Orchid">Dr. Orchid</option>
-  <option value="Green">Rev. Green</option>
-  <option value="Peacock">Mrs. Peacock</option>
-  <option value="Plum">Prof. Plum</option>
+  <option value="Miss Scarlett">Miss Scarlett</option>
+  <option value="Col. Mustard">Col. Mustard</option>
+  <option value="Dr. Orchid">Dr. Orchid</option>
+  <option value="Rev. Green">Rev. Green</option>
+  <option value="Mrs. Peacock">Mrs. Peacock</option>
+  <option value="Prof. Plum">Prof. Plum</option>
   </select>
   </div>
   <div>
@@ -140,7 +143,7 @@ const enableSuspicion = function(){
   <option value="Wrench">Wrench</option>
   <option value="Revolver">Revolver</option>
   <option value="Candlestick">Candlestick</option>
-  <option value="Leadpipe">Lead Pipe</option>
+  <option value="Lead Pipe">Lead Pipe</option>
   </select>
   </div>
   </div>
@@ -183,6 +186,18 @@ const getBaseUrl = function(){
   return window.location.pathname.replace(/\/$/,'');
 };
 
+const showSuspicionCards = function(cards) {
+  let characterCard = cards.character.replace(/[.\s]+/,'_');
+  let weaponCard = cards.weapon.replace(/[.\s]+/,'_');
+  let roomCard = cards.room.replace(/[.\s]+/,'_');
+
+  document.getElementById('character-card').setAttribute('href',
+    `/images/cards/Character/${characterCard}.jpg`);
+  document.getElementById('weapon-card').setAttribute('href',
+    `/images/cards/Weapon/${weaponCard}.jpg`);
+  document.getElementById('room-card').setAttribute('href',
+    `/images/cards/Room/${roomCard}.jpg`);
+};
 window.addEventListener('load',()=>{
   setInterval(showBoardStatus,3000);
 });
