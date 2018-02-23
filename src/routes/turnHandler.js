@@ -45,8 +45,11 @@ const updatePos = function(req,res){
   let game = req.game;
   let moved = game.updatePlayerPos(pos);
   let currentPlayer = game.getCurrentPlayer();
+  game.addActivity(`${currentPlayer.name} moved`);
   if(!currentPlayer.inRoom){
     game.pass();
+  }else{
+    game.addActivity(`${currentPlayer.name} entered in ${pos}`);
   }
   res.json({moved:moved});
 };
