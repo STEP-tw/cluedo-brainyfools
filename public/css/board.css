@@ -53,9 +53,11 @@ html, body{
 
 .popup div input{
   margin: 4px;
+  font-size: 20px;
 }
 .popup div label{
   margin: 0px 4px 0px 4px;
+  font-size: 25px;
 }
 
 .popup div div{
@@ -67,7 +69,7 @@ html, body{
 }
 .popup div div select{
   margin: 6px;
-  font-size: 2em;
+  font-size: 1em;
 }
 
 .popup{
@@ -80,6 +82,9 @@ html, body{
 
 .popup div button{
   margin: 5px;
+  font-size: 18px;
+  color: #4c4444f2;
+  background-color: #e2e8e3;
 }
 
 .rolldice{

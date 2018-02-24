@@ -138,7 +138,10 @@ describe('turnHandler', () => {
         .set('cookie', 'playerId=11')
         .send({character:'a',weapon:'b'})
         .expect(res=>{
-          assert.deepEqual(res.body, { suspected: true});
+          assert.deepEqual(res.body, {
+            suspected: true,
+            suspector:"Miss Scarlett"
+          });
         })
         .end(done);
     });
