@@ -4,7 +4,7 @@ const getGameStatus = function (req, res) {
     "currentPlayer": player,
     "moved": req.game.playerMoved,
     "suspecting":req.game.isSuspecting(),
-    "combination":req.game.getSuspicionCombination()
+    "combination":req.game.getCombination()
   };
   res.json(gameStatus);
 };

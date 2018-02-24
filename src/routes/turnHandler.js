@@ -70,7 +70,10 @@ const createSuspicion = function(req,res){
   let room=new Card(player.character.position,'Room');
   let combination = new Combination(room, weapon, character);
   req.game.updateSuspicionOf(playerId,combination);
-  res.json({suspected:true,suspector:player.character.name});
+  req.game.addActivity(
+    `${player.name} suspected ${
+      character.name} with ${weapon.name} in ${room.name}`);
+  res.json({suspected: true, suspector: player.character.name});
 };
 
 const getSuspicion = function(req,res){
@@ -78,12 +81,31 @@ const getSuspicion = function(req,res){
   let playerId = req.cookies.playerId;
   let suspicion = game.getSuspicion(playerId);
   res.json(suspicion);
-}
+};
+
+const canRuleOut = function(req,res,next){
+  let playerId = req.cookies.playerId;
+  let card = req.body.card;
+  if(req.game.canRuleOut(playerId, card)){
+    next();
+    return ;
+  }
+  res.json({success:false, error:"Cannot rule out"});
+};
+
+const ruleOut = function(req,res){
+  let card = req.body.card;
+  req.game.ruleOut(card);
+  let suspicion = game.getSuspicion(playerId);
+  req.addActivity(`Ruled out by ${suspicion.cancelledBy}`);
+  res.json({success: true});
+};
 
 module.exports = {
   rollDice : [checkTurn, rollDice],
   move : [checkTurn,validateData ,validateMove, updatePos],
   pass : [checkTurn,passTurn],
   suspect : [checkTurn,createSuspicion],
-  getSuspicion : [getSuspicion]
+  getSuspicion : [getSuspicion],
+  ruleOut : [canRuleOut, ruleOut]
 };

@@ -244,26 +244,24 @@ class Game {
       player.character.position = combination.room;
     }
     this.players[id].updateSuspicion(combination);
-    this.findSuspicionCanceller(this.players[id]);
+    this.findCanceller(this.players[id]);
     return true;
   }
-  findSuspicionCanceller(currentPlayer){
-    debugger;
+  findCanceller(currentPlayer){
     let suspicion = this.getCurrentSuspicion();
     let turn = currentPlayer.character.turn;
     let nextTurn = this.getNextTurn(turn);
     while (turn != nextTurn) {
       let nextPlayer = this.getPlayerByTurn(nextTurn);
       if(nextPlayer.canCancel(suspicion)){
-        suspicion.cancelled = false;
         suspicion.canBeCancelled = true;
+        suspicion.cancellerName = nextPlayer.name;
         suspicion.canceller = this.getPlayerId(nextTurn);
         suspicion.cancellingCards = nextPlayer.getCancellingCards(suspicion);
         return;
       }
       nextTurn = this.getNextTurn(nextTurn);
     }
-    suspicion.cancelled = false;
     suspicion.canBeCancelled = false;
   }
   getPlayerId(turn){
@@ -289,10 +287,10 @@ class Game {
     let id=this.getCurrentPlayerId();
     return this.players[id].getSuspicion();
   }
-  getSuspicionCombination(){
+  getCombination(){
     let id=this.getCurrentPlayerId();
     let player = this.players[id];
-    return player.getSuspicionCombination();
+    return player.getCombination();
   }
   addActivity(activity){
     let timeOfActivity = this._activityLog.addActivity(activity);
@@ -303,15 +301,29 @@ class Game {
     let result = {
       combination : suspicion.combination,
       cancelled : suspicion.cancelled,
+      cancelledBy : suspicion.cancellerName,
       canBeCancelled : suspicion.canBeCancelled
-    }
+    };
     if(suspicion.canceller==playerId){
       result.cancellingCards = suspicion.cancellingCards;
+    }
+    if(playerId == this.getCurrentPlayerId()){
+      result.ruleOutCard = suspicion.ruleOutCard;
     }
     return result;
   }
   getActivitesAfter(time) {
     return this._activityLog.getActivitesAfter(time);
+  }
+  canRuleOut(playerId, ruleOutCard){
+    let suspicion = this.getSuspicion(playerId);
+    let card = suspicion.cancellingCards.find(card=>card._name == ruleOutCard);
+    return !!card;
+  }
+  ruleOut(card){
+    let suspicion = this.getCurrentSuspicion();
+    suspicion.cancelled = true;
+    suspicion.ruleOutCard = card;
   }
 }
 

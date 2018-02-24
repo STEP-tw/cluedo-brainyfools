@@ -36,7 +36,8 @@
     "max-lines": [
       "error",
       {
-        "skipBlankLines": true
+        "skipBlankLines": true,
+        "max" : 400
       }
     ],
     "max-statements": [

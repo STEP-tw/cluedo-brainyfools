@@ -2,7 +2,8 @@ const assert = require('chai').assert;
 const request = require('supertest');
 const app = require('../../app.js');
 const Game = require('../../src/models/game.js');
-
+const Combination = require('../../src/models/combination');
+const Card = require('../../src/models/card');
 let games = app.games;
 
 const idGen = app.idGenerator;
@@ -55,7 +56,11 @@ describe('#gameStatusHandler', () => {
       weapon:'Revolver',
       room:"Hall"
     };
-    game.updateSuspicionOf(11,combination);
+     let character = new Card('Dr. Orchid', 'Character');
+     let weapon = new Card('Revolver', 'Weapon');
+     let room = new Card("Hall", 'Room');
+     let combinationO = new Combination(room, weapon, character);
+    game.updateSuspicionOf(11,combinationO);
     request(app)
       .get('/game/1234/status')
       .expect(res => {

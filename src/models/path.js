@@ -46,7 +46,7 @@ class Path {
 
   getRoom(name){
     return this._rooms.find(room=>{
-      return room.name.toLowerCase() == name;
+      return name && room.name.toLowerCase().includes(name);
     });
   }
   addRooms(rooms){

@@ -124,23 +124,28 @@ const updateStatus = function () {
     document.getElementById(`turn_${turn}`).style['background-color'] = 'gray';
   });
 };
-
 const getSuspicion = function(){
   let url = getBaseUrl();
   sendAjaxRequest('get',`${url}/suspicion`,(res)=>{
     let suspicion = JSON.parse(res);
     let playerId = getCookie('playerId');
-    if(suspicion.canBeCancelled){
+    if (suspicion.canBeCancelled && !suspicion.cancelled){
       if(suspicion.cancellingCards){
         showMessage('Rule out Suspicion by selecting a card');
-        enableSuspicionRuleOut(suspicion.cancellingCards);
+        enableRuleOut(suspicion.cancellingCards);
       }
+    }else if(suspicion.ruleOutCard){
+      showMessage(`Ruled out by ${
+        suspicion.cancelledBy} using ${suspicion.ruleOutCard}`);
+      // enableAccusation();
     }
   });
-}
+};
 let ruleOutEnabled = false;
-const enableSuspicionRuleOut = function(cards){
-  if(ruleOutEnabled) return;
+const enableRuleOut = function(cards){
+  if(ruleOutEnabled) {
+    return;
+  }
   ruleOutEnabled=true;
   let popup = document.getElementById('activity-box');
   popup.innerHTML = `
@@ -151,8 +156,8 @@ const enableSuspicionRuleOut = function(cards){
     </select>
     <button onclick="ruleOutSuspicion()">Rule Out</button>
   </div>
-  `
-}
+  `;
+};
 
 const ruleOutSuspicion = function(){
   let val = document.getElementById('cancelsuspicion');
@@ -162,8 +167,8 @@ const ruleOutSuspicion = function(){
     if(res.success){
       ruleOutEnabled = false;
     }
-  }, val.value);
-}
+  }, `{"card":"${val.value}"}`);
+};
 
 const removeTurnHighlight = function(){
   let players = document.querySelectorAll('.player');

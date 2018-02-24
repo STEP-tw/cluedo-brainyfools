@@ -3,6 +3,7 @@ const assert = chai.assert;
 const Card = require('../../src/models/card.js');
 const Player = require('../../src/models/player.js');
 const Suspicion = require('../../src/models/suspicion.js');
+const Combination = require('../../src/models/combination');
 
 describe('Player',()=>{
   let player;
@@ -91,7 +92,11 @@ describe('Player',()=>{
         weapon:'Revolver',
         room:"Hall"
       };
-      player.updateSuspicion(combination);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Hall", 'Room');
+      let combinationO = new Combination(room, weapon, character);
+      player.updateSuspicion(combinationO);
       assert.deepEqual(player.getCombination(),combination);
     });
     it('should give empty object if combination is not defined',()=>{

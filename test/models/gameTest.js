@@ -2,6 +2,8 @@ const chai = require('chai');
 const assert = chai.assert;
 const Game = require('../../src/models/game.js');
 const ActivityLog = require('../../src/models/activityLog.js');
+const Combination = require('../../src/models/combination');
+const Card = require('../../src/models/card');
 
 let getTime = function(start){
   return ()=>start++;
@@ -369,7 +371,7 @@ describe('Game', () => {
       let player = game.players[1];
       let suspicion = game.players[2];
       assert.equal(suspicion.character.position,'Hall');
-      let expected = {_combination:combination,_suspector:'Pranav'};
+      let expected = { _combination: combination, _suspector: 'Pranav', "canBeCancelled": false};
       assert.deepEqual(player._lastSuspicion,expected);
     });
   });
@@ -399,12 +401,17 @@ describe('Game', () => {
         weapon:'Revolver',
         room:"Hall"
       };
-      game.updateSuspicionOf(1,combination);
-      assert.deepEqual(game.getCurrentSuspicion(),combination);
+
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Hall", 'Room');
+      let combinationO = new Combination(room, weapon, character);
+      game.updateSuspicionOf(1,combinationO);
+      assert.deepEqual(game.getCombination(),combination);
     });
     it('should give empty object if combination is not defined',()=>{
       game.addPlayer("Pranav", 1);
-      assert.deepEqual(game.getCurrentSuspicion(),{});
+      assert.deepEqual(game.getCombination(),{});
     });
   });
 

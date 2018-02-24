@@ -42,7 +42,7 @@ class Player {
   getSuspicion() {
     return this._lastSuspicion;
   }
-  getSuspicionCombination(){
+  getCombination(){
     if(!this._lastSuspicion.combination.room){
       return {};
     }
