@@ -66,7 +66,7 @@ class Path {
       if(connectedRoom) {
         let doorPosition = connectedRoom.doorPosition;
         let diff = Math.abs(doorPosition-curPlayerPos);
-        return doorPosition == curPlayerPos || diff < val;
+        return doorPosition == curPlayerPos || diff <= val;
       }
     }
     return false;
