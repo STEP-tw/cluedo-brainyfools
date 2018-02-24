@@ -228,6 +228,12 @@ class Game {
     }
     return player.character.turn;
   }
+  getPlayerByTurn(turn){
+    let players = Object.values(this.players);
+    return players.find(player => {
+      return player.character.turn == turn;
+    });
+  }
   updateSuspicionOf(id,combination) {
     let character = combination.character;
     let players = Object.values(this.players);
@@ -237,22 +243,73 @@ class Game {
     if (player){
       player.character.position = combination.room;
     }
-    return this.players[id].updateSuspicion(combination);
+    this.players[id].updateSuspicion(combination);
+    this.findSuspicionCanceller(this.players[id]);
+    return true;
+  }
+  findSuspicionCanceller(currentPlayer){
+    debugger;
+    let suspicion = this.getCurrentSuspicion();
+    let turn = currentPlayer.character.turn;
+    let nextTurn = this.getNextTurn(turn);
+    while (turn != nextTurn) {
+      let nextPlayer = this.getPlayerByTurn(nextTurn);
+      if(nextPlayer.canCancel(suspicion)){
+        suspicion.cancelled = false;
+        suspicion.canBeCancelled = true;
+        suspicion.canceller = this.getPlayerId(nextTurn);
+        suspicion.cancellingCards = nextPlayer.getCancellingCards(suspicion);
+        return;
+      }
+      nextTurn = this.getNextTurn(nextTurn);
+    }
+    suspicion.cancelled = false;
+    suspicion.canBeCancelled = false;
+  }
+  getPlayerId(turn){
+    let playerIds = Object.keys(this.players);
+    return playerIds.find(id=>this.players[id].character.turn==turn);
+  }
+  getNextTurn(turn){
+    let players = Object.values(this.players);
+    let player = players.find(player => {
+      return player.character.turn > turn;
+    });
+    if (!player) {
+      player = players[0];
+    }
+    return player.character.turn;
   }
   isSuspecting() {
     let id=this.getCurrentPlayerId();
-    return this.players[id].isSuspecting();
+    let player = this.players[id];
+    return player.isSuspecting();
   }
   getCurrentSuspicion() {
     let id=this.getCurrentPlayerId();
-    return this.players[id].getCombination();
+    return this.players[id].getSuspicion();
   }
-
+  getSuspicionCombination(){
+    let id=this.getCurrentPlayerId();
+    let player = this.players[id];
+    return player.getSuspicionCombination();
+  }
   addActivity(activity){
     let timeOfActivity = this._activityLog.addActivity(activity);
     return timeOfActivity;
   }
-
+  getSuspicion(playerId){
+    let suspicion = this.getCurrentSuspicion();
+    let result = {
+      combination : suspicion.combination,
+      cancelled : suspicion.cancelled,
+      canBeCancelled : suspicion.canBeCancelled
+    }
+    if(suspicion.canceller==playerId){
+      result.cancellingCards = suspicion.cancellingCards;
+    }
+    return result;
+  }
   getActivitesAfter(time) {
     return this._activityLog.getActivitesAfter(time);
   }

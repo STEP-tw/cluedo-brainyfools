@@ -96,6 +96,26 @@ describe('turnHandler', () => {
         })
         .end(done);
     });
+    it('should give same value on rollong dice two times', done => {
+      let val = 0;
+      request(app)
+        .get('/game/1234/rolldice')
+        .set('cookie', 'playerId=11')
+        .expect((res) => {
+          val = res.body.value;
+          assert.isAbove(actual, 0);
+          assert.isBelow(actual, 7);
+        })
+        .end(()=>{
+          request(app)
+            .get('/game/1234/rolldice')
+            .set('cookie', 'playerId=11')
+            .expect((res) => {
+              assert.equal(res.body.value,val);
+            })
+            .end(done)
+        });
+    });
   });
 
   describe('GET /game/1234/pass',()=>{

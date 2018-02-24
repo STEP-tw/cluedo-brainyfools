@@ -1,3 +1,6 @@
+const Combination = require('../models/combination');
+const Card = require('../models/card');
+
 const rollDice = function(req,res){
   let game = req.game;
   let currentPlayerName = game.getCurrentPlayer().name;
@@ -62,18 +65,25 @@ const passTurn = function (req,res) {
 const createSuspicion = function(req,res){
   let playerId = req.game.getCurrentPlayerId();
   let player = req.game.getCurrentPlayer();
-  let combination = {
-    character:req.body.character,
-    weapon:req.body.weapon,
-    room:player.character.position
-  };
+  let character=new Card(req.body.character,'Character');
+  let weapon=new Card(req.body.weapon,'Weapon');
+  let room=new Card(player.character.position,'Room');
+  let combination = new Combination(room, weapon, character);
   req.game.updateSuspicionOf(playerId,combination);
   res.json({suspected:true,suspector:player.character.name});
 };
+
+const getSuspicion = function(req,res){
+  let game = req.game;
+  let playerId = req.cookies.playerId;
+  let suspicion = game.getSuspicion(playerId);
+  res.json(suspicion);
+}
 
 module.exports = {
   rollDice : [checkTurn, rollDice],
   move : [checkTurn,validateData ,validateMove, updatePos],
   pass : [checkTurn,passTurn],
-  suspect : [checkTurn,createSuspicion]
+  suspect : [checkTurn,createSuspicion],
+  getSuspicion : [getSuspicion]
 };

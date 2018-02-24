@@ -114,6 +114,7 @@ const updateStatus = function () {
       showMessage(`${res.currentPlayer.name} has raised a suspicion`);
       disablePopup();
       showSuspicionCards(res.combination);
+      getSuspicion();
     } else if (playerTurn == turn && !res.moved) {
       enableRollDice();
     } else if(res.currentPlayer.inRoom && playerTurn==turn){
@@ -123,6 +124,46 @@ const updateStatus = function () {
     document.getElementById(`turn_${turn}`).style['background-color'] = 'gray';
   });
 };
+
+const getSuspicion = function(){
+  let url = getBaseUrl();
+  sendAjaxRequest('get',`${url}/suspicion`,(res)=>{
+    let suspicion = JSON.parse(res);
+    let playerId = getCookie('playerId');
+    if(suspicion.canBeCancelled){
+      if(suspicion.cancellingCards){
+        showMessage('Rule out Suspicion by selecting a card');
+        enableSuspicionRuleOut(suspicion.cancellingCards);
+      }
+    }
+  });
+}
+let ruleOutEnabled = false;
+const enableSuspicionRuleOut = function(cards){
+  if(ruleOutEnabled) return;
+  ruleOutEnabled=true;
+  let popup = document.getElementById('activity-box');
+  popup.innerHTML = `
+  <div class="popup cancelsuspicion">
+    <select id="cancelsuspicion">
+      ${cards.reduce((html, card) => html + `<option value="${card._name}">
+      ${card._name}</option>`,'')}
+    </select>
+    <button onclick="ruleOutSuspicion()">Rule Out</button>
+  </div>
+  `
+}
+
+const ruleOutSuspicion = function(){
+  let val = document.getElementById('cancelsuspicion');
+  let url = getBaseUrl();
+  sendAjaxRequest('post',`${url}/ruleout`,(res)=>{
+    res = JSON.parse(res);
+    if(res.success){
+      ruleOutEnabled = false;
+    }
+  }, val.value);
+}
 
 const removeTurnHighlight = function(){
   let players = document.querySelectorAll('.player');

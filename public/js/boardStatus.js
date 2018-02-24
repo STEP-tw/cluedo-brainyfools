@@ -161,6 +161,7 @@ const enableSuspicion = function(){
 };
 
 const disablePopup = function () {
+  if(ruleOutEnabled) return;
   set = false;
   document.querySelector('#activity-box').innerHTML = '';
 };

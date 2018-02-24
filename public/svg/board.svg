@@ -145,12 +145,12 @@
   </foreignObject>
 
   <g>
-    <ellipse class='character' fill="#da70d6" stroke="#000000" stroke-width="1.5" stroke-opacity="null" cx="101" cy="486.950001" id="orchid" rx="12" ry="12"/>
-    <ellipse class='character' fill="#007f00" stroke="#000000" stroke-width="1.5" stroke-opacity="null" cx="101" cy="186.950001" id="green" rx="12" ry="12"/>
-    <ellipse class='character' fill="#005fbf" stroke="#000000" stroke-width="1.5" stroke-opacity="null" cx="342" cy="66.950001" id="peacock" rx="12" ry="12"/>
-    <ellipse class='character' fill="#3f007f" stroke="#000000" stroke-width="1.5" stroke-opacity="null" cx="762" cy="67.950001" id="plum" rx="12" ry="12"/>
-    <ellipse class='character' fill="#bf0000" stroke="#000000" stroke-width="1.5" stroke-opacity="null" cx="882" cy="456.950001" id="scarlett" rx="12" ry="12"/>
-    <ellipse class='character' fill="#ffdb58" stroke="#000000" stroke-width="1.5" stroke-opacity="null" cx="642" cy="577.950001" id="mustard" rx="12" ry="12"/>
+    <ellipse class='character' fill="#da70d6" stroke-opacity="null" cx="101" cy="486.950001" id="orchid" rx="13" ry="13"/>
+    <ellipse class='character' fill="#007f00" stroke-opacity="null" cx="101" cy="186.950001" id="green" rx="13" ry="13"/>
+    <ellipse class='character' fill="#005fbf" stroke-opacity="null" cx="342" cy="66.950001" id="peacock" rx="13" ry="13"/>
+    <ellipse class='character' fill="#3f007f" stroke-opacity="null" cx="762" cy="67.950001" id="plum" rx="13" ry="13"/>
+    <ellipse class='character' fill="#bf0000" stroke-opacity="null" cx="882" cy="456.950001" id="scarlett" rx="13" ry="13"/>
+    <ellipse class='character' fill="#ffdb58" stroke-opacity="null" cx="642" cy="577.950001" id="mustard" rx="13" ry="13"/>
   </g>
  </g>
 </svg>

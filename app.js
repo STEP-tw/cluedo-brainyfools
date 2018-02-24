@@ -56,6 +56,7 @@ app.post('/game/:gameId/move',turnHandler.move);
 app.post('/game/:gameId/suspect',turnHandler.suspect);
 app.get('/game/:gameId/log/:time',logHandler);
 app.get('/game/:gameId/pass',turnHandler.pass);
+app.get('/game/:gameId/suspicion', turnHandler.getSuspicion);
 
 app.use(express.static('public'));
 

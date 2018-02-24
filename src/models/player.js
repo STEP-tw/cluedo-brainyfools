@@ -39,8 +39,25 @@ class Player {
   isSuspecting() {
     return Object.keys(this._lastSuspicion['combination']).length!=0;
   }
-  getCombination() {
-    return this._lastSuspicion['combination'];
+  getSuspicion() {
+    return this._lastSuspicion;
+  }
+  getSuspicionCombination(){
+    if(!this._lastSuspicion.combination.room){
+      return {};
+    }
+    let combination = {
+      room: this._lastSuspicion.combination.room.name,
+      weapon: this._lastSuspicion.combination.weapon.name,
+      character: this._lastSuspicion.combination.character.name
+    };
+    return combination;
+  }
+  canCancel(suspicion){
+    return this._cards.some(card=>suspicion.combination.contains(card));
+  }
+  getCancellingCards(suspicion){
+    return this._cards.filter(card=>suspicion.combination.contains(card));
   }
 }
 
