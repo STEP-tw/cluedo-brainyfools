@@ -27,10 +27,7 @@ const suspectOrAccuse = function () {
     sendAjaxRequest('post',`${url}/suspect`,res=>{
       updatePos(character,res);
       updateStatus();
-    },`{
-      "character":"${character}",
-      "weapon":"${weapon}"
-    }`);
+    },`{"character":"${character}","weapon":"${weapon}"}`);
   } else if(accusation) {
     sendAjaxRequest('post',`${url}/accuse`,res=>{
       updateStatus();
@@ -135,13 +132,23 @@ const getSuspicion = function(){
         enableRuleOut(suspicion.cancellingCards);
       }
     }else if(suspicion.ruleOutCard){
+      if(suspicion.cancellingCards){
+        disableRuleOut();
+      }
       showMessage(`Ruled out by ${
         suspicion.cancelledBy} using ${suspicion.ruleOutCard}`);
       // enableAccusation();
+    }else{
+      showMessage(`Ruled out by ${suspicion.cancelledBy}`);
     }
   });
 };
 let ruleOutEnabled = false;
+
+const disableRuleOut = function(){
+  ruleOutEnabled = false;
+  disablePopup();
+};
 const enableRuleOut = function(cards){
   if(ruleOutEnabled) {
     return;
