@@ -71,7 +71,8 @@ html, body{
   margin: 6px;
   font-size: 1em;
 }
-
+.select{
+}
 .popup{
   display: flex;
   flex-grow: 1;
