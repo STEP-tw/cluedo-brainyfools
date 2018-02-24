@@ -51,22 +51,53 @@ describe("Path",()=>{
   });
   describe("#canEnterIntoRoom",()=>{
     it('should return true if player can enter into room',()=>{
-      assert.isOk(path.canEnterIntoRoom(3,2,'lounge',76,4));
-      assert.isOk(path.canEnterIntoRoom(2,1,'lounge',3,75));
+      let args = {
+        val:3,
+        curPlayerPos: 2,
+        clickpos: 'lounge',
+        forwardDis: 76,
+        backDis: 4,
+        atStart: false
+      };
+      assert.isOk(path.canEnterIntoRoom(args));
+      args = {
+        val:2,
+        curPlayerPos: 1,
+        clickpos: 'lounge',
+        forwardDis: 3,
+        backDis: 75,
+        atStart: false
+      };
+      assert.isOk(path.canEnterIntoRoom(args));
     })
     it('should return false if player can not enter into room',()=>{
-      let actual=path.canEnterIntoRoom(3,3,'kitchen',75,1);
-      assert.isNotOk(path.canEnterIntoRoom(2,1,'lounge',0,0));
-      assert.isNotOk(actual);
+      let args = {
+        val:3,
+        curPlayerPos: 3,
+        clickpos: 'kitchen',
+        forwardDis: 75,
+        backDis: 1,
+        atStart: false
+      };
+      assert.isNotOk(path.canEnterIntoRoom(args));
+      args = {
+        val:2,
+        curPlayerPos: 1,
+        clickpos: 'lounge',
+        forwardDis: 0,
+        backDis: 0,
+        atStart: false
+      };
+      assert.isNotOk(path.canEnterIntoRoom(args));
     });
   });
   describe('#canGoToConnectedRoom',()=>{
     it('should return true when given both inputs are rooms and room is connected',()=>{
-      assert.isOk(path.canGoToConnectedRoom('lounge',35));
+      assert.isOk(path.canGoToConnectedRoom(3,'lounge',35));
     });
 
     it('should return false when given both inputs are rooms and room is not connected',()=>{
-      assert.isNotOk(path.canGoToConnectedRoom('hall','conservatory'));
+      assert.isNotOk(path.canGoToConnectedRoom(2,'hall','conservatory'));
     });
   });
   describe('#distanceForward',()=>{

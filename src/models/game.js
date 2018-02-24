@@ -148,47 +148,56 @@ class Game {
     return [forwardDistance,backDistance];
   }
   /*eslint-disable */
-  validateMove(pos) {
+  validateMove(pos){
     let player = this.getCurrentPlayerId();
     let atStart = this.players[player].character.start;
     let val = this.diceVal - atStart;
     let clickpos = pos;
     let curPlayerPos = this.players[player].character.position;
-    let room = this._path.getRoom(curPlayerPos);
     let inRoom = false;
     if(curPlayerPos == pos && !atStart){
       return false;
     }
-    if(room){
+    if(this._path.isRoom(curPlayerPos)){
       inRoom = true;
-      curPlayerPos = +room.doorPosition;
+      curPlayerPos = this._path.doorPositionOf(curPlayerPos);
       val--;
     }
-    room = this._path.getRoom(pos);
-    if(room){
-      pos = +room.doorPosition;
+    if(this._path.isRoom(pos)){
+      pos = this._path.doorPositionOf(pos);
       !inRoom && val--;
     }
-    let distance = this.getDistances(curPlayerPos,pos);
-    return this.validatePos(val,+curPlayerPos,clickpos,...distance, atStart);
+    let distances = this.getDistances(curPlayerPos,pos);
+    let args = {
+      val:val,
+      curPlayerPos: +curPlayerPos,
+      clickpos: clickpos,
+      forwardDis: distances[0],
+      backDis: distances[1],
+      atStart: atStart
+    };
+    return this.validatePos(args);
   }
+
   isSameDistance(forwardDistance,backDistance){
-    return forwardDistance == backDistance
+    return forwardDistance == backDistance;
   }
-  validatePos(val,curPlayerPos,clickpos,forwardDistance,backDistance,atStart){
-    if(this._path.canGoToConnectedRoom(clickpos,+curPlayerPos)){
+
+  validatePos(args){
+    let forwardDis = args.forwardDis;
+    let backDis = args.backDis;
+    if(this._path.canGoToConnectedRoom(args.val,args.clickpos,args.curPlayerPos)){
       return true;
     }
-    if(forwardDistance > val && backDistance > val) {
+    if(forwardDis > args.val && backDis > args.val) {
       return false;
     }
-    if(val == forwardDistance || val == backDistance){
+    if(args.val == forwardDis || args.val == backDis){
       return true;
     }
-    let args= [val,+curPlayerPos, clickpos,forwardDistance,backDistance];
-    return (this._path.canEnterIntoRoom(...args)) ||
-    (this.isSameDistance(forwardDistance,backDistance) && atStart && (val == 1))
-    || this._path.canGoToConnectedRoom(clickpos,+curPlayerPos);
+    return (this._path.canEnterIntoRoom(args)) ||
+    (this.isSameDistance(forwardDis,backDis) && args.atStart && (args.val == 1))
+    || this._path.canGoToConnectedRoom(args.clickpos,args.curPlayerPos);
   }
   /*eslint-enable */
   updatePlayerPos(pos) {

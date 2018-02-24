@@ -10,16 +10,16 @@ class Path {
       .fill(this.startingPoint)
       .map((ele,index)=>index+ele);
   }
-  canEnterIntoRoom(val,curPlayerPos,roomName,forwardDistance,backDistance){
-    let room = this.getRoom(roomName);
-    if(room){
-      let doorPos = +room.doorPosition;
+  canEnterIntoRoom(args){
+    if(this.isRoom(args.clickpos)){
+      let doorPos = this.doorPositionOf(args.clickpos);
+      let curPlayerPos = args.curPlayerPos;
       let doorDistance = this.distanceForward(this.cells,doorPos,curPlayerPos);
-      if(doorDistance <= forwardDistance) {
+      if(doorDistance <= args.forwardDis) {
         return true;
       }
       doorDistance = this.distanceBack(this.cells,doorPos,curPlayerPos);
-      if(doorDistance <= backDistance) {
+      if(doorDistance <= args.backDis) {
         return true;
       }
     }
@@ -57,14 +57,23 @@ class Path {
   isRoom(roomName){
     return this.getRoom(roomName) && true;
   }
-  canGoToConnectedRoom(roomName,curPlayerPos){
+
+  canGoToConnectedRoom(val,roomName,curPlayerPos){
     let room = this.getRoom(roomName);
     if(this.isRoom(roomName)){
       let connectedRoomName = room.connectedRoom.toLowerCase();
       let connectedRoom = this.getRoom(connectedRoomName);
-      return connectedRoom && connectedRoom.doorPosition == curPlayerPos;
+      if(connectedRoom) {
+        let doorPosition = connectedRoom.doorPosition;
+        let diff = Math.abs(doorPosition-curPlayerPos);
+        return doorPosition == curPlayerPos || diff < val;
+      }
     }
     return false;
+  }
+  doorPositionOf(roomName){
+    let room = this.getRoom(roomName);
+    return room && room.doorPosition;
   }
 }
 
