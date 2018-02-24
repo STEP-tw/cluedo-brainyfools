@@ -238,10 +238,11 @@ class Game {
     let character = combination.character;
     let players = Object.values(this.players);
     let player = players.find(player => {
-      return player.character.name == character;
+      return player.character.name == character.name;
     });
+    let currentPlayer = this.getCurrentPlayer();
     if (player){
-      player.character.position = combination.room;
+      player.updatePos(currentPlayer.character.position);
     }
     this.players[id].updateSuspicion(combination);
     this.findCanceller(this.players[id]);
