@@ -12,7 +12,10 @@ const passTurn = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get',`${url}/pass`,()=>{
     disablePopup();
+    disableCards();
     showMessage('');
+    ruleOutEnabled = false;
+    accusationEnabled = false;
     updateStatus();
   });
 };
@@ -26,11 +29,11 @@ const suspectOrAccuse = function () {
   if (suspicion) {
     sendAjaxRequest('post',`${url}/suspect`,res=>{
       updatePos(character,res);
-      updateStatus();
+      disablePopup();
     },`{"character":"${character}","weapon":"${weapon}"}`);
   } else if(accusation) {
     sendAjaxRequest('post',`${url}/accuse`,res=>{
-      updateStatus();
+      res = JSON.parse(res);
     },`{
       "character":"${character}",
       "weapon":"${weapon}"
@@ -108,38 +111,46 @@ const updateStatus = function () {
     res = JSON.parse(res);
     let turn = res.currentPlayer.character.turn;
     if(res.suspecting){
-      showMessage(`${res.currentPlayer.name} has raised a suspicion`);
-      disablePopup();
       showSuspicionCards(res.combination);
-      getSuspicion();
+      getSuspicion(res.currentPlayer.name);
     } else if (playerTurn == turn && !res.moved) {
       enableRollDice();
     } else if(res.currentPlayer.inRoom && playerTurn==turn){
-      enableSuspicion();
+      let html = `<input type="radio" name="action"
+      value="suspect" id="suspect"/>
+      <label>Suspect</label>`;
+      enableSuspicion(html);
     }
     removeTurnHighlight();
     document.getElementById(`turn_${turn}`).style['background-color'] = 'gray';
   });
 };
-const getSuspicion = function(){
+
+const getSuspicion = function(name){
   let url = getBaseUrl();
   sendAjaxRequest('get',`${url}/suspicion`,(res)=>{
     let suspicion = JSON.parse(res);
     let playerId = getCookie('playerId');
+    if(!suspicion.cancelled) {
+      showMessage(`${name} has raised a suspicion`);
+    }
     if (suspicion.canBeCancelled && !suspicion.cancelled){
       if(suspicion.cancellingCards){
         showMessage('Rule out Suspicion by selecting a card');
         enableRuleOut(suspicion.cancellingCards);
       }
     }else if(suspicion.ruleOutCard){
-      if(suspicion.cancellingCards){
-        disableRuleOut();
-      }
       showMessage(`Ruled out by ${
-        suspicion.cancelledBy} using ${suspicion.ruleOutCard}`);
-      // enableAccusation();
+        suspicion.cancelledBy} using ${suspicion.ruleOutCard} card`);
+      set = false;
+      enableAccusation();
     }else{
-      showMessage(`Ruled out by ${suspicion.cancelledBy}`);
+      if(suspicion.cancelledBy){
+        showMessage(`Ruled out by ${suspicion.cancelledBy}`);
+      } else {
+        showMessage(`No one ruled out`);
+      }
+      disableCards();
     }
   });
 };
@@ -173,6 +184,7 @@ const ruleOutSuspicion = function(){
     res = JSON.parse(res);
     if(res.success){
       ruleOutEnabled = false;
+      disableRuleOut();
     }
   }, `{"card":"${val.value}"}`);
 };

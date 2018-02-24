@@ -95,6 +95,7 @@ const canRuleOut = function(req,res,next){
 
 const ruleOut = function(req,res){
   let card = req.body.card;
+  let playerId = req.cookies.playerId;
   req.game.ruleOut(card);
   let suspicion = req.game.getSuspicion(playerId);
   req.game.addActivity(`Ruled out by ${suspicion.cancelledBy}`);
