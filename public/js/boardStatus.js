@@ -116,7 +116,7 @@ const enableRollDice = function(){
   change(1);
 };
 
-const enableSuspicion = function(){
+const enableSuspicion = function(suspect=''){
   showMessage('Select a combination or pass');
   if(set) {
     return;
@@ -148,8 +148,7 @@ const enableSuspicion = function(){
   </div>
   </div>
   <div>
-  <input type="radio" name="action" value="suspect" id="suspect"/>
-  <label>Suspect</label>
+  ${suspect}
   <input type="radio" name="action" value="accuse" id="accuse"/>
   <label>Accuse</label>
   </div>
@@ -158,6 +157,15 @@ const enableSuspicion = function(){
   <button onclick="suspectOrAccuse()">Confirm</button>
   </div>
   </div>`;
+};
+let accusationEnabled = false;
+const enableAccusation = function() {
+  if(accusationEnabled) {
+    return;
+  }
+  accusationEnabled = true;
+  set = true;
+  enableSuspicion();
 };
 
 const disablePopup = function () {
@@ -201,6 +209,12 @@ const showSuspicionCards = function(cards) {
     `/images/cards/Weapon/${weaponCard}.jpg`);
   document.getElementById('room-card').setAttribute('href',
     `/images/cards/Room/${roomCard}.jpg`);
+};
+
+const disableCards = function () {
+  document.getElementById('character-card').setAttribute('href','');
+  document.getElementById('weapon-card').setAttribute('href','');
+  document.getElementById('room-card').setAttribute('href','');
 };
 
 window.addEventListener('load',()=>{

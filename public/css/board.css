@@ -179,6 +179,7 @@ main {
   flex-grow: 1;
   border: 2px solid black;
   flex-direction: column;
+  width:20%;
 }
 
 #activity-log{
