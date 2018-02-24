@@ -191,7 +191,7 @@ const getBaseUrl = function(){
 const showSuspicionCards = function(cards) {
   let characterCard = cards.character.replace(/[.\s]+/,'_');
   let weaponCard = cards.weapon.replace(/[.\s]+/,'_');
-  let roomCard = cards.room.replace(/[.\s]+/,'_');
+  let roomCard = cards.room.replace(/[.\s]+/,'_').split('_')[0];
   document.getElementById('character-card').setAttribute('href',
     `/images/cards/Character/${characterCard}.jpg`);
   document.getElementById('weapon-card').setAttribute('href',
