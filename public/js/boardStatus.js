@@ -13,8 +13,8 @@ const updateCharPosition = function(id,pos){
   let posX = posElement.getAttribute('x');
   let posY = posElement.getAttribute('y');
   if(isRoom(pos)){
-    posX = getXCoordOfRoom(pos);
-    posY = getYCoordOfRoom(pos);
+    posX = getXCoordOfRoom(pos)-15;
+    posY = getYCoordOfRoom(pos)-15;
   }
   document.getElementById(`${id}`).setAttribute('cx',+posX + 15);
   document.getElementById(`${id}`).setAttribute('cy',+posY + 15);
@@ -147,13 +147,13 @@ const enableSuspicion = function(){
   </select>
   </div>
   </div>
-  <div>
+  <div id="radioButton">
   <input type="radio" name="action" value="suspect" id="suspect"/>
   <label>Suspect</label>
   <input type="radio" name="action" value="accuse" id="accuse"/>
   <label>Accuse</label>
   </div>
-  <div class="confirm">
+  <div id="confirm">
   <button onclick="passTurn()">Pass</button>
   <button onclick="suspectOrAccuse()">Confirm</button>
   </div>

@@ -24,7 +24,7 @@
 </head>
 
 <body>
-  <img src="images/cluedoLogo.jpg" alt="">
+  <img src="images/cluedoLogo.png" >
   <main class="cluedoForm" >
     <div class="tab">
       <button class="tablinks" onclick="openCity(event, 'creategame')" id="create">Create Game</button>
@@ -34,7 +34,7 @@
     <div class="tabcontent" id ="creategame">
       <form action="/game/new" method="post">
         <label for="count">Number Of Players</label>
-        <select name="numberOfPlayers" id="count">
+        <select name="numberOfPlayers" class="styled-select slate" id="count">
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>

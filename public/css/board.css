@@ -179,6 +179,7 @@ main {
   flex-grow: 1;
   border: 2px solid black;
   flex-direction: column;
+  width:250px;
 }
 
 #activity-log{
@@ -201,4 +202,28 @@ main {
 #activity-log div .time{
   white-space: nowrap;
   font-weight: bold;
+}
+#ruleOut{
+  font-size: 20px;
+  width:150px;
+  align-self: center;
+  margin-top: 10px;
+  background-color: #31bde8;
+  border: 1px solid black;
+}
+#cancelsuspicion{
+  font-size: 20px;
+  width:200px;
+  align-self: center;
+  border: 1px solid black;
+}
+#radioButton{
+  font-size: 20px;
+  width:200px;
+  align-self: center;
+}
+#confirm{
+  font-size: 20px;
+  width:200px;
+  align-self: center;
 }

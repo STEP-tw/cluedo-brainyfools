@@ -1,16 +1,13 @@
 body {
   font-family: 'Roboto', sans-serif;
+  background-image: url('/images/red.jpg');
+  background-repeat: no-repeat;
+  background-size:cover;
 }
 
-h1 {
-  color: #1D247B;
-  text-align: center;
-  font-size: 10vh;
-  font-weight: 400;
-}
 
 h2 {
-  color:#22658C;;
+  color:#700202;;
   text-align: center;
   font-size: 3vh;
   font-weight: 400;
@@ -18,22 +15,20 @@ h2 {
 
 form {
   box-sizing: border-box;
-  -webkit-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 20px 20px 20px 20px;
-  -moz-border-radius: 20px 20px 20px 20px;
-  -webkit-border-radius: 20px 20px 20px 20px;
-  border: 0px solid #170f17;
-  background-color: #ffffff;
+  -webkit-box-shadow: 0px 0px 20px 5px black;
+  border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  /*border: 0px solid #170f17;*/
+  background-color: #c19e67;
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
-  width: 400px;
-  height: 300px;
+  width: 500px;
+  height: 350px;
 }
 
 form {
@@ -51,24 +46,25 @@ form label {
   text-align: left;
   margin: 6px 0 0;
   font-size: 1.2em;
-  color: #22658C;;
+  color: #700202;
 }
 
 form input:not([type=submit]) {
   font-size: 18px;
   padding: 7px 0;
   margin: 5px 0 0;
+  background-color: #c19e67;
   outline: none;
   border: none;
-  border-bottom: 2px solid #CCC;
+  border-bottom: 2px solid #700202;
 }
 
 form input:not([type=submit]):hover {
-  border-bottom: 2px solid rgb(166, 185, 226);
+  /*border-bottom: 2px solid rgb(166, 185, 226);*/
 }
 
 form input:not([type=submit]):focus {
-  border-bottom: 2px solid #22658C;
+  /*border-bottom: 2px solid #700202;*/
 }
 
 form input[type=submit] {
@@ -76,16 +72,25 @@ form input[type=submit] {
   margin: 20px 0 0;
   border: none;
   font-size: 22px;
-  color: aliceblue;
-  background-color: #2F6D92;
+  color: #c19e67;
+  background-color: #700202;
 }
 
 form input[type=submit]:hover {
-  background-color: #22658C;
+  background-color: #700202;
 }
 
 form .error {
   padding: 5px 0px;
-  color: rgba(248, 61, 36, 0.808);
+  color: #700202;
   margin: 10px 0 0;
+}
+img{
+  width: 50vh;
+  height: 15vh;
+  left:0px;
+  right:0px;
+  top: 30px;
+  margin:auto;
+  position: absolute;
 }

@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/css/join.css">
 </head>
 <body>
-  <h1>CLUEDO</h1>
+  <img src="/images/cluedoLogo.png" >
   <form method="post">
     <h2>Game ID : {{ ID }}</h2>
     <label for="playerName">Name</label>

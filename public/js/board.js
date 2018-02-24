@@ -46,8 +46,8 @@ const updatePos = function(character,res) {
   suspectorToken = document.getElementById(suspectorToken);
   let posX = suspectorToken.getAttribute('cx');
   let posY = suspectorToken.getAttribute('cy');
-  token.setAttribute('cx',posX+20);
-  token.setAttribute('cy',posY-30);
+  token.setAttribute('cx',posX+10);
+  token.setAttribute('cy',posY+10);
 };
 
 const setCurrentPlayer = function (player) {
@@ -161,7 +161,7 @@ const enableRuleOut = function(cards){
       ${cards.reduce((html, card) => html + `<option value="${card._name}">
       ${card._name}</option>`,'')}
     </select>
-    <button onclick="ruleOutSuspicion()">Rule Out</button>
+    <button id="ruleOut" onclick="ruleOutSuspicion()">Rule Out</button>
   </div>
   `;
 };

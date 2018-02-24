@@ -7,7 +7,7 @@
   <script src="/js/wait.js" charset="utf-8"></script>
 </head>
 <body>
-  <h1> CLUEDO </h1>
+    <img class="logo" src="/images/cluedoLogo.png" >
     <div class="wait">
       <span>Welcome {{ player }}</span>
       <div>
