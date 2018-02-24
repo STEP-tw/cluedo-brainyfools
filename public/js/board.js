@@ -25,6 +25,7 @@ const suspectOrAccuse = function () {
   let weapon = document.getElementById('weapon').value;
   if (suspicion) {
     sendAjaxRequest('post',`${url}/suspect`,res=>{
+      updatePos(character,res);
       updateStatus();
     },`{
       "character":"${character}",
@@ -38,6 +39,18 @@ const suspectOrAccuse = function () {
       "weapon":"${weapon}"
     }`);
   }
+};
+
+const updatePos = function(character,res) {
+  let token = character.split(' ')[1].toLowerCase();
+  let suspectorToken = JSON.parse(res).suspector
+    .split(' ')[1].toLowerCase();
+  token = document.getElementById(token);
+  suspectorToken = document.getElementById(suspectorToken);
+  let posX = suspectorToken.getAttribute('cx');
+  let posY = suspectorToken.getAttribute('cy');
+  token.setAttribute('cx',posX+20);
+  token.setAttribute('cy',posY-30);
 };
 
 const setCurrentPlayer = function (player) {
@@ -96,7 +109,6 @@ const updateStatus = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
-    console.log(res);
     let turn = res.currentPlayer.character.turn;
     if(res.suspecting){
       showMessage(`${res.currentPlayer.name} has raised a suspicion`);
