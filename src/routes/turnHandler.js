@@ -68,7 +68,7 @@ const createSuspicion = function(req,res){
     room:player.character.position
   };
   req.game.updateSuspicionOf(playerId,combination);
-  res.json({suspected:true});
+  res.json({suspected:true,suspector:player.character.name});
 };
 
 module.exports = {
