@@ -54,28 +54,28 @@ const getSuspicion = function (name) {
     }
     if (suspicion.canBeCancelled && !suspicion.cancelled) {
       if (suspicion.cancellingCards) {
-        showMessage('Rule out Suspicion by selecting a card');
-        currentActivity = () => { };
-        enableRuleOut(suspicion.cancellingCards);
+        giveRuleOutOption(suspicion.cancellingCards);
       }
     } else if (suspicion.ruleOutCard) {
       showMessage(`Ruled out by ${
         suspicion.cancelledBy} using ${suspicion.ruleOutCard} card`);
       currentActivity = () => { };
       enableAccusation();
+    } else if(suspicion.suspector){
+      currentActivity = () => { };
+      enableAccusation();
+      disableCards();
     } else {
-      showCanceller(suspicion.cancelledBy);
+      showMessage(``);
       disableCards();
     }
   });
 };
 
-const showCanceller = function(canceller){
-  if (canceller) {
-    showMessage(`Ruled out by ${canceller}`);
-  } else {
-    showMessage(`No one ruled out`);
-  }
+const giveRuleOutOption = function(cards){
+  showMessage('Rule out Suspicion by selecting a card');
+  currentActivity = () => { };
+  enableRuleOut(cards);
 };
 
 const sendAccuseReq = function(character,weapon){

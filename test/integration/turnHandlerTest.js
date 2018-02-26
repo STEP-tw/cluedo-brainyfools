@@ -190,7 +190,8 @@ describe('turnHandler', () => {
                 {_room: {_name: 1, _type: 'Room'},
                  _weapon: {_name: 'b', _type: 'Weapon'},
                  _character: {_name: 'a', _type: 'Character'}},
-              canBeCancelled: false});
+              canBeCancelled: false,
+              "suspector": "neeraj"});
             })
             .end(done);
         });

@@ -306,6 +306,7 @@ class Game {
     }
     suspicion.cancellingCards = [];
     suspicion.canBeCancelled = false;
+    this.addActivity('No one ruled out');
   }
   getPlayerId(turn){
     let playerIds = Object.keys(this.players);
@@ -371,6 +372,7 @@ class Game {
     }
     if(playerId == this.getCurrentPlayerId()){
       result.ruleOutCard = suspicion.ruleOutCard;
+      result.suspector = suspicion.suspector;
     }
     return result;
   }

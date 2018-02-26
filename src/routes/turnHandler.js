@@ -74,10 +74,10 @@ const createSuspicion = function(req,res){
   let player = req.game.getCurrentPlayer();
   let room = player.character.position;
   let combination = getCombination(req.body, room);
-  req.game.updateSuspicionOf(playerId,combination);
   req.game.addActivity(
     `${player.name} suspected ${
       req.body.character} with ${req.body.weapon} in ${room}`);
+  req.game.updateSuspicionOf(playerId,combination);
   res.json({suspected: true, suspector: player.character.name});
 };
 
