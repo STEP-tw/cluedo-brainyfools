@@ -45,7 +45,9 @@ describe('#gameStatusHandler', () => {
             "canSuspect": true,
             "inRoom": false,
             combination: {},
-            suspecting: false
+            suspecting: false,
+            "accuseCombination": {},
+            "accusing": false
           };
           assert.deepEqual(res.body, expected);
         })
@@ -81,7 +83,9 @@ describe('#gameStatusHandler', () => {
             "canSuspect": true,
             "inRoom": false,
             combination: combination,
-            suspecting: true
+            suspecting: true,
+            accusing: false,
+            "accuseCombination": {}
           };
           assert.deepEqual(res.body, expected);
         })

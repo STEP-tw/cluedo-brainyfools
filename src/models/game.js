@@ -289,6 +289,9 @@ class Game {
   isSuspecting() {
     return !this.isEmpty(this._currentSuspicion);
   }
+  isAccusing() {
+    return !this.isEmpty(this._currentAccusation);
+  }
   isEmpty(suspicion){
     return JSON.stringify(suspicion) == '{}';
   }
@@ -301,6 +304,19 @@ class Game {
       room: suspicion.combination.room.name,
       weapon: suspicion.combination.weapon.name,
       character: suspicion.combination.character.name
+    };
+    return combination;
+  }
+
+  getAccuseCombination(){
+    let accusation = this._currentAccusation;
+    if(this.isEmpty(accusation)||!accusation.combination.room){
+      return {};
+    }
+    let combination = {
+      room: accusation.combination.room.name,
+      weapon: accusation.combination.weapon.name,
+      character: accusation.combination.character.name
     };
     return combination;
   }
@@ -324,6 +340,7 @@ class Game {
     }
     return result;
   }
+
   getActivitesAfter(time) {
     return this._activityLog.getActivitesAfter(time);
   }
@@ -345,8 +362,10 @@ class Game {
     let currentPlayer = this.getPlayer(this.getCurrentPlayerId());
     return !!this._path.isRoom(currentPlayer.character.position);
   }
-  createAccusation(combination){
-    this._currentAccusation = new Suspicion(combination);
+  accuse(combination){
+    let player = this.getCurrentPlayer().name;
+    this._currentAccusation = new Suspicion(combination,player);
+    return true;
   }
 }
 

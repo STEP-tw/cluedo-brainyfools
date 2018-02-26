@@ -8,10 +8,9 @@ let sendAjaxRequest = function (method, url, cb, data = '') {
   req.send(data);
 };
 
-const updatePos = function(character,res) {
+const updatePos = function(character,suspector) {
   let token = character.split(' ')[1].toLowerCase();
-  let suspectorToken = JSON.parse(res).suspector
-    .split(' ')[1].toLowerCase();
+  let suspectorToken = suspector.split(' ')[1].toLowerCase();
   token = document.getElementById(token);
   suspectorToken = document.getElementById(suspectorToken);
   let posX = suspectorToken.getAttribute('cx');
@@ -74,6 +73,7 @@ const getPlayerDetails = function () {
 const disableRuleOut = function(){
   disablePopup();
 };
+
 const enableRuleOut = function(cards){
   let popup = document.getElementById('activity-box');
   popup.innerHTML = `
