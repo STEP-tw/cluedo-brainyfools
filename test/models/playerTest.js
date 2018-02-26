@@ -7,6 +7,7 @@ const Combination = require('../../src/models/combination');
 
 describe('Player',()=>{
   let player;
+  let start = 1;
   beforeEach(()=>{
     player = new Player('suyog',{
       "name":"Col. Mustard",
@@ -14,7 +15,7 @@ describe('Player',()=>{
       "position":1,
       "start":true,
       "turn" : 2
-    });
+    },()=>start++);
   });
   describe('#name',()=>{
     it('should return player\'s name',()=>{
@@ -56,6 +57,91 @@ describe('Player',()=>{
       player.updatePos('Hall');
       player._lastSuspicion = new Suspicion(combination,'suyog');
       assert.isNotOk(player.canSuspect('Hall'));
+    });
+  });
+  describe('#getCancellingCards',()=>{
+    it('should return player cards that contains in suspicion combination',()=>{
+      let hallCard = new Card('Hall','Room');
+      let libraryCard = new Card('library','Room');
+      let daggerCard = new Card('Dagger','Weapon');
+      player.addCard(hallCard);
+      player.addCard(libraryCard);
+      player.addCard(daggerCard);
+
+      let roomCard = new Card('Lounge','Room');
+      let charCard = new Card('Miss. Scarlet','Character');
+      let weaponCard = new Card('Dagger','Weapon');
+      let combination = new Combination(roomCard,weaponCard,charCard);
+
+      let suspicion = new Suspicion(combination,'Raghu');
+      assert.deepEqual(player.getCancellingCards(suspicion),[daggerCard]);
+
+      roomCard = new Card('Hall','Room');
+      charCard = new Card('Miss. Scarlet','Character');
+      weaponCard = new Card('Dagger','Weapon');
+      combination = new Combination(roomCard,weaponCard,charCard);
+
+      suspicion = new Suspicion(combination,'Raghu');
+      assert.deepEqual(player.getCancellingCards(suspicion),[hallCard,daggerCard]);
+    });
+
+    it('should not return any cards if no cards contains in suspicion combination',()=>{
+      let hallCard = new Card('Hall','Room');
+      let libraryCard = new Card('library','Room');
+      let daggerCard = new Card('Dagger','Weapon');
+      player.addCard(hallCard);
+      player.addCard(libraryCard);
+      player.addCard(daggerCard);
+
+      let roomCard = new Card('Lounge','Room');
+      let charCard = new Card('Miss. Scarlet','Character');
+      let weaponCard = new Card('Rope','Weapon');
+      let combination = new Combination(roomCard,weaponCard,charCard);
+
+      let suspicion = new Suspicion(combination,'Raghu');
+      assert.deepEqual(player.getCancellingCards(suspicion),[]);
+    });
+  });
+
+  describe('#addActivity',()=>{
+    it('should add activity to the player log',()=>{
+      player.addActivity('activity 1');
+      assert.deepEqual(player.getActivitesAfter(0),{'1':'activity 1'});
+    });
+  });
+
+  describe('#canCancel',()=>{
+    it('should return false if player can cancel suspicion',()=>{
+      let hallCard = new Card('Hall','Room');
+      let libraryCard = new Card('library','Room');
+      let daggerCard = new Card('Dagger','Weapon');
+      player.addCard(hallCard);
+      player.addCard(libraryCard);
+      player.addCard(daggerCard);
+
+      let roomCard = new Card('Lounge','Room');
+      let charCard = new Card('Miss. Scarlet','Character');
+      let weaponCard = new Card('Rope','Weapon');
+      let combination = new Combination(roomCard,weaponCard,charCard);
+
+      let suspicion = new Suspicion(combination,'Raghu');
+      assert.isNotOk(player.canCancel(suspicion));
+    });
+    it('should return true if player can cancel suspicion',()=>{
+      let hallCard = new Card('Hall','Room');
+      let libraryCard = new Card('library','Room');
+      let daggerCard = new Card('Dagger','Weapon');
+      player.addCard(hallCard);
+      player.addCard(libraryCard);
+      player.addCard(daggerCard);
+
+      let roomCard = new Card('Lounge','Room');
+      let charCard = new Card('Miss. Scarlet','Character');
+      let weaponCard = new Card('Dagger','Weapon');
+      let combination = new Combination(roomCard,weaponCard,charCard);
+
+      let suspicion = new Suspicion(combination,'Raghu');
+      assert.isOk(player.canCancel(suspicion));
     });
   });
 });
