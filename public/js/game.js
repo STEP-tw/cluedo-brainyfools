@@ -25,6 +25,10 @@ let getCurrentPlayer = function () {
         enableRollDice();
       }
       currentActivity = () => { };
+    } else if(res.accusing) {
+      showSuspicionCards(res.accuseCombination);
+      showMessage(`${res.currentPlayer.name} has raised an accusation`);
+      currentActivity = getCurrentPlayer;
     } else if (res.suspecting) {
       showSuspicionCards(res.combination);
       currentActivity = () => getSuspicion(res.currentPlayer.name);
@@ -74,23 +78,40 @@ const showCanceller = function(canceller){
   }
 };
 
-const suspectOrAccuse = function () {
+const sendAccuseReq = function(character,weapon){
   let url = getBaseUrl();
-  let suspicion = document.getElementById('suspect').checked;
-  let accusation = document.getElementById('accuse').checked;
-  let character = document.getElementById('character').value;
-  let weapon = document.getElementById('weapon').value;
-  if (suspicion) {
-    sendAjaxRequest('post', `${url}/suspect`, res => {
-      disablePopup();
-    }, `{"character":"${character}","weapon":"${weapon}"}`);
-  } else if (accusation) {
-    sendAjaxRequest('post', `${url}/accuse`, res => {
-      res = JSON.parse(res);
-    }, `{"character":"${character}","weapon":"${weapon}"}`);
+  sendAjaxRequest('post', `${url}/accuse`, res => {
+    let accusser = JSON.parse(res).accusser;
+    updatePos(character, accusser);
+    disablePopup();
+  }, `{"character":"${character}","weapon":"${weapon}"}`);
+};
+
+const sendSuspectReq = function(character,weapon){
+  let url = getBaseUrl();
+  sendAjaxRequest('post', `${url}/suspect`, res => {
+    let suspector = JSON.parse(res).suspector;
+    updatePos(character, suspector);
+    disablePopup();
+  }, `{"character":"${character}","weapon":"${weapon}"}`);
+};
+
+const suspectOrAccuse = function () {
+  let accusation = document.querySelector('#accuse').checked;
+  let suspicion = document.querySelector('#suspect');
+  if(suspicion) {
+    suspicion = suspicion.checked;
+  }
+  let character = document.querySelector('#character').value;
+  let weapon = document.querySelector('#weapon').value;
+  if (accusation) {
+    sendAccuseReq(character,weapon);
+  } else if (suspicion) {
+    sendSuspectReq(character,weapon);
   }
   currentActivity = getCurrentPlayer;
 };
+
 
 const rollDice = function () {
   let url = getBaseUrl();
@@ -127,7 +148,7 @@ const validatePosition = function (event) {
       if (res.moved) {
         disablePopup();
         showMessage('');
-        document.getElementById('board').onclick = null;
+        document.querySelector('#board').onclick = null;
         currentActivity = getCurrentPlayer;
         showBoardStatus();
       }

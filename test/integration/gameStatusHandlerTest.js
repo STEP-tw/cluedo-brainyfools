@@ -45,7 +45,9 @@ describe('#gameStatusHandler', () => {
             "canSuspect": true,
             "inRoom": false,
             combination: {},
-            suspecting: false
+            suspecting: false,
+            "accuseCombination": {},
+            "accusing": false
           };
           assert.deepEqual(res.body, expected);
         })
@@ -53,39 +55,41 @@ describe('#gameStatusHandler', () => {
     });
   });
   it("should return json object with combination object if suspecting is true",
-   done => {
-    let combination = {
-      character:'Dr. Orchid',
-      weapon:'Revolver',
-      room:"Hall"
-    };
-     let character = new Card('Dr. Orchid', 'Character');
-     let weapon = new Card('Revolver', 'Weapon');
-     let room = new Card("Hall", 'Room');
-     let combinationO = new Combination(room, weapon, character);
-    game.updateSuspicionOf(11,combinationO);
-    request(app)
-      .get('/game/1234/status')
-      .expect(res => {
-        let expected = {
-          currentPlayer: {
-            name: 'neeraj',
-            inRoom: false,
-            character: {
-              "color": "#bf0000",
-              "name": "Miss Scarlett",
-              turn: 1,
-              position:1
-            }
-          },
-          "canSuspect": true,
-          "moved": true,
-          "inRoom": false,
-          combination: combination,
-          suspecting: true
-        };
-        assert.deepEqual(res.body, expected);
-      })
-      .end(done);
-  });
+    done => {
+      let combination = {
+        character:'Dr. Orchid',
+        weapon:'Revolver',
+        room:"Hall"
+      };
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Hall", 'Room');
+      let combinationO = new Combination(room, weapon, character);
+      game.updateSuspicionOf(11,combinationO);
+      request(app)
+        .get('/game/1234/status')
+        .expect(res => {
+          let expected = {
+            currentPlayer: {
+              name: 'neeraj',
+              inRoom: false,
+              character: {
+                "color": "#bf0000",
+                "name": "Miss Scarlett",
+                turn: 1,
+                position:1
+              }
+            },
+            "canSuspect": true,
+            "inRoom": false,
+            moved:true,
+            combination: combination,
+            suspecting: true,
+            accusing: false,
+            "accuseCombination": {}
+          };
+          assert.deepEqual(res.body, expected);
+        })
+        .end(done);
+    });
 });

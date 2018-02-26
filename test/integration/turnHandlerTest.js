@@ -196,4 +196,20 @@ describe('turnHandler', () => {
         });
     });
   });
+
+  describe('POST /game/1234/accuse',()=>{
+    it('should create an accusation',done=>{
+      request(app)
+        .post('/game/1234/accuse')
+        .set('cookie', 'playerId=11')
+        .send({character:'a',weapon:'b'})
+        .expect(res=>{
+          assert.deepEqual(res.body, {
+            status: true,
+            accusser:"Miss Scarlett"
+          });
+        })
+        .end(done);
+    });
+  });
 });

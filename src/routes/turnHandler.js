@@ -110,16 +110,14 @@ const ruleOut = function(req,res){
 
 const createAccusation = function(req, res){
   let game = req.game;
+  let player = req.game.getCurrentPlayer();
   let combination = getCombination(req.body, player.character.position);
   let status = game.accuse(combination);
-  res.json({staus:status});
-};
-
-const getAccusation = function(req,res){
-  let game = req.game;
-  let playerId = req.cookies.playerId;
-  let suspicion = game.getAccusation(playerId);
-  res.json(suspicion);
+  let position = player.character.position;
+  game.addActivity(
+    `${player.name} accused ${
+      req.body.character} with ${req.body.weapon} in ${position}`);
+  res.json({status:status,accusser:player.character.name});
 };
 
 module.exports = {
@@ -128,7 +126,6 @@ module.exports = {
   pass : [checkTurn,passTurn],
   suspect : [checkTurn,createSuspicion],
   accuse : [checkTurn,createAccusation],
-  getAccusation : [getAccusation],
   getSuspicion : [getSuspicion],
   ruleOut : [canRuleOut, ruleOut]
 };
