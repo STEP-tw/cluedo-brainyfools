@@ -37,13 +37,13 @@
       "error",
       {
         "skipBlankLines": true,
-        "max" : 400
+        "max" : 450
       }
     ],
     "max-statements": [
       "error",
       {
-        "max": 15
+        "max": 17
       }
     ],
     "no-implicit-globals": 2,

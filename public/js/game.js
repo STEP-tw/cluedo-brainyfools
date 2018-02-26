@@ -85,7 +85,7 @@ const sendAccuseReq = function(character,weapon){
     updatePos(character, accusser);
     disablePopup();
   }, `{"character":"${character}","weapon":"${weapon}"}`);
-}
+};
 
 const sendSuspectReq = function(character,weapon){
   let url = getBaseUrl();
@@ -94,17 +94,18 @@ const sendSuspectReq = function(character,weapon){
     updatePos(character, suspector);
     disablePopup();
   }, `{"character":"${character}","weapon":"${weapon}"}`);
-}
+};
 
 const suspectOrAccuse = function () {
   let accusation = document.querySelector('#accuse').checked;
   let suspicion = document.querySelector('#suspect');
-  if(suspicion)
+  if(suspicion) {
     suspicion = suspicion.checked;
+  }
   let character = document.querySelector('#character').value;
   let weapon = document.querySelector('#weapon').value;
   if (accusation) {
-    sendAccuseReq(character,weapon)
+    sendAccuseReq(character,weapon);
   } else if (suspicion) {
     sendSuspectReq(character,weapon);
   }
@@ -149,6 +150,7 @@ const validatePosition = function (event) {
         showMessage('');
         document.querySelector('#board').onclick = null;
         currentActivity = getCurrentPlayer;
+        showBoardStatus();
       }
     }, `{"position":"${id}"}`);
   }

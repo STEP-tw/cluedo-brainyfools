@@ -10,7 +10,8 @@ class Card{
     return this._type;
   }
   isSame(card){
-    return this.name == card.name && this.type == card.type;
+    return this.name.toLowerCase() == card.name.toLowerCase()
+    && this.type == card.type;
   }
 }
 
