@@ -566,4 +566,36 @@ describe('Game', () => {
       assert.deepEqual(currentSuspicion.cancellingCards,[]);
     });
   });
+
+  describe('#accuse',()=>{
+    it('should raise an accusation',()=>{
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      assert.isOk(game.accuse(combination));
+    });
+  });
+
+  describe('#getAccuseCombination',()=>{
+    it('should return an accuse combination which has been raised',()=>{
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      assert.isOk(game.accuse(combination));
+      let expected = {
+        character : 'Dr. Orchid',
+        room : 'Lounge',
+        weapon : 'Revolver',
+      };
+      assert.deepEqual(game.getAccuseCombination(),expected);
+    });
+  });
 });
