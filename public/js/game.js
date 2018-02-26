@@ -82,7 +82,6 @@ const suspectOrAccuse = function () {
   let weapon = document.getElementById('weapon').value;
   if (suspicion) {
     sendAjaxRequest('post', `${url}/suspect`, res => {
-      updatePos(character, res);
       disablePopup();
     }, `{"character":"${character}","weapon":"${weapon}"}`);
   } else if (accusation) {
@@ -130,6 +129,7 @@ const validatePosition = function (event) {
         showMessage('');
         document.getElementById('board').onclick = null;
         currentActivity = getCurrentPlayer;
+        showBoardStatus();
       }
     }, `{"position":"${id}"}`);
   }

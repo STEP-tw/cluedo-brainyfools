@@ -14,7 +14,7 @@
   <rect class="room" id="billiard" height="68.999997" width="179.999992" y="13.450006" x="356.50001" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
   <rect class="room" id="library" height="68.999997" width="180.000006" y="13.450003" x="566.499993" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
   <rect class="room" id="hall" height="180" width="83.999996" y="232.450001" x="866.499997" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
-  <rect class="room" id="dining room" height="60.000003" width="269.999977" y="562.450008" x="356.499998" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
+  <rect class="room" id="dining" height="60.000003" width="269.999977" y="562.450008" x="356.499998" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
   <rect class="room" id="ballroom" height="210" width="105" y="232.450001" x="11.499999" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
 
   <rect id="42" height="30" width="30" y="112.449997" x="116.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>
@@ -108,7 +108,7 @@
   <text transform="rotate(45, 895.516, 72.8895) matrix(1.12995, 0, 0, 1, -126.234, 0)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="room_study" y="79.449997" x="868.237905" fill-opacity="null" stroke-width="2" stroke="#999999" fill="#B8D078">Study</text>
   <text transform="rotate(-90, 67.1, 337.45)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="room_ballroom" y="343.449997" x="9.5" fill-opacity="null" stroke-width="2" stroke="#999999" fill="#B8D078">Ballroom</text>
   <text transform="rotate(45, 84.9, 565.45)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="room_kitchen" y="571.449997" x="34.5" fill-opacity="null" stroke-width="2" stroke="#999999" fill="#B8D078">Kitchen</text>
-  <text xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="room_dining room" y="599.449997" x="383.5" fill-opacity="null" stroke-width="2" stroke="#999999" fill="#B8D078">Dining Room</text>
+  <text xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="room_dining" y="599.449997" x="383.5" fill-opacity="null" stroke-width="2" stroke="#999999" fill="#B8D078">Dining Room</text>
   <text transform="rotate(-45, 887.699, 573.45)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="room_lounge" y="579.449997" x="844.5" fill-opacity="null" stroke-width="2" stroke="#999999" fill="#B8D078">Lounge</text>
   <text transform="rotate(90, 908.3, 317.45)" xml:space="preserve" text-anchor="start" font-family="'Courier New', Courier, monospace" font-size="24" id="room_hall" y="323.449997" x="879.5" stroke-width="2" stroke="#999999" fill="#999999">Hall</text>
   <rect id="43" height="30" width="30" y="82.449997" x="116.5" stroke-width="1.5" stroke="#000000" fill="#ffffff"/>

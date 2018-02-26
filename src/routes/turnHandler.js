@@ -72,11 +72,12 @@ const getCombination = function(cards, room){
 const createSuspicion = function(req,res){
   let playerId = req.game.getCurrentPlayerId();
   let player = req.game.getCurrentPlayer();
-  let combination = getCombination(req.body, player.character.position);
+  let room = player.character.position;
+  let combination = getCombination(req.body, room);
   req.game.updateSuspicionOf(playerId,combination);
   req.game.addActivity(
     `${player.name} suspected ${
-      req.body.character} with ${req.body.weapon} in ${req.body.room}`);
+      req.body.character} with ${req.body.weapon} in ${room}`);
   res.json({suspected: true, suspector: player.character.name});
 };
 

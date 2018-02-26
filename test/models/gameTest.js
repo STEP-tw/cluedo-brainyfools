@@ -21,19 +21,13 @@ describe('Game', () => {
       game.addPlayer("omkar", 2);
       let actualOutput = game.players[1];
       let expectedOutput = {
-        _name:'suyog',
-        _inRoom: false,
-        _character:{
           "_name":"Miss Scarlett",
           "_tokenColor":"#bf0000",
           "_position":1,
           "_turn":1,
           "_start" : true
-        },
-        _cards:[],
-        _lastSuspicion:{}
-      };
-      assert.deepEqual(actualOutput, expectedOutput);
+        };
+      assert.deepEqual(actualOutput.character, expectedOutput);
     });
   });
 
@@ -404,6 +398,8 @@ describe('Game', () => {
 
   describe('#getActivitesAfter', function(){
     it('should return all activities after given time', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
       game.addActivity('activity 1');
       game.addActivity('activity 2');
       game.addActivity('activity 3');
@@ -411,7 +407,7 @@ describe('Game', () => {
         '2' : 'activity 2',
         '3' : 'activity 3'
       };
-      assert.deepEqual(game.getActivitesAfter(1),expected)
+      assert.deepEqual(game.getActivitesAfter(1, 1),expected)
     });
   });
 
@@ -423,7 +419,7 @@ describe('Game', () => {
       assert.isNotOk(game.hasStarted());
       game.start();
       assert.isOk(game.hasStarted());
-      let activities = game.getActivitesAfter(0)
+      let activities = game.getActivitesAfter(0, 1)
       let expectedActivities = {
         '1':'Game has started'
       }

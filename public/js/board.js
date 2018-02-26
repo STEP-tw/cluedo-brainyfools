@@ -8,18 +8,6 @@ let sendAjaxRequest = function (method, url, cb, data = '') {
   req.send(data);
 };
 
-const updatePos = function(character,res) {
-  let token = character.split(' ')[1].toLowerCase();
-  let suspectorToken = JSON.parse(res).suspector
-    .split(' ')[1].toLowerCase();
-  token = document.getElementById(token);
-  suspectorToken = document.getElementById(suspectorToken);
-  let posX = suspectorToken.getAttribute('cx');
-  let posY = suspectorToken.getAttribute('cy');
-  token.setAttribute('cx',posX+10);
-  token.setAttribute('cy',posY+10);
-};
-
 const setCurrentPlayer = function (player) {
   let pd = document.querySelector('#current-player');
   playerTurn = player.character.turn;

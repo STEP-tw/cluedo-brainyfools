@@ -79,6 +79,7 @@ describe('#gameStatusHandler', () => {
             }
           },
           "canSuspect": true,
+          "moved": true,
           "inRoom": false,
           combination: combination,
           suspecting: true

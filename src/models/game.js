@@ -12,12 +12,14 @@ class Game {
   constructor(numberOfPlayers, getDate = getTime) {
     this.numberOfPlayers = numberOfPlayers;
     this.players = {};
+    this._inActivePlayers = [];
     this.playerCount = 0;
     this.cardHandler = new CardHandler();
     this._murderCombination = {};
     this.started = false;
     this._path = new Path(1,78);
     this._turn = 1;
+    this.getDate = getDate;
     this._activityLog = new ActivityLog(getDate);
     this._currentSuspicion = {};
     this._currentAccusation = {};
@@ -28,7 +30,7 @@ class Game {
   addPlayer(name, id) {
     let character = characterData[++this.playerCount];
     character = new Character(character);
-    let player = new Player(name, character);
+    let player = new Player(name, character, this.getDate);
     this.players[id] = player;
   }
   getCurrentPlayer() {
@@ -95,7 +97,7 @@ class Game {
       }
     };
   }
-  getPlayersPosition() {
+  getActivePlayersPos(){
     return Object.values(this.players).map((player) => {
       let char = player.character;
       return {
@@ -105,6 +107,25 @@ class Game {
       };
     });
   }
+  addInActivePlayers(){
+    let totalChars = Object.keys(characterData).length;
+    let playerCount = this.playerCount + 1;
+    while (playerCount <= totalChars) {
+      let char = characterData[playerCount];
+      this._inActivePlayers.push({
+        name: char.name,
+        position: char.position,
+        start: char.start
+      });
+      ++playerCount;
+    }
+  }
+  getPlayersPosition() {
+    let activePlayersPos =this.getActivePlayersPos();
+    let nonActivePlayersPos = this._inActivePlayers;
+    let allChars = [...activePlayersPos, ...nonActivePlayersPos];
+    return allChars;
+  }
   hasStarted() {
     return this.started;
   }
@@ -112,6 +133,7 @@ class Game {
     this.setMurderCombination();
     this.gatherRemainingCards();
     this.distributeCards();
+    this.addInActivePlayers();
     this._path.addRooms(rooms);
     this.addActivity("Game has started");
     this.started = true;
@@ -215,6 +237,33 @@ class Game {
     return currentPlayer.updatePos(pos);
   }
 
+  updateCharPosition(name,pos){
+    this._inActivePlayers.find(char=>{
+      if(char.name == name){
+        char.position = pos;
+        char.start = false;
+      }
+    });
+  }
+  updateSuspicionOf(id,combination) {
+    let character = combination.character;
+    let players = Object.values(this.players);
+    let player = players.find(player => {
+      return player.character.name == character.name;
+    });
+    let currentPlayer = this.getCurrentPlayer();
+    let pos = currentPlayer.character.position;
+    if (player){
+      player.updatePos(pos);
+    }else{
+      this.updateCharPosition(character.name,pos);
+    }
+    let playerName = this.players[id].name;
+    this._currentSuspicion = new Suspicion(combination,playerName);
+    this.findCanceller(this.players[id]);
+    this.playerMoved = true;
+    return true;
+  }
   pass() {
     let id = this.getCurrentPlayerId();
     this.players[id]._lastSuspicion = this._currentSuspicion;
@@ -240,22 +289,8 @@ class Game {
       return player.character.turn == turn;
     });
   }
-  updateSuspicionOf(id,combination) {
-    let character = combination.character;
-    let players = Object.values(this.players);
-    let player = players.find(player => {
-      return player.character.name == character.name;
-    });
-    let currentPlayer = this.getCurrentPlayer();
-    if (player){
-      player.updatePos(currentPlayer.character.position);
-    }
-    let playerName = this.players[id].name;
-    this._currentSuspicion = new Suspicion(combination,playerName);
-    this.findCanceller(this.players[id]);
-    return true;
-  }
   findCanceller(currentPlayer){
+    debugger;
     let suspicion = this._currentSuspicion;
     let turn = currentPlayer.character.turn;
     let nextTurn = this.getNextTurn(turn);
@@ -270,6 +305,7 @@ class Game {
       }
       nextTurn = this.getNextTurn(nextTurn);
     }
+    suspicion.cancellingCards = [];
     suspicion.canBeCancelled = false;
   }
   getPlayerId(turn){
@@ -279,8 +315,7 @@ class Game {
   getNextTurn(turn){
     let players = Object.values(this.players)
       .sort((player1,player2)=>player1.character.turn > player2.character.turn);
-    let playerIndex = players.findIndex(player =>player.character.turn > turn);
-    let player = players[playerIndex + 1];
+    let player = players.find(player =>player.character.turn > turn);
     if (!player) {
       player = players[0];
     }
@@ -324,8 +359,11 @@ class Game {
     }
     return result;
   }
-  getActivitesAfter(time) {
-    return this._activityLog.getActivitesAfter(time);
+  getActivitesAfter(time, playerId) {
+    let gameActivities = this._activityLog.getActivitesAfter(time);
+    let playerLog = this.getPlayer(playerId).getActivitesAfter(time);
+    let allLogs = Object.assign(gameActivities,playerLog);
+    return allLogs;
   }
   canRuleOut(playerId, ruleOutCard){
     let suspicion = this.getSuspicion(playerId);
@@ -334,6 +372,9 @@ class Game {
   }
   ruleOut(card){
     let suspicion = this._currentSuspicion;
+    let id = this.getCurrentPlayerId();
+    this.getPlayer(id).addActivity(`Ruled out by ${
+      suspicion.cancellerName} using ${card} card`);
     suspicion.cancelled = true;
     suspicion.ruleOutCard = card;
   }
