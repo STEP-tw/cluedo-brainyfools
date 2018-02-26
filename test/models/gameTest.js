@@ -598,4 +598,59 @@ describe('Game', () => {
       assert.deepEqual(game.getAccuseCombination(),expected);
     });
   });
+
+  describe('#isCorrectAccusation',()=>{
+    it('should return false if given combination is not same as murder combination', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      let currentAccusation = new Suspicion(combination,'Patel');
+      game._currentAccusation = currentAccusation;
+      room = new Card("Hall", 'Room');
+      combination = new Combination(room, weapon, character);
+      game._murderCombination = combination;
+      assert.isNotOk(game.isCorrectAccusation());
+    });
+
+    it('should return true if given combination is same as murder combination', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      let currentAccusation = new Suspicion(combination,'Patel');
+      game._currentAccusation = currentAccusation;
+      game._murderCombination = combination;
+      assert.isOk(game.isCorrectAccusation());
+    });
+  });
+
+  describe('#getAccusationState', function(){
+    it('should return false if current accusation is empty', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      assert.isNotOk(game.getAccusationState());
+    });
+
+    it('should return state if current accusation is not empty', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      let currentAccusation = new Suspicion(combination,'Patel');
+      game._currentAccusation = currentAccusation;
+      game._murderCombination = combination;
+      assert.isOk(game.getAccusationState());
+      room = new Card("Hall", 'Room');
+      combination = new Combination(room, weapon, character);
+      game._murderCombination = combination;
+      assert.isNotOk(game.getAccusationState());
+    });
+  });
 });

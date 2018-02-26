@@ -8,7 +8,8 @@ const getGameStatus = function (req, res) {
     "combination":req.game.getCombination(),
     "accuseCombination":req.game.getAccuseCombination(),
     "canSuspect" : req.game.canSuspect(),
-    "inRoom" : req.game.isPlayerInRoom()
+    "inRoom" : req.game.isPlayerInRoom(),
+    "accusationState" : req.game.getAccusationState()
   };
   res.json(gameStatus);
 };

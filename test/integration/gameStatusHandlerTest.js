@@ -47,7 +47,8 @@ describe('#gameStatusHandler', () => {
             combination: {},
             suspecting: false,
             "accuseCombination": {},
-            "accusing": false
+            "accusing": false,
+            "accusationState": false
           };
           assert.deepEqual(res.body, expected);
         })
@@ -86,7 +87,8 @@ describe('#gameStatusHandler', () => {
             combination: combination,
             suspecting: true,
             accusing: false,
-            "accuseCombination": {}
+            "accuseCombination": {},
+            "accusationState": false
           };
           assert.deepEqual(res.body, expected);
         })

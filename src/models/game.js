@@ -408,6 +408,16 @@ class Game {
     this._currentAccusation = new Suspicion(combination,player);
     return true;
   }
+  isCorrectAccusation(){
+    let combination = this._currentAccusation.combination;
+    return this._murderCombination.isEqualTo(combination);
+  }
+  getAccusationState(){
+    if(!this.isEmpty(this._currentAccusation)){
+      return this.isCorrectAccusation();
+    }
+    return false;
+  }
 }
 
 module.exports = Game;
