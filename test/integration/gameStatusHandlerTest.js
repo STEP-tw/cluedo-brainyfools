@@ -11,7 +11,7 @@ const idGen = app.idGenerator;
 describe('#gameStatusHandler', () => {
   let game;
   beforeEach(() => {
-    app.games = { '1234': new Game(3) };
+    app.games = {'1234': new Game(3)};
     game = app.games['1234'];
     game.addPlayer('neeraj', 11);
     game.addPlayer('omkar', 12);

@@ -13,7 +13,7 @@ describe('turnHandler', () => {
   });
 
   beforeEach(() => {
-    app.games = { '1234': new Game(3) };
+    app.games = {'1234': new Game(3)};
     let game = app.games['1234'];
     game.addPlayer('neeraj', 11);
     game.addPlayer('omkar', 12);
@@ -32,7 +32,7 @@ describe('turnHandler', () => {
         .send({position:23})
         .set('cookie','playerId=11')
         .expect((res)=>{
-          assert.deepEqual(res.body, {error:'Invalid move'})
+          assert.deepEqual(res.body, {error:'Invalid move'});
         }).end(done);
     });
     it('should return moved true for valid pos',(done)=>{
@@ -42,7 +42,7 @@ describe('turnHandler', () => {
         .set('cookie','playerId=11')
         .send({position:val})
         .expect((res)=>{
-          assert.deepEqual(res.body, {moved:true})
+          assert.deepEqual(res.body, {moved:true});
         })
         .end(done);
     });
@@ -53,7 +53,7 @@ describe('turnHandler', () => {
         .send({position:23})
         .set('cookie','playerId=12')
         .expect((res)=>{
-          assert.deepEqual(res.body, {error:'Not your turn.'})
+          assert.deepEqual(res.body, {error:'Not your turn.'});
         }).end(done);
     });
     it('should return error when no pos is given',(done)=>{
@@ -62,7 +62,7 @@ describe('turnHandler', () => {
         .post('/game/1234/move')
         .set('cookie','playerId=11')
         .expect((res)=>{
-          assert.deepEqual(res.body, {error:'Provide position to move'})
+          assert.deepEqual(res.body, {error:'Provide position to move'});
         }).end(done);
     });
   });
@@ -84,7 +84,7 @@ describe('turnHandler', () => {
         .get('/game/1234/rolldice')
         .set('cookie', 'playerId=12')
         .expect((res) => {
-          assert.deepEqual(res.body, { error: "Not your turn." });
+          assert.deepEqual(res.body, {error: "Not your turn."});
         })
         .end(done);
     });
@@ -93,7 +93,7 @@ describe('turnHandler', () => {
         .get('/game/1234/rolldice')
         .set('cookie', 'playerId=123456')
         .expect((res) => {
-          assert.deepEqual(res.body, { error: "Not your turn." });
+          assert.deepEqual(res.body, {error: "Not your turn."});
         })
         .end(done);
     });
@@ -114,7 +114,7 @@ describe('turnHandler', () => {
             .expect((res) => {
               assert.equal(res.body.value,val);
             })
-            .end(done)
+            .end(done);
         });
     });
   });
@@ -125,7 +125,7 @@ describe('turnHandler', () => {
         .get('/game/1234/pass')
         .set('cookie', 'playerId=11')
         .expect(res=>{
-          assert.deepEqual(res.body, { passed: true});
+          assert.deepEqual(res.body, {passed: true});
         })
         .end(done);
     });
@@ -135,7 +135,7 @@ describe('turnHandler', () => {
         .get('/game/1234/pass')
         .set('cookie', 'playerId=1234')
         .expect(res=>{
-          assert.deepEqual(res.body, { error: "Not your turn."});
+          assert.deepEqual(res.body, {error: "Not your turn."});
         })
         .end(done);
     });
@@ -146,14 +146,14 @@ describe('turnHandler', () => {
         .get('/game/1234/pass')
         .set('cookie', 'playerId=11')
         .expect(res=>{
-          assert.deepEqual(res.body, { passed: true});
+          assert.deepEqual(res.body, {passed: true});
         })
         .end(done);
     });
   });
 
   describe('POST /game/1234/suspect',()=>{
-    it('should craete a suspicion',done=>{
+    it('should create a suspicion',done=>{
       request(app)
         .post('/game/1234/suspect')
         .set('cookie', 'playerId=11')
@@ -165,6 +165,35 @@ describe('turnHandler', () => {
           });
         })
         .end(done);
+    });
+  });
+
+  describe('GET game/1234/suspicion',()=>{
+    it('should give suspicion that has been raised',done=>{
+
+      request(app)
+        .post('/game/1234/suspect')
+        .set('cookie', 'playerId=11')
+        .send({character:'a',weapon:'b'})
+        .expect(res=>{
+          assert.deepEqual(res.body, {
+            suspected: true,
+            suspector:"Miss Scarlett"
+          });
+        })
+        .end(()=>{
+          request(app)
+            .get('/game/1234/suspicion')
+            .set('cookie', 'playerId=11')
+            .expect(res=>{
+              assert.deepEqual(res.body,{combination:
+                {_room: {_name: 1, _type: 'Room'},
+                 _weapon: {_name: 'b', _type: 'Weapon'},
+                 _character: {_name: 'a', _type: 'Character'}},
+              canBeCancelled: false});
+            })
+            .end(done);
+        });
     });
   });
 });
