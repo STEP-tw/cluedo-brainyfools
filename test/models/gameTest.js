@@ -3,7 +3,9 @@ const assert = chai.assert;
 const Game = require('../../src/models/game.js');
 const ActivityLog = require('../../src/models/activityLog.js');
 const Combination = require('../../src/models/combination');
-const Card = require('../../src/models/card');
+const Player = require('../../src/models/player.js');
+const Card = require('../../src/models/card.js');
+const Suspicion = require('../../src/models/suspicion.js')
 
 let getTime = function(start){
   return ()=>start++;
@@ -399,7 +401,6 @@ describe('Game', () => {
   describe('#getActivitesAfter', function(){
     it('should return all activities after given time', function(){
       game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
       game.addActivity('activity 1');
       game.addActivity('activity 2');
       game.addActivity('activity 3');
@@ -455,4 +456,114 @@ describe('Game', () => {
     });
   });
 
+  describe('#updateCharPosition',()=>{
+    it('should update given character position',()=>{
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      game.start();
+      game.updateCharPosition('Rev. Green',3);
+      assert.deepInclude(game._unAssignedChars,{ name: 'Rev. Green', position: 3, start: false });
+    });
+  });
+
+  describe('#canRuleOut',()=>{
+    it('should return false if player can not rule out',()=>{
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      let currentSuspicion = new Suspicion(combination,'Patel');
+      currentSuspicion.canceller = 1;
+      currentSuspicion.cancellingCards = [weapon];
+      game._currentSuspicion = currentSuspicion;
+      assert.isNotOk(game.canRuleOut(1,'Hall'));
+    });
+
+    it('should return true if player can rule out',()=>{
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      let currentSuspicion = new Suspicion(combination,'Patel');
+      currentSuspicion.canceller = 1;
+      currentSuspicion.cancellingCards = [room];
+      game._currentSuspicion = currentSuspicion;
+      assert.isOk(game.canRuleOut(1,'Lounge'));
+    });
+  });
+
+  describe('#ruleOut',()=>{
+    it('should set cancelled as true and ruleOutCard as given card',()=>{
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      let currentSuspicion = new Suspicion(combination,'Patel');
+      game._currentSuspicion = currentSuspicion;
+      game.ruleOut(weapon);
+      assert.isOk(currentSuspicion.cancelled);
+      assert.deepEqual(currentSuspicion.ruleOutCard,weapon);
+    });
+  });
+
+  describe('#findCanceller',()=>{
+    it('should set canceller in suspicion',()=>{
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      let currentSuspicion = new Suspicion(combination,'Patel');
+      game._currentSuspicion = currentSuspicion;
+      let start = 1;
+      let player = new Player('Patel',{
+        "name":"Col. Mustard",
+        "color":"#ffdb58",
+        "position":11,
+        "start":true,
+        "turn" : 2
+      },()=>start++);
+      game.players['1'].addCard(weapon);
+      game.findCanceller(player);
+      assert.isOk(currentSuspicion.canBeCancelled);
+      assert.equal(currentSuspicion.cancellerName,'Pranav');
+      assert.equal(currentSuspicion.canceller,1);
+      assert.deepEqual(currentSuspicion.cancellingCards,[weapon]);
+    });
+
+    it('should set canceller in suspicion',()=>{
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      let currentSuspicion = new Suspicion(combination,'Patel');
+      game._currentSuspicion = currentSuspicion;
+      let start = 1;
+      let player = new Player('Patel',{
+        "name":"Col. Mustard",
+        "color":"#ffdb58",
+        "position":11,
+        "start":true,
+        "turn" : 2
+      },()=>start++);
+      game.findCanceller(player);
+      assert.isNotOk(currentSuspicion.canBeCancelled);
+      assert.deepEqual(currentSuspicion.cancellingCards,[]);
+    });
+  });
 });

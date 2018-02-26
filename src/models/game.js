@@ -12,7 +12,7 @@ class Game {
   constructor(numberOfPlayers, getDate = getTime) {
     this.numberOfPlayers = numberOfPlayers;
     this.players = {};
-    this._inActivePlayers = [];
+    this._unAssignedChars = [];
     this.playerCount = 0;
     this.cardHandler = new CardHandler();
     this._murderCombination = {};
@@ -112,7 +112,7 @@ class Game {
     let playerCount = this.playerCount + 1;
     while (playerCount <= totalChars) {
       let char = characterData[playerCount];
-      this._inActivePlayers.push({
+      this._unAssignedChars.push({
         name: char.name,
         position: char.position,
         start: char.start
@@ -122,7 +122,7 @@ class Game {
   }
   getPlayersPosition() {
     let activePlayersPos =this.getActivePlayersPos();
-    let nonActivePlayersPos = this._inActivePlayers;
+    let nonActivePlayersPos = this._unAssignedChars;
     let allChars = [...activePlayersPos, ...nonActivePlayersPos];
     return allChars;
   }
@@ -238,7 +238,7 @@ class Game {
   }
 
   updateCharPosition(name,pos){
-    this._inActivePlayers.find(char=>{
+    this._unAssignedChars.find(char=>{
       if(char.name == name){
         char.position = pos;
         char.start = false;
@@ -290,7 +290,6 @@ class Game {
     });
   }
   findCanceller(currentPlayer){
-    debugger;
     let suspicion = this._currentSuspicion;
     let turn = currentPlayer.character.turn;
     let nextTurn = this.getNextTurn(turn);
