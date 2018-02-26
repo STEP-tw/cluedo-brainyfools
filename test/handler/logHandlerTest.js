@@ -5,7 +5,7 @@ const Game = require('../../src/models/game.js');
 
 let getTime = function(start){
   return ()=>start++;
-}
+};
 
 describe('logHandler', function(){
   let game;

@@ -52,7 +52,7 @@ describe('Player',()=>{
         character:'Dr. Orchid',
         weapon:'Revolver',
         room:"Hall"
-      }
+      };
       player.updatePos('Hall');
       player._lastSuspicion = new Suspicion(combination,'suyog');
       assert.isNotOk(player.canSuspect('Hall'));

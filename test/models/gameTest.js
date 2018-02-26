@@ -7,7 +7,7 @@ const Card = require('../../src/models/card');
 
 let getTime = function(start){
   return ()=>start++;
-}
+};
 
 describe('Game', () => {
   let game;
@@ -168,7 +168,7 @@ describe('Game', () => {
   describe('#hasGameStarted', function () {
     it('should return true when game has started', function () {
       assert.isNotOk(game.hasStarted());
-      game.addPlayer('Patel',205)
+      game.addPlayer('Patel',205);
       game.start();
       assert.isOk(game.hasStarted());
     });
@@ -194,7 +194,7 @@ describe('Game', () => {
         let val = game.rollDice();
         assert.isAbove(val, 0);
         assert.isBelow(val, 7);
-      };
+      }
     });
   });
 
@@ -237,7 +237,7 @@ describe('Game', () => {
       game.addPlayer('Patel',1);
       game.addPlayer('Pranav',2);
       assert.isNotOk(game.hasRemainingCard());
-      game.gatherRemainingCards()
+      game.gatherRemainingCards();
       assert.isOk(game.hasRemainingCard());
       game.distributeCards();
       assert.isNotOk(game.hasRemainingCard());
@@ -320,7 +320,7 @@ describe('Game', () => {
       assert.isOk(game.validateMove('study'));
       game.players[1].updatePos('study');
       assert.isOk(game.validateMove('kitchen'));
-    })
+    });
   });
 
   describe('#getPlayerdata', function(){
@@ -411,7 +411,7 @@ describe('Game', () => {
         '2' : 'activity 2',
         '3' : 'activity 3'
       };
-      assert.deepEqual(game.getActivitesAfter(1),expected)
+      assert.deepEqual(game.getActivitesAfter(1),expected);
     });
   });
 
@@ -423,11 +423,39 @@ describe('Game', () => {
       assert.isNotOk(game.hasStarted());
       game.start();
       assert.isOk(game.hasStarted());
-      let activities = game.getActivitesAfter(0)
+      let activities = game.getActivitesAfter(0);
       let expectedActivities = {
         '1':'Game has started'
-      }
-      assert.deepEqual(expectedActivities,activities)
+      };
+      assert.deepEqual(expectedActivities,activities);
+    });
+  });
+
+  describe('#getNextPlayerTurn', function(){
+    it('should give the next player', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      assert.isNotOk(game.hasStarted());
+      game.start();
+      assert.isOk(game.hasStarted());
+      game._turn = 1;
+      assert.equal(game.getNextPlayerTurn(),2);
+      game._turn = 2;
+      assert.equal(game.getNextPlayerTurn(),3);
+      game._turn = 3;
+      assert.equal(game.getNextPlayerTurn(),1);
+    });
+  });
+
+  describe('#getPlayerId', function(){
+    it('should give id of a player', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      assert.equal(game.getPlayerId(1),1);
+      assert.equal(game.getPlayerId(2),2);
+      assert.equal(game.getPlayerId(3),3);
     });
   });
 

@@ -31,12 +31,12 @@ describe("Path",()=>{
   beforeEach(()=>{
     path=new Path(1,78);
     path.addRooms(rooms);
-  })
+  });
   describe("#addRooms",()=>{
     it('should add rooms to path',()=>{
       assert.equal(path._rooms.length,4);
-    })
-  })
+    });
+  });
   describe("#getRoom",()=>{
     it('should give room by name',()=>{
       let actual=path.getRoom('lounge');
@@ -69,7 +69,7 @@ describe("Path",()=>{
         atStart: false
       };
       assert.isOk(path.canEnterIntoRoom(args));
-    })
+    });
     it('should return false if player can not enter into room',()=>{
       let args = {
         val:3,

@@ -6,7 +6,7 @@ describe('#getTime', function(){
     let time = getTime();
     setTimeout(()=>{
       let anotherTime = getTime();
-      assert.approximately(time,anotherTime,500)
+      assert.approximately(time,anotherTime,500);
     },500);
     done();
   });

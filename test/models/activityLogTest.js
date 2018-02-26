@@ -4,7 +4,7 @@ const ActivityLog = require('../../src/models/activityLog.js');
 
 let getTime = function(start){
   return ()=>start++;
-}
+};
 
 describe('ActivityLog', function(){
   let activityLog;

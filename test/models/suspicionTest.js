@@ -9,8 +9,8 @@ describe('Suspicion', function(){
       character:"Dr. Orchid",
       weapon:"Revolver",
       room:"Hall"
-    }
-  })
+    };
+ });
   describe('#combination', function(){
     it('should return suspicion combination cards',function() {
       let suspicionCombination = new Suspicion(combination,"ketan");
