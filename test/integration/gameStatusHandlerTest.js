@@ -19,6 +19,7 @@ describe('#gameStatusHandler', () => {
     app.idGenerator = () => {
       return 123;
     };
+    app.getGameId = () => 1234;
   });
 
   after(() => {
@@ -41,6 +42,8 @@ describe('#gameStatusHandler', () => {
                 position:1
               }
             },
+            "canSuspect": true,
+            "inRoom": false,
             combination: {},
             suspecting: false
           };
@@ -75,6 +78,8 @@ describe('#gameStatusHandler', () => {
               position:1
             }
           },
+          "canSuspect": true,
+          "inRoom": false,
           combination: combination,
           suspecting: true
         };

@@ -53,54 +53,9 @@ describe('Player',()=>{
         weapon:'Revolver',
         room:"Hall"
       }
+      player.updatePos('Hall');
       player._lastSuspicion = new Suspicion(combination,'suyog');
       assert.isNotOk(player.canSuspect('Hall'));
-    });
-  });
-  describe('#canSuspect',()=>{
-    it('should give true if player can suspect',()=>{
-      assert.isOk(player.canSuspect('Hall'));
-    });
-    it('should give false if player can\'t suspect',()=>{
-      let expected = {'_combination':{
-        character:'Dr. Orchid',
-        weapon:'Revolver',
-        room:"Hall"
-      },'_suspector':'suyog'};
-      assert.ok(player.updateSuspicion(expected._combination));
-      assert.deepEqual(player._lastSuspicion,expected);
-    });
-  });
-  describe('#isSuspecting',()=>{
-    it('should give true if player is suspecting',()=>{
-      let combination = {
-        character:'Dr. Orchid',
-        weapon:'Revolver',
-        room:"Hall"
-      };
-      player.updateSuspicion(combination);
-      assert.ok(player.isSuspecting());
-    });
-    it('should give false if player is not suspecting',()=>{
-      assert.isNotOk(player.isSuspecting());
-    });
-  });
-  describe('#getCombination',()=>{
-    it('should give suspicion combination',()=>{
-      let combination = {
-        character:'Dr. Orchid',
-        weapon:'Revolver',
-        room:"Hall"
-      };
-      let character = new Card('Dr. Orchid', 'Character');
-      let weapon = new Card('Revolver', 'Weapon');
-      let room = new Card("Hall", 'Room');
-      let combinationO = new Combination(room, weapon, character);
-      player.updateSuspicion(combinationO);
-      assert.deepEqual(player.getCombination(),combination);
-    });
-    it('should give empty object if combination is not defined',()=>{
-      assert.deepEqual(player.getCombination(),{});
     });
   });
 });

@@ -62,17 +62,21 @@ const passTurn = function (req,res) {
   res.json({passed : true});
 };
 
+const getCombination = function(cards, room){
+  let character = new Card(cards.character, 'Character');
+  let weapon = new Card(cards.weapon, 'Weapon');
+  room = new Card(room, 'Room');
+  return new Combination(room, weapon, character);
+};
+
 const createSuspicion = function(req,res){
   let playerId = req.game.getCurrentPlayerId();
   let player = req.game.getCurrentPlayer();
-  let character=new Card(req.body.character,'Character');
-  let weapon=new Card(req.body.weapon,'Weapon');
-  let room=new Card(player.character.position,'Room');
-  let combination = new Combination(room, weapon, character);
+  let combination = getCombination(req.body, player.character.position);
   req.game.updateSuspicionOf(playerId,combination);
   req.game.addActivity(
     `${player.name} suspected ${
-      character.name} with ${weapon.name} in ${room.name}`);
+      req.body.character} with ${req.body.weapon} in ${req.body.room}`);
   res.json({suspected: true, suspector: player.character.name});
 };
 
@@ -91,6 +95,7 @@ const canRuleOut = function(req,res,next){
     return ;
   }
   res.json({success:false, error:"Cannot rule out"});
+  req.game.addActivity(`No one ruled out`);
 };
 
 const ruleOut = function(req,res){
@@ -102,11 +107,27 @@ const ruleOut = function(req,res){
   res.json({success: true});
 };
 
+const createAccusation = function(req, res){
+  let game = req.game;
+  let combination = getCombination(req.body, player.character.position);
+  let status = game.accuse(combination);
+  res.json({staus:status});
+};
+
+const getAccusation = function(req,res){
+  let game = req.game;
+  let playerId = req.cookies.playerId;
+  let suspicion = game.getAccusation(playerId);
+  res.json(suspicion);
+};
+
 module.exports = {
   rollDice : [checkTurn, rollDice],
   move : [checkTurn,validateData ,validateMove, updatePos],
   pass : [checkTurn,passTurn],
   suspect : [checkTurn,createSuspicion],
+  accuse : [checkTurn,createAccusation],
+  getAccusation : [getAccusation],
   getSuspicion : [getSuspicion],
   ruleOut : [canRuleOut, ruleOut]
 };

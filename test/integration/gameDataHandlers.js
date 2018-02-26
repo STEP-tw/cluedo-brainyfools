@@ -13,9 +13,11 @@ describe('app', () => {
       .post('/game/new')
       .send('numberOfPlayers=3')
       .end(done);
+    let playerId = 0;
     app.idGenerator = () => {
-      return 123;
+      return ++playerId;
     };
+    app.getGameId = () => 1234;
   });
 
   after(() => {
@@ -23,13 +25,7 @@ describe('app', () => {
   });
 
   describe('GET /game/1234/data', () => {
-    it('should not return all players data', function (done) {
-      let playerId = 0;
-      app.idGenerator = () => {
-        return ++playerId;
-      };
-      let gameId = '1234';
-      let message = 'All players have already joined in Game';
+    it('should return all players data', function (done) {
       request(app).post('/game/join/1234').send("name=Madhuri")
         .end(() => {
           request(app).post('/game/join/1234').send("name=Neeraj")

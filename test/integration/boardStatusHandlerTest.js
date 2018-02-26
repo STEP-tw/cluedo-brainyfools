@@ -8,6 +8,7 @@ describe('boardStatusHandler', () => {
     app.idGenerator = () => {
       return 123;
     };
+    app.getGameId = () => 1234;
   });
 
   beforeEach(()=>{

@@ -48,35 +48,6 @@ const showBoardStatus = function() {
   });
 };
 
-const isRoom=function(id){
-  let boardElement=document.getElementById(`${id}`);
-  let className=boardElement && boardElement.getAttribute('class');
-  return className=="room";
-};
-
-const isPath=function(id){
-  return Number.isInteger(+id);
-};
-
-const validatePosition = function(event) {
-  let url = getBaseUrl();
-  let id = event.target.id;
-  id = id.replace('room_','');
-  if(id && (isRoom(id)||isPath(id))){
-    sendAjaxRequest("post",`${url}/move`,(res)=>{
-      res = JSON.parse(res);
-      showMessage(res.error || '');
-      if(res.moved) {
-        disablePopup();
-        showMessage('');
-        document.getElementById('board').onclick=null;
-        set = false;
-      }
-      showBoardStatus();
-    },`{"position":"${id}"}`);
-  }
-};
-
 let dice;
 let dices = ['&#9856;', '&#9857;', '&#9858;', '&#9859;', '&#9860;', '&#9861;'];
 let stopped = true;
@@ -100,14 +71,7 @@ function stopstart() {
     stopped = true;
   }
 }
-
-let set = false;
-
 const enableRollDice = function(){
-  if(set) {
-    return;
-  }
-  set = true;
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
   <span class="rolldice" onclick="rollDice()" id="dice"></span>
   </div>`;
@@ -116,12 +80,8 @@ const enableRollDice = function(){
   change(1);
 };
 
-const enableSuspicion = function(suspect=''){
+const enableSuspicion = function(suspect, rolldice){
   showMessage('Select a combination or pass');
-  if(set) {
-    return;
-  }
-  set = true;
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
   <div>
   <div>
@@ -148,46 +108,27 @@ const enableSuspicion = function(suspect=''){
   </div>
   </div>
   <div id="radioButton">
-  ${suspect}
+  ${suspect ? `<input type="radio" name="action"
+      value = "suspect" id = "suspect" />
+    <label>Suspect</label>` : ''}
   <input type="radio" name="action" value="accuse" id="accuse"/>
   <label>Accuse</label>
   </div>
   <div id="confirm">
-  <button onclick="passTurn()">Pass</button>
   <button onclick="suspectOrAccuse()">Confirm</button>
+  ${rolldice ? `<button onclick="enableRollDice()"
+  >Roll&nbsp;Dice</button>` : ''}
+  <button onclick="passTurn()">Pass</button>
   </div>
   </div>`;
 };
-let accusationEnabled = false;
+
 const enableAccusation = function() {
-  if(accusationEnabled) {
-    return;
-  }
-  accusationEnabled = true;
   enableSuspicion();
-  set = true;
 };
 
 const disablePopup = function () {
-  if(ruleOutEnabled) {
-    return;
-  }
-  set = false;
   document.querySelector('#activity-box').innerHTML = '';
-};
-
-const rollDice = function(){
-  let url= getBaseUrl();
-  stopstart();
-  setTimeout(()=>{
-    sendAjaxRequest('get',`${url}/rolldice`,(res)=>{
-      let dice = JSON.parse(res);
-      stopstart();
-      change(dice.value);
-      showMessage('Select a position');
-      document.getElementById("board").onclick = validatePosition;
-    });
-  },2000);
 };
 
 const showMessage = function(message){

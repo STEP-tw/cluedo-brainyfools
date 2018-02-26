@@ -17,16 +17,10 @@ const updateLog = function(){
       </div>`;
     });
   });
-  updateScroll();
 };
 
 const startActivityUpdater = function(){
   setInterval(updateLog,1000);
-};
-
-const updateScroll = function(){
-  let element = document.getElementById("activity-log");
-  element.scrollTop = element.scrollHeight;
 };
 
 window.addEventListener('load',startActivityUpdater);

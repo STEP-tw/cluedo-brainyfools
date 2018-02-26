@@ -19,7 +19,7 @@ const serveHomepage = function(req, res) {
 const createGame = function(req, res) {
   let numberOfPlayers = req.body['numberOfPlayers'];
   let game = new Game(numberOfPlayers);
-  let gameId = '1234';
+  let gameId = req.app.getGameId();
   res.clearCookie('wrongCount');
   res.clearCookie('invalidGameId');
   req.app.games[gameId] = game;

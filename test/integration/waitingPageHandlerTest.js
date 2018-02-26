@@ -13,6 +13,7 @@ describe('app', () => {
     app.idGenerator = () => {
       return 123;
     };
+    app.getGameId = () => 1234;
   });
 
   after(() => {

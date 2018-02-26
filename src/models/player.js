@@ -4,7 +4,7 @@ class Player {
     this._name = name;
     this._character = character;
     this._cards = [];
-    this._lastSuspicion=new Suspicion({},this._name);
+    this._lastSuspicion= {};
     this._inRoom = false;
   }
   get name(){
@@ -25,33 +25,17 @@ class Player {
   updatePos(pos){
     this.character.position = pos;
     this.character.start = false;
-    this.updateSuspicion({});
+    this._lastSuspicion = {};
     return true;
   }
-  updateSuspicion(combination) {
-    let suspicion = new Suspicion(combination,this._name);
-    this._lastSuspicion = suspicion;
-    return true;
+  isEmpty(suspicion){
+    return JSON.stringify(suspicion) == '{}';
   }
   canSuspect(room) {
-    return this._lastSuspicion.combination.room!=room;
-  }
-  isSuspecting() {
-    return Object.keys(this._lastSuspicion['combination']).length!=0;
-  }
-  getSuspicion() {
-    return this._lastSuspicion;
-  }
-  getCombination(){
-    if(!this._lastSuspicion.combination.room){
-      return {};
+    if(this.isEmpty(this._lastSuspicion)){
+      return true;
     }
-    let combination = {
-      room: this._lastSuspicion.combination.room.name,
-      weapon: this._lastSuspicion.combination.weapon.name,
-      character: this._lastSuspicion.combination.character.name
-    };
-    return combination;
+    return this._lastSuspicion.combination.room!=room;
   }
   canCancel(suspicion){
     return this._cards.some(card=>suspicion.combination.contains(card));

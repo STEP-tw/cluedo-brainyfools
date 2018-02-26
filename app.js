@@ -24,6 +24,12 @@ app.idGenerator = () => {
   return new Date().getTime();
 };
 
+const gameIdGen = function(start){
+  return ()=>start++;
+};
+
+app.getGameId = gameIdGen(1234);
+
 const setGame = function (req, res, next) {
   let {gameId} = req.params;
   let game = req.app.games[gameId];

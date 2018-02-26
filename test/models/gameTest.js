@@ -31,10 +31,7 @@ describe('Game', () => {
           "_start" : true
         },
         _cards:[],
-        _lastSuspicion:{
-          _combination:{},
-          _suspector:'suyog'
-        }
+        _lastSuspicion:{}
       };
       assert.deepEqual(actualOutput, expectedOutput);
     });

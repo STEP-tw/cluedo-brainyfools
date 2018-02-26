@@ -6,6 +6,7 @@ const characterData = require('./data/characterData.json');
 const rooms = require('./data/roomData.json');
 const ActivityLog = require('./activityLog');
 const getTime = require('../utils/time.js');
+const Suspicion = require('./suspicion.js');
 
 class Game {
   constructor(numberOfPlayers, getDate = getTime) {
@@ -18,6 +19,8 @@ class Game {
     this._path = new Path(1,78);
     this._turn = 1;
     this._activityLog = new ActivityLog(getDate);
+    this._currentSuspicion = {};
+    this._currentAccusation = {};
   }
   get turn() {
     return this._turn;
@@ -213,8 +216,11 @@ class Game {
   }
 
   pass() {
+    let id = this.getCurrentPlayerId();
+    this.players[id]._lastSuspicion = this._currentSuspicion;
     this.playerMoved = false;
     this.diceVal = undefined;
+    this._currentSuspicion = {};
     this._turn = this.getNextPlayerTurn();
   }
 
@@ -244,12 +250,13 @@ class Game {
     if (player){
       player.updatePos(currentPlayer.character.position);
     }
-    this.players[id].updateSuspicion(combination);
+    let playerName = this.players[id].name;
+    this._currentSuspicion = new Suspicion(combination,playerName);
     this.findCanceller(this.players[id]);
     return true;
   }
   findCanceller(currentPlayer){
-    let suspicion = this.getCurrentSuspicion();
+    let suspicion = this._currentSuspicion;
     let turn = currentPlayer.character.turn;
     let nextTurn = this.getNextTurn(turn);
     while (turn != nextTurn) {
@@ -270,35 +277,39 @@ class Game {
     return playerIds.find(id=>this.players[id].character.turn==turn);
   }
   getNextTurn(turn){
-    let players = Object.values(this.players);
-    let player = players.find(player => {
-      return player.character.turn > turn;
-    });
+    let players = Object.values(this.players)
+      .sort((player1,player2)=>player1.character.turn > player2.character.turn);
+    let playerIndex = players.findIndex(player =>player.character.turn > turn);
+    let player = players[playerIndex + 1];
     if (!player) {
       player = players[0];
     }
     return player.character.turn;
   }
   isSuspecting() {
-    let id=this.getCurrentPlayerId();
-    let player = this.players[id];
-    return player.isSuspecting();
+    return !this.isEmpty(this._currentSuspicion);
   }
-  getCurrentSuspicion() {
-    let id=this.getCurrentPlayerId();
-    return this.players[id].getSuspicion();
+  isEmpty(suspicion){
+    return JSON.stringify(suspicion) == '{}';
   }
   getCombination(){
-    let id=this.getCurrentPlayerId();
-    let player = this.players[id];
-    return player.getCombination();
+    let suspicion = this._currentSuspicion;
+    if(this.isEmpty(suspicion)||!suspicion.combination.room){
+      return {};
+    }
+    let combination = {
+      room: suspicion.combination.room.name,
+      weapon: suspicion.combination.weapon.name,
+      character: suspicion.combination.character.name
+    };
+    return combination;
   }
   addActivity(activity){
     let timeOfActivity = this._activityLog.addActivity(activity);
     return timeOfActivity;
   }
   getSuspicion(playerId){
-    let suspicion = this.getCurrentSuspicion();
+    let suspicion = this._currentSuspicion;
     let result = {
       combination : suspicion.combination,
       cancelled : suspicion.cancelled,
@@ -322,9 +333,20 @@ class Game {
     return !!card;
   }
   ruleOut(card){
-    let suspicion = this.getCurrentSuspicion();
+    let suspicion = this._currentSuspicion;
     suspicion.cancelled = true;
     suspicion.ruleOutCard = card;
+  }
+  canSuspect(){
+    let currentPlayer = this.getPlayer(this.getCurrentPlayerId());
+    return currentPlayer.canSuspect();
+  }
+  isPlayerInRoom(){
+    let currentPlayer = this.getPlayer(this.getCurrentPlayerId());
+    return !!this._path.isRoom(currentPlayer.character.position);
+  }
+  createAccusation(combination){
+    this._currentAccusation = new Suspicion(combination);
   }
 }
 
