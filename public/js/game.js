@@ -18,27 +18,36 @@ let getCurrentPlayer = function () {
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
     let turn = res.currentPlayer.character.turn;
+    if(res.accusationState){
+      showMessage(`${res.currentPlayer.name} won`);
+      disablePopup();
+      return;
+    }
     if (playerTurn == turn && !res.moved) {
-      if (res.canSuspect && res.inRoom) {
-        enableSuspicion(true, true);
-      }else{
-        enableRollDice();
-      }
-      currentActivity = () => { };
+      showOptionsToPlayer(res);
     } else if(res.accusing) {
       showSuspicionCards(res.accuseCombination);
       showMessage(`${res.currentPlayer.name} has raised an accusation`);
       currentActivity = getCurrentPlayer;
-    } else if (res.suspecting) {
+    } else if(res.suspecting) {
       showSuspicionCards(res.combination);
       currentActivity = () => getSuspicion(res.currentPlayer.name);
-    } else if (res.currentPlayer.inRoom && playerTurn == turn) {
+    } else if(res.currentPlayer.inRoom && playerTurn == turn) {
       enableSuspicion(true);
       currentActivity = () => { };
     }
     removeTurnHighlight();
     document.getElementById(`turn_${turn}`).style['background-color'] = 'gray';
   });
+};
+
+const showOptionsToPlayer= function(res){
+  if (res.canSuspect && res.inRoom) {
+    enableSuspicion(true, true);
+  }else{
+    enableRollDice();
+  }
+  currentActivity = () => { };
 };
 
 const getSuspicion = function (name) {

@@ -112,11 +112,11 @@ const createAccusation = function(req, res){
   let game = req.game;
   let player = req.game.getCurrentPlayer();
   let combination = getCombination(req.body, player.character.position);
-  let status = game.accuse(combination);
   let position = player.character.position;
   game.addActivity(
     `${player.name} accused ${
       req.body.character} with ${req.body.weapon} in ${position}`);
+  let status = game.accuse(combination);
   res.json({status:status,accusser:player.character.name});
 };
 

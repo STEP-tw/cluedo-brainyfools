@@ -131,6 +131,7 @@ class Game {
   }
   start() {
     this.setMurderCombination();
+    console.log(this._murderCombination);
     this.gatherRemainingCards();
     this.distributeCards();
     this.addInActivePlayers();
@@ -406,6 +407,9 @@ class Game {
   accuse(combination){
     let player = this.getCurrentPlayer().name;
     this._currentAccusation = new Suspicion(combination,player);
+    if(this.isCorrectAccusation()){
+      this.addActivity(`${player} won`);
+    }
     return true;
   }
   isCorrectAccusation(){
