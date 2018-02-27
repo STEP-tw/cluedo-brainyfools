@@ -2,6 +2,8 @@ const assert = require('chai').assert;
 const request = require('supertest');
 const app = require('../../app.js');
 const Game = require('../../src/models/game.js');
+const Card = require('../../src/models/card.js');
+
 
 const idGen = app.idGenerator;
 describe('turnHandler', () => {
@@ -33,6 +35,18 @@ describe('turnHandler', () => {
         .set('cookie','playerId=11')
         .expect((res)=>{
           assert.deepEqual(res.body, {error:'Invalid move'});
+        }).end(done);
+    });
+    it('should add activity if player entered into room',(done)=>{
+      app.games['1234'].start();
+      app.games['1234'].players['11'].updatePos(6);
+      app.games['1234'].rollDice();
+      request(app)
+        .post('/game/1234/move')
+        .send({position:'lounge'})
+        .set('cookie','playerId=11')
+        .expect((res)=>{
+          assert.deepEqual(res.body, {moved:true});
         }).end(done);
     });
     it('should return moved true for valid pos',(done)=>{
@@ -140,6 +154,7 @@ describe('turnHandler', () => {
         .end(done);
     });
   });
+
   describe('GET /game/1234/pass',()=>{
     it('should pass turn to the next player',done=>{
       request(app)
@@ -215,4 +230,55 @@ describe('turnHandler', () => {
         .end(done);
     });
   });
+
+  describe('POST /game/1234/ruleOut', function(){
+    it('should ruleOut a suspicion' , function(done){
+      app.games[1234].start();
+      app.games[1234].players[11].updatePos('hall');
+      app.games[1234].players[12].addCard(new Card('a','Character'));
+      request(app)
+        .post('/game/1234/suspect')
+        .set('cookie', 'playerId=11')
+        .send({character:'a',weapon:'b'})
+        .expect(res=>{
+          assert.deepEqual(res.body, {
+            suspected: true,
+            suspector:"Miss Scarlett"
+          })
+        })
+        .end((res)=>{
+          request(app)
+            .post('/game/1234/ruleOut')
+            .set('cookie', 'playerId=12')
+            .send({"card":"a"})
+            .expect(/{"success":true}/)
+            .end(done);
+        })
+    });
+
+    it('should not ruleOut a suspicion' , function(done){
+      app.games[1234].start();
+      app.games[1234].players[11].updatePos('hall');
+      app.games[1234].players[12].addCard(new Card('a','Character'));
+      request(app)
+        .post('/game/1234/suspect')
+        .set('cookie', 'playerId=11')
+        .send({character:'a',weapon:'b'})
+        .expect(res=>{
+          assert.deepEqual(res.body, {
+            suspected: true,
+            suspector:"Miss Scarlett"
+          })
+        })
+        .end((res)=>{
+          request(app)
+            .post('/game/1234/ruleOut')
+            .set('cookie', 'playerId=12')
+            .send({"card":"b"})
+            .expect(/{"success":false,"error":"Cannot rule out"}/)
+            .end(done);
+        })
+    });
+  });
+
 });

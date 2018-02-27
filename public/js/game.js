@@ -13,14 +13,19 @@ const passTurn = function () {
   });
 };
 
+const showWinner = function(name){
+  showMessage(`${name} won`);
+  currentActivity = ()=>{};
+  disablePopup();
+};
+
 let getCurrentPlayer = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
     let turn = res.currentPlayer.character.turn;
     if(res.accusationState){
-      showMessage(`${res.currentPlayer.name} won`);
-      disablePopup();
+      showWinner(res.currentPlayer.name);
       return;
     }
     if (playerTurn == turn && !res.moved) {
@@ -91,7 +96,7 @@ const sendAccuseReq = function(character,weapon){
   let url = getBaseUrl();
   sendAjaxRequest('post', `${url}/accuse`, res => {
     res = JSON.parse(res);
-    let accuser = res.accusser;
+    let accusser = res.accusser;
     updatePos(character, accusser);
     disablePopup();
   }, `{"character":"${character}","weapon":"${weapon}"}`);

@@ -93,7 +93,7 @@ const canRuleOut = function(req,res,next){
   let card = req.body.card;
   if(req.game.canRuleOut(playerId, card)){
     next();
-    return ;
+    return;
   }
   res.json({success:false, error:"Cannot rule out"});
   req.game.addActivity(`No one ruled out`);
