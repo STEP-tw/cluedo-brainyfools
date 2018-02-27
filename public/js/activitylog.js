@@ -1,3 +1,6 @@
+/* eslint-disable no-implicit-globals*/
+// let activityLogId;
+
 let lastActivityTime = 0;
 
 const updateLog = function(){
@@ -18,7 +21,7 @@ const updateLog = function(){
 };
 
 const startActivityUpdater = function(){
-  setInterval(updateLog,1000);
+  activityLogId = setInterval(updateLog,1000);
 };
 
 window.addEventListener('load',startActivityUpdater);

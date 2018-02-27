@@ -27,6 +27,14 @@ class Game {
   get turn() {
     return this._turn;
   }
+  get murderCombination(){
+    let combination = {
+      room: this._murderCombination.room.name,
+      weapon: this._murderCombination.weapon.name,
+      character: this._murderCombination.character.name
+    };
+    return combination;
+  }
   addPlayer(name, id) {
     let character = characterData[++this.playerCount];
     character = new Character(character);
@@ -269,6 +277,12 @@ class Game {
     this._currentSuspicion = {};
     this._currentAccusation = {};
     this._turn = this.getNextPlayerTurn();
+    let status = true;
+    if(this._turn==0){
+      status = false;
+      this.addActivity('Game over');
+    }
+    return status;
   }
 
   getNextPlayerTurn() {
@@ -278,6 +292,9 @@ class Game {
     });
     if (!player) {
       player = players[0];
+    }
+    if(!player){
+      return 0;
     }
     return player.character.turn;
   }

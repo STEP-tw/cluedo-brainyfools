@@ -1,7 +1,19 @@
-/* eslint-disable no-empty-function */
+/* eslint-disable no-empty-function, no-implicit-globals*/
+// let statusUpdaterId;
+
 const passTurn = function () {
   let url = getBaseUrl();
-  sendAjaxRequest('get', `${url}/pass`, () => {
+  sendAjaxRequest('get', `${url}/pass`, (res) => {
+    res = JSON.parse(res);
+    if(!res.err && !res.passed){
+      showMessage(`Game over`);
+      // showSuspicionCards(res.murderCombination);
+      currentActivity = ()=>{};
+      clearInterval(statusUpdaterId);
+      clearInterval(boardStatusId);
+      clearInterval(activityLogId);
+      return;
+    }
     disablePopup();
     disableRollDice();
     showMessage('');
@@ -178,7 +190,7 @@ const ruleOutSuspicion = function () {
 let currentActivity = getCurrentPlayer;
 
 const startStatusUpdater = function () {
-  setInterval(() => {
+  statusUpdaterId = setInterval(() => {
     currentActivity();
   }, 1000);
 };

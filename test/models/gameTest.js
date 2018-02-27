@@ -664,7 +664,45 @@ describe('Game', () => {
       players = [game.players[2]];
       assert.deepEqual(players,game.getActivePlayers());
     });
-
   });
 
+  describe('#Pass', function(){
+    it('should return true if turn is passed', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.start();
+      assert.isOk(game.pass());
+    });
+
+    it('should return false if turn is not passed', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.start();
+      game.players[1].deactivate();
+      game.players[2].deactivate();
+      assert.isNotOk(game.pass());
+    });
+  });
+
+  describe('#isSameDistance', function(){
+    it('should return true if same numbers are given', function(){
+      assert.isOk(game.isSameDistance(1,1));
+      assert.isOk(game.isSameDistance(0,0));
+    });
+    it('should return false if different numbers are given', function(){
+      assert.isNotOk(game.isSameDistance(1,2));
+      assert.isNotOk(game.isSameDistance(3,2));
+    });
+  });
+
+  describe('#murderCombination', function(){
+    it('should return murder combination', function(){
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      game._murderCombination = new Combination(room, weapon, character);
+      assert.deepEqual(game.murderCombination,{"character": "Dr. Orchid",
+      "room": "Lounge","weapon": "Revolver"});
+    });
+  });
 });

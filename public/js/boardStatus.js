@@ -1,3 +1,6 @@
+/* eslint-disable no-empty-function no-implicit-globals*/
+// let boardStatusId;
+
 const updateTokenPos = function(positions){
   positions.forEach((char)=>{
     let name = char.name;
@@ -125,7 +128,7 @@ const enableSuspicion = function(suspect, rolldice){
   </div>
   <div id="confirm">
   <button onclick="suspectOrAccuse()">Confirm</button>
-  ${rolldice ? `<button onclick="enableRollDice()"
+  ${rolldice ? `<button onclick="enableRollDice();disablePopup()"
   >Roll&nbsp;Dice</button>` : ''}
   <button onclick="passTurn()">Pass</button>
   </div>
@@ -172,5 +175,5 @@ const disableCards = function () {
 };
 
 window.addEventListener('load',()=>{
-  setInterval(showBoardStatus,3000);
+  boardStatusId = setInterval(showBoardStatus,3000);
 });
