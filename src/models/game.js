@@ -270,6 +270,7 @@ class Game {
     this.playerMoved = false;
     this.diceVal = undefined;
     this._currentSuspicion = {};
+    this._currentAccusation = {};
     this._turn = this.getNextPlayerTurn();
   }
 
@@ -415,7 +416,7 @@ class Game {
     let name = player.name;
     this._currentAccusation = new Suspicion(combination,name);
     if(this.isCorrectAccusation()){
-      this.addActivity(`${name} won`);
+      this.addActivity(`${name} has won game`);
     } else {
       player.deactivate();
       this.addActivity(`${name} accusation failed`);

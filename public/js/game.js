@@ -14,9 +14,17 @@ const passTurn = function () {
 };
 
 const showWinner = function(name){
-  showMessage(`${name} won`);
+  showMessage(`${name} has won the game`);
   currentActivity = ()=>{};
   disablePopup();
+};
+
+const showAccusationState = function(state,name){
+  if(state){
+    showWinner(name);
+  }else {
+    passTurn();
+  }
 };
 
 let getCurrentPlayer = function () {
@@ -24,16 +32,10 @@ let getCurrentPlayer = function () {
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
     let turn = res.currentPlayer.character.turn;
-    if(res.accusationState){
-      showWinner(res.currentPlayer.name);
-      return;
-    }
     if (playerTurn == turn && !res.moved) {
       showOptionsToPlayer(res);
     } else if(res.accusing) {
-      showSuspicionCards(res.accuseCombination);
-      showMessage(`${res.currentPlayer.name} has raised an accusation`);
-      currentActivity = getCurrentPlayer;
+      showAccusationState(res.accusationState,res.currentPlayer.name);
     } else if(res.suspecting) {
       showSuspicionCards(res.combination);
       currentActivity = () => getSuspicion(res.currentPlayer.name);

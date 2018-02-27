@@ -15,18 +15,12 @@ describe('ActivityLog', function(){
   describe('addActivity', function(){
     it('should add the given activity to log', function(){
       activityLog.addActivity('activity 1');
-      assert.equal(activityLog.activities[1],'activity 1');
+      assert.deepEqual(activityLog.activities[0],{time:1,activity:'activity 1'});
       activityLog.addActivity('activity 2');
-      assert.equal(activityLog.activities[2],'activity 2');
+      assert.deepEqual(activityLog.activities[1],{time:2,activity:'activity 2'});
     });
   });
-  describe('getActivity', function(){
-    it('should return activity of given time', function(){
-      activityLog.addActivity('activity 1');
-      activityLog.addActivity('activity 2');
-      assert.equal(activityLog.getActivity(2),'activity 2');
-    });
-  });
+
   describe('getActivitiesAfter', function(){
     it('should return all activities after given time', function(){
       activityLog.addActivity('activity 1');
@@ -34,11 +28,11 @@ describe('ActivityLog', function(){
       activityLog.addActivity('activity 3');
       activityLog.addActivity('activity 4');
       activityLog.addActivity('activity 5');
-      let expected = {
-        '3': 'activity 3',
-        '4': 'activity 4',
-        '5': 'activity 5'
-      };
+      let expected = [
+        {time:3,activity:'activity 3'},
+        {time:4,activity:'activity 4'},
+        {time:5,activity:'activity 5'}
+      ];
       assert.deepEqual(activityLog.getActivitiesAfter(2),expected);
     });
   });
