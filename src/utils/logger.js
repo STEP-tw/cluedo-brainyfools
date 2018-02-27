@@ -15,7 +15,7 @@ const logRequest = function (req, res, next, fs = fSystem) {
     `COOKIES=> ${toS(req.cookies)}`,
     `BODY=> ${toS(req.body)}`, ''].join('\n');
   fs.appendFile('logs/request.log', text, () => { });
-  // console.log(`${req.method} ${req.url}`);
+  console.log(`${req.method} ${req.url}`);
   next();
 };
 

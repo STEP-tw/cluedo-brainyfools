@@ -10,7 +10,7 @@
   <form method="post">
     <h2>Game ID : {{ ID }}</h2>
     <label for="playerName">Name</label>
-    <input id="playerName" type="text" name="name" autofocus required/>
+    <input id="playerName" type="text" maxlength="9" name="name" autofocus required/>
     <input type="submit" value="Submit">
     <span class="error">{{ invalidMsg }}</span>
   </form>

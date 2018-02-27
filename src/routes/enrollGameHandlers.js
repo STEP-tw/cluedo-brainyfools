@@ -26,7 +26,7 @@ const verifyName = function (req, res, next) {
 };
 
 const addPlayerToGame = function (req, res) {
-  let playerName = req.body.name;
+  let playerName = req.body.name.slice(0,9);
   let {gameId} = req.params;
   let playerId = req.app.idGenerator();
   let game = req.app.games[gameId];
