@@ -90,7 +90,8 @@ const giveRuleOutOption = function(cards){
 const sendAccuseReq = function(character,weapon){
   let url = getBaseUrl();
   sendAjaxRequest('post', `${url}/accuse`, res => {
-    let accusser = JSON.parse(res).accusser;
+    res = JSON.parse(res);
+    let accuser = res.accusser;
     updatePos(character, accusser);
     disablePopup();
   }, `{"character":"${character}","weapon":"${weapon}"}`);

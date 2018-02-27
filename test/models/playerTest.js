@@ -106,7 +106,7 @@ describe('Player',()=>{
   describe('#addActivity',()=>{
     it('should add activity to the player log',()=>{
       player.addActivity('activity 1');
-      assert.deepEqual(player.getActivitesAfter(0),{'1':'activity 1'});
+      assert.deepEqual(player.getActivitiesAfter(0),{'1':'activity 1'});
     });
   });
 

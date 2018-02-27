@@ -131,7 +131,6 @@ class Game {
   }
   start() {
     this.setMurderCombination();
-    console.log(this._murderCombination);
     this.gatherRemainingCards();
     this.distributeCards();
     this.addInActivePlayers();
@@ -275,7 +274,7 @@ class Game {
   }
 
   getNextPlayerTurn() {
-    let players = Object.values(this.players);
+    let players = this.getActivePlayers();
     let player = players.find(player => {
       return player.character.turn > this.turn;
     });
@@ -283,6 +282,12 @@ class Game {
       player = players[0];
     }
     return player.character.turn;
+  }
+  getActivePlayers(){
+    let players = Object.values(this.players);
+    return players.filter((player)=>{
+      return player.isActive();
+    });
   }
   getPlayerByTurn(turn){
     let players = Object.values(this.players);
@@ -377,9 +382,9 @@ class Game {
     }
     return result;
   }
-  getActivitesAfter(time, playerId) {
-    let gameActivities = this._activityLog.getActivitesAfter(time);
-    let playerLog = this.getPlayer(playerId).getActivitesAfter(time);
+  getActivitiesAfter(time, playerId) {
+    let gameActivities = this._activityLog.getActivitiesAfter(time);
+    let playerLog = this.getPlayer(playerId).getActivitiesAfter(time);
     let allLogs = Object.assign(gameActivities,playerLog);
     return allLogs;
   }
@@ -405,10 +410,15 @@ class Game {
     return !!this._path.isRoom(currentPlayer.character.position);
   }
   accuse(combination){
-    let player = this.getCurrentPlayer().name;
-    this._currentAccusation = new Suspicion(combination,player);
+    let id = this.getCurrentPlayerId();
+    let player = this.players[id];
+    let name = player.name;
+    this._currentAccusation = new Suspicion(combination,name);
     if(this.isCorrectAccusation()){
-      this.addActivity(`${player} won`);
+      this.addActivity(`${name} won`);
+    } else {
+      player.deactivate();
+      this.addActivity(`${name} accusation failed`);
     }
     return true;
   }

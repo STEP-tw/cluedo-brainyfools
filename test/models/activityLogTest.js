@@ -39,7 +39,7 @@ describe('ActivityLog', function(){
         '4': 'activity 4',
         '5': 'activity 5'
       };
-      assert.deepEqual(activityLog.getActivitesAfter(2),expected);
+      assert.deepEqual(activityLog.getActivitiesAfter(2),expected);
     });
   });
 

@@ -9,6 +9,7 @@ class Player {
     this._lastSuspicion= {};
     this._inRoom = false;
     this._log = new ActivityLog(getDate);
+    this._active = true;
   }
   get name(){
     return this._name;
@@ -21,6 +22,9 @@ class Player {
   }
   get character(){
     return this._character;
+  }
+  isActive(){
+    return this._active;
   }
   addCard(card){
     this._cards.push(card);
@@ -50,8 +54,11 @@ class Player {
   addActivity(activity){
     this._log.addActivity(activity);
   }
-  getActivitesAfter(time){
-    return this._log.getActivitesAfter(time);
+  getActivitiesAfter(time){
+    return this._log.getActivitiesAfter(time);
+  }
+  deactivate(){
+    this._active = false;
   }
 }
 

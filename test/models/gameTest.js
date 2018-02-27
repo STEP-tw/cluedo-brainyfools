@@ -398,7 +398,7 @@ describe('Game', () => {
     });
   });
 
-  describe('#getActivitesAfter', function(){
+  describe('#getActivitiesAfter', function(){
     it('should return all activities after given time', function(){
       game.addPlayer("Pranav",1);
       game.addActivity('activity 1');
@@ -408,7 +408,7 @@ describe('Game', () => {
         '2' : 'activity 2',
         '3' : 'activity 3'
       };
-      assert.deepEqual(game.getActivitesAfter(1, 1),expected)
+      assert.deepEqual(game.getActivitiesAfter(1, 1),expected)
     });
   });
 
@@ -420,7 +420,7 @@ describe('Game', () => {
       assert.isNotOk(game.hasStarted());
       game.start();
       assert.isOk(game.hasStarted());
-      let activities = game.getActivitesAfter(0, 1)
+      let activities = game.getActivitiesAfter(0, 1)
       let expectedActivities = {
         '1':'Game has started'
       };
@@ -575,6 +575,7 @@ describe('Game', () => {
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
+      game._murderCombination = new Combination(room,weapon,character);
       let combination = new Combination(room, weapon, character);
       assert.isOk(game.accuse(combination));
     });
@@ -588,6 +589,7 @@ describe('Game', () => {
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
+      game._murderCombination = new Combination(room,weapon,character);
       let combination = new Combination(room, weapon, character);
       assert.isOk(game.accuse(combination));
       let expected = {
@@ -653,4 +655,18 @@ describe('Game', () => {
       assert.isNotOk(game.getAccusationState());
     });
   });
+
+  describe('#getActivePlayers', function(){
+    it('should return active players', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      let players = [game.players[1],game.players[2]];
+      assert.deepEqual(players,game.getActivePlayers());
+      game.players[1].deactivate();
+      players = [game.players[2]];
+      assert.deepEqual(players,game.getActivePlayers());
+    });
+
+  });
+
 });

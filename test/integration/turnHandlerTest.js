@@ -200,6 +200,8 @@ describe('turnHandler', () => {
 
   describe('POST /game/1234/accuse',()=>{
     it('should create an accusation',done=>{
+      app.games[1234].start();
+      app.games[1234].players[11].updatePos('hall');
       request(app)
         .post('/game/1234/accuse')
         .set('cookie', 'playerId=11')

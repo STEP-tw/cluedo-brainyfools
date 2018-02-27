@@ -14,7 +14,7 @@ class ActivityLog{
     return this.activities[time];
   }
 
-  getActivitesAfter(time){
+  getActivitiesAfter(time){
     let activityTimes = Object.keys(this.activities);
     let recentActivities = activityTimes.filter(activityTime=>{
       return +activityTime > +time;
