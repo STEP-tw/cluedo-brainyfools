@@ -39,11 +39,11 @@ describe('turnHandler', () => {
     });
     it('should add activity if player entered into room',(done)=>{
       app.games['1234'].start();
-      app.games['1234'].players['11'].updatePos(6);
+      app.games['1234'].players['11'].updatePos(9);
       app.games['1234'].rollDice();
       request(app)
         .post('/game/1234/move')
-        .send({position:'lounge'})
+        .send({position:'dining'})
         .set('cookie','playerId=11')
         .expect((res)=>{
           assert.deepEqual(res.body, {moved:true});
@@ -54,7 +54,7 @@ describe('turnHandler', () => {
       request(app)
         .post('/game/1234/move')
         .set('cookie','playerId=11')
-        .send({position:val})
+        .send({position:69+val})
         .expect((res)=>{
           assert.deepEqual(res.body, {moved:true});
         })
@@ -202,7 +202,7 @@ describe('turnHandler', () => {
             .set('cookie', 'playerId=11')
             .expect(res=>{
               assert.deepEqual(res.body,{combination:
-                {_room: {_name: 1, _type: 'Room'},
+                {_room: {_name: 69, _type: 'Room'},
                  _weapon: {_name: 'b', _type: 'Weapon'},
                  _character: {_name: 'a', _type: 'Character'}},
               canBeCancelled: false,

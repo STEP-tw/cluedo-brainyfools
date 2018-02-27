@@ -37,10 +37,4 @@ describe('Character',()=>{
       assert.equal(character.turn,4);
     });
   });
-
-  describe('#start',()=>{
-    it('should return true for starting position',()=>{
-      assert.isOk(character.start);
-    });
-  });
 });

@@ -1,8 +1,8 @@
 const updateTokenPos = function(positions){
   positions.forEach((char)=>{
     let name = char.name;
-    if(!char.start){
-      let id = name.split(' ').pop().toLowerCase();
+    let id = name.split(' ').pop().toLowerCase();
+    if(!char.inactive) {
       updateCharPosition(id, char.position);
     }
   });
@@ -16,16 +16,16 @@ const updateCharPosition = function(id,pos){
     posX = getXCoordOfRoom(pos)-15;
     posY = getYCoordOfRoom(pos)-15;
   }
-  document.getElementById(`${id}`).setAttribute('cx',+posX + 15);
-  document.getElementById(`${id}`).setAttribute('cy',+posY + 15);
+  document.getElementById(`${id}`).setAttribute('cx',+posX + 23);
+  document.getElementById(`${id}`).setAttribute('cy',+posY + 23);
 };
 
 const getXCoordOfRoom = function(pos){
   let changeX = ['biliiard','library','dining'];
   let corners = ['conservatory','study','lounge','kitchen'];
-  let room = document.getElementById(`room_${pos}`);
+  let room = document.getElementById(`${pos}`);
   if(corners.includes(pos) || changeX.includes(pos)){
-    return +room.getAttribute('x') + (playerTurn-1) * 15;
+    return +room.getAttribute('x') + 25;
   }
   return +room.getAttribute('x');
 };
@@ -33,9 +33,9 @@ const getXCoordOfRoom = function(pos){
 const getYCoordOfRoom = function(pos){
   let changeY = ['ballroom','hall'];
   let corners = ['conservatory','study','lounge','kitchen'];
-  let room = document.getElementById(`room_${pos}`);
+  let room = document.getElementById(`${pos}`);
   if(corners.includes(pos) || changeY.includes(pos)){
-    return +room.getAttribute('y') + (playerTurn-1) * 15;
+    return +room.getAttribute('y') + 35;
   }
   return +room.getAttribute('y');
 };
@@ -72,12 +72,21 @@ function stopstart() {
   }
 }
 const enableRollDice = function(){
-  document.querySelector('#activity-box').innerHTML = `<div class="popup">
-  <span class="rolldice" onclick="rollDice()" id="dice"></span>
-  </div>`;
+  document.querySelector('#dice-box').innerHTML = `
+  <div id="roll-dice">
+    <span class="rolldice" onclick="rollDice()" id="dice"></span>
+  </div>
+  `;
   dice = document.getElementById("dice");
-  showMessage('Roll Dice');
   change(1);
+};
+
+const disableRollDice = function(){
+  document.querySelector('#dice-box').innerHTML = ``;
+};
+
+const showPopup = function(){
+  let modal = document.getElementById('myModal').style.display = "block";
 };
 
 const enableSuspicion = function(suspect, rolldice){
@@ -86,7 +95,7 @@ const enableSuspicion = function(suspect, rolldice){
   <div>
   <div>
   <label for='character'>Character</label>
-  <select name="character" id="character">
+  <select name="character" id="character" class="styled-select slate">
   <option value="Miss Scarlett">Miss Scarlett</option>
   <option value="Col. Mustard">Col. Mustard</option>
   <option value="Dr. Orchid">Dr. Orchid</option>
@@ -97,7 +106,7 @@ const enableSuspicion = function(suspect, rolldice){
   </div>
   <div>
   <label for='weapon'>Weapon</label>
-  <select name="weapon" id="weapon">
+  <select name="weapon" id="weapon" class="styled-select slate">
   <option value="Rope">Rope</option>
   <option value="Dagger">Dagger</option>
   <option value="Wrench">Wrench</option>
@@ -121,6 +130,7 @@ const enableSuspicion = function(suspect, rolldice){
   <button onclick="passTurn()">Pass</button>
   </div>
   </div>`;
+  enablePopup();
 };
 
 const enableAccusation = function() {
@@ -128,7 +138,10 @@ const enableAccusation = function() {
 };
 
 const disablePopup = function () {
-  document.querySelector('#activity-box').innerHTML = '';
+  document.getElementById('myModal').style.display = "none";
+};
+const enablePopup = function () {
+  document.getElementById('myModal').style.display = "block";
 };
 
 const showMessage = function(message){
@@ -153,9 +166,9 @@ const showSuspicionCards = function(cards) {
 };
 
 const disableCards = function () {
-  document.getElementById('character-card').setAttribute('href','');
-  document.getElementById('weapon-card').setAttribute('href','');
-  document.getElementById('room-card').setAttribute('href','');
+  // document.getElementById('character-card').setAttribute('href','');
+  // document.getElementById('weapon-card').setAttribute('href','');
+  // document.getElementById('room-card').setAttribute('href','');
 };
 
 window.addEventListener('load',()=>{

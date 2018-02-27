@@ -39,7 +39,7 @@ describe('#gameStatusHandler', () => {
                 "color": "#bf0000",
                 "name": "Miss Scarlett",
                 turn: 1,
-                position:1
+                position:69
               }
             },
             "canSuspect": true,
@@ -78,7 +78,7 @@ describe('#gameStatusHandler', () => {
                 "color": "#bf0000",
                 "name": "Miss Scarlett",
                 turn: 1,
-                position:1
+                position:69
               }
             },
             "canSuspect": true,

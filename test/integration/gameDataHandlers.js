@@ -6,7 +6,7 @@ let games = app.games;
 
 const idGen = app.idGenerator;
 
-describe('app', () => {
+describe('gameDataHandlers', () => {
   beforeEach((done) => {
     app.games = {};
     request(app)
@@ -38,7 +38,7 @@ describe('app', () => {
                     name: "Miss Scarlett",
                     color: "#bf0000",
                     turn:1,
-                    position:1
+                    position:69
                   }
                 },
                 2: {
@@ -48,7 +48,7 @@ describe('app', () => {
                     "color": "#ffdb58",
                     "name": "Col. Mustard",
                     turn:2,
-                    position:11
+                    position:56
                   }
                 }
               };

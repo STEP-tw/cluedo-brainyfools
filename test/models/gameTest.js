@@ -25,9 +25,8 @@ describe('Game', () => {
       let expectedOutput = {
           "_name":"Miss Scarlett",
           "_tokenColor":"#bf0000",
-          "_position":1,
-          "_turn":1,
-          "_start" : true
+          "_position":69,
+          "_turn":1
         };
       assert.deepEqual(actualOutput.character, expectedOutput);
     });
@@ -80,7 +79,7 @@ describe('Game', () => {
             name: "Miss Scarlett",
             color: "#bf0000",
             turn:1,
-            position:1
+            position:69
           },
           cards:[]
         }
@@ -104,7 +103,7 @@ describe('Game', () => {
             name: "Miss Scarlett",
             color: "#bf0000",
             turn:1,
-            position:1
+            position:69
           }
         },
         23: {
@@ -115,7 +114,7 @@ describe('Game', () => {
             "color": "#ffdb58",
             "name": "Col. Mustard",
             turn:2,
-            position:11
+            position:56
           }
         }
       };
@@ -135,7 +134,7 @@ describe('Game', () => {
           "color": "#bf0000",
           "name": "Miss Scarlett",
           'turn':1,
-          position:1
+          position:69
         }
       });
     });
@@ -148,13 +147,11 @@ describe('Game', () => {
       let expected = [
         {
           name: "Miss Scarlett",
-          position: 1,
-          start: true
+          position: 69
         },
         {
           "name": "Col. Mustard",
-          position: 11,
-          start: true
+          position: 56
         }
       ];
       assert.deepEqual(actualOutput, expected);
@@ -256,19 +253,19 @@ describe('Game', () => {
     it('should return true for valid forward move', () => {
       game.addPlayer("Pranav", 1);
       game.diceVal = 1;
-      assert.isOk(game.validateMove(1));
+      assert.isOk(game.validateMove(70));
       game.diceVal = 2;
-      assert.isOk(game.validateMove(2));
+      assert.isOk(game.validateMove(71));
       game.diceVal = 5;
-      assert.isOk(game.validateMove(5));
+      assert.isOk(game.validateMove(74));
       game.diceVal = 1;
-      game.players[1].updatePos(78);
+      game.players[1].updatePos(86);
       assert.isOk(game.validateMove(1));
     });
     it('should return true for valid backward move', () => {
       game.addPlayer("Pranav", 1);
       game.diceVal = 2;
-      assert.isOk(game.validateMove(78));
+      assert.isOk(game.validateMove(67));
       game.diceVal = 3;
       game.players[1].updatePos(4);
       assert.isOk(game.validateMove(1));
@@ -287,7 +284,7 @@ describe('Game', () => {
       game.diceVal = 2;
       assert.isNotOk(game.validateMove(76));
       game.diceVal = 5;
-      assert.isNotOk(game.validateMove(74));
+      assert.isNotOk(game.validateMove(62));
     });
     it('should return false for moving to same room',()=>{
       game.addPlayer('Raghu',1);
@@ -295,7 +292,7 @@ describe('Game', () => {
       game.diceVal = 1;
       game.players[1].updatePos('hall');
       assert.isNotOk(game.validateMove('hall'));
-      assert.isOk(game.validateMove('74'));
+      assert.isOk(game.validateMove('53'));
     });
     it('should return false for moving to invalid room',()=>{
       game.addPlayer('Raghu',1);
@@ -464,7 +461,7 @@ describe('Game', () => {
       game.addPlayer("AJ",3);
       game.start();
       game.updateCharPosition('Rev. Green',3);
-      assert.deepInclude(game._unAssignedChars,{ name: 'Rev. Green', position: 3, start: false });
+      assert.deepInclude(game._unAssignedChars,{ name: 'Rev. Green', position: 3, inactive: false });
     });
   });
 

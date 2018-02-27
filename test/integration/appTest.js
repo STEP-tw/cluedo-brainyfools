@@ -85,7 +85,7 @@ describe('app', () => {
       request(app)
         .get('/game/1234')
         .contentType('text/html; charset=utf-8')
-        .body.include('<div id="title">Activity Log</div>')
+        .body.include('<div class="title">Activity Log</div>')
         .expect(200)
         .end(done);
     });

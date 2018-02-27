@@ -2,11 +2,11 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Enrolling Form</title>
+  <title>Join Game</title>
   <link rel="stylesheet" href="/css/join.css">
 </head>
 <body>
-  <img src="/images/cluedoLogo.png" >
+  <p>Cluedo</p>
   <form method="post">
     <h2>Game ID : {{ ID }}</h2>
     <label for="playerName">Name</label>

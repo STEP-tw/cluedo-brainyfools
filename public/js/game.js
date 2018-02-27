@@ -3,20 +3,17 @@ const passTurn = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/pass`, () => {
     disablePopup();
-    disableCards();
+    disableRollDice();
     showMessage('');
-    set = false;
-    ruleOutEnabled = false;
-    accusationEnabled = false;
     getCurrentPlayer();
     currentActivity = getCurrentPlayer;
   });
 };
 
 const showWinner = function(name){
-  showMessage(`${name} has won the game`);
+  document.querySelector('#activity-box').innerHTML =
+  `<div class="popup">${name} has won the game</div>`;
   currentActivity = ()=>{};
-  disablePopup();
 };
 
 const showAccusationState = function(state,name){
@@ -37,14 +34,15 @@ let getCurrentPlayer = function () {
     } else if(res.accusing) {
       showAccusationState(res.accusationState,res.currentPlayer.name);
     } else if(res.suspecting) {
-      showSuspicionCards(res.combination);
+      // showSuspicionCards(res.combination);
       currentActivity = () => getSuspicion(res.currentPlayer.name);
     } else if(res.currentPlayer.inRoom && playerTurn == turn) {
       enableSuspicion(true);
       currentActivity = () => { };
     }
     removeTurnHighlight();
-    document.getElementById(`turn_${turn}`).style['background-color'] = 'gray';
+    document.getElementById(`turn_${turn}`).classList.add('active-player');
+    document.getElementById(`turn_${turn}`).style.border = '0px';
   });
 };
 
@@ -65,9 +63,6 @@ const getSuspicion = function (name) {
       currentActivity = getCurrentPlayer;
     }
     let suspicion = JSON.parse(res);
-    if (!suspicion.cancelled) {
-      showMessage(`${name} has raised a suspicion`);
-    }
     if (suspicion.canBeCancelled && !suspicion.cancelled) {
       if (suspicion.cancellingCards) {
         giveRuleOutOption(suspicion.cancellingCards);
@@ -75,15 +70,12 @@ const getSuspicion = function (name) {
     } else if (suspicion.ruleOutCard) {
       showMessage(`Ruled out by ${
         suspicion.cancelledBy} using ${suspicion.ruleOutCard} card`);
+      enablePopup();
       currentActivity = () => { };
       enableAccusation();
     } else if(suspicion.suspector){
       currentActivity = () => { };
       enableAccusation();
-      disableCards();
-    } else {
-      showMessage(``);
-      disableCards();
     }
   });
 };
@@ -99,7 +91,6 @@ const sendAccuseReq = function(character,weapon){
   sendAjaxRequest('post', `${url}/accuse`, res => {
     res = JSON.parse(res);
     let accusser = res.accusser;
-    updatePos(character, accusser);
     disablePopup();
   }, `{"character":"${character}","weapon":"${weapon}"}`);
 };
@@ -108,7 +99,6 @@ const sendSuspectReq = function(character,weapon){
   let url = getBaseUrl();
   sendAjaxRequest('post', `${url}/suspect`, res => {
     let suspector = JSON.parse(res).suspector;
-    updatePos(character, suspector);
     disablePopup();
   }, `{"character":"${character}","weapon":"${weapon}"}`);
 };
@@ -164,7 +154,7 @@ const validatePosition = function (event) {
       showMessage(res.error || '');
       if (res.moved) {
         disablePopup();
-        showMessage('');
+        disableRollDice();
         document.querySelector('#board').onclick = null;
         currentActivity = getCurrentPlayer;
         showBoardStatus();
@@ -180,7 +170,6 @@ const ruleOutSuspicion = function () {
     res = JSON.parse(res);
     if (res.success) {
       disableRuleOut();
-      showMessage('Ruled out');
       currentActivity = getCurrentPlayer;
     }
   }, `{"card":"${val.value}"}`);

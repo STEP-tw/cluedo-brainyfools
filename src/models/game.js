@@ -17,7 +17,7 @@ class Game {
     this.cardHandler = new CardHandler();
     this._murderCombination = {};
     this.started = false;
-    this._path = new Path(1,78);
+    this._path = new Path(1,86);
     this._turn = 1;
     this.getDate = getDate;
     this._activityLog = new ActivityLog(getDate);
@@ -102,8 +102,7 @@ class Game {
       let char = player.character;
       return {
         name: char.name,
-        position: char.position,
-        start: char.start
+        position: char.position
       };
     });
   }
@@ -115,7 +114,7 @@ class Game {
       this._unAssignedChars.push({
         name: char.name,
         position: char.position,
-        start: char.start
+        inactive: true
       });
       ++playerCount;
     }
@@ -175,12 +174,11 @@ class Game {
   /*eslint-disable */
   validateMove(pos){
     let player = this.getCurrentPlayerId();
-    let atStart = this.players[player].character.start;
-    let val = this.diceVal - atStart;
     let clickpos = pos;
+    let val = this.diceVal;
     let curPlayerPos = this.players[player].character.position;
     let inRoom = false;
-    if(curPlayerPos == pos && !atStart){
+    if(curPlayerPos == pos){
       return false;
     }
     if(this._path.isRoom(curPlayerPos)){
@@ -199,7 +197,6 @@ class Game {
       clickpos: clickpos,
       forwardDis: distances[0],
       backDis: distances[1],
-      atStart: atStart
     };
     return this.validatePos(args);
   }
@@ -221,7 +218,7 @@ class Game {
       return true;
     }
     return (this._path.canEnterIntoRoom(args)) ||
-    (this.isSameDistance(forwardDis,backDis) && args.atStart && (args.val == 1))
+    (this.isSameDistance(forwardDis,backDis) && (args.val == 1))
     || this._path.canGoToConnectedRoom(args.clickpos,args.curPlayerPos);
   }
   /*eslint-enable */
@@ -241,7 +238,7 @@ class Game {
     this._unAssignedChars.find(char=>{
       if(char.name == name){
         char.position = pos;
-        char.start = false;
+        char.inactive = false;
       }
     });
   }

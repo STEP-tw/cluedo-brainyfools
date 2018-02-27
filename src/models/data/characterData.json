@@ -2,43 +2,37 @@
   "1":{
     "name":"Miss Scarlett",
     "color":"#bf0000",
-    "position":1,
-    "turn" : 1,
-    "start" : true
+    "position":69,
+    "turn" : 1
   },
   "2":{
     "name":"Col. Mustard",
     "color":"#ffdb58",
-    "position":11,
-    "turn" : 2,
-    "start" : true
+    "position":56,
+    "turn" : 2
   },
   "3":{
     "name":"Dr. Orchid",
     "color":"#da70d6",
-    "position":30,
-    "turn" : 3,
-    "start" : true
+    "position":49,
+    "turn" : 3
   },
   "4":{
     "name":"Rev. Green",
-    "color":"#007f00",
-    "position":40,
-    "turn" : 4,
-    "start" : true
+    "color":"#3a7e4a",
+    "position":79,
+    "turn" : 4
   },
   "5":{
     "name":"Mrs. Peacock",
     "color":"#005fbf",
-    "position":50,
-    "turn" : 5,
-    "start" : true
+    "position":5,
+    "turn" : 5
   },
   "6":{
     "name":"Prof. Plum",
     "color":"#3f007f",
-    "position":64,
-    "turn" : 6,
-    "start" : true
+    "position":13,
+    "turn" : 6
   }
 }

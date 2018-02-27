@@ -8,24 +8,14 @@ let sendAjaxRequest = function (method, url, cb, data = '') {
   req.send(data);
 };
 
-const updatePos = function(character,suspector) {
-  let token = character.split(' ')[1].toLowerCase();
-  let suspectorToken = suspector.split(' ')[1].toLowerCase();
-  token = document.getElementById(token);
-  suspectorToken = document.getElementById(suspectorToken);
-  let posX = suspectorToken.getAttribute('cx');
-  let posY = suspectorToken.getAttribute('cy');
-  token.setAttribute('cx',posX+10);
-  token.setAttribute('cy',posY+10);
-};
-
 const setCurrentPlayer = function (player) {
   let pd = document.querySelector('#current-player');
   playerTurn = player.character.turn;
-  document.querySelector('#player-token')
-    .setAttribute('fill', player.character.color);
-  pd.innerHTML = `<span>${player.name}</span>
-  <span>${player.character.name}</span>`;
+  let name = player.character.name.replace(/[.\s]+/, '_');
+  pd.innerHTML = `
+  <span class="image" 
+  style="background-image: url('/images/cards/Character/${name}.jpg');"></span>
+  <span>${player.name}</span>`;
   showPlayerCards(player.cards);
 };
 
@@ -39,11 +29,14 @@ const showPlayerCards = function(cards){
 };
 
 const setOtherPlayer = function (player) {
+  let name = player.character.name.replace(/[.\s]+/, '_');
   document.querySelector('#all-players').innerHTML +=
-  `<div style="color:${player.character.color}" class="player"
-  id='turn_${player.character.turn}'>
-  <span>${player.name}</span>
-  <span>${player.character.name}</span></div>`;
+  `<div id='turn_${player.character.turn}' class="player">
+    <span class="image" 
+    style="background-image: url('/images/cards/Character/${name}.jpg');">
+    </span>
+    <span>${player.name}</span>
+  </div>`;
 };
 
 const objectValues = function (obj) {
@@ -77,20 +70,22 @@ const disableRuleOut = function(){
 const enableRuleOut = function(cards){
   let popup = document.getElementById('activity-box');
   popup.innerHTML = `
-  <div class="popup cancelsuspicion">
-    <select id="cancelsuspicion">
+  <div class="popup">
+    <select id="cancelsuspicion" class="styled-select slate">
       ${cards.reduce((html, card) => html + `<option value="${card._name}">
       ${card._name}</option>`,'')}
     </select>
     <button id="ruleOut" onclick="ruleOutSuspicion()">Rule Out</button>
   </div>
   `;
+  enablePopup();
 };
 
 const removeTurnHighlight = function(){
   let players = document.querySelectorAll('.player');
   players.forEach(player=>{
-    player.style['background-color'] = '';
+    player.classList.remove('active-player');
+    player.style.border = '';
   });
 };
 
@@ -117,4 +112,9 @@ window.onload = function () {
     getPlayerDetails();
     showBoardStatus();
   });
+  let modal = document.getElementById('myModal');
+  let span = document.getElementsByClassName("close")[0];
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
 };

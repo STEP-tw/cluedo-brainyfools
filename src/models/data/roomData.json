@@ -1,47 +1,47 @@
 [
   {
     "name":"Lounge",
-    "doorPosition" : 6,
+    "doorPosition" : 62,
     "connectedRoom" : "Conservatory"
   },
   {
     "name":"Dining Room",
-    "doorPosition" : 16,
+    "doorPosition" : 9,
     "connectedRoom" : ""
   },
   {
     "name":"Kitchen",
-    "doorPosition" : 25,
+    "doorPosition" : 85,
     "connectedRoom" : "Study"
   },
   {
     "name":"Ballroom",
-    "doorPosition" : 35,
+    "doorPosition" : 75,
     "connectedRoom" : ""
   },
   {
     "name":"Conservatory",
-    "doorPosition" : 45,
+    "doorPosition" : 19,
     "connectedRoom" : "Lounge"
   },
   {
     "name":"Billiard",
-    "doorPosition" : 55,
+    "doorPosition" : 27,
     "connectedRoom" : ""
   },
   {
     "name":"Library",
-    "doorPosition" : 59,
+    "doorPosition" : 34,
     "connectedRoom" : ""
   },
   {
     "name":"Study",
-    "doorPosition" : 69,
+    "doorPosition" : 43,
     "connectedRoom" : "Kitchen"
   },
   {
     "name":"Hall",
-    "doorPosition" : 74,
+    "doorPosition" : 53,
     "connectedRoom" : ""
   }
 ]

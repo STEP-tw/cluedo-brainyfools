@@ -36,8 +36,7 @@ describe('boardStatusHandler', () => {
                   let expected = [
                     {
                       "name":"Miss Scarlett",
-                      "position":1,
-                      "start":true
+                      "position":69
                     }
                   ];
                   assert.deepEqual(res.body, expected);

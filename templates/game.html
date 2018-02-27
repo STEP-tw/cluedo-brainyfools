@@ -3,7 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="/css/board.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
   <script src="/js/board.js"></script>
   <script src="/js/boardStatus.js"></script>
   <script src="/js/game.js"></script>
@@ -12,14 +13,44 @@
 </head>
 
 <body>
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <span id="message-box"></span>
+      <div id="activity-box">
+
+      </div>
+    </div>
+  </div>
+
   <div class='board'>
     <div id="board"></div>
-    <div id="cards">
+    <div>
+      <div class="player-details">
+        <div>
+          <div class="subtitle">You</div>
+          <div id="current-player">
+          </div>
+        </div>
+        <div>
+          <div class="subtitle">Cards</div>
+          <div id="cards">
+          
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <main>
-    <div id="title">Activity Log</div>
-    <div id="activity-log">
+    <div>
+      <div id="log" class="active">
+        <div class="title">Activity Log</div>
+        <div id="activity-log">
+        </div>
+      </div>
+      <div class="subtitle">All Players</div>
+      <div id="all-players">
+      </div>
     </div>
   </main>
 </body>

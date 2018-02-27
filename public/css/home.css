@@ -1,12 +1,25 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: sans-Serif;
+  background-image: url('/images/bbg.jpg');
 }
-html,body{
-  height : 99%;
+
+p {
+  font-family: 'Volkhov';
+  color: #dfb577;
+  margin-top: 50px;
+  font-size: 100px;
+  font-weight: bold;
+  text-align: center;
 }
+
+html,
+body {
+  height: 99%;
+}
+
 main {
   box-sizing: border-box;
-  -webkit-box-shadow: 0px 0px 20px 5px #c19e67;
+  -webkit-box-shadow: 0px 0px 20px 5px #8B4513;
   border-radius: 10px 10px 10px 10px;
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
@@ -21,7 +34,7 @@ main {
 }
 
 form {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -35,7 +48,8 @@ form label {
   text-align: left;
   margin: 6px 0 0;
   font-size: 1.2em;
-  color: #700202;
+  color: #1a0800;
+  font-weight: 400;
 }
 
 form input:not([type=submit]),
@@ -45,12 +59,11 @@ select {
   margin: 5px 0 0;
   outline: none;
   border: none;
-  background-color: #c19e67;
-  border-bottom: 2px solid #700202;
+  background-color: #dfb577;
+  border-bottom: 2px solid #1a0800;
 }
 
-
-form select{
+form select {
   background-color: none;
   font-size: 20px;
   margin: 20px 0px 0px;
@@ -61,17 +74,20 @@ form input[type=submit] {
   margin: 15px 0 0;
   border: none;
   font-size: 22px;
-  color: #c19e67 ;
-  background-color: #700202;
+  color: #dfb577;
+  background-color: #8B4513;
 }
 
 form input[type=submit]:hover {
-  background-color: #c19e67;
+  background-color: #dfb577;
+  /*background-image: url('/images/bg.jpg');*/
 }
 
 form .error {
   padding: 5px 0px;
-  color: #700202;
+  color: #1a0800;
+  font-weight: 600;
+  font-size: 20px;
   margin: 10px 0 0;
 }
 
@@ -84,24 +100,25 @@ form .error {
 }
 
 .tab button {
-  background-color: #700202;
+  background-color: #8B4513;
   width: 50%;
   border: none;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
   font-size: 18px;
-  color : #c19e67;
+  color: #dfb577;
 }
 
-
 form input[type=submit]:hover {
-  background-color: #6f2232;
+  background-color: #8B4513;
 }
 
 .tab button.active {
-  background-color: #c19e67;
+  /*background-image: url('/images/bg.jpg');*/
+  background-color: #dfb577;
   color: black;
+  font-weight: 600;
 }
 
 .tabcontent {
@@ -110,30 +127,19 @@ form input[type=submit]:hover {
   border-top: none;
 }
 
-.cluedoForm{
-  background-color: #c19e67 ;
-}
-
-img{
-  width: 50vh;
-  height: 15vh;
-  left:0px;
-  right:0px;
-  top: 30px;
-  margin:auto;
-  position: absolute;
+.cluedoForm {
+  background-color: #dfb577;
 }
 
 .styled-select.slate {
   background: url('/images/arrow.png') no-repeat right center;
   background-size: contain;
-
   height: 40px;
 }
 
 select {
   -moz-appearance: none;
-  -webkit-appearance:none;
+  -webkit-appearance: none;
 }
 
 select::-ms-expand {

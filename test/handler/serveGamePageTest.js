@@ -39,14 +39,13 @@ describe('gameHandlers', function () {
                   request(app)
                     .get('/game/1234')
                     .set('cookie',['playerId=3'])
-                    .body.include('<div id="title">Activity Log</div>')
                     .expect(200)
                     .end(()=>{
                       // Game should not start again
                       request(app)
                         .get('/game/1234')
                         .set('cookie',['playerId=3'])
-                        .body.include('<div id="title">Activity Log</div>')
+                        .body.include('<div class="title">Activity Log</div>')
                         .expect(200)
                         .end(done);
                     });

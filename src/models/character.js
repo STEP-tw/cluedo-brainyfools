@@ -4,7 +4,6 @@ class Character {
     this._tokenColor = character.color;
     this._position = character.position;
     this._turn = character.turn;
-    this._start = true;
   }
   get name(){
     return this._name;
