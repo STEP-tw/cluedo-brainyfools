@@ -43,7 +43,7 @@ class Player {
       return true;
     }
     let room = this.character.position;
-    return this._lastSuspicion.combination.room != room;
+    return this._lastSuspicion.combination.room.name != room;
   }
   canCancel(suspicion){
     return this._cards.some(card=>suspicion.combination.contains(card));

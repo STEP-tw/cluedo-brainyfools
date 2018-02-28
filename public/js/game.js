@@ -159,7 +159,6 @@ const isPath = function (id) {
 const validatePosition = function (event) {
   let url = getBaseUrl();
   let id = event.target.id;
-  id = id.replace('room_', '');
   if (id && (isRoom(id) || isPath(id))) {
     sendAjaxRequest("post", `${url}/move`, (res) => {
       res = JSON.parse(res);

@@ -49,11 +49,12 @@ describe('Player',()=>{
       assert.isOk(player.canSuspect('Hall'));
     });
     it('should give false if player can\'t suspect',()=>{
-      let combination = {
-        character:'Dr. Orchid',
-        weapon:'Revolver',
-        room:"Hall"
-      };
+      let roomCard = new Card('Hall', 'Room');
+      let charCard = new Card('Miss. Scarlet', 'Character');
+      let weaponCard = new Card('Dagger', 'Weapon');
+      let combination = new Combination(roomCard, weaponCard, charCard);
+
+      let suspicion = new Suspicion(combination, 'Raghu');
       player.updatePos('Hall');
       player._lastSuspicion = new Suspicion(combination,'suyog');
       assert.isNotOk(player.canSuspect('Hall'));

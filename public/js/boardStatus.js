@@ -1,6 +1,4 @@
 /* eslint-disable no-empty-function no-implicit-globals*/
-// let boardStatusId;
-
 const updateTokenPos = function(positions){
   positions.forEach((char)=>{
     let name = char.name;
@@ -12,35 +10,14 @@ const updateTokenPos = function(positions){
 };
 
 const updateCharPosition = function(id,pos){
+  if (isRoom(pos)) {
+    pos = `${id}-${pos}`;
+  }
   let posElement = document.getElementById(`${pos}`);
   let posX = posElement.getAttribute('x');
   let posY = posElement.getAttribute('y');
-  if(isRoom(pos)){
-    posX = getXCoordOfRoom(pos)-15;
-    posY = getYCoordOfRoom(pos)-15;
-  }
-  document.getElementById(`${id}`).setAttribute('cx',+posX + 23);
-  document.getElementById(`${id}`).setAttribute('cy',+posY + 23);
-};
-
-const getXCoordOfRoom = function(pos){
-  let changeX = ['biliiard','library','dining'];
-  let corners = ['conservatory','study','lounge','kitchen'];
-  let room = document.getElementById(`${pos}`);
-  if(corners.includes(pos) || changeX.includes(pos)){
-    return +room.getAttribute('x') + 25;
-  }
-  return +room.getAttribute('x');
-};
-
-const getYCoordOfRoom = function(pos){
-  let changeY = ['ballroom','hall'];
-  let corners = ['conservatory','study','lounge','kitchen'];
-  let room = document.getElementById(`${pos}`);
-  if(corners.includes(pos) || changeY.includes(pos)){
-    return +room.getAttribute('y') + 35;
-  }
-  return +room.getAttribute('y');
+  document.getElementById(`${id}`).setAttribute('cx',+posX+ 23);
+  document.getElementById(`${id}`).setAttribute('cy',+posY+ 23);
 };
 
 const showBoardStatus = function() {
@@ -78,8 +55,8 @@ const enableRollDice = function(){
   document.querySelector('#dice-box').innerHTML = `
   <div id="roll-dice">
     <span class="rolldice" onclick="rollDice()" id="dice"></span>
-  </div>
-  `;
+  </div>`;
+  disablePopup();
   dice = document.getElementById("dice");
   change(1);
 };
@@ -95,9 +72,7 @@ const showPopup = function(){
 const enableSuspicion = function(suspect, rolldice){
   showMessage('Select a combination or pass');
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
-  <div>
-  <div>
-  <label for='character'>Character</label>
+  <div><div><label for='character'>Character</label>
   <select name="character" id="character" class="styled-select slate">
   <option value="Miss Scarlett">Miss Scarlett</option>
   <option value="Col. Mustard">Col. Mustard</option>
@@ -105,34 +80,24 @@ const enableSuspicion = function(suspect, rolldice){
   <option value="Rev. Green">Rev. Green</option>
   <option value="Mrs. Peacock">Mrs. Peacock</option>
   <option value="Prof. Plum">Prof. Plum</option>
-  </select>
-  </div>
-  <div>
-  <label for='weapon'>Weapon</label>
+  </select></div><div><label for='weapon'>Weapon</label>
   <select name="weapon" id="weapon" class="styled-select slate">
   <option value="Rope">Rope</option>
   <option value="Dagger">Dagger</option>
   <option value="Wrench">Wrench</option>
   <option value="Revolver">Revolver</option>
   <option value="Candlestick">Candlestick</option>
-  <option value="Lead Pipe">Lead Pipe</option>
-  </select>
-  </div>
-  </div>
-  <div id="radioButton">
+  <option value="Lead Pipe">Lead Pipe</option></select>
+  </div></div><div id="radioButton">
   ${suspect ? `<input type="radio" name="action"
       value = "suspect" id = "suspect" />
     <label>Suspect</label>` : ''}
   <input type="radio" name="action" value="accuse" id="accuse"/>
-  <label>Accuse</label>
-  </div>
-  <div id="confirm">
+  <label>Accuse</label></div><div id="confirm">
   <button onclick="suspectOrAccuse()">Confirm</button>
   ${rolldice ? `<button onclick="enableRollDice();disablePopup()"
   >Roll&nbsp;Dice</button>` : ''}
-  <button onclick="passTurn()">Pass</button>
-  </div>
-  </div>`;
+  <button onclick="passTurn()">Pass</button></div></div>`;
   enablePopup();
 };
 
