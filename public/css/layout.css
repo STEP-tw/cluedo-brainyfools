@@ -4,6 +4,7 @@ html {
 }
 
 body {
+  font-family: 'Acme';
   display: flex;
 }
 

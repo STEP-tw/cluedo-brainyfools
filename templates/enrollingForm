@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Join Game</title>
+  <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">  
   <link rel="stylesheet" href="/css/join.css">
 </head>
 <body>
