@@ -42,10 +42,10 @@ let getCurrentPlayer = function () {
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
     let turn = res.currentPlayer.character.turn;
-    if (playerTurn == turn && !res.moved) {
-      showOptionsToPlayer(res);
-    } else if(res.accusing) {
+    if(res.accusing) {
       showAccusationState(res.accusationState,res.currentPlayer.name);
+    } else if (playerTurn == turn && !res.moved) {
+      showOptionsToPlayer(res);
     } else if(res.suspecting) {
       // showSuspicionCards(res.combination);
       currentActivity = () => getSuspicion(res.currentPlayer.name);

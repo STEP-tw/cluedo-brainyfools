@@ -39,6 +39,9 @@ class Player {
     return JSON.stringify(suspicion) == '{}';
   }
   canSuspect() {
+    if(!this.isActive()){
+      return false;
+    }
     if(this.isEmpty(this._lastSuspicion)){
       return true;
     }
