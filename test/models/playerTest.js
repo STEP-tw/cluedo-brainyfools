@@ -58,6 +58,8 @@ describe('Player',()=>{
       player.updatePos('Hall');
       player._lastSuspicion = new Suspicion(combination,'suyog');
       assert.isNotOk(player.canSuspect('Hall'));
+      player.deactivate();
+      assert.isNotOk(player.canSuspect('Hall'));
     });
   });
   describe('#getCancellingCards',()=>{

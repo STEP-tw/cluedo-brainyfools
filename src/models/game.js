@@ -226,8 +226,7 @@ class Game {
       return true;
     }
     return (this._path.canEnterIntoRoom(args)) ||
-    (this.isSameDistance(forwardDis,backDis) && (args.val == 1))
-    || this._path.canGoToConnectedRoom(args.clickpos,args.curPlayerPos);
+    (this.isSameDistance(forwardDis,backDis) && (args.val == 1));
   }
   /*eslint-enable */
   updatePlayerPos(pos) {

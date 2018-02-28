@@ -677,9 +677,11 @@ describe('Game', () => {
     it('should return false if turn is not passed', function(){
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
+      game.addPlayer("Patel",3);
       game.start();
       game.players[1].deactivate();
       game.players[2].deactivate();
+      game.players[3].deactivate();
       assert.isNotOk(game.pass());
     });
   });
@@ -703,6 +705,86 @@ describe('Game', () => {
       game._murderCombination = new Combination(room, weapon, character);
       assert.deepEqual(game.murderCombination,{"character": "Dr. Orchid",
       "room": "Lounge","weapon": "Revolver"});
+    });
+  });
+
+  describe('#validatePos', function(){
+    it('should return true if position is valid', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("Patel",3);
+      game.start();
+      let args = {
+        val:1,
+        curPlayerPos: 1,
+        clickpos: 1,
+        forwardDis: 0,
+        backDis: 0,
+      };
+      assert.isOk(game.validatePos(args));
+      args = {
+        val:1,
+        curPlayerPos: 1,
+        clickpos: 2,
+        forwardDis: 1,
+        backDis: 2,
+      };
+      assert.isOk(game.validatePos(args));
+      args = {
+        val:1,
+        curPlayerPos: 1,
+        clickpos: 2,
+        forwardDis: 2,
+        backDis: 1,
+      };
+      assert.isOk(game.validatePos(args));
+      args = {
+        val:1,
+        curPlayerPos: 62,
+        clickpos: 'conservatory',
+        forwardDis: 1,
+        backDis: 2,
+      };
+      assert.isOk(game.validatePos(args));
+      args = {
+        val:3,
+        curPlayerPos: 62,
+        clickpos: 'conservatory',
+        forwardDis: 1,
+        backDis: 2,
+      };
+      assert.isOk(game.validatePos(args));
+      args = {
+        val:3,
+        curPlayerPos: 17,
+        clickpos: 'conservatory',
+        forwardDis: 50,
+        backDis: 3,
+      };
+      assert.isOk(game.validatePos(args));
+    });
+
+    it('should return false if position is not valid', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("Patel",3);
+      game.start();
+      let args = {
+        val:1,
+        curPlayerPos: 1,
+        clickpos: 1,
+        forwardDis: 2,
+        backDis: 2,
+      };
+      assert.isNotOk(game.validatePos(args));
+      args = {
+        val:1,
+        curPlayerPos: 1,
+        clickpos: 6,
+        forwardDis: 2,
+        backDis: 2,
+      };
+      assert.isNotOk(game.validatePos(args));
     });
   });
 });
