@@ -95,15 +95,15 @@
   <image fill="#fff" x="677.46502" y="0.75" width="45" height="45" href="/images/sceenTile.jpg" id="72"/>
   <image fill="#fff" x="723.46502" y="0.75" width="45" height="45" href="/images/sceenTile.jpg" id="71"/>
 
-  <text xml:space="preserve" text-anchor="start" font-family="Roboto" font-size="25" id="svg_room" y="517.68912" x="94.18773" fill="#dfb577">Dining Room</text>
-  <text xml:space="preserve" text-anchor="start" font-family="Roboto" font-size="25" id="svg_room" y="558.68912" x="95.18773" fill="#dfb577">Conservatory</text>
-  <text xml:space="preserve" text-anchor="start" font-family="Roboto" font-size="25" id="svg_room" y="266.68912" x="104.18773" fill="#dfb577">Kitchen</text>
-  <text xml:space="preserve" text-anchor="start" font-family="Roboto" font-size="25" id="svg_room" y="270.68912" x="565.18773" fill="#dfb577">Ball Room</text>
-  <text xml:space="preserve" text-anchor="start" font-family="Roboto" font-size="25" id="svg_room" y="267.68912" x="1021.18773" fill="#dfb577">Lounge</text>
-  <text xml:space="preserve" text-anchor="start" font-family="Roboto" font-size="25" id="svg_room" y="505.68912" x="1030.18773" fill="#dfb577">Hall</text>
-  <text xml:space="preserve" text-anchor="start" font-family="Roboto" font-size="25" id="svg_room" y="560.68912" x="1011.18773" fill="#dfb577">Study</text>
-  <text xml:space="preserve" text-anchor="start" font-family="Roboto" font-size="25" id="svg_room" y="560.68912" x="399.18773" fill="#dfb577">Billiard Room</text>
-  <text xml:space="preserve" text-anchor="start" font-family="Roboto" font-size="25" id="svg_room" y="560.68912" x="712.18773" fill="#dfb577">Library</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="517.68912" x="94.18773" fill="#dfb577">Dining Room</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="558.68912" x="95.18773" fill="#dfb577">Conservatory</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="266.68912" x="104.18773" fill="#dfb577">Kitchen</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="270.68912" x="565.18773" fill="#dfb577">Ball Room</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="267.68912" x="1021.18773" fill="#dfb577">Lounge</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="505.68912" x="1030.18773" fill="#dfb577">Hall</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="560.68912" x="1011.18773" fill="#dfb577">Study</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="560.68912" x="399.18773" fill="#dfb577">Billiard Room</text>
+  <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="560.68912" x="712.18773" fill="#dfb577">Library</text>
 
   <foreignObject id="dice-box" height="230" width="230" y="340" x="500">
     

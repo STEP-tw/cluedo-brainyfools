@@ -1,15 +1,14 @@
 body {
-  /*font-family:sans-serif;*/
+  font-family: 'Acme';
   background-image: url('/images/bbg.jpg');
   background-repeat: no-repeat;
-  background-size: cover;
 }
 
 p {
-  font-family: 'Volkhov';
+  font-family: 'Acme';
   color: #dfb577;
   margin-top: 50px;
-  font-size: 100px;
+  font-size: 150px;
   font-weight: bold;
   text-align: center;
 }
@@ -38,8 +37,13 @@ form {
   height: 350px;
 }
 
+
+input {
+  font-family: 'Acme';
+}
+
 form {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Acme';
   display: flex;
   flex-direction: column;
   justify-content: space-around;
