@@ -10,8 +10,8 @@ class ActivityLog{
     return time;
   }
 
-  getActivitiesAfter(index){
-    return this.activities.slice(index);
+  getActivitiesAfter(time){
+    return this.activities.filter(activity=> +activity.time > +time);
   }
 }
 

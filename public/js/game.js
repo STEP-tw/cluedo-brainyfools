@@ -5,10 +5,11 @@ const passTurn = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/pass`, (res) => {
     res = JSON.parse(res);
-    if(!res.err && !res.passed){
+    if(!res.error && !res.passed){
       showMessage(`Game over`);
       // showSuspicionCards(res.murderCombination);
       currentActivity = ()=>{};
+      updateLog();
       clearInterval(statusUpdaterId);
       clearInterval(boardStatusId);
       clearInterval(activityLogId);

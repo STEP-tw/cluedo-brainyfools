@@ -10,7 +10,7 @@ const updateLog = function(){
     let data = JSON.parse(res);
     let allActivitiesTime = data.sort((a1,a2)=>+a1.time> +a2.time);
     allActivitiesTime.forEach((activity)=>{
-      lastActivityTime++;
+      lastActivityTime = activity.time;
       time = new Date(+activity.time);
       logDiv.innerHTML += `<div>
         <span class='time'> ${time.toLocaleTimeString()} </span>

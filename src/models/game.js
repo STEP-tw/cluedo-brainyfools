@@ -400,7 +400,7 @@ class Game {
   getActivitiesAfter(time, playerId) {
     let gameActivities = this._activityLog.getActivitiesAfter(time);
     let playerLog = this.getPlayer(playerId).getActivitiesAfter(time);
-    let allLogs = Object.assign(gameActivities,playerLog);
+    let allLogs = [...gameActivities,...playerLog];
     return allLogs;
   }
   canRuleOut(playerId, ruleOutCard){
