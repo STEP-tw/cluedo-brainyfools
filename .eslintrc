@@ -37,7 +37,7 @@
       "error",
       {
         "skipBlankLines": true,
-        "max" : 450
+        "max" : 500
       }
     ],
     "max-statements": [

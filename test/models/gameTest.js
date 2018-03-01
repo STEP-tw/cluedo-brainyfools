@@ -809,4 +809,12 @@ describe('Game', () => {
       assert.deepInclude(game._unAssignedChars,{name:"Prof. Plum",position:'lounge', inactive: false});
     });
   });
+
+  describe('#getAllValidMoves',()=>{
+    it('should return all valid moves after rolling a dice',()=>{
+      assert.deepEqual(game.getAllValidMoves(69,2),[71,67]);
+      assert.deepEqual(game.getAllValidMoves(86,3),[3,83]);
+      assert.deepEqual(game.getAllValidMoves(2,6),[8,82]);
+    });
+  });
 });

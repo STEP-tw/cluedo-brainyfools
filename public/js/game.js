@@ -138,10 +138,9 @@ const rollDice = function () {
   stopstart();
   setTimeout(() => {
     sendAjaxRequest('get', `${url}/rolldice`, (res) => {
-      let dice = JSON.parse(res);
+      res = JSON.parse(res);
       stopstart();
-      change(dice.value);
-      showMessage('Select a position');
+      change(res.value);
       document.getElementById("board").onclick = validatePosition;
     });
   }, 1000);

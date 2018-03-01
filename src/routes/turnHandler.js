@@ -3,14 +3,17 @@ const Card = require('../models/card');
 
 const rollDice = function(req,res){
   let game = req.game;
-  let currentPlayerName = game.getCurrentPlayer().name;
+  let currentPlayer = game.getCurrentPlayer();
+  let currentPlayerName = currentPlayer.name;
+  let currentPlayerPos = currentPlayer.character.position;
   if(game.diceVal){
     res.json({value:game.diceVal});
     return;
   }
   let diceVal = game.rollDice();
+  let allValidMoves = game.getAllValidMoves(currentPlayerPos,diceVal);
   game.addActivity(`${currentPlayerName} got ${diceVal}`);
-  res.json({value:diceVal});
+  res.json({value:diceVal,allValidMoves:allValidMoves});
 };
 
 const checkTurn = function(req,res, next){
