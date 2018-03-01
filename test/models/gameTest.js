@@ -566,16 +566,19 @@ describe('Game', () => {
   });
 
   describe('#accuse',()=>{
-    it('should raise an accusation',()=>{
+    it('should raise an accusation and should move suspected player to the room which is suspected',()=>{
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
       game.addPlayer("AJ",3);
+      game.players[1].updatePos('lounge');
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       game._murderCombination = new Combination(room,weapon,character);
       let combination = new Combination(room, weapon, character);
       assert.isOk(game.accuse(combination));
+      assert.equal(game.players[3].character.position,'lounge');
+      assert.equal(game.players[1].character.position,game.players[3].character.position);
     });
   });
 
@@ -785,6 +788,25 @@ describe('Game', () => {
         backDis: 2,
       };
       assert.isNotOk(game.validatePos(args));
+    });
+  });
+  describe('#movePlayerToken', function(){
+    it('should change assigned or unassigned characters position to given position', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("Patel",3);
+      game.start();
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Lounge", 'Room');
+      let combination = new Combination(room, weapon, character);
+      game.players[1].updatePos('lounge');
+      game.movePlayerToken(combination);
+      assert.equal(game.players[3].character.position,'lounge');
+      character = new Card('Prof. Plum', 'Character');
+      combination = new Combination(room, weapon, character);
+      game.movePlayerToken(combination);
+      assert.deepInclude(game._unAssignedChars,{name:"Prof. Plum",position:'lounge', inactive: false});
     });
   });
 });

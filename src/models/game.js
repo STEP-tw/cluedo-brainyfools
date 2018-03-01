@@ -249,7 +249,7 @@ class Game {
       }
     });
   }
-  updateSuspicionOf(id,combination) {
+  movePlayerToken(combination){
     let character = combination.character;
     let players = Object.values(this.players);
     let player = players.find(player => {
@@ -262,6 +262,9 @@ class Game {
     }else{
       this.updateCharPosition(character.name,pos);
     }
+  }
+  updateSuspicionOf(id,combination) {
+    this.movePlayerToken(combination);
     let playerName = this.players[id].name;
     this._currentSuspicion = new Suspicion(combination,playerName);
     this.findCanceller(this.players[id]);
@@ -424,6 +427,7 @@ class Game {
     return !!this._path.isRoom(currentPlayer.character.position);
   }
   accuse(combination){
+    this.movePlayerToken(combination);
     let id = this.getCurrentPlayerId();
     let player = this.players[id];
     let name = player.name;
