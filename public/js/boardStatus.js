@@ -146,6 +146,24 @@ const disableCards = function () {
   // document.getElementById('room-card').setAttribute('href','');
 };
 
+const showWeapon = function (room,weapon) {
+  let weaponImg=weapon.replace(/[.\s]+/,'_');
+  let imagePath = `/images/weapons/${weaponImg}.png`;
+  document.getElementById(`weapon-${room}`).setAttribute("href", imagePath);
+};
+
+const disableWeapon = function () {
+  document.getElementById(`weapon-hall`).setAttribute("href", "");
+  document.getElementById(`weapon-kitchen`).setAttribute("href", "");
+  document.getElementById(`weapon-dining`).setAttribute("href", "");
+  document.getElementById(`weapon-billiard`).setAttribute("href", "");
+  document.getElementById(`weapon-ballroom`).setAttribute("href", "");
+  document.getElementById(`weapon-study`).setAttribute("href", "");
+  document.getElementById(`weapon-lounge`).setAttribute("href", "");
+  document.getElementById(`weapon-conservatory`).setAttribute("href", "");
+  document.getElementById(`weapon-library`).setAttribute("href", "");
+};
+
 window.addEventListener('load',()=>{
   boardStatusId = setInterval(showBoardStatus,3000);
 });

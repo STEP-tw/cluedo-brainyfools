@@ -38,6 +38,7 @@ const showAccusationState = function(state,name){
 };
 
 let getCurrentPlayer = function () {
+  disableWeapon();
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
@@ -76,6 +77,9 @@ const getSuspicion = function (name) {
       currentActivity = getCurrentPlayer;
     }
     let suspicion = JSON.parse(res);
+    let roomName = suspicion.combination._room._name;
+    let weaponName = suspicion.combination._weapon._name;
+    showWeapon(roomName,weaponName);
     if (suspicion.canBeCancelled && !suspicion.cancelled) {
       if (suspicion.cancellingCards) {
         giveRuleOutOption(suspicion.cancellingCards);
