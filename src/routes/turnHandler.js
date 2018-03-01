@@ -6,14 +6,12 @@ const rollDice = function(req,res){
   let currentPlayer = game.getCurrentPlayer();
   let currentPlayerName = currentPlayer.name;
   let currentPlayerPos = currentPlayer.character.position;
-  if(game.diceVal){
-    res.json({value:game.diceVal});
-    return;
+  if(!game.diceVal){
+    game.rollDice();
+    game.addActivity(`${currentPlayerName} got ${game.diceVal}`);
   }
-  let diceVal = game.rollDice();
-  let allValidMoves = game.getAllValidMoves(currentPlayerPos,diceVal);
-  game.addActivity(`${currentPlayerName} got ${diceVal}`);
-  res.json({value:diceVal,allValidMoves:allValidMoves});
+  let allValidMoves = game.getAllValidMoves(currentPlayerPos);
+  res.json({value:game.diceVal,allValidMoves:allValidMoves});
 };
 
 const checkTurn = function(req,res, next){

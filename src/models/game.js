@@ -241,19 +241,8 @@ class Game {
     return currentPlayer.updatePos(pos);
   }
 
-  getAllValidMoves(playerPos,diceVal){
-    let allValidMoves = [];
-    let forwardPos = playerPos + diceVal;
-    let backwardPos = playerPos - diceVal;
-    if(forwardPos>86){
-      forwardPos-=86;
-    }
-    if(backwardPos<0){
-      backwardPos+=86;
-    }
-    allValidMoves.push(forwardPos);
-    allValidMoves.push(backwardPos);
-    return allValidMoves;
+  getAllValidMoves(playerPos){
+    return this._path.getAllValidMoves(playerPos, this.diceVal);
   }
 
   updateCharPosition(name,pos){

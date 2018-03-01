@@ -29,7 +29,7 @@ let rooms=[
 describe("Path",()=>{
   let path;
   beforeEach(()=>{
-    path=new Path(1,78);
+    path=new Path(1,86);
     path.addRooms(rooms);
   });
   describe("#addRooms",()=>{
@@ -103,6 +103,14 @@ describe("Path",()=>{
   describe('#distanceForward',()=>{
     it('should not return any distance if given positions are invalid',()=>{
       assert.isUndefined(path.distanceForward([1,2,3],-9,-8));
+    });
+  });
+
+  describe('#getAllValidMoves',()=>{
+    it('should return all the valid moves after rolling a dice',()=>{
+      assert.deepEqual(path.getAllValidMoves(69,3),[72,66]);
+      assert.deepEqual(path.getAllValidMoves(86,3),[3,83]);
+      assert.deepEqual(path.getAllValidMoves(2,6),[8,82]);
     });
   });
 });

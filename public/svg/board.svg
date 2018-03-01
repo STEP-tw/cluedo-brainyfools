@@ -106,63 +106,63 @@
   <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="560.68912" x="712.18773" fill="#dfb577">Library</text>
 
   <foreignObject id="dice-box" height="230" width="230" y="340" x="500">
-    
+
   </foreignObject>
 
-  <rect fill="null" x="82.5" y="76.95" width="8" height="9" id="orchid-kitchen"/>
-  <rect fill="null" x="112.5" y="76.95" width="8" height="9" id="green-kitchen"/>
-  <rect fill="null" x="142.5" y="76.95" width="8" height="9" id="peacock-kitchen"/>
-  <rect fill="null" x="82.5" y="126.95" width="8" height="9" id="plum-kitchen"/>
-  <rect fill="null" x="112.5" y="126.95" width="8" height="9" id="scarlett-kitchen"/>
-  <rect fill="null" x="142.5" y="126.95" width="8" height="9" id="mustard-kitchen"/>
-  <rect fill="null" x="564.5" y="76.95" width="8" height="9" id="orchid-ballroom"/>
-  <rect fill="null" x="594.5" y="76.95" width="8" height="9" id="green-ballroom"/>
-  <rect fill="null" x="624.5" y="76.95" width="8" height="9" id="peacock-ballroom"/>
-  <rect fill="null" x="564.5" y="126.95" width="8" height="9" id="plum-ballroom"/>
-  <rect fill="null" x="594.5" y="126.95" width="8" height="9" id="scarlett-ballroom"/>
-  <rect fill="null" x="624.5" y="126.95" width="8" height="9" id="mustard-ballroom"/>
-  <rect fill="null" x="1004.5" y="76.95" width="8" height="9" id="orchid-lounge"/>
-  <rect fill="null" x="1034.5" y="76.95" width="8" height="9" id="green-lounge"/>
-  <rect fill="null" x="1064.5" y="76.95" width="8" height="9" id="peacock-lounge"/>
-  <rect fill="null" x="1004.5" y="126.95" width="8" height="9" id="plum-lounge"/>
-  <rect fill="null" x="1034.5" y="126.95" width="8" height="9" id="scarlett-lounge"/>
-  <rect fill="null" x="1064.5" y="126.95" width="8" height="9" id="mustard-lounge"/>
-  <rect fill="null" x="1014.5" y="366.95" width="8" height="9" id="orchid-hall"/>
-  <rect fill="null" x="1044.5" y="366.95" width="8" height="9" id="green-hall"/>
-  <rect fill="null" x="1074.5" y="366.95" width="8" height="9" id="peacock-hall"/>
-  <rect fill="null" x="1014.5" y="416.95" width="8" height="9" id="plum-hall"/>
-  <rect fill="null" x="1044.5" y="416.95" width="8" height="9" id="scarlett-hall"/>
-  <rect fill="null" x="1074.5" y="416.95" width="8" height="9" id="mustard-hall"/>
-  <rect fill="null" x="104.5" y="366.95" width="8" height="9" id="orchid-dining"/>
-  <rect fill="null" x="134.5" y="366.95" width="8" height="9" id="green-dining"/>
-  <rect fill="null" x="164.5" y="366.95" width="8" height="9" id="peacock-dining"/>
-  <rect fill="null" x="104.5" y="416.95" width="8" height="9" id="plum-dining"/>
-  <rect fill="null" x="134.5" y="416.95" width="8" height="9" id="scarlett-dining"/>
-  <rect fill="null" x="164.5" y="416.95" width="8" height="9" id="mustard-dining"/>
-  <rect fill="null" x="104.5" y="656.95" width="8" height="9" id="orchid-conservatory"/>
-  <rect fill="null" x="134.5" y="656.95" width="8" height="9" id="green-conservatory"/>
-  <rect fill="null" x="164.5" y="656.95" width="8" height="9" id="peacock-conservatory"/>
-  <rect fill="null" x="104.5" y="706.95" width="8" height="9" id="plum-conservatory"/>
-  <rect fill="null" x="134.5" y="706.95" width="8" height="9" id="scarlett-conservatory"/>
-  <rect fill="null" x="164.5" y="706.95" width="8" height="9" id="mustard-conservatory"/>
-  <rect fill="null" x="431.5" y="654.95" width="8" height="9" id="orchid-billiard"/>
-  <rect fill="null" x="461.5" y="654.95" width="8" height="9" id="green-billiard"/>
-  <rect fill="null" x="491.5" y="654.95" width="8" height="9" id="peacock-billiard"/>
-  <rect fill="null" x="431.5" y="704.95" width="8" height="9" id="plum-billiard"/>
-  <rect fill="null" x="461.5" y="704.95" width="8" height="9" id="scarlett-billiard"/>
-  <rect fill="null" x="491.5" y="704.95" width="8" height="9" id="mustard-billiard"/>
-  <rect fill="null" x="712.5" y="644.95" width="8" height="9" id="orchid-library"/>
-  <rect fill="null" x="742.5" y="644.95" width="8" height="9" id="green-library"/>
-  <rect fill="null" x="772.5" y="644.95" width="8" height="9" id="peacock-library"/>
-  <rect fill="null" x="712.5" y="694.95" width="8" height="9" id="plum-library"/>
-  <rect fill="null" x="742.5" y="694.95" width="8" height="9" id="scarlett-library"/>
-  <rect fill="null" x="772.5" y="694.95" width="8" height="9" id="mustard-library"/>
-  <rect fill="null" x="1011.5" y="644.95" width="8" height="9" id="orchid-study"/>
-  <rect fill="null" x="1041.5" y="644.95" width="8" height="9" id="green-study"/>
-  <rect fill="null" x="1071.5" y="644.95" width="8" height="9" id="peacock-study"/>
-  <rect fill="null" x="1011.5" y="694.95" width="8" height="9" id="plum-study"/>
-  <rect fill="null" x="1041.5" y="694.95" width="8" height="9" id="scarlett-study"/>
-  <rect fill="null" x="1071.5" y="694.95" width="8" height="9" id="mustard-study"/>
+  <rect fill="none" x="82.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-kitchen"/>
+  <rect fill="none" x="112.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="green-kitchen"/>
+  <rect fill="none" x="142.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="peacock-kitchen"/>
+  <rect fill="none" x="82.5" y="126.95" width="8" height="9" stroke-width="0" stroke="#000" id="plum-kitchen"/>
+  <rect fill="none" x="112.5" y="126.95" width="8" height="9" stroke-width="0" stroke="#000" id="scarlett-kitchen"/>
+  <rect fill="none" x="142.5" y="126.95" width="8" height="9" stroke-width="0" stroke="#000" id="mustard-kitchen"/>
+  <rect fill="none" x="564.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-ballroom"/>
+  <rect fill="none" x="594.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="green-ballroom"/>
+  <rect fill="none" x="624.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="peacock-ballroom"/>
+  <rect fill="none" x="564.5" y="126.95" width="8" height="9" stroke-width="0" stroke="#000" id="plum-ballroom"/>
+  <rect fill="none" x="594.5" y="126.95" width="8" height="9" stroke-width="0" stroke="#000" id="scarlett-ballroom"/>
+  <rect fill="none" x="624.5" y="126.95" width="8" height="9" stroke-width="0" stroke="#000" id="mustard-ballroom"/>
+  <rect fill="none" x="1004.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-lounge"/>
+  <rect fill="none" x="1034.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="green-lounge"/>
+  <rect fill="none" x="1064.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="peacock-lounge"/>
+  <rect fill="none" x="1004.5" y="126.95" width="8" height="9" stroke-width="0" stroke="#000" id="plum-lounge"/>
+  <rect fill="none" x="1034.5" y="126.95" width="8" height="9" stroke-width="0" stroke="#000" id="scarlett-lounge"/>
+  <rect fill="none" x="1064.5" y="126.95" width="8" height="9" stroke-width="0" stroke="#000" id="mustard-lounge"/>
+  <rect fill="none" x="1014.5" y="366.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-hall"/>
+  <rect fill="none" x="1044.5" y="366.95" width="8" height="9" stroke-width="0" stroke="#000" id="green-hall"/>
+  <rect fill="none" x="1074.5" y="366.95" width="8" height="9" stroke-width="0" stroke="#000" id="peacock-hall"/>
+  <rect fill="none" x="1014.5" y="416.95" width="8" height="9" stroke-width="0" stroke="#000" id="plum-hall"/>
+  <rect fill="none" x="1044.5" y="416.95" width="8" height="9" stroke-width="0" stroke="#000" id="scarlett-hall"/>
+  <rect fill="none" x="1074.5" y="416.95" width="8" height="9" stroke-width="0" stroke="#000" id="mustard-hall"/>
+  <rect fill="none" x="104.5" y="366.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-dining"/>
+  <rect fill="none" x="134.5" y="366.95" width="8" height="9" stroke-width="0" stroke="#000" id="green-dining"/>
+  <rect fill="none" x="164.5" y="366.95" width="8" height="9" stroke-width="0" stroke="#000" id="peacock-dining"/>
+  <rect fill="none" x="104.5" y="416.95" width="8" height="9" stroke-width="0" stroke="#000" id="plum-dining"/>
+  <rect fill="none" x="134.5" y="416.95" width="8" height="9" stroke-width="0" stroke="#000" id="scarlett-dining"/>
+  <rect fill="none" x="164.5" y="416.95" width="8" height="9" stroke-width="0" stroke="#000" id="mustard-dining"/>
+  <rect fill="none" x="104.5" y="656.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-conservatory"/>
+  <rect fill="none" x="134.5" y="656.95" width="8" height="9" stroke-width="0" stroke="#000" id="green-conservatory"/>
+  <rect fill="none" x="164.5" y="656.95" width="8" height="9" stroke-width="0" stroke="#000" id="peacock-conservatory"/>
+  <rect fill="none" x="104.5" y="706.95" width="8" height="9" stroke-width="0" stroke="#000" id="plum-conservatory"/>
+  <rect fill="none" x="134.5" y="706.95" width="8" height="9" stroke-width="0" stroke="#000" id="scarlett-conservatory"/>
+  <rect fill="none" x="164.5" y="706.95" width="8" height="9" stroke-width="0" stroke="#000" id="mustard-conservatory"/>
+  <rect fill="none" x="431.5" y="654.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-billiard"/>
+  <rect fill="none" x="461.5" y="654.95" width="8" height="9" stroke-width="0" stroke="#000" id="green-billiard"/>
+  <rect fill="none" x="491.5" y="654.95" width="8" height="9" stroke-width="0" stroke="#000" id="peacock-billiard"/>
+  <rect fill="none" x="431.5" y="704.95" width="8" height="9" stroke-width="0" stroke="#000" id="plum-billiard"/>
+  <rect fill="none" x="461.5" y="704.95" width="8" height="9" stroke-width="0" stroke="#000" id="scarlett-billiard"/>
+  <rect fill="none" x="491.5" y="704.95" width="8" height="9" stroke-width="0" stroke="#000" id="mustard-billiard"/>
+  <rect fill="none" x="712.5" y="644.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-library"/>
+  <rect fill="none" x="742.5" y="644.95" width="8" height="9" stroke-width="0" stroke="#000" id="green-library"/>
+  <rect fill="none" x="772.5" y="644.95" width="8" height="9" stroke-width="0" stroke="#000" id="peacock-library"/>
+  <rect fill="none" x="712.5" y="694.95" width="8" height="9" stroke-width="0" stroke="#000" id="plum-library"/>
+  <rect fill="none" x="742.5" y="694.95" width="8" height="9" stroke-width="0" stroke="#000" id="scarlett-library"/>
+  <rect fill="none" x="772.5" y="694.95" width="8" height="9" stroke-width="0" stroke="#000" id="mustard-library"/>
+  <rect fill="none" x="1011.5" y="644.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-study"/>
+  <rect fill="none" x="1041.5" y="644.95" width="8" height="9" stroke-width="0" stroke="#000" id="green-study"/>
+  <rect fill="none" x="1071.5" y="644.95" width="8" height="9" stroke-width="0" stroke="#000" id="peacock-study"/>
+  <rect fill="none" x="1011.5" y="694.95" width="8" height="9" stroke-width="0" stroke="#000" id="plum-study"/>
+  <rect fill="none" x="1041.5" y="694.95" width="8" height="9" stroke-width="0" stroke="#000" id="scarlett-study"/>
+  <rect fill="none" x="1071.5" y="694.95" width="8" height="9" stroke-width="0" stroke="#000" id="mustard-study"/>
 
   <image class="room" href="/images/rooms/kitchen.png" y="43.75" x="45.75" width="200" height="200" id="kitchen"/>
   <image class="room" href="/images/rooms/ball_Room.png" y="45.74998" x="510.32179" width="215.00001" height="200" id="ballroom"/>
