@@ -9,7 +9,8 @@ const getGameStatus = function (req, res) {
     "accuseCombination":req.game.getAccuseCombination(),
     "canSuspect" : req.game.canSuspect(),
     "inRoom" : req.game.isPlayerInRoom(),
-    "accusationState" : req.game.getAccusationState()
+    "accusationState" : req.game.getAccusationState(),
+    "secretPassage" : req.game.getSecretPassage()
   };
   res.json(gameStatus);
 };

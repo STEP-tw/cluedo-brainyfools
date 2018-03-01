@@ -15,7 +15,7 @@ let rooms=[
     "connectedRoom" : "Lounge"
   },
   {
-    "name":"Dinning Room",
+    "name":"Dining",
     "doorPosition" : 16,
     "connectedRoom" : ""
   },
@@ -111,6 +111,16 @@ describe("Path",()=>{
       assert.deepEqual(path.getAllValidMoves(69,3),[72,66]);
       assert.deepEqual(path.getAllValidMoves(86,3),[3,83]);
       assert.deepEqual(path.getAllValidMoves(2,6),[8,82]);
+    });
+  });
+  describe('#getConnectedRoom', function(){
+    it('should return connected room name if it has', function(){
+      assert.equal(path.getConnectedRoom('lounge'),'conservatory');
+      assert.equal(path.getConnectedRoom('conservatory'),'lounge');
+    });
+    it('should return "" if it doesn\'t have', function(){
+      assert.equal(path.getConnectedRoom('hall'),'');
+      assert.equal(path.getConnectedRoom('dining'),'');
     });
   });
 });

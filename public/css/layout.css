@@ -173,7 +173,7 @@ main {
   padding: 20px;
   border: 1px solid #888;
   width: 30%;
-  height: 35%;
+  height: auto;
 }
 
 .close {
@@ -213,6 +213,13 @@ main {
   flex-direction: column;
 }
 
+.popup #confirm {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
 .popup div div label {
   margin: 6px;
 }
@@ -233,7 +240,7 @@ main {
 .popup button {
   margin: 10px;
   font-size: 20px;
-  width: 100px;
+  width: 200px;
   height: 30px;
   align-self: center;
   border-radius: 5px;

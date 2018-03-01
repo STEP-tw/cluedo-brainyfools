@@ -50,7 +50,7 @@ let getCurrentPlayer = function () {
       // showSuspicionCards(res.combination);
       currentActivity = () => getSuspicion(res.currentPlayer.name);
     } else if(res.currentPlayer.inRoom && playerTurn == turn) {
-      enableSuspicion(true);
+      showPossibleOptions(true);
       currentActivity = () => { };
     }
     removeTurnHighlight();
@@ -61,7 +61,7 @@ let getCurrentPlayer = function () {
 
 const showOptionsToPlayer= function(res){
   if (res.canSuspect && res.inRoom) {
-    enableSuspicion(true, true);
+    showPossibleOptions(true,true,res.secretPassage);
   }else{
     enableRollDice();
   }
@@ -116,17 +116,12 @@ const sendSuspectReq = function(character,weapon){
   }, `{"character":"${character}","weapon":"${weapon}"}`);
 };
 
-const suspectOrAccuse = function () {
-  let accusation = document.querySelector('#accuse').checked;
-  let suspicion = document.querySelector('#suspect');
-  if(suspicion) {
-    suspicion = suspicion.checked;
-  }
+const suspectOrAccuse = function (suspect) {
   let character = document.querySelector('#character').value;
   let weapon = document.querySelector('#weapon').value;
-  if (accusation) {
+  if (!suspect) {
     sendAccuseReq(character,weapon);
-  } else if (suspicion) {
+  } else {
     sendSuspectReq(character,weapon);
   }
   currentActivity = getCurrentPlayer;
@@ -182,23 +177,27 @@ const isPath = function (id) {
   return Number.isInteger(+id);
 };
 
-const validatePosition = function (event, validMoves=[]) {
-  let url = getBaseUrl();
+const validatePosition = function (event,validMoves) {
   let id = event.target.id;
   if (id && (isRoom(id) || isPath(id))) {
-    sendAjaxRequest("post", `${url}/move`, (res) => {
-      res = JSON.parse(res);
-      showMessage(res.error || '');
-      if (res.moved) {
-        disablePopup();
-        disableRollDice();
-        document.querySelector('#board').onclick = null;
-        currentActivity = getCurrentPlayer;
-        showBoardStatus();
-        removeMoveHighlight(validMoves);
-      }
-    }, `{"position":"${id}"}`);
+    moveToken(id,validMoves);
   }
+};
+
+const moveToken = function(id, validMoves=[]){
+  let url = getBaseUrl();
+  sendAjaxRequest("post", `${url}/move`, (res) => {
+    res = JSON.parse(res);
+    showMessage(res.error || '');
+    if (res.moved) {
+      disablePopup();
+      disableRollDice();
+      document.querySelector('#board').onclick = null;
+      currentActivity = getCurrentPlayer;
+      showBoardStatus();
+      removeMoveHighlight(validMoves);
+    }
+  }, `{"position":"${id}"}`);
 };
 
 const ruleOutSuspicion = function () {

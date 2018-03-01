@@ -65,12 +65,8 @@ const disableRollDice = function(){
   document.querySelector('#dice-box').innerHTML = ``;
 };
 
-const showPopup = function(){
-  let modal = document.getElementById('myModal').style.display = "block";
-};
-
-const enableSuspicion = function(suspect, rolldice){
-  showMessage('Select a combination or pass');
+const enableSuspicion = function(suspect){
+  showMessage('Select a combination');
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
   <div><div><label for='character'>Character</label>
   <select name="character" id="character" class="styled-select slate">
@@ -88,21 +84,32 @@ const enableSuspicion = function(suspect, rolldice){
   <option value="Revolver">Revolver</option>
   <option value="Candlestick">Candlestick</option>
   <option value="Lead Pipe">Lead Pipe</option></select>
-  </div></div><div id="radioButton">
-  ${suspect ? `<input type="radio" name="action"
-      value = "suspect" id = "suspect" />
-    <label>Suspect</label>` : ''}
-  <input type="radio" name="action" value="accuse" id="accuse"/>
-  <label>Accuse</label></div><div id="confirm">
-  <button onclick="suspectOrAccuse()">Confirm</button>
+  </div></div>
+  ${`<button onclick="suspectOrAccuse(${suspect})">
+  ${suspect ? 'Suspect' : 'Accuse'}</button>`}
+  </div>`;
+  enablePopup();
+};
+
+const showPossibleOptions = function(suspect, rolldice,secretPassage){
+  showMessage('Select an option');
+  document.querySelector('#activity-box').innerHTML = `<div class="popup">
+  <div id="confirm">
+  ${suspect? `<button onclick="enableSuspicion(${suspect})"
+  >Suspect</button>`:''}
+  ${`<button onclick="enableSuspicion(${suspect})">Accuse</button>`}
   ${rolldice ? `<button onclick="enableRollDice();disablePopup()"
   >Roll&nbsp;Dice</button>` : ''}
-  <button onclick="passTurn()">Pass</button></div></div>`;
+  <button onclick="passTurn()">Pass</button>
+  ${secretPassage ? `<button
+  onclick="moveToken('${secretPassage}');disablePopup()"
+  >Secret&nbsp;Passage</button>` : ''}
+  </div></div>`;
   enablePopup();
 };
 
 const enableAccusation = function() {
-  enableSuspicion();
+  showPossibleOptions();
 };
 
 const disablePopup = function () {

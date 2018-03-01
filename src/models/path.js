@@ -59,9 +59,8 @@ class Path {
   }
 
   canGoToConnectedRoom(val,roomName,curPlayerPos){
-    let room = this.getRoom(roomName);
     if(this.isRoom(roomName)){
-      let connectedRoomName = room.connectedRoom.toLowerCase();
+      let connectedRoomName = this.getConnectedRoom(roomName);
       let connectedRoom = this.getRoom(connectedRoomName);
       if(connectedRoom) {
         let doorPosition = connectedRoom.doorPosition;
@@ -87,6 +86,10 @@ class Path {
     allValidMoves.push(forwardPos);
     allValidMoves.push(backwardPos);
     return allValidMoves;
+  }
+  getConnectedRoom(roomName){
+    let room = this.getRoom(roomName);
+    return room.connectedRoom.toLowerCase();
   }
 }
 

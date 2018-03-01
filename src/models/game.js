@@ -454,6 +454,13 @@ class Game {
     }
     return false;
   }
+  getSecretPassage(){
+    let player = this.getCurrentPlayer();
+    if(player.inRoom){
+      return this._path.getConnectedRoom(player.character.position);
+    }
+    return '';
+  }
 }
 
 module.exports = Game;
