@@ -6,7 +6,7 @@ const passTurn = function () {
   sendAjaxRequest('get', `${url}/pass`, (res) => {
     res = JSON.parse(res);
     if(!res.error && !res.passed){
-      showMessage(`Game over`);
+      showGameDraw();
       // showSuspicionCards(res.murderCombination);
       currentActivity = ()=>{};
       updateLog();
@@ -23,9 +23,22 @@ const passTurn = function () {
   });
 };
 
-const showWinner = function(name){
+const showCompletionMsg = function(msg){
+  document.querySelector('#message-box').innerHTML =
+  `<button class="close" onclick=disablePopup()>Close</button>`;
   document.querySelector('#activity-box').innerHTML =
-  `<div class="popup">${name} has won the game</div>`;
+  `<div class="popup">${msg}</div>`;
+};
+
+const showGameDraw = function(){
+  showCompletionMsg('Game has drawn');
+  enablePopup();
+  currentActivity = ()=>{};
+};
+
+const showWinner = function(name){
+  showCompletionMsg(`${name} has won the game`);
+  enablePopup();
   currentActivity = ()=>{};
 };
 
@@ -89,10 +102,10 @@ const getSuspicion = function (name) {
         suspicion.cancelledBy} using ${suspicion.ruleOutCard} card`);
       enablePopup();
       currentActivity = () => { };
-      enableAccusation();
+      showPossibleOptions();
     } else if(suspicion.suspector){
       currentActivity = () => { };
-      enableAccusation();
+      showPossibleOptions();
     }
   });
 };

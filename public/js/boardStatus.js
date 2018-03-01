@@ -65,7 +65,7 @@ const disableRollDice = function(){
   document.querySelector('#dice-box').innerHTML = ``;
 };
 
-const enableSuspicion = function(suspect){
+const enableSuspicion = function(suspect,accuse){
   showMessage('Select a combination');
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
   <div><div><label for='character'>Character</label>
@@ -86,7 +86,7 @@ const enableSuspicion = function(suspect){
   <option value="Lead Pipe">Lead Pipe</option></select>
   </div></div>
   ${`<button onclick="suspectOrAccuse(${suspect})">
-  ${suspect ? 'Suspect' : 'Accuse'}</button>`}
+  ${suspect ? 'Suspect' : accuse ? 'Accuse' : ''}</button>`}
   </div>`;
   enablePopup();
 };
@@ -97,7 +97,7 @@ const showPossibleOptions = function(suspect, rolldice,secretPassage){
   <div id="confirm">
   ${suspect? `<button onclick="enableSuspicion(${suspect})"
   >Suspect</button>`:''}
-  ${`<button onclick="enableSuspicion(${suspect})">Accuse</button>`}
+  ${`<button onclick="enableAccusation(${suspect})">Accuse</button>`}
   ${rolldice ? `<button onclick="enableRollDice();disablePopup()"
   >Roll&nbsp;Dice</button>` : ''}
   <button onclick="passTurn()">Pass</button>
@@ -109,7 +109,7 @@ const showPossibleOptions = function(suspect, rolldice,secretPassage){
 };
 
 const enableAccusation = function() {
-  showPossibleOptions();
+  enableSuspicion(false,true);
 };
 
 const disablePopup = function () {
