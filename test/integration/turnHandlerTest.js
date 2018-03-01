@@ -107,7 +107,7 @@ describe('turnHandler', () => {
         .get('/game/1234/rolldice')
         .set('cookie', 'playerId=123456')
         .expect((res) => {
-          assert.deepEqual(res.body, {error: "Not your turn."});
+          assert.deepEqual(res.body, {error: "access denied"});
         })
         .end(done);
     });
@@ -147,7 +147,7 @@ describe('turnHandler', () => {
     it('should give an error if it is not player\'s turn',done=>{
       request(app)
         .get('/game/1234/pass')
-        .set('cookie', 'playerId=1234')
+        .set('cookie', 'playerId=12')
         .expect(res=>{
           assert.deepEqual(res.body, {error: "Not your turn."});
         })

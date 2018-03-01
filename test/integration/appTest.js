@@ -84,6 +84,7 @@ describe('app', () => {
       game.addPlayer('Madhuri',3);
       request(app)
         .get('/game/1234')
+        .set('cookie','playerId=1')
         .contentType('text/html; charset=utf-8')
         .body.include('<div class="title">Activity Log</div>')
         .expect(200)
@@ -96,7 +97,7 @@ describe('app', () => {
         .end(done);
     });
   });
-  describe('', function(){
+  describe('enrollPageHandler', function(){
     it('serves enroll form page with message if name is not given', done => {
       app.games['1234'] = new Game(3);
       request(app)
@@ -208,6 +209,7 @@ describe('app', () => {
     describe('GET game/1234/wait', () => {
       let playerId = 0;
       beforeEach(function(done) {
+        playerId = 0;
         app.idGenerator = () => {
           return ++playerId;
         };
@@ -226,12 +228,32 @@ describe('app', () => {
           .redirectsTo('/game/1234/wait')
           .cookie.include('playerId', '1;')
           .end(() => {
+            game = app.games['1234'];
+            game.addPlayer('neeraj', 11);
+            game.addPlayer('omkar', 12);
             request(app)
               .get('/game/1234/wait')
               .set('cookie', 'playerId=1')
               .expect(200)
               .expect(/Welcome omkar/)
               .expect(/1/)
+              .end(done);
+          });
+      });
+      it('should redirect to waiting page if all players have not joined', done => {
+        request(app)
+          .post('/game/join/1234')
+          .send("name=omkar")
+          .redirectsTo('/game/1234/wait')
+          .cookie.include('playerId', '1;')
+          .end(() => {
+            request(app)
+              .get('/game/1234')
+              .set('cookie', 'playerId=1')
+              .redirectsTo('/game/1234/wait')
+              .expect(res=>{
+                assert.deepEqual(res.body,{'error':"All players have not joined yet."})
+              })
               .end(done);
           });
       });

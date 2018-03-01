@@ -12,7 +12,13 @@ describe('gameDataHandlers', () => {
     request(app)
       .post('/game/new')
       .send('numberOfPlayers=3')
-      .end(done);
+      .end(() => {
+        let game = app.games['1234'];
+        game.addPlayer('neeraj', 11);
+        game.addPlayer('omkar', 12);
+        game.addPlayer('pranav', 13);
+        done();
+      });
     let playerId = 0;
     app.idGenerator = () => {
       return ++playerId;
@@ -26,39 +32,46 @@ describe('gameDataHandlers', () => {
 
   describe('GET /game/1234/data', () => {
     it('should return all players data', function (done) {
-      request(app).post('/game/join/1234').send("name=Madhuri")
-        .end(() => {
-          request(app).post('/game/join/1234').send("name=Neeraj")
-            .end(() => {
-              let expected = {
-                1: {
-                  name: "Madhuri",
-                  inRoom: false,
-                  character: {
-                    name: "Miss Scarlett",
-                    color: "#bf0000",
-                    turn:1,
-                    position:69
-                  }
-                },
-                2: {
-                  name: "Neeraj",
-                  inRoom: false,
-                  character: {
-                    "color": "#ffdb58",
-                    "name": "Col. Mustard",
-                    turn:2,
-                    position:56
-                  }
-                }
-              };
-              request(app).get('/game/1234/data')
-                .expect((res) => {
-                  assert.deepEqual(res.body, expected);
-                })
-                .end(done);
-            });
-        });
+      let expected = {
+        11: {
+          name: "neeraj",
+          cards:[],
+          inRoom: false,
+          character: {
+            name: "Miss Scarlett",
+            color: "#bf0000",
+            turn: 1,
+            position: 69
+          }
+        },
+        2: {
+          name: "omkar",
+          inRoom: false,
+          character: {
+            "color": "#ffdb58",
+            "name": "Col. Mustard",
+            turn: 2,
+            position: 56
+          }
+        },
+        3: {
+          name: "pranav",
+          inRoom: false,
+          character: {
+            "color": "#da70d6",
+            "name": "Dr. Orchid",
+            "position": 49,
+            "turn": 3
+          }
+        }
+      };
+      request(app)
+        .get('/game/1234/data')
+        .set('cookie','playerId=11')
+        .expect((res) => {
+          assert.deepEqual(res.body, expected);
+        })
+        .end(done);
     });
   });
 

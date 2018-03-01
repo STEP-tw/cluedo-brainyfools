@@ -24,6 +24,7 @@ describe('app', () => {
     it('should return number of players who have joined the game', done => {
       request(app)
         .get('/game/1234/numOfPlayers')
+        .set('cookie','playerId=11')
         .expect((res) => {
           let expected = {
             count: 2,

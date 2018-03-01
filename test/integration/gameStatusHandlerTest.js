@@ -30,6 +30,7 @@ describe('#gameStatusHandler', () => {
     it("should return json object with id of player related to turn", done => {
       request(app)
         .get('/game/1234/status')
+        .set('cookie','playerId=11')
         .expect(res => {
           let expected = {
             currentPlayer: {
@@ -69,6 +70,7 @@ describe('#gameStatusHandler', () => {
       game.updateSuspicionOf(11,combinationO);
       request(app)
         .get('/game/1234/status')
+        .set('cookie', 'playerId=11')
         .expect(res => {
           let expected = {
             currentPlayer: {

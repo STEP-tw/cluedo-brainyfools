@@ -37,12 +37,39 @@ const setGame = function (req, res, next) {
   next();
 };
 
+const checkForValidPlayer = function(req,res,next){
+  let playerId = req.cookies.playerId;
+  if(req.game.getPlayer(playerId)){
+    next();
+    return;
+  }
+  res.status(302);
+  res.location('/');
+  res.type('json');
+  res.send('{"error":"access denied"}');
+};
+
+const redirectToWait = function(req,res,next){
+  let game = req.game;
+  let gameId = req.params.gameId;
+  let validWait = [`/wait`, `/numOfPlayers`];
+  if (!game.haveAllPlayersJoined() && !validWait.includes(req.url)) {
+    res.status(302);
+    res.location(`/game/${gameId}/wait`);
+    res.type('json');
+    res.send('{"error":"All players have not joined yet."}');
+    return;
+  }
+  next();
+};
+
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(logRequest);
 
-app.use('/game/:gameId([\\d]+)', redirectToGame, setGame);
+app.use('/game/:gameId([\\d]+)', redirectToGame, setGame,
+  checkForValidPlayer, redirectToWait);
 app.use('/game/join/:gameId([\\d]+)', redirectToGame, setGame);
 
 app.get(['/', '/game'], homePageHandler.servePage);
