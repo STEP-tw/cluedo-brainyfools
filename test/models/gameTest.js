@@ -809,4 +809,34 @@ describe('Game', () => {
       assert.deepInclude(game._unAssignedChars,{name:"Prof. Plum",position:'lounge', inactive: false});
     });
   });
+
+  describe('#getSecretPassage', function(){
+    it('should return name of secret passage if the player position is room and it has', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("Patel",3);
+      game.start();
+      game.players[1].updatePos('lounge');
+      game.players[1].inRoom = true;
+      assert.equal(game.getSecretPassage(),'conservatory');
+    });
+
+    it('should return "" if the player position is room and it does not have secret passage', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("Patel",3);
+      game.start();
+      game.players[1].updatePos('hall');
+      game.players[1].inRoom = true;
+      assert.equal(game.getSecretPassage(),'');
+    });
+
+    it('should return "" if the player position is not room', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("Patel",3);
+      game.start();
+      assert.equal(game.getSecretPassage(),'');
+    });
+  });
 });

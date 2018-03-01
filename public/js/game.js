@@ -38,6 +38,7 @@ const showAccusationState = function(state,name){
 };
 
 let getCurrentPlayer = function () {
+  disableWeapon();
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
@@ -50,7 +51,7 @@ let getCurrentPlayer = function () {
       // showSuspicionCards(res.combination);
       currentActivity = () => getSuspicion(res.currentPlayer.name);
     } else if(res.currentPlayer.inRoom && playerTurn == turn) {
-      enableSuspicion(true);
+      showPossibleOptions(true);
       currentActivity = () => { };
     }
     removeTurnHighlight();
@@ -61,7 +62,7 @@ let getCurrentPlayer = function () {
 
 const showOptionsToPlayer= function(res){
   if (res.canSuspect && res.inRoom) {
-    enableSuspicion(true, true);
+    showPossibleOptions(true,true,res.secretPassage);
   }else{
     enableRollDice();
   }
@@ -76,6 +77,9 @@ const getSuspicion = function (name) {
       currentActivity = getCurrentPlayer;
     }
     let suspicion = JSON.parse(res);
+    let roomName = suspicion.combination._room._name;
+    let weaponName = suspicion.combination._weapon._name;
+    showWeapon(roomName,weaponName);
     if (suspicion.canBeCancelled && !suspicion.cancelled) {
       if (suspicion.cancellingCards) {
         giveRuleOutOption(suspicion.cancellingCards);
@@ -116,17 +120,12 @@ const sendSuspectReq = function(character,weapon){
   }, `{"character":"${character}","weapon":"${weapon}"}`);
 };
 
-const suspectOrAccuse = function () {
-  let accusation = document.querySelector('#accuse').checked;
-  let suspicion = document.querySelector('#suspect');
-  if(suspicion) {
-    suspicion = suspicion.checked;
-  }
+const suspectOrAccuse = function (suspect) {
   let character = document.querySelector('#character').value;
   let weapon = document.querySelector('#weapon').value;
-  if (accusation) {
+  if (!suspect) {
     sendAccuseReq(character,weapon);
-  } else if (suspicion) {
+  } else {
     sendSuspectReq(character,weapon);
   }
   currentActivity = getCurrentPlayer;
@@ -187,6 +186,22 @@ const validatePosition = function (event,invalidMoves = []) {
       }
     }, `{"position":"${id}"}`);
   }
+};
+
+const moveToken = function(id, validMoves=[]){
+  let url = getBaseUrl();
+  sendAjaxRequest("post", `${url}/move`, (res) => {
+    res = JSON.parse(res);
+    showMessage(res.error || '');
+    if (res.moved) {
+      disablePopup();
+      disableRollDice();
+      document.querySelector('#board').onclick = null;
+      currentActivity = getCurrentPlayer;
+      showBoardStatus();
+      removeMoveHighlight(validMoves);
+    }
+  }, `{"position":"${id}"}`);
 };
 
 const ruleOutSuspicion = function () {

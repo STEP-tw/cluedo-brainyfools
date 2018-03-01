@@ -13,7 +13,7 @@ const setCurrentPlayer = function (player) {
   playerTurn = player.character.turn;
   let name = player.character.name.replace(/[.\s]+/, '_');
   pd.innerHTML = `
-  <span class="image" 
+  <span class="image"
   style="background-image: url('/images/cards/Character/${name}.jpg');"></span>
   <span>${player.name}</span>`;
   showPlayerCards(player.cards);
@@ -32,7 +32,7 @@ const setOtherPlayer = function (player) {
   let name = player.character.name.replace(/[.\s]+/, '_');
   document.querySelector('#all-players').innerHTML +=
   `<div id='turn_${player.character.turn}' class="player">
-    <span class="image" 
+    <span class="image"
     style="background-image: url('/images/cards/Character/${name}.jpg');">
     </span>
     <span>${player.name}</span>
@@ -113,8 +113,4 @@ window.onload = function () {
     showBoardStatus();
   });
   let modal = document.getElementById('myModal');
-  let span = document.getElementsByClassName("close")[0];
-  span.onclick = function () {
-    modal.style.display = "none";
-  };
 };

@@ -15,7 +15,7 @@ let rooms=[
     "connectedRoom" : "Lounge"
   },
   {
-    "name":"Dinning Room",
+    "name":"Dining",
     "doorPosition" : 16,
     "connectedRoom" : ""
   },
@@ -103,6 +103,16 @@ describe("Path",()=>{
   describe('#distanceForward',()=>{
     it('should not return any distance if given positions are invalid',()=>{
       assert.isUndefined(path.distanceForward([1,2,3],-9,-8));
+    });
+  });
+  describe('#getConnectedRoom', function(){
+    it('should return connected room name if it has', function(){
+      assert.equal(path.getConnectedRoom('lounge'),'conservatory');
+      assert.equal(path.getConnectedRoom('conservatory'),'lounge');
+    });
+    it('should return "" if it doesn\'t have', function(){
+      assert.equal(path.getConnectedRoom('hall'),'');
+      assert.equal(path.getConnectedRoom('dining'),'');
     });
   });
 });
