@@ -209,6 +209,14 @@ class Game {
     return this.validatePos(args);
   }
 
+  getInvalidMoves(){
+    let rooms = ['hall','kitchen','conservatory','ballroom',
+                'billiard','dining','study','library','lounge'];
+    return [...rooms,...this._path.cells].filter(pos=>{
+      return !this.validateMove(pos);
+    });
+  }
+
   isSameDistance(forwardDistance,backDistance){
     return forwardDistance == backDistance;
   }
@@ -239,10 +247,6 @@ class Game {
     currentPlayer.inRoom = !!room;
     this.playerMoved = true;
     return currentPlayer.updatePos(pos);
-  }
-
-  getAllValidMoves(playerPos){
-    return this._path.getAllValidMoves(playerPos, this.diceVal);
   }
 
   updateCharPosition(name,pos){

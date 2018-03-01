@@ -10,8 +10,9 @@ const rollDice = function(req,res){
     game.rollDice();
     game.addActivity(`${currentPlayerName} got ${game.diceVal}`);
   }
-  let allValidMoves = game.getAllValidMoves(currentPlayerPos);
-  res.json({value:game.diceVal,allValidMoves:allValidMoves});
+  let invalidMoves = game.getInvalidMoves();
+  res.json({value:game.diceVal,
+    invalidMoves:invalidMoves});
 };
 
 const checkTurn = function(req,res, next){

@@ -132,27 +132,15 @@ const suspectOrAccuse = function () {
   currentActivity = getCurrentPlayer;
 };
 
-const getCells = function(startingPoint,endingPoint){
-  return Array(endingPoint)
-    .fill(startingPoint)
-    .map((ele,index)=>index+ele);
-};
-
-const highlightValidMoves = function(allValidMoves){
-  let cells = getCells(1,86);
-  cells.forEach(posId=>{
-    if(!allValidMoves.includes(posId)){
-      document.getElementById(posId).style.opacity = 0.4;
-    }
+const dimInvalidMoves = function(invalidMoves){
+  invalidMoves.forEach(move=>{
+    document.getElementById(move).style.opacity = 0.4;
   });
 };
 
-const removeMoveHighlight = function(allValidMoves){
-  let cells = getCells(1,86);
-  cells.forEach(posId=>{
-    if(!allValidMoves.includes(posId)){
-      document.getElementById(posId).style.opacity = 1;
-    }
+const removeDimMoves = function(invalidMoves){
+  invalidMoves.forEach(move=>{
+    document.getElementById(move).style.opacity = 1;
   });
 };
 
@@ -163,11 +151,10 @@ const rollDice = function () {
     sendAjaxRequest('get', `${url}/rolldice`, (res) => {
       res = JSON.parse(res);
       stopstart();
-      console.log(res);
-      highlightValidMoves(res.allValidMoves);
+      dimInvalidMoves(res.invalidMoves);
       change(res.value);
       document.getElementById("board").onclick = (event)=>
-        validatePosition(event,res.allValidMoves);
+        validatePosition(event,res.invalidMoves);
     });
   }, 1000);
 };
@@ -182,7 +169,8 @@ const isPath = function (id) {
   return Number.isInteger(+id);
 };
 
-const validatePosition = function (event, validMoves=[]) {
+
+const validatePosition = function (event,invalidMoves = []) {
   let url = getBaseUrl();
   let id = event.target.id;
   if (id && (isRoom(id) || isPath(id))) {
@@ -195,7 +183,7 @@ const validatePosition = function (event, validMoves=[]) {
         document.querySelector('#board').onclick = null;
         currentActivity = getCurrentPlayer;
         showBoardStatus();
-        removeMoveHighlight(validMoves);
+        removeDimMoves(invalidMoves);
       }
     }, `{"position":"${id}"}`);
   }

@@ -74,20 +74,6 @@ class Path {
     let room = this.getRoom(roomName);
     return room && room.doorPosition;
   }
-  getAllValidMoves(playerPos,diceVal){
-    let allValidMoves = [];
-    let forwardPos = +playerPos + diceVal;
-    let backwardPos = +playerPos - diceVal;
-    if(forwardPos>this.endingPoint){
-      forwardPos-=this.endingPoint;
-    }
-    if(backwardPos<this.startingPoint){
-      backwardPos+=this.endingPoint;
-    }
-    allValidMoves.push(forwardPos);
-    allValidMoves.push(backwardPos);
-    return allValidMoves;
-  }
 }
 
 module.exports = Path;

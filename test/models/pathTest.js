@@ -105,12 +105,4 @@ describe("Path",()=>{
       assert.isUndefined(path.distanceForward([1,2,3],-9,-8));
     });
   });
-
-  describe('#getAllValidMoves',()=>{
-    it('should return all the valid moves after rolling a dice',()=>{
-      assert.deepEqual(path.getAllValidMoves(69,3),[72,66]);
-      assert.deepEqual(path.getAllValidMoves(86,3),[3,83]);
-      assert.deepEqual(path.getAllValidMoves(2,6),[8,82]);
-    });
-  });
 });
