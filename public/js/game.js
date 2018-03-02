@@ -73,7 +73,9 @@ let getCurrentPlayer = function () {
 const showOptionsToPlayer= function(res){
   if (res.canSuspect && res.inRoom) {
     showPossibleOptions(true,true,res.secretPassage);
-  }else{
+  }else if(res.inRoom && res.secretPassage){
+    showPossibleOptions(false,true,res.secretPassage);
+  } else{
     enableRollDice();
   }
   currentActivity = () => { };
