@@ -122,6 +122,20 @@ const createAccusation = function(req, res){
   res.json({status:status,accusser:player.character.name});
 };
 
+const checkState = function(req,res,next){
+  let game = req.game;
+  if(game.state=='running'){
+    res.json({error: 'Can not send murder combination'});
+    return;
+  }
+  next();
+};
+
+const getMurderCombination = function(req,res){
+  let murderCombination = req.game.murderCombination;
+  res.json(murderCombination);
+};
+
 module.exports = {
   rollDice : [checkTurn, rollDice],
   move : [checkTurn,validateData ,validateMove, updatePos],
@@ -129,5 +143,6 @@ module.exports = {
   suspect : [checkTurn,createSuspicion],
   accuse : [checkTurn,createAccusation],
   getSuspicion : [getSuspicion],
-  ruleOut : [canRuleOut, ruleOut]
+  ruleOut : [canRuleOut, ruleOut],
+  getMurderCombination : [checkState, getMurderCombination]
 };

@@ -132,11 +132,11 @@ const showSuspicionCards = function(cards) {
   let characterCard = cards.character.replace(/[.\s]+/,'_');
   let weaponCard = cards.weapon.replace(/[.\s]+/,'_');
   let roomCard = cards.room.replace(/[.\s]+/,'_').split('_')[0];
-  document.getElementById('character-card').setAttribute('href',
+  document.getElementById('character-card').setAttribute('src',
     `/images/cards/Character/${characterCard}.jpg`);
-  document.getElementById('weapon-card').setAttribute('href',
+  document.getElementById('weapon-card').setAttribute('src',
     `/images/cards/Weapon/${weaponCard}.jpg`);
-  document.getElementById('room-card').setAttribute('href',
+  document.getElementById('room-card').setAttribute('src',
     `/images/cards/Room/${roomCard}.jpg`);
 };
 

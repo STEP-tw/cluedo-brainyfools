@@ -177,18 +177,10 @@ main {
 }
 
 .close {
-  margin: 10px;
-  font-size: 20px;
-  width: 100px;
-  height: 30px;
-  align-self: center;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border: none;
-  background-color: #8B4513;
-  color: #dfb577;
+  color: #8b4513;
   float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .close:hover,
@@ -242,7 +234,7 @@ main {
   flex-grow: 1;
   flex-direction: column;
   justify-content: center;
-  font-size: 2em;
+  font-size: 1em;
 }
 
 .popup button {
@@ -289,6 +281,10 @@ main {
   margin-top: -53px;
 }
 
+#dice:hover{
+  cursor: pointer;
+}
+
 .active-player {
   -webkit-box-shadow: 0px 0px 20px 5px #8B4513;
   border-radius: 10px 10px 10px 10px;
@@ -319,4 +315,23 @@ select::-ms-expand {
 
 #activity-box {
   margin-top: 10px;
+}
+
+.combination{
+  display: flex;
+  justify-content: center;
+}
+
+.combination span {
+  margin: 0px 10px;
+}
+
+.combination span img{
+  height: 200px;
+  border: 3px solid black;
+}
+
+.murderCombination {
+  font-size: 25px;
+  text-align: center;
 }

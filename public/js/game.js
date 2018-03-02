@@ -3,14 +3,7 @@
 
 const passTurn = function () {
   let url = getBaseUrl();
-  sendAjaxRequest('get', `${url}/pass`, (res) => {
-    res = JSON.parse(res);
-    // if(!res.error && !res.passed){
-    //   showGameDraw();
-    //   // showSuspicionCards(res.murderCombination);
-    //   endRequests();
-    //   return;
-    // }
+  sendAjaxRequest('get', `${url}/pass`, () => {
     disablePopup();
     disableRollDice();
     showMessage('');
@@ -20,6 +13,8 @@ const passTurn = function () {
 };
 
 const endRequests = function(){
+  getMurderCombination();
+  enablePopup();
   currentActivity = ()=>{};
   updateLog();
   clearInterval(statusUpdaterId);
@@ -28,23 +23,18 @@ const endRequests = function(){
 };
 
 const showCompletionMsg = function(msg){
+  document.querySelector('.close').innerHTML = `&times;`;
   document.querySelector('#message-box').innerHTML =
-  `<button class="close" onclick=disablePopup()>X</button>`;
-  document.querySelector('#activity-box').innerHTML =
   `<div class="popup">${msg}</div>`;
 };
 
 const showGameDraw = function(){
   showCompletionMsg('GAME HAS DRAWN');
-  enablePopup();
-  currentActivity = ()=>{};
   endRequests();
 };
 
 const showWinner = function(name){
   showCompletionMsg(`${name.toUpperCase()} HAS WON THE GAME`);
-  enablePopup();
-  currentActivity = ()=>{};
   endRequests();
 };
 
@@ -234,6 +224,23 @@ const ruleOutSuspicion = function () {
       currentActivity = getCurrentPlayer;
     }
   }, `{"card":"${val.value}"}`);
+};
+
+const getMurderCombination = function(){
+  let url = getBaseUrl();
+  sendAjaxRequest('get',`${url}/murderCombination`,(res) =>{
+    res = JSON.parse(res);
+    document.querySelector('#activity-box').innerHTML =
+    `<div>
+    <div class='murderCombination'>Murder combination</div>
+    <div class='combination'>
+    <span><img id='character-card'></img></span>
+    <span><img id='weapon-card'></img></span>
+    <span><img id='room-card'></img></span>
+    </div>
+    </div>`;
+    showSuspicionCards(res);
+  });
 };
 
 let currentActivity = getCurrentPlayer;

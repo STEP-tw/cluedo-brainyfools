@@ -31,7 +31,6 @@ class Game {
   get state(){
     if(!this.getActivePlayers().length){
       this._state = 'draw';
-      this.addActivity('Game has drawn');
     }
     return this._state;
   }
@@ -400,7 +399,7 @@ class Game {
   }
   getAccusationState(){
     if(!this.isEmpty(this._currentAccusation)){
-      return this.isCorrectAccusation();
+      return !this.isCorrectAccusation();
     }
     return false;
   }

@@ -639,7 +639,7 @@ describe('Game', () => {
       assert.isNotOk(game.getAccusationState());
     });
 
-    it('should return state if current accusation is not empty', function(){
+    it('should return opposite of state if current accusation is not empty', function(){
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
       let character = new Card('Dr. Orchid', 'Character');
@@ -649,11 +649,11 @@ describe('Game', () => {
       let currentAccusation = new Suspicion(combination,'Patel');
       game._currentAccusation = currentAccusation;
       game._murderCombination = combination;
-      assert.isOk(game.getAccusationState());
+      assert.isNotOk(game.getAccusationState());
       room = new Card("Hall", 'Room');
       combination = new Combination(room, weapon, character);
       game._murderCombination = combination;
-      assert.isNotOk(game.getAccusationState());
+      assert.isOk(game.getAccusationState());
     });
   });
 
