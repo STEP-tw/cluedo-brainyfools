@@ -25,6 +25,9 @@ const showCompletionMsg = function(msg){
   document.querySelector('.close').innerHTML = `&times;`;
   document.querySelector('#message-box').innerHTML =
   `<div class="popup">${msg}</div>`;
+  document.querySelector('.modal-content').innerHTML += `<div
+  class="play-again"><a href='/'>Play again</a>
+  </div>`;
 };
 
 const showGameDraw = function(){

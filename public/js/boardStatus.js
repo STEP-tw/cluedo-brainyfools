@@ -119,7 +119,7 @@ const enablePopup = function () {
 
 const showMessage = function(message){
   document.querySelector('#dice-box')
-    .innerHTML = `<div id='message-box'>${message}</div>`;
+    .innerHTML = `<div id='imp-message-box'>${message}</div>`;
 };
 
 const getBaseUrl = function(){
