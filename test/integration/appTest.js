@@ -7,6 +7,14 @@ let games = app.games;
 
 const idGen = app.idGenerator;
 
+describe('#gameIdGen', function(){
+  it('should generate uniq game ids starting from given number', function(){
+    assert.equal(1234,app.getGameId(1234));
+    assert.equal(1235,app.getGameId(1235));
+  });
+});
+
+
 describe('app', () => {
   beforeEach(() => {
     app.idGenerator = () => {

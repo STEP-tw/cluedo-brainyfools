@@ -179,26 +179,15 @@ const isPath = function (id) {
 };
 
 
-const validatePosition = function (event,invalidMoves = []) {
+const validatePosition = function (event,invalidMoves) {
   let url = getBaseUrl();
   let id = event.target.id;
   if (id && (isRoom(id) || isPath(id))) {
-    sendAjaxRequest("post", `${url}/move`, (res) => {
-      res = JSON.parse(res);
-      showMessage(res.error || '');
-      if (res.moved) {
-        disablePopup();
-        disableRollDice();
-        document.querySelector('#board').onclick = null;
-        currentActivity = getCurrentPlayer;
-        showBoardStatus();
-        removeDimMoves(invalidMoves);
-      }
-    }, `{"position":"${id}"}`);
+    moveToken(id,invalidMoves);
   }
 };
 
-const moveToken = function(id, validMoves=[]){
+const moveToken = function(id, invalidMoves=[]){
   let url = getBaseUrl();
   sendAjaxRequest("post", `${url}/move`, (res) => {
     res = JSON.parse(res);
@@ -209,7 +198,7 @@ const moveToken = function(id, validMoves=[]){
       document.querySelector('#board').onclick = null;
       currentActivity = getCurrentPlayer;
       showBoardStatus();
-      removeMoveHighlight(validMoves);
+      removeDimMoves(invalidMoves);
     }
   }, `{"position":"${id}"}`);
 };

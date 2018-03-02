@@ -269,4 +269,44 @@ describe('turnHandler', () => {
     });
   });
 
+  describe('GET /game/1234/murderCombination', function(){
+    it('should return murder combination if someone wins', function(done){
+      app.games[1234].start();
+      app.games[1234]._state = 'win';
+      let murderCombination = app.games[1234].murderCombination;
+      request(app)
+        .get('/game/1234/murderCombination')
+        .set('cookie', 'playerId=11')
+        .expect(res=>{
+          assert.deepEqual(res.body,murderCombination);
+        })
+        .end(done);
+    });
+
+    it('should return murder combination if game has drawn', function(done){
+      app.games[1234].start();
+      app.games[1234]._state = 'draw';
+      let murderCombination = app.games[1234].murderCombination;
+      request(app)
+        .get('/game/1234/murderCombination')
+        .set('cookie', 'playerId=11')
+        .expect(res=>{
+          assert.deepEqual(res.body,murderCombination);
+        })
+        .end(done);
+    });
+
+    it('should return error if game is running', function(done){
+      app.games[1234].start();
+      app.games[1234]._state = 'running';
+      request(app)
+        .get('/game/1234/murderCombination')
+        .set('cookie', 'playerId=11')
+        .expect(res=>{
+          assert.deepEqual(res.body,{error:'Can not send murder combination'});
+        })
+        .end(done);
+    });
+  });
+
 });

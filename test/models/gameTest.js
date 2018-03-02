@@ -441,6 +441,18 @@ describe('Game', () => {
       game._turn = 3;
       assert.equal(game.getNextPlayerTurn(),1);
     });
+
+    it('should give 0 if all players are deactivated', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("AJ",3);
+      game.start();
+      game.players[1].deactivate();
+      game.players[2].deactivate();
+      game.players[3].deactivate();
+      assert.equal(game.getNextPlayerTurn(),0);
+    });
+
   });
 
   describe('#getPlayerId', function(){
@@ -737,4 +749,27 @@ describe('Game', () => {
       assert.equal(game.getSecretPassage(),'');
     });
   });
+
+  describe('#state', function(){
+    it('should return current state of game', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("Patel",3);
+      game.start();
+      assert.equal(game.state,'running');
+      let murderCombination = game.murderCombination;
+      let character = new Card(murderCombination.character, 'Character');
+      let weapon = new Card(murderCombination.weapon, 'Weapon');
+      let room = new Card(murderCombination.room, 'Room');
+      let combination = new Combination(room, weapon, character);
+      game.accuse(combination);
+      assert.equal(game.state,'win');
+      game.players[1].deactivate();
+      game.players[2].deactivate();
+      game.players[3].deactivate();
+      assert.equal(game.state,'draw');
+    });
+
+  });
+
 });
