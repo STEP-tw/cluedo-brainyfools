@@ -669,23 +669,12 @@ describe('Game', () => {
     });
   });
 
-  describe('#Pass', function(){
+  describe('#pass', function(){
     it('should return true if turn is passed', function(){
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
       game.start();
       assert.isOk(game.pass());
-    });
-
-    it('should return false if turn is not passed', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("Patel",3);
-      game.start();
-      game.players[1].deactivate();
-      game.players[2].deactivate();
-      game.players[3].deactivate();
-      assert.isNotOk(game.pass());
     });
   });
 

@@ -5,16 +5,12 @@ const passTurn = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/pass`, (res) => {
     res = JSON.parse(res);
-    if(!res.error && !res.passed){
-      showGameDraw();
-      // showSuspicionCards(res.murderCombination);
-      currentActivity = ()=>{};
-      updateLog();
-      clearInterval(statusUpdaterId);
-      clearInterval(boardStatusId);
-      clearInterval(activityLogId);
-      return;
-    }
+    // if(!res.error && !res.passed){
+    //   showGameDraw();
+    //   // showSuspicionCards(res.murderCombination);
+    //   endRequests();
+    //   return;
+    // }
     disablePopup();
     disableRollDice();
     showMessage('');
@@ -23,31 +19,41 @@ const passTurn = function () {
   });
 };
 
+const endRequests = function(){
+  currentActivity = ()=>{};
+  updateLog();
+  clearInterval(statusUpdaterId);
+  clearInterval(boardStatusId);
+  clearInterval(activityLogId);
+};
+
 const showCompletionMsg = function(msg){
   document.querySelector('#message-box').innerHTML =
-  `<button class="close" onclick=disablePopup()>Close</button>`;
+  `<button class="close" onclick=disablePopup()>X</button>`;
   document.querySelector('#activity-box').innerHTML =
   `<div class="popup">${msg}</div>`;
 };
 
 const showGameDraw = function(){
-  showCompletionMsg('Game has drawn');
+  showCompletionMsg('GAME HAS DRAWN');
   enablePopup();
   currentActivity = ()=>{};
+  endRequests();
 };
 
 const showWinner = function(name){
-  showCompletionMsg(`${name} has won the game`);
+  showCompletionMsg(`${name.toUpperCase()} HAS WON THE GAME`);
   enablePopup();
   currentActivity = ()=>{};
+  endRequests();
 };
 
-const showAccusationState = function(state,name){
-  if(state){
-    showWinner(name);
-  }else {
-    passTurn();
+const showAccusationState = function(playerState,name,gameState){
+  let methods = {'win' : showWinner,'draw' : showGameDraw,'running' : passTurn};
+  if(playerState){
+    // showDeactivated(name);
   }
+  methods[gameState](name);
 };
 
 let getCurrentPlayer = function () {
@@ -57,7 +63,8 @@ let getCurrentPlayer = function () {
     res = JSON.parse(res);
     let turn = res.currentPlayer.character.turn;
     if(res.accusing) {
-      showAccusationState(res.accusationState,res.currentPlayer.name);
+      showAccusationState(res.accusationState,res.currentPlayer.name
+        ,res.gameState);
     } else if (playerTurn == turn && !res.moved) {
       showOptionsToPlayer(res);
     } else if(res.suspecting) {

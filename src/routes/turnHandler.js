@@ -61,11 +61,6 @@ const updatePos = function(req,res){
 
 const passTurn = function (req,res) {
   let status = req.game.pass();
-  if(!status){
-    let murderCombination = req.game.murderCombination;
-    res.json({passed : status , murderCombination:murderCombination});
-    return;
-  }
   res.json({passed : status});
 };
 

@@ -23,9 +23,17 @@ class Game {
     this._activityLog = new ActivityLog(getDate);
     this._currentSuspicion = {};
     this._currentAccusation = {};
+    this._state = 'running';
   }
   get turn() {
     return this._turn;
+  }
+  get state(){
+    if(!this.getActivePlayers().length){
+      this._state = 'draw';
+      this.addActivity('Game has drawn');
+    }
+    return this._state;
   }
   get murderCombination(){
     let combination = {
@@ -237,12 +245,7 @@ class Game {
     this._currentSuspicion = {};
     this._currentAccusation = {};
     this._turn = this.getNextPlayerTurn();
-    let status = true;
-    if(this._turn==0){
-      status = false;
-      this.addActivity('Game over');
-    }
-    return status;
+    return true;
   }
 
   getNextPlayerTurn() {
@@ -383,7 +386,8 @@ class Game {
     let name = player.name;
     this._currentAccusation = new Suspicion(combination,name);
     if(this.isCorrectAccusation()){
-      this.addActivity(`${name} has won game`);
+      this._state = 'win';
+      this.addActivity(`${name} has won the game`);
     } else {
       player.deactivate();
       this.addActivity(`${name} accusation failed`);

@@ -153,34 +153,6 @@ describe('turnHandler', () => {
         })
         .end(done);
     });
-
-    it('should give status as false and murder combination if no active players are present',done=>{
-      app.games[1234].start();
-      app.games[1234].players[11].deactivate();
-      app.games[1234].players[12].deactivate();
-      app.games[1234].players[13].deactivate();
-      let murderCombination = app.games[1234].murderCombination;
-      request(app)
-        .get('/game/1234/pass')
-        .set('cookie', 'playerId=11')
-        .expect(res=>{
-          assert.deepEqual(res.body, {passed:false,
-          murderCombination:murderCombination});
-        })
-        .end(done);
-    });
-  });
-
-  describe('GET /game/1234/pass',()=>{
-    it('should pass turn to the next player',done=>{
-      request(app)
-        .get('/game/1234/pass')
-        .set('cookie', 'playerId=11')
-        .expect(res=>{
-          assert.deepEqual(res.body, {passed: true});
-        })
-        .end(done);
-    });
   });
 
   describe('POST /game/1234/suspect',()=>{
