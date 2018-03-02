@@ -101,7 +101,6 @@ body {
   font-size: 1.8em;
   font-weight: bold;
   margin-bottom: 10px;
-  letter-spacing: 0.6px;
 }
 
 main {
@@ -124,6 +123,8 @@ main {
 
 #activity-log {
   margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
   scroll-behavior: smooth;
   display: flex;
   overflow: auto;
@@ -134,18 +135,21 @@ main {
 }
 
 #activity-log div {
-  border-bottom: 1px dashed #38170580;
-  padding: 5px,0;
-  font-family: 'Acme' monospace;
-  letter-spacing: 2px;
+  border-bottom: 1px dashed #ebd8ba38;
+  font-family: 'Mukta Mahee', sans-serif;
 }
 
 #activity-log div span {
-  color: #1A0800;
   font-size: 22px;
+}
+#activity-log div .activity{
+  color: #1A0800;
+  letter-spacing: 1px;
+  font-weight:300;
 }
 
 #activity-log div .time {
+  color:#1a0800bd;
   white-space: nowrap;
 }
 
