@@ -6,7 +6,6 @@ const passTurn = function () {
   sendAjaxRequest('get', `${url}/pass`, () => {
     disablePopup();
     disableRollDice();
-    showMessage('');
     getCurrentPlayer();
     currentActivity = getCurrentPlayer;
   });
@@ -51,6 +50,7 @@ let getCurrentPlayer = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
+    showMessage('');
     let turn = res.currentPlayer.character.turn;
     if(res.accusing) {
       showAccusationState(res.accusationState,res.currentPlayer.name
@@ -90,25 +90,30 @@ const getSuspicion = function (name) {
     let roomName = suspicion.combination._room._name;
     let weaponName = suspicion.combination._weapon._name;
     showWeapon(roomName,weaponName);
+    showMessage(`${suspicion.currentPlayer} has raised a suspicion`);
     if (suspicion.canBeCancelled && !suspicion.cancelled) {
       if (suspicion.cancellingCards) {
         giveRuleOutOption(suspicion.cancellingCards);
       }
     } else if (suspicion.ruleOutCard) {
-      showMessage(`Ruled out by ${
-        suspicion.cancelledBy} using ${suspicion.ruleOutCard} card`);
       enablePopup();
+      showMessage(`${suspicion.cancelledBy}
+        has ruled out your suspicion using ${suspicion.ruleOutCard}`);
       currentActivity = () => { };
       showPossibleOptions();
     } else if(suspicion.suspector){
       currentActivity = () => { };
       showPossibleOptions();
+    } else if(suspicion.cancelledBy){
+      showMessage(`${suspicion.cancelledBy} has ruled
+        out ${suspicion.currentPlayer}\'s suspicion`);
+    } else {
+      showMessage(`No one ruled out ${suspicion.currentPlayer}\'s suspicion`);
     }
   });
 };
 
 const giveRuleOutOption = function(cards){
-  showMessage('Rule out Suspicion by selecting a card');
   currentActivity = () => { };
   enableRuleOut(cards);
 };
@@ -180,7 +185,6 @@ const isPath = function (id) {
 
 
 const validatePosition = function (event,invalidMoves) {
-  let url = getBaseUrl();
   let id = event.target.id;
   if (id && (isRoom(id) || isPath(id))) {
     moveToken(id,invalidMoves);
@@ -191,7 +195,6 @@ const moveToken = function(id, invalidMoves=[]){
   let url = getBaseUrl();
   sendAjaxRequest("post", `${url}/move`, (res) => {
     res = JSON.parse(res);
-    showMessage(res.error || '');
     if (res.moved) {
       disablePopup();
       disableRollDice();

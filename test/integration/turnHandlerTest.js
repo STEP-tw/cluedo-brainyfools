@@ -194,6 +194,7 @@ describe('turnHandler', () => {
                  _weapon: {_name: 'b', _type: 'Weapon'},
                  _character: {_name: 'a', _type: 'Character'}},
               canBeCancelled: false,
+              "currentPlayer": "neeraj",
               "suspector": "neeraj"});
             })
             .end(done);

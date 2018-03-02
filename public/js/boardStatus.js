@@ -66,7 +66,6 @@ const disableRollDice = function(){
 };
 
 const enableSuspicion = function(suspect,accuse){
-  showMessage('Select a combination');
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
   <div><div><label for='character'>Character</label>
   <select name="character" id="character" class="styled-select slate">
@@ -92,7 +91,6 @@ const enableSuspicion = function(suspect,accuse){
 };
 
 const showPossibleOptions = function(suspect, rolldice,secretPassage){
-  showMessage('Select an option');
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
   <div id="confirm">
   ${suspect? `<button onclick="enableSuspicion(${suspect})"
@@ -120,8 +118,8 @@ const enablePopup = function () {
 };
 
 const showMessage = function(message){
-  document.querySelector('#message-box')
-    .innerHTML = `<div>${message}</div>`;
+  document.querySelector('#dice-box')
+    .innerHTML = `<div id='message-box'>${message}</div>`;
 };
 
 const getBaseUrl = function(){

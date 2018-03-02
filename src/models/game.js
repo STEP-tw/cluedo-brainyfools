@@ -340,7 +340,8 @@ class Game {
       combination : suspicion.combination,
       cancelled : suspicion.cancelled,
       cancelledBy : suspicion.cancellerName,
-      canBeCancelled : suspicion.canBeCancelled
+      canBeCancelled : suspicion.canBeCancelled,
+      currentPlayer : suspicion.suspector
     };
     if(suspicion.canceller==playerId){
       result.cancellingCards = suspicion.cancellingCards;

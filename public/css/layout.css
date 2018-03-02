@@ -335,3 +335,7 @@ select::-ms-expand {
   font-size: 25px;
   text-align: center;
 }
+#message-box{
+  font-size: 40px;
+  color: #dfb577;
+}

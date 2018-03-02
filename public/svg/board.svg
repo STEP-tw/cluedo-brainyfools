@@ -106,7 +106,6 @@
   <text xml:space="preserve" text-anchor="start" font-family="Acme" font-size="25" id="svg_room" y="560.68912" x="712.18773" fill="#dfb577">Library</text>
 
   <foreignObject id="dice-box" height="230" width="230" y="340" x="500">
-
   </foreignObject>
 
   <rect fill="none" x="82.5" y="76.95" width="8" height="9" stroke-width="0" stroke="#000" id="orchid-kitchen"/>
