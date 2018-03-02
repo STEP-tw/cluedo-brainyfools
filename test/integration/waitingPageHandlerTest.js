@@ -27,6 +27,7 @@ describe('app', () => {
         .set('cookie','playerId=11')
         .expect((res) => {
           let expected = {
+            color: "#bf0000",
             count: 2,
             start: false,
             link: '/game/1234'

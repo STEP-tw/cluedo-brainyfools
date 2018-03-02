@@ -19,7 +19,10 @@ const serveWaitingPage = function(req,res){
 const getNumOfPlayers = function(req,res) {
   let {gameId} = req.params;
   let game = req.app.games[gameId];
+  let playerId = req.cookies.playerId;
+  let playerColor=game.getPlayer(playerId).character.tokenColor;
   res.json({
+    color: playerColor,
     count : game.getPlayerCount(),
     start :game.haveAllPlayersJoined(),
     link :`/game/${gameId}`

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Waiting</title>
-  <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">  
+  <link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet">
   <link rel="stylesheet" href="/css/wait.css">
   <script src="/js/wait.js" charset="utf-8"></script>
 </head>
@@ -18,6 +18,11 @@
     <div class="loader"></div>
     <h3> Game ID: {{ gameId }} </h3>
     <h4> Share with your friends to let them join. </h4>
+  </div>
+  <div class="overlay hide">
+      <h1>YOUR TOKEN COLOR IS</h1>
+      <div id="color"></div>
+      <h3 id="Timer">Game Starts In <span id="sec">3</span> Sec...</h3>
   </div>
 </body>
 </html>
