@@ -13,8 +13,8 @@ const updateLog = function(){
       lastActivityTime = activity.time;
       time = new Date(+activity.time);
       logDiv.innerHTML += `<div>
-        <span class='time'> ${time.toLocaleTimeString()} </span>
-        <span class='activity'> ${activity.activity}  </span>
+        <span class='time'>${time.toLocaleTimeString()}</span>
+        <span class='activity'>${activity.activity}</span>
       </div>`;
     });
   });

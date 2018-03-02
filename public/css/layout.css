@@ -1,11 +1,11 @@
 html {
-  height: 100%;
   background-color: #FFDEAD;
+  height: 100%;
 }
 
 body {
-  font-family: 'Acme';
   display: flex;
+  font-family: 'Acme';
 }
 
 .board {
@@ -13,44 +13,44 @@ body {
 }
 
 #board {
-  padding: 10px;
+  background-image: url('../images/bbg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url('../images/bbg.jpg');
+  padding: 10px;
 }
 
 #all-players {
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   display: flex;
   height: 140px;
   justify-content: center;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 }
 
 #all-players .player .image {
-  height: 95px;
   align-self: center;
-  min-width: 67px;
-  background-size: contain;
   background-repeat: no-repeat;
+  background-size: contain;
+  height: 95px;
+  min-width: 67px;
 }
 
 #all-players div {
-  text-align: center;
-  border: 0.5px solid black;
   border-radius: 4%;
-  padding: 1px 2px;
-  margin: 2px 4px;
+  border: 0.5px solid black;
   display: flex;
   flex-direction: column;
+  text-align: center;
   justify-content: center;
+  margin: 2px 4px;
+  padding: 1px 2px;
 }
 
 #all-players div span {
+  font-weight: bold;
   padding: 2px 0px;
   white-space: nowrap;
-  font-weight: bold;
 }
 
 .player-details {
@@ -70,44 +70,45 @@ body {
 }
 
 #current-player .image {
-  height: 120px;
   align-self: center;
-  min-width: 80px;
   background-repeat: no-repeat;
   background-size: contain;
+  height: 120px;
+  min-width: 80px;
 }
 
 .board #cards {
+  display: flex;
+  flex-grow: 1;
+  height: auto;
+  justify-content: center;
   margin-top: 8px;
   margin-left: 140px;
-  display: flex;
   max-height: 20%;
   width: auto;
-  height: auto;
-  flex-grow: 1;
-  justify-content: center;
 }
 
 .board #cards img {
-  width: 80px;
+  border: 3px solid black;
   height: 120px;
   margin: 0px 5px;
-  border: 3px solid black;
+  width: 80px;
 }
 
 .title {
-  font-size: 1.8em;
-  padding: 10px;
-  font-weight: bold;
-  color: #1A0800;
   align-self: center;
+  color: #1A0800;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  letter-spacing: 0.6px;
 }
 
 main {
   display: flex;
-  margin: 0px 20px;
-  flex-grow: 1;
   flex-direction: column;
+  flex-grow: 1;
+  margin: 0px 20px;
   width: 250px;
 }
 
@@ -122,6 +123,7 @@ main {
 }
 
 #activity-log {
+  margin-left: 10px;
   scroll-behavior: smooth;
   display: flex;
   overflow: auto;
@@ -132,33 +134,37 @@ main {
 }
 
 #activity-log div {
-  margin-bottom: 8px;
-  min-height: 30px;
+  border-bottom: 1px dashed #38170580;
+  padding: 5px,0;
+  font-family: 'Acme' monospace;
+  letter-spacing: 2px;
 }
 
 #activity-log div span {
-  margin-left: 10px;
-  padding: 0px 2px;
   color: #1A0800;
-  font-size: 18px;
+  font-size: 22px;
 }
 
 #activity-log div .time {
   white-space: nowrap;
 }
 
+#activity-log div .time:after{
+  content: " :";
+}
+
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  padding-top: 80px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  padding-top: 80px;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 
 .modal-content {
@@ -190,12 +196,41 @@ main {
   cursor: pointer;
 }
 
+.popup {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1em;
+}
+
 .popup div {
   flex-grow: 1;
   height: auto;
   margin: 5px;
   display: flex;
   justify-content: center;
+}
+
+.popup #confirm {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.popup button {
+  margin: 10px;
+  font-size: 20px;
+  width: 200px;
+  height: 30px;
+  align-self: center;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: none;
+  background-color: #8B4513;
+  color: #dfb577;
 }
 
 .popup div input {
@@ -213,12 +248,6 @@ main {
   flex-direction: column;
 }
 
-.popup #confirm {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-}
 
 .popup div div label {
   margin: 6px;
@@ -229,27 +258,6 @@ main {
   font-size: 1em;
 }
 
-.popup {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 1em;
-}
-
-.popup button {
-  margin: 10px;
-  font-size: 20px;
-  width: 200px;
-  height: 30px;
-  align-self: center;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border: none;
-  background-color: #8B4513;
-  color: #dfb577;
-}
 
 .subtitle {
   font-size: 25px;
@@ -262,16 +270,15 @@ main {
 }
 
 #roll-dice {
+  background-color: #e8c17e;
+  color: #c19e67;
   display: flex;
   flex-direction: column;
-  text-align: center;
   font-size: 2em;
-  color: #c19e67;
-  text-align: center;
-  margin: auto;
-  background-color: #e8c17e;
-  width: 110px;
   height: 110px;
+  margin: auto;
+  width: 110px;
+  text-align: center;
 }
 
 #dice {
@@ -286,22 +293,22 @@ main {
 }
 
 .active-player {
-  -webkit-box-shadow: 0px 0px 20px 5px #8B4513;
   border-radius: 10px 10px 10px 10px;
-  -moz-border-radius: 10px 10px 10px 10px;
-  -webkit-border-radius: 10px 10px 10px 10px;
   height: 140px;
   width: 85px;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -webkit-box-shadow: 0px 0px 20px 5px #8B4513;
 }
 
 .styled-select.slate {
   background: url('/images/arrow.png') no-repeat right center;
   background-size: contain;
-  height: 30px;
   background-color: none;
-  font-size: 18px;
   border: none;
   border-bottom: 2px solid #8B4513;
+  font-size: 18px;
+  height: 30px;
 }
 
 select {
@@ -327,8 +334,8 @@ select::-ms-expand {
 }
 
 .combination span img{
-  height: 200px;
   border: 3px solid black;
+  height: 200px;
 }
 
 .murderCombination {
@@ -336,6 +343,6 @@ select::-ms-expand {
   text-align: center;
 }
 #message-box{
-  font-size: 40px;
   color: #dfb577;
+  font-size: 40px;
 }
