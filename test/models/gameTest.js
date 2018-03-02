@@ -689,17 +689,6 @@ describe('Game', () => {
     });
   });
 
-  describe('#isSameDistance', function(){
-    it('should return true if same numbers are given', function(){
-      assert.isOk(game.isSameDistance(1,1));
-      assert.isOk(game.isSameDistance(0,0));
-    });
-    it('should return false if different numbers are given', function(){
-      assert.isNotOk(game.isSameDistance(1,2));
-      assert.isNotOk(game.isSameDistance(3,2));
-    });
-  });
-
   describe('#murderCombination', function(){
     it('should return murder combination', function(){
       let character = new Card('Dr. Orchid', 'Character');
@@ -708,86 +697,6 @@ describe('Game', () => {
       game._murderCombination = new Combination(room, weapon, character);
       assert.deepEqual(game.murderCombination,{"character": "Dr. Orchid",
       "room": "Lounge","weapon": "Revolver"});
-    });
-  });
-
-  describe('#validatePos', function(){
-    it('should return true if position is valid', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("Patel",3);
-      game.start();
-      let args = {
-        val:1,
-        curPlayerPos: 1,
-        clickpos: 1,
-        forwardDis: 0,
-        backDis: 0,
-      };
-      assert.isOk(game.validatePos(args));
-      args = {
-        val:1,
-        curPlayerPos: 1,
-        clickpos: 2,
-        forwardDis: 1,
-        backDis: 2,
-      };
-      assert.isOk(game.validatePos(args));
-      args = {
-        val:1,
-        curPlayerPos: 1,
-        clickpos: 2,
-        forwardDis: 2,
-        backDis: 1,
-      };
-      assert.isOk(game.validatePos(args));
-      args = {
-        val:1,
-        curPlayerPos: 62,
-        clickpos: 'conservatory',
-        forwardDis: 1,
-        backDis: 2,
-      };
-      assert.isOk(game.validatePos(args));
-      args = {
-        val:3,
-        curPlayerPos: 62,
-        clickpos: 'conservatory',
-        forwardDis: 1,
-        backDis: 2,
-      };
-      assert.isOk(game.validatePos(args));
-      args = {
-        val:3,
-        curPlayerPos: 17,
-        clickpos: 'conservatory',
-        forwardDis: 50,
-        backDis: 3,
-      };
-      assert.isOk(game.validatePos(args));
-    });
-
-    it('should return false if position is not valid', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("Patel",3);
-      game.start();
-      let args = {
-        val:1,
-        curPlayerPos: 1,
-        clickpos: 1,
-        forwardDis: 2,
-        backDis: 2,
-      };
-      assert.isNotOk(game.validatePos(args));
-      args = {
-        val:1,
-        curPlayerPos: 1,
-        clickpos: 6,
-        forwardDis: 2,
-        backDis: 2,
-      };
-      assert.isNotOk(game.validatePos(args));
     });
   });
   describe('#movePlayerToken', function(){

@@ -78,6 +78,58 @@ class Path {
     let room = this.getRoom(roomName);
     return room.connectedRoom.toLowerCase();
   }
+
+  isSameDistance(forwardDistance,backDistance){
+    return forwardDistance == backDistance;
+  }
+
+  validatePos(args){
+    let forwardDis = args.forwardDis;
+    let backDis = args.backDis;
+    if(this.canGoToConnectedRoom(args.val,args.clickpos,args.curPlayerPos)){
+      return true;
+    }
+    if(forwardDis > args.val && backDis > args.val) {
+      return false;
+    }
+    if(args.val == forwardDis || args.val == backDis){
+      return true;
+    }
+    return (this.canEnterIntoRoom(args)) ||
+    (this.isSameDistance(forwardDis,backDis) && (args.val == 1));
+  }
+
+  getDistances(curPlayerPos,pos){
+    let cells = this.cells;
+    let forwardDistance = this.distanceForward(cells,+curPlayerPos,+pos);
+    let backDistance = this.distanceBack(cells,+curPlayerPos,+pos);
+    return [forwardDistance,backDistance];
+  }
+
+  validateMove(pos,curPlayerPos,inRoom,val){
+    let clickpos = pos;
+    if(curPlayerPos == pos){
+      return false;
+    }
+    if(this.isRoom(curPlayerPos)){
+      inRoom = true;
+      curPlayerPos = this.doorPositionOf(curPlayerPos);
+      val--;
+    }
+    if(this.isRoom(pos)){
+      pos = this.doorPositionOf(pos);
+      !inRoom && val--;
+    }
+    let distances = this.getDistances(curPlayerPos,pos);
+    let args = {
+      val:val,
+      curPlayerPos: +curPlayerPos,
+      clickpos: clickpos,
+      forwardDis: distances[0],
+      backDis: distances[1],
+    };
+    return this.validatePos(args);
+  }
 }
 
 module.exports = Path;

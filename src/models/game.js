@@ -173,70 +173,20 @@ class Game {
   gatherRemainingCards() {
     this.cardHandler.gatherRemainingCards();
   }
-  getDistances(curPlayerPos,pos){
-    let cells = this._path.cells;
-    let forwardDistance = this._path.distanceForward(cells,+curPlayerPos,+pos);
-    let backDistance = this._path.distanceBack(cells,+curPlayerPos,+pos);
-    return [forwardDistance,backDistance];
-  }
-  /*eslint-disable */
   validateMove(pos){
     let player = this.getCurrentPlayerId();
-    let clickpos = pos;
     let val = this.diceVal;
     let curPlayerPos = this.players[player].character.position;
     let inRoom = false;
-    if(curPlayerPos == pos){
-      return false;
-    }
-    if(this._path.isRoom(curPlayerPos)){
-      inRoom = true;
-      curPlayerPos = this._path.doorPositionOf(curPlayerPos);
-      val--;
-    }
-    if(this._path.isRoom(pos)){
-      pos = this._path.doorPositionOf(pos);
-      !inRoom && val--;
-    }
-    let distances = this.getDistances(curPlayerPos,pos);
-    let args = {
-      val:val,
-      curPlayerPos: +curPlayerPos,
-      clickpos: clickpos,
-      forwardDis: distances[0],
-      backDis: distances[1],
-    };
-    return this.validatePos(args);
+    return this._path.validateMove(pos,curPlayerPos,inRoom,val);
   }
-
   getInvalidMoves(){
     let rooms = ['hall','kitchen','conservatory','ballroom',
-                'billiard','dining','study','library','lounge'];
+      'billiard','dining','study','library','lounge'];
     return [...rooms,...this._path.cells].filter(pos=>{
       return !this.validateMove(pos);
     });
   }
-
-  isSameDistance(forwardDistance,backDistance){
-    return forwardDistance == backDistance;
-  }
-
-  validatePos(args){
-    let forwardDis = args.forwardDis;
-    let backDis = args.backDis;
-    if(this._path.canGoToConnectedRoom(args.val,args.clickpos,args.curPlayerPos)){
-      return true;
-    }
-    if(forwardDis > args.val && backDis > args.val) {
-      return false;
-    }
-    if(args.val == forwardDis || args.val == backDis){
-      return true;
-    }
-    return (this._path.canEnterIntoRoom(args)) ||
-    (this.isSameDistance(forwardDis,backDis) && (args.val == 1));
-  }
-  /*eslint-enable */
   updatePlayerPos(pos) {
     if (this.playerMoved) {
       return false;
@@ -361,8 +311,8 @@ class Game {
   isEmpty(suspicion){
     return JSON.stringify(suspicion) == '{}';
   }
-  getCombination(){
-    let suspicion = this._currentSuspicion;
+  getCombination(accusation){
+    let suspicion = accusation || this._currentSuspicion;
     if(this.isEmpty(suspicion)||!suspicion.combination.room){
       return {};
     }
@@ -376,15 +326,7 @@ class Game {
 
   getAccuseCombination(){
     let accusation = this._currentAccusation;
-    if(this.isEmpty(accusation)||!accusation.combination.room){
-      return {};
-    }
-    let combination = {
-      room: accusation.combination.room.name,
-      weapon: accusation.combination.weapon.name,
-      character: accusation.combination.character.name
-    };
-    return combination;
+    return this.getCombination(accusation);
   }
   addActivity(activity){
     let timeOfActivity = this._activityLog.addActivity(activity);
