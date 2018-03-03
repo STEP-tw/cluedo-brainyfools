@@ -14,14 +14,26 @@ class Player {
   get name(){
     return this._name;
   }
+  get characterName(){
+    return this._character.name;
+  }
   get inRoom(){
     return this._inRoom;
   }
   set inRoom(val){
     this._inRoom = val;
   }
+  get turn(){
+    return this._character.turn;
+  }
   get character(){
     return this._character;
+  }
+  get position(){
+    return this._character.position;
+  }
+  get tokenColor(){
+    return this._character.tokenColor;
   }
   isActive(){
     return this._active;

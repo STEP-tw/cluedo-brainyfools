@@ -50,7 +50,8 @@ const updatePos = function(req,res){
   let game = req.game;
   let moved = game.updatePlayerPos(pos);
   let currentPlayer = game.getCurrentPlayer();
-  game.addActivity(`${currentPlayer.name} moved`);
+  let currentPlayerColor = currentPlayer.character.color;
+  game.addActivity(`${currentPlayer.name} moved`,currentPlayerColor);
   if(!currentPlayer.inRoom){
     game.pass();
   }else{

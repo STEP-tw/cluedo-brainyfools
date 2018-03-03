@@ -4,9 +4,10 @@ class ActivityLog{
     this.activities = [];
   }
 
-  addActivity(activity){
+  addActivity(activity,colour){
+    let color = colour || "#fff0";
     let time = this.getTime();
-    this.activities.push({time,activity});
+    this.activities.push({time,activity,color});
     return time;
   }
 

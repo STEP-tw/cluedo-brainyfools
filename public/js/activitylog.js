@@ -1,5 +1,4 @@
 /* eslint-disable no-implicit-globals*/
-// let activityLogId;
 
 let lastActivityTime = 0;
 
@@ -12,10 +11,13 @@ const updateLog = function(){
     allActivitiesTime.forEach((activity)=>{
       lastActivityTime = activity.time;
       time = new Date(+activity.time);
-      logDiv.innerHTML += `<div>
+      let color=`style=color:${activity.color}`;
+      let token ="&#x25CF;";
+      logDiv.innerHTML = `<div>
         <span class='time'>${time.toLocaleTimeString()}</span>
         <span class='activity'>${activity.activity}</span>
-      </div>`;
+        <span class='token' ${color}>${token}</span>
+      </div>` + logDiv.innerHTML;
     });
   });
 };

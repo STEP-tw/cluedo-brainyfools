@@ -105,10 +105,10 @@ class Game {
       name: player.name,
       inRoom: player.inRoom,
       character: {
-        name: player.character.name,
-        color: player.character.tokenColor,
-        turn: player.character.turn,
-        position: player.character.position
+        name: player.characterName,
+        color: player.tokenColor,
+        turn: player.turn,
+        position: player.position
       }
     };
   }
@@ -330,8 +330,8 @@ class Game {
     let accusation = this._currentAccusation;
     return this.getCombination(accusation);
   }
-  addActivity(activity){
-    let timeOfActivity = this._activityLog.addActivity(activity);
+  addActivity(activity,colour){
+    let timeOfActivity = this._activityLog.addActivity(activity,colour);
     return timeOfActivity;
   }
   getSuspicion(playerId){

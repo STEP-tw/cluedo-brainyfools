@@ -32,7 +32,6 @@ describe('Game', () => {
     });
   });
 
-
   describe('#getPlayer', () => {
     it('should return player by his/her id', () => {
       game.addPlayer("suyog", 1);
@@ -42,7 +41,6 @@ describe('Game', () => {
     });
   });
 
-
   describe('#getPlayerCount', () => {
     it('should return count of players joined', () => {
       game.addPlayer("suyog", 1);
@@ -51,7 +49,6 @@ describe('Game', () => {
       assert.equal(playerCount, 2);
     });
   });
-
 
   describe('#haveAllPlayersJoined', function () {
     it('should return true when game is ready to start', function () {
@@ -139,6 +136,7 @@ describe('Game', () => {
       });
     });
   });
+
   describe('#getPlayersPosition', function () {
     it('should return all player\'s positions', function () {
       game.addPlayer("Pranav", 1);
@@ -181,6 +179,7 @@ describe('Game', () => {
       assert.notDeepInclude(characterCards, murderCombination.character);
     });
   });
+
   describe('#rollDice', () => {
     it('should return value ranging from 1 to 6', () => {
       for (let index = 0; index < 10; index++) {
@@ -249,6 +248,7 @@ describe('Game', () => {
       assert.isFalse(game.isCurrentPlayer(2));
     });
   });
+
   describe('#validateMove', () => {
     it('should return true for valid forward move', () => {
       game.addPlayer("Pranav", 1);
@@ -391,7 +391,7 @@ describe('Game', () => {
     it('should add activity to the activityLog', function(){
       let activityTime = game.addActivity('activity 1');
       let activities = game._activityLog.activities;
-      assert.deepEqual(activities[0],{ time: 1, activity: 'activity 1' });
+      assert.deepEqual(activities[0],{ time: 1, activity: 'activity 1', color: "#fff0" });
     });
   });
 
@@ -402,8 +402,8 @@ describe('Game', () => {
       game.addActivity('activity 2');
       game.addActivity('activity 3');
       let expected = [
-        {time:2,activity:'activity 2'},
-        {time:3,activity:'activity 3'}
+        {time:2,activity:'activity 2', color: "#fff0"},
+        {time:3,activity:'activity 3', color: "#fff0"}
       ];
       assert.deepEqual(game.getActivitiesAfter(1, 1),expected)
     });
@@ -420,6 +420,7 @@ describe('Game', () => {
       let activities = game.getActivitiesAfter(0, 1)
       let expectedActivities = [{
         time:1,
+        color: "#fff0",
         activity:'Game has started'
       }];
       assert.deepEqual(expectedActivities,activities);
@@ -700,6 +701,7 @@ describe('Game', () => {
       "room": "Lounge","weapon": "Revolver"});
     });
   });
+
   describe('#movePlayerToken', function(){
     it('should change assigned or unassigned characters position to given position', function(){
       game.addPlayer("Pranav",1);
