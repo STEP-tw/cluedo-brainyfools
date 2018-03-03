@@ -138,12 +138,6 @@ const showSuspicionCards = function(cards) {
     `/images/cards/Room/${roomCard}.jpg`);
 };
 
-const disableCards = function () {
-  // document.getElementById('character-card').setAttribute('href','');
-  // document.getElementById('weapon-card').setAttribute('href','');
-  // document.getElementById('room-card').setAttribute('href','');
-};
-
 const showWeapon = function (room,weapon) {
   let weaponImg=weapon.replace(/[.\s]+/,'_');
   let imagePath = `/images/weapons/${weaponImg}.png`;

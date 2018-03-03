@@ -30,10 +30,14 @@ const showPlayerCards = function(cards){
 
 const setOtherPlayer = function (player) {
   let name = player.character.name.replace(/[.\s]+/, '_');
+  let color = player.character.color;
   document.querySelector('#all-players').innerHTML +=
-  `<div id='turn_${player.character.turn}' class="player">
+  `<div id='turn_${player.character.turn}' class="player"
+  style='border: 0.8px solid ${color};
+  border-bottom: 4px solid ${color}'>
     <span class="image"
-    style="background-image: url('/images/cards/Character/${name}.jpg');">
+    style="background-image: url('/images/cards/Character/${name}.jpg');
+    border: 2px solid ${color}">
     </span>
     <span>${player.name}</span>
   </div>`;
@@ -91,7 +95,6 @@ const removeTurnHighlight = function(){
   let players = document.querySelectorAll('.player');
   players.forEach(player=>{
     player.classList.remove('active-player');
-    player.style.border = '';
   });
 };
 

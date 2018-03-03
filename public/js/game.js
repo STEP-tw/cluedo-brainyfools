@@ -76,7 +76,6 @@ let getCurrentPlayer = function () {
     }
     removeTurnHighlight();
     document.getElementById(`turn_${turn}`).classList.add('active-player');
-    document.getElementById(`turn_${turn}`).style.border = '0px';
   });
 };
 

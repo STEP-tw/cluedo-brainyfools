@@ -38,13 +38,12 @@ body {
 
 #all-players div {
   border-radius: 4%;
-  border: 0.5px solid black;
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  margin: 2px 4px;
-  padding: 1px 2px;
+  margin: 2px 3px;
+  padding: 2px 2px;
 }
 
 #all-players div span {
@@ -326,8 +325,6 @@ main {
 
 .active-player {
   border-radius: 10px 10px 10px 10px;
-  height: 140px;
-  width: 85px;
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
   -webkit-box-shadow: 0px 0px 20px 5px #8B4513;
