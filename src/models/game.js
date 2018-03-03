@@ -404,6 +404,14 @@ class Game {
     }
     return false;
   }
+  getPlayersStatus(){
+    let playersStatus = {};
+    Object.keys(this.players).forEach(id=>{
+      let player = this.players[id];
+      playersStatus[player.character.turn] = player.isActive();
+    });
+    return playersStatus;
+  }
   getSecretPassage(){
     let player = this.getCurrentPlayer();
     if(player.inRoom){

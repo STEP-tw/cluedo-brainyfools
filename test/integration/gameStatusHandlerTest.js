@@ -49,7 +49,7 @@ describe('#gameStatusHandler', () => {
             suspecting: false,
             "accuseCombination": {},
             "accusing": false,
-            "accusationState": false,
+            "playersStatus" :{1:true,2:true,3:true},
             "secretPassage": '',
             "gameState":'running'
           };
@@ -92,7 +92,7 @@ describe('#gameStatusHandler', () => {
             suspecting: true,
             accusing: false,
             "accuseCombination": {},
-            "accusationState": false,
+            "playersStatus" :{1:true,2:true,3:true},
             "secretPassage" : '',
             "gameState":'running'
           };

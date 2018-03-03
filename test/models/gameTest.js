@@ -769,7 +769,28 @@ describe('Game', () => {
       game.players[3].deactivate();
       assert.equal(game.state,'draw');
     });
+  });
 
+  describe('#getPlayersStatus', function(){
+    it('should return status of every active player', function(){
+      game.addPlayer("Pranav",1);
+      game.addPlayer("Patel",2);
+      game.addPlayer("Patel",3);
+      game.start();
+      let expectedOutput = {
+        1: true,
+        2: true,
+        3: true
+      };
+      assert.deepEqual(game.getPlayersStatus(),expectedOutput);
+      game.players[1].deactivate();
+      expectedOutput = {
+        1: false,
+        2: true,
+        3: true
+      };
+      assert.deepEqual(game.getPlayersStatus(),expectedOutput);
+    });
   });
 
 });

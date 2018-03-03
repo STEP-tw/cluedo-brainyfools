@@ -40,12 +40,19 @@ const showWinner = function(name){
   endRequests();
 };
 
-const showAccusationState = function(playerState,name,gameState){
+const respondWithGameState = function(name,gameState){
   let methods = {'win' : showWinner,'draw' : showGameDraw,'running' : passTurn};
-  if(playerState){
-    // showDeactivated(name);
-  }
   methods[gameState](name);
+};
+
+const showInactivePlayers = function(playersStatus){
+  let keys = Object.keys(playersStatus);
+  keys.forEach(turn=>{
+    if(!playersStatus[turn]){
+      document.getElementById(`turn_${turn}`)
+        .setAttribute('style','opacity:0.3');
+    }
+  });
 };
 
 let getCurrentPlayer = function () {
@@ -54,10 +61,10 @@ let getCurrentPlayer = function () {
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
     showMessage('');
+    showInactivePlayers(res.playersStatus);
     let turn = res.currentPlayer.character.turn;
     if(res.accusing) {
-      showAccusationState(res.accusationState,res.currentPlayer.name
-        ,res.gameState);
+      respondWithGameState(res.currentPlayer.name,res.gameState);
     } else if (playerTurn == turn && !res.moved) {
       showOptionsToPlayer(res);
     } else if(res.suspecting) {
