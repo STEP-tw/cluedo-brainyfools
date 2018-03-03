@@ -20,9 +20,11 @@
     <h4> Share with your friends to let them join. </h4>
   </div>
   <div class="overlay hide">
+    <div class="content">
       <h1>YOUR TOKEN COLOR IS</h1>
       <div id="color"></div>
       <h3 id="Timer">Game Starts In <span id="sec">3</span> Sec...</h3>
+    </div>
   </div>
 </body>
 </html>
