@@ -64,20 +64,26 @@ const getPlayerDetails = function () {
 };
 
 const disableRuleOut = function(){
+  let messageBox = document.getElementById('message-box');
+  messageBox.innerHTML = '';
   disablePopup();
 };
 
 const enableRuleOut = function(cards){
+  let messageBox = document.getElementById('message-box');
+  messageBox.innerHTML = 'Rule out suspicion using a card';
   let popup = document.getElementById('activity-box');
+  let images = '<div id="cancelsuspicion">';
+  cards.forEach(card=>{
+    let name = card['_name'].replace(/[.\s]+/,'_');
+    images += `<img
+    src="/images/cards/${card._type}/${name}.jpg"
+    name="${card._name}" id="${card._name}"
+    onclick="ruleOutSuspicion(event)"> </img>`;
+  });
+  images+='</div>';
   popup.innerHTML = `
-  <div class="popup">
-    <select id="cancelsuspicion" class="styled-select slate">
-      ${cards.reduce((html, card) => html + `<option value="${card._name}">
-      ${card._name}</option>`,'')}
-    </select>
-    <button id="ruleOut" onclick="ruleOutSuspicion()">Rule Out</button>
-  </div>
-  `;
+  <div class="popup"> ${images} </div>`;
   enablePopup();
 };
 

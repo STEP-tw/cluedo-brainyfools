@@ -218,8 +218,9 @@ const moveToken = function(id, invalidMoves=[]){
   }, `{"position":"${id}"}`);
 };
 
-const ruleOutSuspicion = function () {
-  let val = document.getElementById('cancelsuspicion');
+const ruleOutSuspicion = function (event) {
+  let id = event.target.id;
+  let val = document.getElementById(id);
   let url = getBaseUrl();
   sendAjaxRequest('post', `${url}/ruleout`, (res) => {
     res = JSON.parse(res);
@@ -227,7 +228,7 @@ const ruleOutSuspicion = function () {
       disableRuleOut();
       currentActivity = getCurrentPlayer;
     }
-  }, `{"card":"${val.value}"}`);
+  }, `{"card":"${val.name}"}`);
 };
 
 const getMurderCombination = function(){
