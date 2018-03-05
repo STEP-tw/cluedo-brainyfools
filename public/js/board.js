@@ -88,12 +88,15 @@ const enableRuleOut = function(cards){
 
 const sendRuleOutCard = function(parentId){
   let id = getHighlightedCard(parentId);
-  ruleOutSuspicion(id);
+  if(!id){
+    ruleOutSuspicion(id);
+  }
 };
 
 const getHighlightedCard = function(id){
   let element = document.getElementById(id);
-  return element.getElementsByClassName('highlight')[0].id;
+  let highlightedCard = element.getElementsByClassName('highlight')[0];
+  return highlightedCard && highlightedCard.id;
 };
 
 const getImages = function(cards){
@@ -106,7 +109,7 @@ const getImages = function(cards){
     onclick="highlightCard(event)"> </img>`;
   });
   return images;
-}
+};
 
 const highlightCard = function(event){
   let id = event.target.id;

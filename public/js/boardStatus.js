@@ -83,22 +83,24 @@ const showCards = function(suspect){
   <div id="character"> ${charImages}</div>
   <div class='cards'>Select a weapon</div>
   <div id="weapon"> ${weaponImages}</div>
-
-  ${`<button type="button" onclick="confirmCombination(${suspect})">Confirm</button>`}
+  ${`<button type="button" onclick="confirmCombination(${suspect})">
+  Confirm</button>`}
   </div>`;
   enablePopup();
 };
 
 const confirmCombination = function(suspect){
-  lets = getSelectedCards();
-  suspectOrAccuse(suspect,cards);
-}
+  let cards = getSelectedCards();
+  if((cards.char && cards.weapon)){
+    suspectOrAccuse(suspect,cards);
+  }
+};
 
 const getSelectedCards = function(){
   let char = getHighlightedCard('character');
   let weapon = getHighlightedCard('weapon');
   return {char:char,weapon:weapon};
-}
+};
 
 const showPossibleOptions = function(suspect, rolldice,secretPassage){
   let messageBox = document.getElementById('message-box');
