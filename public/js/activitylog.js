@@ -12,7 +12,7 @@ const updateLog = function(){
       lastActivityTime = activity.time;
       time = new Date(+activity.time);
       let color=`style=color:${activity.color}`;
-      let token ="&#x25CF;";
+      let token ="&#x25C9;";
       logDiv.innerHTML = `<div>
         <span class='time'>${time.toLocaleTimeString()}</span>
         <span class='activity'>${activity.activity}</span>
