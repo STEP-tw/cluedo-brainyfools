@@ -91,6 +91,21 @@ const enableRuleOut = function(cards){
   enablePopup();
 };
 
+const showRuleOutCard = function(suspicion){
+  let messageBox = document.getElementById('message-box');
+  messageBox.innerHTML = `${suspicion.cancelledBy} has ruled out your suspicion
+    using ${suspicion.ruleOutCard}`;
+  let popup = document.getElementById('activity-box');
+  let name = suspicion.ruleOutCard.replace(/[.\s]+/,'_');
+  let images = '<div id="ruledOutCard">';
+  images += `<img
+    src="/images/cards/Character/${name}.jpg"></img>`;
+  images+=`<button type="button" onclick="showPossibleOptions()">
+  Ok</button></div>`;
+  popup.innerHTML = `<div class="popup"> ${images} </div>`;
+  enablePopup();
+};
+
 const removeTurnHighlight = function(){
   let players = document.querySelectorAll('.player');
   players.forEach(player=>{

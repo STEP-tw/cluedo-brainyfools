@@ -107,10 +107,8 @@ const getSuspicion = function (name) {
       }
     } else if (suspicion.ruleOutCard) {
       enablePopup();
-      showMessage(`${suspicion.cancelledBy}
-        has ruled out your suspicion using ${suspicion.ruleOutCard}`);
+      showRuleOutCard(suspicion);
       currentActivity = () => { };
-      showPossibleOptions();
     } else if(suspicion.suspector){
       currentActivity = () => { };
       showPossibleOptions();

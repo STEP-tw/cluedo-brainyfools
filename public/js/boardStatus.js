@@ -91,6 +91,8 @@ const enableSuspicion = function(suspect,accuse){
 };
 
 const showPossibleOptions = function(suspect, rolldice,secretPassage){
+  let messageBox = document.getElementById('message-box');
+  messageBox.innerHTML='';
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
   <div id="confirm">
   ${suspect? `<button onclick="enableSuspicion(${suspect})"

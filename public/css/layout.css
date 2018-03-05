@@ -382,3 +382,27 @@ select::-ms-expand {
   height: 200px;
   margin: 0px 10px;
 }
+
+#ruledOutCard {
+  display: flex;
+  flex-direction: column;
+}
+
+#ruledOutCard img{
+  border: 3px solid black;
+  height: 200px;
+  margin: auto;
+}
+
+#ruledOutCard button{
+  margin: 10px;
+font-size: 30px;
+width: 80px;
+height: 35px;
+align-self: center;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border: none;
+background-color: #8B4513;
+color: #dfb577;
+}
