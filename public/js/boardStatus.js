@@ -78,7 +78,9 @@ const showCards = function(suspect){
   });
   let charImages = getImages(characterCards);
   let weaponImages = getImages(weaponCards);
-  document.querySelector('#activity-box').innerHTML = `<div class="popup">
+  document.querySelector('#activity-box').innerHTML = `<div class="back-button">
+  <span onclick="getCurrentPlayer()">&#x226a;</span></div>
+  <div class="popup">
   <div class='cards'>Select a character</div>
   <div id="character"> ${charImages}</div>
   <div class='cards'>Select a weapon</div>
