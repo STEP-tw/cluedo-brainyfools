@@ -314,6 +314,13 @@ describe('Game', () => {
       game.players[1].updatePos('study');
       assert.isOk(game.validateMove('kitchen'));
     });
+    it('should return false if selected position is same as current position',()=>{
+      game.addPlayer('Raghu',1);
+      game.start();
+      game.diceVal = 2;
+      game.players[1].updatePos('lounge');
+      assert.isNotOk(game.validateMove('lounge'));
+    });
   });
 
   describe('#getPlayerdata', function(){

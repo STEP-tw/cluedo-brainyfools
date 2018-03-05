@@ -95,6 +95,9 @@ class Path {
     if(args.val == forwardDis || args.val == backDis){
       return true;
     }
+    if(this.isSameDistance(args.curPlayerPos,args.clickpos)){
+      return false;
+    }
     return (this.canEnterIntoRoom(args)) ||
     (this.isSameDistance(forwardDis,backDis) && (args.val == 1));
   }
@@ -106,7 +109,8 @@ class Path {
     return [forwardDistance,backDistance];
   }
 
-  validateMove(pos,curPlayerPos,inRoom,val){
+  validateMove(pos,curPlayerPos,val){
+    let inRoom = false;
     let clickpos = pos;
     if(curPlayerPos == pos){
       return false;

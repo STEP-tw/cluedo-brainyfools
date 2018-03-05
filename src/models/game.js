@@ -184,8 +184,7 @@ class Game {
     let player = this.getCurrentPlayerId();
     let val = this.diceVal;
     let curPlayerPos = this.players[player].character.position;
-    let inRoom = false;
-    return this._path.validateMove(pos,curPlayerPos,inRoom,val);
+    return this._path.validateMove(pos,curPlayerPos,val);
   }
   getInvalidMoves(){
     let rooms = ['hall','kitchen','conservatory','ballroom',
