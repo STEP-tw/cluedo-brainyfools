@@ -78,17 +78,45 @@ const enableRuleOut = function(cards){
   messageBox.innerHTML = 'Rule out suspicion using a card';
   let popup = document.getElementById('activity-box');
   let images = '<div id="cancelsuspicion">';
+  images += getImages(cards);
+  images +=
+  `<button type='button' onclick=sendRuleOutCard('cancelsuspicion')>Confirm
+  </button></div>`;
+  popup.innerHTML = `<div class="popup"> ${images} </div>`;
+  enablePopup();
+};
+
+const sendRuleOutCard = function(parentId){
+  let id = getHighlightedCard(parentId);
+  ruleOutSuspicion(id);
+};
+
+const getHighlightedCard = function(id){
+  let element = document.getElementById(id);
+  return element.getElementsByClassName('highlight')[0].id;
+};
+
+const getImages = function(cards){
+  let images = '';
   cards.forEach(card=>{
     let name = card['_name'].replace(/[.\s]+/,'_');
     images += `<img
     src="/images/cards/${card._type}/${name}.jpg"
     name="${card._name}" id="${card._name}"
-    onclick="ruleOutSuspicion(event)"> </img>`;
+    onclick="highlightCard(event)"> </img>`;
   });
-  images+='</div>';
-  popup.innerHTML = `
-  <div class="popup"> ${images} </div>`;
-  enablePopup();
+  return images;
+}
+
+const highlightCard = function(event){
+  let id = event.target.id;
+  let parent = document.getElementById(id).parentElement;
+  let images = parent.querySelectorAll('img');
+  images.forEach(image=>{
+    let id = image.id;
+    document.getElementById(id).className = '';
+  });
+  document.getElementById(id).className = 'highlight';
 };
 
 const showRuleOutCard = function(suspicion){

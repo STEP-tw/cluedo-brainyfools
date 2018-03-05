@@ -65,40 +65,49 @@ const disableRollDice = function(){
   document.querySelector('#dice-box').innerHTML = ``;
 };
 
-const enableSuspicion = function(suspect,accuse){
-  document.querySelector('#activity-box').innerHTML = `<div class="back-button">
-  <span onclick="getCurrentPlayer()">&#x226a;</span></div><div class="popup">
-  <div><div><label for='character'>Character</label>
-  <select name="character" id="character" class="styled-select slate">
-  <option value="Miss Scarlett">Miss Scarlett</option>
-  <option value="Col. Mustard">Col. Mustard</option>
-  <option value="Dr. Orchid">Dr. Orchid</option>
-  <option value="Rev. Green">Rev. Green</option>
-  <option value="Mrs. Peacock">Mrs. Peacock</option>
-  <option value="Prof. Plum">Prof. Plum</option>
-  </select></div><div><label for='weapon'>Weapon</label>
-  <select name="weapon" id="weapon" class="styled-select slate">
-  <option value="Rope">Rope</option>
-  <option value="Dagger">Dagger</option>
-  <option value="Wrench">Wrench</option>
-  <option value="Revolver">Revolver</option>
-  <option value="Candlestick">Candlestick</option>
-  <option value="Lead Pipe">Lead Pipe</option></select>
-  </div></div>
-  ${`<button onclick="suspectOrAccuse(${suspect})">
-  ${suspect ? 'Suspect' : accuse ? 'Accuse' : ''}</button>`}
+const showCards = function(suspect){
+  let charNames = ['Miss Scarlett','Rev Green','Col Mustard',
+    'Dr Orchid','Mrs Peacock','Prof Plum'];
+  let characterCards = charNames.map(name=>{
+    return {_name:name,_type:'Character'};
+  });
+  let weaponNames = ['Candlestick','Dagger','Lead_Pipe',
+    'Revolver','Rope','Wrench'];
+  let weaponCards = weaponNames.map(name=>{
+    return {_name:name,_type:'Weapon'};
+  });
+  let charImages = getImages(characterCards);
+  let weaponImages = getImages(weaponCards);
+  document.querySelector('#activity-box').innerHTML = `<div class="popup">
+  <div class='cards'>Select a character</div>
+  <div id="character"> ${charImages}</div>
+  <div class='cards'>Select a weapon</div>
+  <div id="weapon"> ${weaponImages}</div>
+
+  ${`<button type="button" onclick="confirmCombination(${suspect})">Confirm</button>`}
   </div>`;
   enablePopup();
 };
+
+const confirmCombination = function(suspect){
+  lets = getSelectedCards();
+  suspectOrAccuse(suspect,cards);
+}
+
+const getSelectedCards = function(){
+  let char = getHighlightedCard('character');
+  let weapon = getHighlightedCard('weapon');
+  return {char:char,weapon:weapon};
+}
 
 const showPossibleOptions = function(suspect, rolldice,secretPassage){
   let messageBox = document.getElementById('message-box');
   messageBox.innerHTML='';
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
   <div id="confirm">
-  ${suspect? `<button onclick="enableSuspicion(${suspect})"
+  ${suspect? `<button onclick="showCards(${suspect})"
   >Suspect</button>`:''}
-  ${`<button onclick="enableAccusation(${suspect})">Accuse</button>`}
+  ${`<button onclick="showCards()">Accuse</button>`}
   ${rolldice ? `<button onclick="enableRollDice();disablePopup()"
   >Roll&nbsp;Dice</button>` : ''}
   <button onclick="passTurn()">Pass</button>

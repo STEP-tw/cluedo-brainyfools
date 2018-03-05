@@ -143,9 +143,9 @@ const sendSuspectReq = function(character,weapon){
   }, `{"character":"${character}","weapon":"${weapon}"}`);
 };
 
-const suspectOrAccuse = function (suspect) {
-  let character = document.querySelector('#character').value;
-  let weapon = document.querySelector('#weapon').value;
+const suspectOrAccuse = function (suspect,cards) {
+  let character = cards.char;
+  let weapon = cards.weapon;
   if (!suspect) {
     sendAccuseReq(character,weapon);
   } else {
@@ -214,8 +214,7 @@ const moveToken = function(id, invalidMoves=[]){
   }, `{"position":"${id}"}`);
 };
 
-const ruleOutSuspicion = function (event) {
-  let id = event.target.id;
+const ruleOutSuspicion = function (id) {
   let val = document.getElementById(id);
   let url = getBaseUrl();
   sendAjaxRequest('post', `${url}/ruleout`, (res) => {
