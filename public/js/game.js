@@ -23,8 +23,7 @@ const endRequests = function(){
 
 const showCompletionMsg = function(msg){
   document.querySelector('.close').innerHTML = `&times;`;
-  document.querySelector('#message-box').innerHTML =
-  `<div class="popup">${msg}</div>`;
+  document.querySelector('#message-box').innerHTML = msg;
   document.querySelector('.modal-content').innerHTML += `<div
   class="play-again"><a href='/'>Play again</a>
   </div>`;
@@ -235,13 +234,11 @@ const getMurderCombination = function(){
   sendAjaxRequest('get',`${url}/murderCombination`,(res) =>{
     res = JSON.parse(res);
     document.querySelector('#activity-box').innerHTML =
-    `<div>
-    <div class='murderCombination'>Murder combination</div>
+    `<div class='murderCombination'>Murder combination</div>
     <div class='combination'>
     <span><img id='character-card'></img></span>
     <span><img id='weapon-card'></img></span>
     <span><img id='room-card'></img></span>
-    </div>
     </div>`;
     showSuspicionCards(res);
   });

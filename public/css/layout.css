@@ -193,7 +193,7 @@ main {
 
 .close {
   color: #8b4513;
-  float: right;
+  text-align: right;
   font-size: 28px;
   font-weight: bold;
 }
@@ -274,8 +274,8 @@ main {
 }
 
 #message-box {
-  font-size: 2em;
-  margin-left: 15%;
+  font-size: 24px;
+  text-align: center;
 }
 
 .play-again{
