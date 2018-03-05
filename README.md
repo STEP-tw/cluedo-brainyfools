@@ -1,3 +1,3 @@
 # cluedo-brainyfools
 
-![Play Cluedo](http://cluedo-brainyfools.herokuapp.com/)
+[Play Cluedo](http://cluedo-brainyfools.herokuapp.com/)
