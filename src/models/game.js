@@ -346,7 +346,12 @@ class Game {
       result.cancellingCards = suspicion.cancellingCards;
     }
     if(playerId == this.getCurrentPlayerId()){
-      result.ruleOutCard = suspicion.ruleOutCard;
+      if (suspicion.ruleOutCard) {
+        result.ruleOutCard = suspicion.ruleOutCard.name;
+        result.ruleOutCardType = suspicion.ruleOutCard.type;
+      } else {
+        result.ruleOutCard = suspicion.ruleOutCard;
+      }
       result.suspector = suspicion.suspector;
     }
     return result;
@@ -364,11 +369,13 @@ class Game {
   }
   ruleOut(card){
     let suspicion = this._currentSuspicion;
+    let cardEntity=suspicion.cancellingCards.find(
+      ruleOutCard=>ruleOutCard._name == card);
     let id = this.getCurrentPlayerId();
     this.getPlayer(id).addActivity(`Ruled out by ${
-      suspicion.cancellerName} using ${card} card`);
+      suspicion.cancellerName} using ${cardEntity.name} card`);
     suspicion.cancelled = true;
-    suspicion.ruleOutCard = card;
+    suspicion.ruleOutCard = cardEntity;
   }
   canSuspect(){
     let currentPlayer = this.getPlayer(this.getCurrentPlayerId());

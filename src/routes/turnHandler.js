@@ -108,7 +108,7 @@ const ruleOut = function(req,res){
   req.game.ruleOut(card);
   let suspicion = req.game.getSuspicion(playerId);
   req.game.addActivity(`Ruled out by ${suspicion.cancelledBy}`);
-  res.json({success: true});
+  res.json({success: true,});
 };
 
 const createAccusation = function(req, res){

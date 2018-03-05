@@ -97,11 +97,11 @@ const showRuleOutCard = function(suspicion){
     using ${suspicion.ruleOutCard}`;
   let popup = document.getElementById('activity-box');
   let name = suspicion.ruleOutCard.replace(/[.\s]+/,'_');
+  let type = suspicion.ruleOutCardType;
   let images = '<div id="ruledOutCard">';
-  images += `<img
-    src="/images/cards/Character/${name}.jpg"></img>`;
-  images+=`<button type="button" onclick="showPossibleOptions()">
-  Ok</button></div>`;
+  images += `<img src="/images/cards/${type}/${name}.jpg"></img>`;
+  images+=`<button type="button" onclick="showPossibleOptions()">Ok
+  </button></div>`;
   popup.innerHTML = `<div class="popup"> ${images} </div>`;
   enablePopup();
 };

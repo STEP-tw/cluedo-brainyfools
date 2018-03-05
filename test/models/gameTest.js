@@ -528,9 +528,12 @@ describe('Game', () => {
       let combination = new Combination(room, weapon, character);
       let currentSuspicion = new Suspicion(combination,'Patel');
       game._currentSuspicion = currentSuspicion;
-      game.ruleOut(weapon);
+      let player=game.getPlayer(1);
+      game.players['2'].addCard(room);
+      game.findCanceller(player);
+      game.ruleOut('Lounge');
       assert.isOk(currentSuspicion.cancelled);
-      assert.deepEqual(currentSuspicion.ruleOutCard,weapon);
+      assert.deepEqual(currentSuspicion.ruleOutCard.name,'Lounge');
     });
   });
 

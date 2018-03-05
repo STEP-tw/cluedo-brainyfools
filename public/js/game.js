@@ -106,7 +106,7 @@ const getSuspicion = function (name) {
         giveRuleOutOption(suspicion.cancellingCards);
       }
     } else if (suspicion.ruleOutCard) {
-      enablePopup();
+      // enablePopup();
       showRuleOutCard(suspicion);
       currentActivity = () => { };
     } else if(suspicion.suspector){
