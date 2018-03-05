@@ -66,7 +66,8 @@ const disableRollDice = function(){
 };
 
 const enableSuspicion = function(suspect,accuse){
-  document.querySelector('#activity-box').innerHTML = `<div class="popup">
+  document.querySelector('#activity-box').innerHTML = `<div class="back-button">
+  <span onclick="getCurrentPlayer()">&#x226a;</span></div><div class="popup">
   <div><div><label for='character'>Character</label>
   <select name="character" id="character" class="styled-select slate">
   <option value="Miss Scarlett">Miss Scarlett</option>

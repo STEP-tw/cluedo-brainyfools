@@ -170,7 +170,7 @@ main {
   left: 0;
   overflow: auto;
   position: fixed;
-  padding-top: 80px;
+  padding-top: 130px;
   top: 0;
   width: 100%;
   z-index: 1;
@@ -185,8 +185,8 @@ main {
   background-color: #c19e67;
   border: 5px solid #8b4513;
   margin: 100px 270px;
-  padding: 20px;
-  border: 1px solid #888;
+  padding: 0px 20px 20px 20px;
+  border: 1px solid #c19e67;
   width: 30%;
   height: auto;
 }
@@ -396,13 +396,20 @@ select::-ms-expand {
 
 #ruledOutCard button{
   margin: 10px;
-font-size: 30px;
-width: 80px;
-height: 35px;
-align-self: center;
--moz-border-radius: 10px;
--webkit-border-radius: 10px;
-border: none;
-background-color: #8B4513;
-color: #dfb577;
+  font-size: 30px;
+  width: 80px;
+  height: 35px;
+  align-self: center;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border: none;
+  background-color: #8B4513;
+  color: #dfb577;
+}
+
+.back-button {
+  padding:0px;
+  text-align: left;
+  font-size: 30px;
+  cursor: pointer;
 }
