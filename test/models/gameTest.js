@@ -394,6 +394,44 @@ describe('Game', () => {
     });
   });
 
+  describe('#getSuspicion',()=>{
+    it('should give suspicion combination with canceller name',()=>{
+      game.addPlayer("Pranav", 1);
+      game.addPlayer("ketan", 2);
+      game.players['2'].addCard(new Card("Hall", 'Room'));
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Hall", 'Room');
+      let combinationO = new Combination(room, weapon, character);
+      game.updateSuspicionOf(1,combinationO);
+      game.ruleOut('Hall');
+      let suspicion={
+        "canBeCancelled": true,
+        "cancelled": true,
+        "cancelledBy": "ketan",
+        "combination": {
+          "_character": {
+            "_name": "Dr. Orchid",
+            "_type": "Character"
+          },
+          "_room": {
+            "_name": "Hall",
+            "_type": "Room"
+          },
+          "_weapon": {
+            "_name": "Revolver",
+            "_type": "Weapon"
+          },
+        },
+        "currentPlayer": "Pranav",
+        "ruleOutCard": "Hall",
+        "ruleOutCardType": "Room",
+        "suspector": "Pranav"
+      };
+      assert.deepEqual(game.getSuspicion(1),suspicion);
+    });
+  });
+
   describe('#addActivity', function(){
     it('should add activity to the activityLog', function(){
       let activityTime = game.addActivity('activity 1');
