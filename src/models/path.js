@@ -86,7 +86,9 @@ class Path {
   validatePos(args){
     let forwardDis = args.forwardDis;
     let backDis = args.backDis;
-    if(this.canGoToConnectedRoom(args.val,args.clickpos,args.curPlayerPos)){
+
+    if(!this.isSameDistance(args.curPos,args.curPlayerPos) &&
+    this.canGoToConnectedRoom(args.val,args.clickpos,args.curPlayerPos)){
       return true;
     }
     if(forwardDis > args.val && backDis > args.val) {
@@ -112,6 +114,7 @@ class Path {
   validateMove(pos,curPlayerPos,val){
     let inRoom = false;
     let clickpos = pos;
+    let curPos = curPlayerPos;
     if(curPlayerPos == pos){
       return false;
     }
@@ -127,6 +130,7 @@ class Path {
     let distances = this.getDistances(curPlayerPos,pos);
     let args = {
       val:val,
+      curPos:curPos,
       curPlayerPos: +curPlayerPos,
       clickpos: clickpos,
       forwardDis: distances[0],
