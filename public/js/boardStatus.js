@@ -146,13 +146,13 @@ const getBaseUrl = function(){
   return window.location.pathname.replace(/\/$/,'');
 };
 
-const showSuspicionCards = function(cards,className,message) {
+const showSuspicionCards = function(cards,message='') {
   enablePopup();
   let characterCard = cards.character.replace(/[.\s]+/,'_').toLowerCase();
   let weaponCard = cards.weapon.replace(/[.\s]+/,'_').toLowerCase();
   let roomCard = cards.room.replace(/[.\s]+/,'_').split('_')[0].toLowerCase();
   document.querySelector("#activity-box").innerHTML=
-  `<div class='${className}'>${message}</div>
+  `<div class='murderCombination'>${message}</div>
   <div class='combination'>
   <span><img id='character-card' class="${characterCard}"
    src="/images/cards/Character/${characterCard}.jpg"></img></span>

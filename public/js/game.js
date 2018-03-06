@@ -56,6 +56,7 @@ const showInactivePlayers = function(playersStatus){
 
 let getCurrentPlayer = function () {
   disableWeapon();
+  disablePopup();
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
@@ -67,7 +68,6 @@ let getCurrentPlayer = function () {
     } else if (playerTurn == turn && !res.moved) {
       showOptionsToPlayer(res);
     } else if(res.suspecting) {
-      // showSuspicionCards(res.combination);
       currentActivity = () => getSuspicion(res.currentPlayer.name);
     } else if(res.currentPlayer.inRoom && playerTurn == turn) {
       showPossibleOptions(true);
@@ -103,8 +103,7 @@ const getSuspicion = function (name) {
     showWeapon(roomName,weaponName);
     if (suspicion.canBeCancelled && !suspicion.cancelled) {
       let cards={'room':roomName,'weapon':weaponName,'character':characterName};
-      let message=`${suspicion.currentPlayer} has raised a suspicion`;
-      showSuspicionCards(cards,"murderCombination",message);
+      showSuspicion(cards,suspicion.currentPlayer);
       if (suspicion.cancellingCards) {
         giveRuleOutOption(suspicion.cancellingCards);
       }
@@ -121,6 +120,12 @@ const getSuspicion = function (name) {
       showMessage(`No one ruled out ${suspicion.currentPlayer}\'s suspicion`);
     }
   });
+};
+
+const showSuspicion = function(cards,name) {
+  let message=`${name} has raised a suspicion`;
+  document.querySelector('#message-box').innerHTML = message;
+  showSuspicionCards(cards);
 };
 
 const giveRuleOutOption = function(cards){
@@ -231,7 +236,7 @@ const getMurderCombination = function(){
   let url = getBaseUrl();
   sendAjaxRequest('get',`${url}/murderCombination`,(res) =>{
     res = JSON.parse(res);
-    showSuspicionCards(res,"murderCombination","Murder combination");
+    showSuspicionCards(res,"Murder combination");
   });
 };
 

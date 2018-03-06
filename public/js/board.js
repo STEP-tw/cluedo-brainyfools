@@ -74,7 +74,7 @@ const disableRuleOut = function(){
 };
 
 const enableRuleOut = function(cards){
-  let messageBox = document.getElementById('message-box');
+  let messageBox = document.querySelector('.murderCombination');
   messageBox.innerHTML = 'Rule out suspicion using a highlighted card';
   let popup = document.getElementById('activity-box');
   let character = document.getElementById('character-card').
