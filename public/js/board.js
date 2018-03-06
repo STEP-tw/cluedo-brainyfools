@@ -88,7 +88,7 @@ const enableRuleOut = function(cards){
 
 const sendRuleOutCard = function(parentId){
   let id = getHighlightedCard(parentId);
-  if(!id){
+  if(id){
     ruleOutSuspicion(id);
   }
 };
