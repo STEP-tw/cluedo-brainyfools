@@ -30,26 +30,26 @@ describe('boardStatusHandler', () => {
               "position": 69
             },
             {
-              "name": "Col. Mustard",
+              "name": "Col Mustard",
               "position": 56
             },
             {
-              "name": "Dr. Orchid",
+              "name": "Dr Orchid",
               "position": 49,
             },
             {
               "inactive": true,
-              "name": "Rev. Green",
+              "name": "Rev Green",
               "position": 79
             },
             {
               "inactive": true,
-              "name": "Mrs. Peacock",
+              "name": "Mrs Peacock",
               "position": 5
             },
             {
               "inactive": true,
-              "name": "Prof. Plum",
+              "name": "Prof Plum",
               "position": 13
             },
           ];

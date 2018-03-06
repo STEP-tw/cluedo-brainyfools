@@ -71,7 +71,7 @@ const showCards = function(suspect){
   let characterCards = charNames.map(name=>{
     return {_name:name,_type:'Character'};
   });
-  let weaponNames = ['Candlestick','Dagger','Lead_Pipe',
+  let weaponNames = ['Candlestick','Dagger','Lead Pipe',
     'Revolver','Rope','Wrench'];
   let weaponCards = weaponNames.map(name=>{
     return {_name:name,_type:'Weapon'};
@@ -146,16 +146,21 @@ const getBaseUrl = function(){
   return window.location.pathname.replace(/\/$/,'');
 };
 
-const showSuspicionCards = function(cards) {
-  let characterCard = cards.character.replace(/[.\s]+/,'_');
-  let weaponCard = cards.weapon.replace(/[.\s]+/,'_');
-  let roomCard = cards.room.replace(/[.\s]+/,'_').split('_')[0];
-  document.getElementById('character-card').setAttribute('src',
-    `/images/cards/Character/${characterCard}.jpg`);
-  document.getElementById('weapon-card').setAttribute('src',
-    `/images/cards/Weapon/${weaponCard}.jpg`);
-  document.getElementById('room-card').setAttribute('src',
-    `/images/cards/Room/${roomCard}.jpg`);
+const showSuspicionCards = function(cards,className,message) {
+  enablePopup();
+  let characterCard = cards.character.replace(/[.\s]+/,'_').toLowerCase();
+  let weaponCard = cards.weapon.replace(/[.\s]+/,'_').toLowerCase();
+  let roomCard = cards.room.replace(/[.\s]+/,'_').split('_')[0].toLowerCase();
+  document.querySelector("#activity-box").innerHTML=
+  `<div class='${className}'>${message}</div>
+  <div class='combination'>
+  <span><img id='character-card' class="${characterCard}"
+   src="/images/cards/Character/${characterCard}.jpg"></img></span>
+  <span><img id='weapon-card' class="${weaponCard}"
+  src="/images/cards/Weapon/${weaponCard}.jpg"></img></span>
+  <span><img id='room-card' class="${roomCard}"
+  src="/images/cards/Room/${roomCard}.jpg"></img></span>
+  </div>`;
 };
 
 const showWeapon = function (room,weapon) {

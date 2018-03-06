@@ -99,20 +99,22 @@ const getSuspicion = function (name) {
     let suspicion = JSON.parse(res);
     let roomName = suspicion.combination._room._name;
     let weaponName = suspicion.combination._weapon._name;
+    let characterName = suspicion.combination._character._name;
     showWeapon(roomName,weaponName);
-    showMessage(`${suspicion.currentPlayer} has raised a suspicion`);
     if (suspicion.canBeCancelled && !suspicion.cancelled) {
+      let cards={'room':roomName,'weapon':weaponName,'character':characterName};
+      let message=`${suspicion.currentPlayer} has raised a suspicion`;
+      showSuspicionCards(cards,"murderCombination",message);
       if (suspicion.cancellingCards) {
         giveRuleOutOption(suspicion.cancellingCards);
       }
     } else if (suspicion.ruleOutCard) {
-      // enablePopup();
       showRuleOutCard(suspicion);
       currentActivity = () => { };
-    } else if(suspicion.suspector){
+    } else if(suspicion.suspector) {
       currentActivity = () => { };
       showPossibleOptions();
-    } else if(suspicion.cancelledBy){
+    } else if(suspicion.cancelledBy) {
       showMessage(`${suspicion.cancelledBy} has ruled
         out ${suspicion.currentPlayer}\'s suspicion`);
     } else {
@@ -215,7 +217,6 @@ const moveToken = function(id, invalidMoves=[]){
 };
 
 const ruleOutSuspicion = function (id) {
-  let val = document.getElementById(id);
   let url = getBaseUrl();
   sendAjaxRequest('post', `${url}/ruleout`, (res) => {
     res = JSON.parse(res);
@@ -223,21 +224,14 @@ const ruleOutSuspicion = function (id) {
       disableRuleOut();
       currentActivity = getCurrentPlayer;
     }
-  }, `{"card":"${val.name}"}`);
+  }, `{"card":"${id}"}`);
 };
 
 const getMurderCombination = function(){
   let url = getBaseUrl();
   sendAjaxRequest('get',`${url}/murderCombination`,(res) =>{
     res = JSON.parse(res);
-    document.querySelector('#activity-box').innerHTML =
-    `<div class='murderCombination'>Murder combination</div>
-    <div class='combination'>
-    <span><img id='character-card'></img></span>
-    <span><img id='weapon-card'></img></span>
-    <span><img id='room-card'></img></span>
-    </div>`;
-    showSuspicionCards(res);
+    showSuspicionCards(res,"murderCombination","Murder combination");
   });
 };
 

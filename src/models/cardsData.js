@@ -1,11 +1,11 @@
 let cardsData = {
   "Characters": [
     "Miss Scarlett",
-    "Col. Mustard",
-    "Dr. Orchid",
-    "Rev. Green",
-    "Mrs. Peacock",
-    "Prof. Plum"
+    "Col Mustard",
+    "Dr Orchid",
+    "Rev Green",
+    "Mrs Peacock",
+    "Prof Plum"
   ],
   "Weapons": [
     "Wrench",

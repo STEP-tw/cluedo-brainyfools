@@ -75,14 +75,26 @@ const disableRuleOut = function(){
 
 const enableRuleOut = function(cards){
   let messageBox = document.getElementById('message-box');
-  messageBox.innerHTML = 'Rule out suspicion using a card';
+  messageBox.innerHTML = 'Rule out suspicion using a highlighted card';
   let popup = document.getElementById('activity-box');
-  let images = '<div id="cancelsuspicion">';
-  images += getImages(cards);
-  images +=
-  `<button type='button' onclick=sendRuleOutCard('cancelsuspicion')>Confirm
-  </button></div>`;
-  popup.innerHTML = `<div class="popup"> ${images} </div>`;
+  let character = document.getElementById('character-card').
+    setAttribute('style','opacity:0.3');
+  let weapon = document.getElementById('weapon-card').
+    setAttribute('style','opacity:0.3');
+  let room = document.getElementById('room-card').
+    setAttribute('style','opacity:0.3');
+  cards.forEach(card=>{
+    let cardName = card._name.replace(/[\s]+/,'_').toLowerCase();
+    let image=document.getElementsByClassName(cardName)[0];
+    if(image){
+      image.setAttribute('style','opacity:');
+      image.setAttribute('id',card._name);
+      image.setAttribute('onclick',"highlightCard(event)");
+    }
+  });
+  let div=`<div><button type='button' onclick=sendRuleOutCard('activity-box')>
+  Confirm</button></div>`;
+  popup.innerHTML+=div;
   enablePopup();
 };
 

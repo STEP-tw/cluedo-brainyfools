@@ -109,7 +109,7 @@ describe('Game', () => {
           inRoom: false,
           character: {
             "color": "#ffff33",
-            "name": "Col. Mustard",
+            "name": "Col Mustard",
             turn:2,
             position:56
           }
@@ -148,7 +148,7 @@ describe('Game', () => {
           position: 69
         },
         {
-          "name": "Col. Mustard",
+          "name": "Col Mustard",
           position: 56
         }
       ];
@@ -518,8 +518,8 @@ describe('Game', () => {
       game.addPlayer("Patel",2);
       game.addPlayer("AJ",3);
       game.start();
-      game.updateCharPosition('Rev. Green',3);
-      assert.deepInclude(game._unAssignedChars,{ name: 'Rev. Green', position: 3, inactive: false });
+      game.updateCharPosition('Rev Green',3);
+      assert.deepInclude(game._unAssignedChars,{ name: 'Rev Green', position: 3, inactive: false });
     });
   });
 
@@ -632,7 +632,7 @@ describe('Game', () => {
       game.addPlayer("Patel",2);
       game.addPlayer("AJ",3);
       game.players[1].updatePos('lounge');
-      let character = new Card('Dr. Orchid', 'Character');
+      let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       game._murderCombination = new Combination(room,weapon,character);
@@ -648,14 +648,14 @@ describe('Game', () => {
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
       game.addPlayer("AJ",3);
-      let character = new Card('Dr. Orchid', 'Character');
+      let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       game._murderCombination = new Combination(room,weapon,character);
       let combination = new Combination(room, weapon, character);
       assert.isOk(game.accuse(combination));
       let expected = {
-        character : 'Dr. Orchid',
+        character : 'Dr Orchid',
         room : 'Lounge',
         weapon : 'Revolver',
       };
@@ -667,7 +667,7 @@ describe('Game', () => {
     it('should return false if given combination is not same as murder combination', function(){
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
-      let character = new Card('Dr. Orchid', 'Character');
+      let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
@@ -682,7 +682,7 @@ describe('Game', () => {
     it('should return true if given combination is same as murder combination', function(){
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
-      let character = new Card('Dr. Orchid', 'Character');
+      let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
@@ -703,7 +703,7 @@ describe('Game', () => {
     it('should return opposite of state if current accusation is not empty', function(){
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
-      let character = new Card('Dr. Orchid', 'Character');
+      let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
@@ -741,11 +741,11 @@ describe('Game', () => {
 
   describe('#murderCombination', function(){
     it('should return murder combination', function(){
-      let character = new Card('Dr. Orchid', 'Character');
+      let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       game._murderCombination = new Combination(room, weapon, character);
-      assert.deepEqual(game.murderCombination,{"character": "Dr. Orchid",
+      assert.deepEqual(game.murderCombination,{"character": "Dr Orchid",
       "room": "Lounge","weapon": "Revolver"});
     });
   });
@@ -756,17 +756,17 @@ describe('Game', () => {
       game.addPlayer("Patel",2);
       game.addPlayer("Patel",3);
       game.start();
-      let character = new Card('Dr. Orchid', 'Character');
+      let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
       game.players[1].updatePos('lounge');
       game.movePlayerToken(combination);
       assert.equal(game.players[3].character.position,'lounge');
-      character = new Card('Prof. Plum', 'Character');
+      character = new Card('Prof Plum', 'Character');
       combination = new Combination(room, weapon, character);
       game.movePlayerToken(combination);
-      assert.deepInclude(game._unAssignedChars,{name:"Prof. Plum",position:'lounge', inactive: false});
+      assert.deepInclude(game._unAssignedChars,{name:"Prof Plum",position:'lounge', inactive: false});
     });
   });
 

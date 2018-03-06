@@ -34,7 +34,7 @@ describe('CardHandler', function(){
   describe('#generateCards', function(){
     it('should create all cards', function(){
       let cardHandler = new CardHandler();
-      let orchidCard = new Card('Dr. Orchid','Character');
+      let orchidCard = new Card('Dr Orchid','Character');
       let hallCard = new Card('Hall','Room');
       let daggerCard = new Card('Dagger','Weapon');
       assert.deepInclude(cardHandler.characters,orchidCard);

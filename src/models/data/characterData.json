@@ -6,31 +6,31 @@
     "turn" : 1
   },
   "2":{
-    "name":"Col. Mustard",
+    "name":"Col Mustard",
     "color":"#ffff33",
     "position":56,
     "turn" : 2
   },
   "3":{
-    "name":"Dr. Orchid",
+    "name":"Dr Orchid",
     "color":"#da70d6",
     "position":49,
     "turn" : 3
   },
   "4":{
-    "name":"Rev. Green",
+    "name":"Rev Green",
     "color":"#3a7e4a",
     "position":79,
     "turn" : 4
   },
   "5":{
-    "name":"Mrs. Peacock",
+    "name":"Mrs Peacock",
     "color":"#005fbf",
     "position":5,
     "turn" : 5
   },
   "6":{
-    "name":"Prof. Plum",
+    "name":"Prof Plum",
     "color":"#3f007f",
     "position":13,
     "turn" : 6

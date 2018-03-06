@@ -49,7 +49,7 @@ describe('gameDataHandlers', () => {
           inRoom: false,
           character: {
             "color": "#ffff33",
-            "name": "Col. Mustard",
+            "name": "Col Mustard",
             turn: 2,
             position: 56
           }
@@ -59,7 +59,7 @@ describe('gameDataHandlers', () => {
           inRoom: false,
           character: {
             "color": "#da70d6",
-            "name": "Dr. Orchid",
+            "name": "Dr Orchid",
             "position": 49,
             "turn": 3
           }
