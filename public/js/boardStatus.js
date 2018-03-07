@@ -154,12 +154,12 @@ const showSuspicionCards = function(cards,message='') {
   document.querySelector("#activity-box").innerHTML=
   `<div class='murderCombination'>${message}</div>
   <div class='combination'>
-  <span><img id='character-card' class="${characterCard}"
-   src="/images/cards/Character/${characterCard}.jpg"></img></span>
-  <span><img id='weapon-card' class="${weaponCard}"
-  src="/images/cards/Weapon/${weaponCard}.jpg"></img></span>
-  <span><img id='room-card' class="${roomCard}"
-  src="/images/cards/Room/${roomCard}.jpg"></img></span>
+  <img id='character-card' class="${characterCard}"
+  src="/images/cards/Character/${characterCard}.jpg"></img>
+  <img id='weapon-card' class="${weaponCard}"
+  src="/images/cards/Weapon/${weaponCard}.jpg"></img>
+  <img id='room-card' class="${roomCard}"
+  src="/images/cards/Room/${roomCard}.jpg"></img>
   </div>`;
 };
 

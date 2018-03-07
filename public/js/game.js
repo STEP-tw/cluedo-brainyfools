@@ -99,14 +99,13 @@ const getSuspicion = function (name) {
     let suspicion = JSON.parse(res);
     let roomName = suspicion.combination._room._name;
     let weaponName = suspicion.combination._weapon._name;
-    let characterName = suspicion.combination._character._name;
+    let charName = suspicion.combination._character._name;
     showWeapon(roomName,weaponName);
     if (suspicion.ruleOutCard) {
       showRuleOutCard(suspicion);
       currentActivity = () => { };
     } else if (suspicion.canBeCancelled && !suspicion.cancelled) {
-      let cards={'room':roomName,'weapon':weaponName,'character':characterName};
-      showSuspicion(cards,suspicion.currentPlayer);
+      showSuspicion([roomName,weaponName,charName],suspicion.currentPlayer);
       if (suspicion.cancellingCards) {
         giveRuleOutOption(suspicion.cancellingCards);
       }
@@ -124,7 +123,8 @@ const getSuspicion = function (name) {
   });
 };
 
-const showSuspicion = function(cards,name) {
+const showSuspicion = function(cardList,name) {
+  let cards={'room':cardList[0],'weapon':cardList[1],'character':cardList[2]};
   let message=`${name} has raised a suspicion`;
   document.querySelector('#message-box').innerHTML = message;
   showSuspicionCards(cards);

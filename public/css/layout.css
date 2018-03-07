@@ -354,15 +354,13 @@ select::-ms-expand {
 .combination {
   display: flex;
   justify-content: center;
+  text-align: center;
 }
 
-.combination span {
-  margin: 0px 10px;
-}
-
-.combination span img {
+.combination img {
   border: 3px solid black;
   height: 170px;
+  margin: 5px;
 }
 
 .murderCombination {
