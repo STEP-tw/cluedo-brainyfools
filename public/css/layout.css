@@ -141,24 +141,25 @@ main {
 #activity-log div span {
   font-size: 24px;
 }
-#activity-log div .activity{
+
+#activity-log div .activity {
   color: #1A0800;
   letter-spacing: 1px;
-  font-weight:300;
+  font-weight: 300;
 }
 
-#activity-log div .token{
+#activity-log div .token {
   font-size: 24px;
   font-weight: bolder;
 }
 
 #activity-log div .time {
   font-size: 24px;
-  color:#1a0800bd;
+  color: #1a0800bd;
   white-space: nowrap;
 }
 
-#activity-log div .time:after{
+#activity-log div .time:after {
   content: " :";
 }
 
@@ -198,8 +199,7 @@ main {
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+.close:hover, .close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
@@ -257,7 +257,6 @@ main {
   flex-direction: column;
 }
 
-
 .popup div div label {
   margin: 6px;
 }
@@ -266,7 +265,6 @@ main {
   margin: 6px;
   font-size: 1em;
 }
-
 
 .subtitle {
   font-size: 25px;
@@ -278,19 +276,19 @@ main {
   text-align: center;
 }
 
-.play-again{
+.play-again {
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
 
-.play-again a{
+.play-again a {
   padding: 5px;
   font-size: 23px;
   border-radius: 10%;
   margin-top: 15px;
   text-decoration: none;
-  background:#8B4513;
+  background: #8B4513;
   color: #dfb577;
 }
 
@@ -306,7 +304,7 @@ main {
   text-align: center;
 }
 
-#imp-message-box{
+#imp-message-box {
   color: #dfb577;
   font-size: 40px;
   text-align: center;
@@ -319,7 +317,7 @@ main {
   margin-top: -53px;
 }
 
-#dice:hover{
+#dice:hover {
   cursor: pointer;
 }
 
@@ -353,7 +351,7 @@ select::-ms-expand {
   margin-top: 10px;
 }
 
-.combination{
+.combination {
   display: flex;
   justify-content: center;
 }
@@ -362,7 +360,7 @@ select::-ms-expand {
   margin: 0px 10px;
 }
 
-.combination span img{
+.combination span img {
   border: 3px solid black;
   height: 170px;
 }
@@ -373,7 +371,7 @@ select::-ms-expand {
 }
 
 #cancelsuspicion {
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 
@@ -388,13 +386,13 @@ select::-ms-expand {
   flex-direction: column;
 }
 
-#ruledOutCard img{
+#ruledOutCard img {
   border: 3px solid black;
   height: 200px;
   margin: auto;
 }
 
-#ruledOutCard button{
+#ruledOutCard button {
   margin: 10px;
   font-size: 30px;
   width: 80px;
@@ -408,42 +406,47 @@ select::-ms-expand {
 }
 
 .back-button {
-  padding:0px;
+  padding: 0px;
   text-align: left;
   font-size: 30px;
 }
 
-#back{
+#back {
   cursor: pointer;
 }
 
-#character{
+#character {
   display: flex;
   width: auto;
 }
-#character img{
+
+#character img {
   border: 2px solid black;
   margin: 0 3px;
-  height:80px;
-  width:auto;
+  height: 80px;
+  width: auto;
 }
-#weapon{
+
+#weapon {
   display: flex;
   width: auto;
 }
-#weapon img{
+
+#weapon img {
   border: 2px solid black;
   margin: 0 3px;
-  height:80px;
-  width:auto;
+  height: 80px;
+  width: auto;
 }
-.highlight{
+
+.highlight {
   -webkit-box-shadow: 0px 0px 20px 5px #330033;
   border-radius: 10px 10px 10px 10px;
   -moz-border-radius: 10px 10px 10px 10px;
   -webkit-border-radius: 10px 10px 10px 10px;
 }
-.cards{
+
+.cards {
   margin: 0px;
   text-align: center;
   color: #8B4513;
@@ -453,4 +456,20 @@ select::-ms-expand {
 #message {
   margin-left: 35%;
   color: #8B4513;
+}
+
+.buttonInCenter button {
+  margin: 10px auto;
+  font-size: 25px;
+  width: 150px;
+  height: 35px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border: none;
+  background-color: #8B4513;
+  color: #dfb577;
+}
+
+.buttonInCenter {
+  text-align: center;
 }

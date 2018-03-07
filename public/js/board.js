@@ -92,8 +92,8 @@ const enableRuleOut = function(cards){
       image.setAttribute('onclick',"highlightCard(event)");
     }
   });
-  let div=`<div><button type='button' onclick=sendRuleOutCard('activity-box')>
-  Confirm</button></div>`;
+  let div=`<div class="buttonInCenter"><button type='button'
+  onclick=sendRuleOutCard('activity-box')>Confirm</button></div>`;
   popup.innerHTML+=div;
   enablePopup();
 };
