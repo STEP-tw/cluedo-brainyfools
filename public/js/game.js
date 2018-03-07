@@ -101,11 +101,11 @@ const getSuspicion = function (name) {
     let weaponName = suspicion.combination._weapon._name;
     let charName = suspicion.combination._character._name;
     showWeapon(roomName,weaponName);
+    showSuspicion([roomName,weaponName,charName],suspicion.currentPlayer);
     if (suspicion.ruleOutCard) {
       showRuleOutCard(suspicion);
       currentActivity = () => { };
     } else if (suspicion.canBeCancelled && !suspicion.cancelled) {
-      showSuspicion([roomName,weaponName,charName],suspicion.currentPlayer);
       if (suspicion.cancellingCards) {
         giveRuleOutOption(suspicion.cancellingCards);
       }
@@ -113,11 +113,9 @@ const getSuspicion = function (name) {
       currentActivity = () => { };
       showPossibleOptions();
     } else if(suspicion.cancelledBy) {
-      disablePopup();
       showMessage(`${suspicion.cancelledBy} has ruled
         out ${suspicion.currentPlayer}\'s suspicion`);
     } else {
-      disablePopup();
       showMessage(`No one ruled out ${suspicion.currentPlayer}\'s suspicion`);
     }
   });

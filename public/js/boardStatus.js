@@ -138,8 +138,10 @@ const enablePopup = function () {
 };
 
 const showMessage = function(message){
-  document.querySelector('#dice-box')
-    .innerHTML = `<div id='imp-message-box'>${message}</div>`;
+  console.log(message);
+  let messageBox=document.querySelector('#message-box');
+  messageBox.innerHTML = '';
+  messageBox.innerHTML=message;
 };
 
 const getBaseUrl = function(){
