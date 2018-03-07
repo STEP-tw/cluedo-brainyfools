@@ -91,6 +91,12 @@ const getSuspicion = function(req,res){
   res.json(suspicion);
 };
 
+const getAccusation = function (req,res) {
+  let game = req.game;
+  let accusation = game.getAccuseCombination();
+  res.json(accusation);
+};
+
 const canRuleOut = function(req,res,next){
   let playerId = req.cookies.playerId;
   let card = req.body.card;
@@ -143,6 +149,7 @@ module.exports = {
   pass : [checkTurn,passTurn],
   suspect : [checkTurn,createSuspicion],
   accuse : [checkTurn,createAccusation],
+  getAccusation : [getAccusation],
   getSuspicion : [getSuspicion],
   ruleOut : [canRuleOut, ruleOut],
   getMurderCombination : [checkState, getMurderCombination]

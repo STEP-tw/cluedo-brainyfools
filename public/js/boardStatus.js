@@ -138,7 +138,6 @@ const enablePopup = function () {
 };
 
 const showMessage = function(message){
-  console.log(message);
   let messageBox=document.querySelector('#message-box');
   messageBox.innerHTML = '';
   messageBox.innerHTML=message;

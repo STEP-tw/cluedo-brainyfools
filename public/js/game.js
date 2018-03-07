@@ -14,7 +14,7 @@ const passTurn = function () {
 const endRequests = function(){
   getMurderCombination();
   enablePopup();
-  currentActivity = ()=>{};
+  currentActivity = ()=>{ };
   updateLog();
   clearInterval(statusUpdaterId);
   clearInterval(boardStatusId);
@@ -24,9 +24,8 @@ const endRequests = function(){
 const showCompletionMsg = function(msg){
   document.querySelector('.close').innerHTML = `&times;`;
   document.querySelector('#message-box').innerHTML = msg;
-  document.querySelector('.modal-content').innerHTML += `<div
-  class="play-again"><a href='/'>Play again</a>
-  </div>`;
+  document.querySelector('.buttonInCenter').innerHTML = `<div
+  class="play-again"><a href='/'>Play again</a></div>`;
 };
 
 const showGameDraw = function(){
@@ -60,21 +59,44 @@ let getCurrentPlayer = function () {
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/status`, (res) => {
     res = JSON.parse(res);
+    let name=res.currentPlayer.name;
     showMessage('');
     showInactivePlayers(res.playersStatus);
     let turn = res.currentPlayer.character.turn;
     if(res.accusing) {
-      respondWithGameState(res.currentPlayer.name,res.gameState);
+      currentActivity = () => getAccusation(name,res.gameState);
     } else if (playerTurn == turn && !res.moved) {
       showOptionsToPlayer(res);
     } else if(res.suspecting) {
-      currentActivity = () => getSuspicion(res.currentPlayer.name);
+      currentActivity = () => getSuspicion(name);
     } else if(res.currentPlayer.inRoom && playerTurn == turn) {
       showPossibleOptions(true);
       currentActivity = () => { };
     }
     removeTurnHighlight();
     document.getElementById(`turn_${turn}`).classList.add('active-player');
+  });
+};
+
+const getAccusation = function (name,gameState) {
+  let url = getBaseUrl();
+  let playerId = getCookie('playerId');
+  sendAjaxRequest('get', `${url}/accusation`, (res) => {
+    if (res == '{}') {
+      currentActivity = getCurrentPlayer;
+    }
+    let accusation = JSON.parse(res);
+    let roomName = accusation.room;
+    let weaponName = accusation.weapon;
+    let charName = accusation.character;
+    showSuspicion([roomName,weaponName,charName],name);
+    showMessage(`${name} has accused`);
+    enablePopup();
+    setTimeout(function () {
+      disablePopup();
+      currentActivity = () => { };
+      respondWithGameState(name,gameState);
+    },4000);
   });
 };
 

@@ -309,5 +309,33 @@ describe('turnHandler', () => {
         .end(done);
     });
   });
-
+  describe('GET game/1234/accusation',function() {
+    it('should give current accusation combination',function(done) {
+      app.games[1234].start();
+      app.games[1234].players[11].character.position = 'lounge';
+      request(app)
+        .post('/game/1234/accuse')
+        .set('cookie', 'playerId=11')
+        .send({character:'Miss Scarlett',weapon:'Revolver'})
+        .expect(res=>{
+          assert.deepEqual(res.body, {
+            status: true,
+            accusser:"Miss Scarlett"
+          });
+        })
+        .end(()=>{
+          request(app)
+            .get('/game/1234/accusation')
+            .set('cookie', 'playerId=11')
+            .expect(res=>{
+              assert.deepEqual(res.body,{
+                room:'lounge',
+                weapon:'Revolver',
+                character:'Miss Scarlett'
+              });
+            })
+            .end(done);
+        });
+    })
+  })
 });
