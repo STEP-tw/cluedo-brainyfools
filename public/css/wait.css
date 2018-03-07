@@ -122,13 +122,13 @@ h4 {
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: #1a0800be;
+  background-color: #1a0800df;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  margin: auto;
   z-index: 2;
-  cursor: pointer;
 }
 
 #sec {

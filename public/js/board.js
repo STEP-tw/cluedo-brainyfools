@@ -10,11 +10,15 @@ let sendAjaxRequest = function (method, url, cb, data = '') {
 
 const setCurrentPlayer = function (player) {
   let pd = document.querySelector('#current-player');
+  let color = player.character.color;
   playerTurn = player.character.turn;
+  pd.setAttribute('style',`border: 2px solid ${color};
+  border-bottom:6px solid ${color}`);
   let name = player.character.name.replace(/[.\s]+/, '_');
   pd.innerHTML = `
   <span class="image"
-  style="background-image: url('/images/cards/Character/${name}.jpg');"></span>
+  style="background-image: url('/images/cards/Character/${name}.jpg');
+  border: 2px solid ${color}"></span>
   <span>${player.name}</span>`;
   showPlayerCards(player.cards);
 };
@@ -34,7 +38,7 @@ const setOtherPlayer = function (player) {
   document.querySelector('#all-players').innerHTML +=
   `<div id='turn_${player.character.turn}' class="player"
   style='border: 0.8px solid ${color};
-  border-bottom: 4px solid ${color}'>
+  border-bottom: 6px solid ${color}'>
     <span class="image"
     style="background-image: url('/images/cards/Character/${name}.jpg');
     border: 2px solid ${color}">

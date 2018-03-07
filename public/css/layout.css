@@ -33,11 +33,10 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
   height: 95px;
-  min-width: 67px;
+  min-width: 64px;
 }
 
 #all-players div {
-  border-radius: 4%;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -57,7 +56,6 @@ body {
 }
 
 #current-player {
-  border: 0.5px solid black;
   padding: 1px 2px;
   margin: 2px 2px;
   border-radius: 4%;
@@ -73,7 +71,7 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
   height: 120px;
-  min-width: 80px;
+  min-width: 75px;
 }
 
 .board #cards {
