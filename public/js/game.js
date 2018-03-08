@@ -38,9 +38,14 @@ const showWinner = function(name){
   endRequests();
 };
 
-const respondWithGameState = function(name,gameState){
-  let methods = {'win' : showWinner,'draw' : showGameDraw,'running' : passTurn};
-  methods[gameState](name);
+const respondWithGameState = function(name,gameState,message=''){
+  if (gameState!='win') {
+    showMessage(message);
+  }
+  setTimeout(function () {
+    let methods={'win':showWinner,'draw':showGameDraw,'running':passTurn};
+    methods[gameState](name);
+  },3200);
 };
 
 const showInactivePlayers = function(playersStatus){
@@ -93,10 +98,9 @@ const getAccusation = function (name,gameState) {
     showMessage(`${name} has accused`);
     enablePopup();
     setTimeout(function () {
-      disablePopup();
       currentActivity = () => { };
-      respondWithGameState(name,gameState);
-    },4000);
+      respondWithGameState(name,gameState,`${name}'s accusation failed`);
+    },2000);
   });
 };
 
