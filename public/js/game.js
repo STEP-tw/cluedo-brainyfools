@@ -1,7 +1,7 @@
 /* eslint-disable no-empty-function, no-implicit-globals*/
 // let statusUpdaterId;
-
 const passTurn = function () {
+  console.log("passed");
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/pass`, () => {
     disablePopup();
@@ -39,11 +39,13 @@ const showWinner = function(name){
 };
 
 const respondWithGameState = function(name,gameState,message=''){
-  if (gameState!='win') {
+  let playerId = getCookie('playerId');
+  if (gameState=='running') {
     showMessage(message);
+    passTurn();
   }
   setTimeout(function () {
-    let methods={'win':showWinner,'draw':showGameDraw,'running':passTurn};
+    let methods={'win':showWinner,'draw':showGameDraw};
     methods[gameState](name);
   },3200);
 };
@@ -106,9 +108,9 @@ const getAccusation = function (name,gameState) {
 
 const showOptionsToPlayer= function(res){
   if (res.canSuspect && res.inRoom) {
-    showPossibleOptions(true,true,res.secretPassage);
+    showPossibleOptions(true,true,res.secretPassage,true);
   }else if(res.inRoom && res.secretPassage){
-    showPossibleOptions(false,true,res.secretPassage);
+    showPossibleOptions(false,true,res.secretPassage,false);
   } else{
     enableRollDice();
   }

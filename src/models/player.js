@@ -10,6 +10,7 @@ class Player {
     this._inRoom = false;
     this._log = new ActivityLog(getDate);
     this._active = true;
+    this._played=false;
   }
   get name(){
     return this._name;
@@ -74,6 +75,12 @@ class Player {
   }
   deactivate(){
     this._active = false;
+  }
+  hasPlayed(){
+    return this._played;
+  }
+  played(val=true){
+    this._played=val;
   }
 }
 

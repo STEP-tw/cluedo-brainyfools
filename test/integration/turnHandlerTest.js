@@ -136,12 +136,17 @@ describe('turnHandler', () => {
   describe('GET /game/1234/pass',()=>{
     it('should pass turn to the next player',done=>{
       request(app)
-        .get('/game/1234/pass')
+        .get('/game/1234/rolldice')
         .set('cookie', 'playerId=11')
-        .expect(res=>{
-          assert.deepEqual(res.body, {passed: true});
-        })
-        .end(done);
+        .end(()=>{
+          request(app)
+            .get('/game/1234/pass')
+            .set('cookie', 'playerId=11')
+            .expect(res=>{
+              assert.deepEqual(res.body, {passed: true});
+            })
+            .end(done);
+        });
     });
 
     it('should give an error if it is not player\'s turn',done=>{

@@ -108,7 +108,7 @@ const getSelectedCards = function(){
   return {char:char,weapon:weapon};
 };
 
-const showPossibleOptions = function(suspect, rolldice,secretPassage){
+const showPossibleOptions = function(suspect,rolldice,secretPassage,passTurn){
   let messageBox = document.getElementById('message-box');
   messageBox.innerHTML='';
   document.querySelector('#activity-box').innerHTML = `<div class="popup">
@@ -118,7 +118,7 @@ const showPossibleOptions = function(suspect, rolldice,secretPassage){
   ${`<button onclick="showCards()">Accuse</button>`}
   ${rolldice ? `<button onclick="enableRollDice();disablePopup()"
   >Roll&nbsp;Dice</button>` : ''}
-  <button onclick="passTurn()">Pass</button>
+  ${passTurn ? '' : `<button onclick="passTurn()">Pass</button>` }
   ${secretPassage ? `<button
   onclick="moveToken('${secretPassage}');disablePopup()"
   >Secret&nbsp;Passage</button>` : ''}

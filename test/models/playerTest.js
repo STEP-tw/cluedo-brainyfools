@@ -113,6 +113,27 @@ describe('Player',()=>{
     });
   });
 
+  describe('#Played',()=>{
+    it('should set true if nothing is given',()=>{
+      player.played();
+      assert.isOk(player._played);
+    });
+    it('should set false if false is given',()=>{
+      player.played(false);
+      assert.isNotOk(player._played);
+    });
+  });
+
+  describe('#hasPlayed',()=>{
+    it('should give true if player is played',()=>{
+      player.played();
+      assert.isOk(player.hasPlayed());
+    });
+    it('should give false if player is not played',()=>{
+      assert.isNotOk(player.hasPlayed());
+    });
+  });
+
   describe('#canCancel',()=>{
     it('should return false if player can cancel suspicion',()=>{
       let hallCard = new Card('Hall','Room');

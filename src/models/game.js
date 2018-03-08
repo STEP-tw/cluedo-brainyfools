@@ -175,6 +175,8 @@ class Game {
     if (!this.diceVal) {
       this.diceVal = Math.ceil(Math.random() * 6);
     }
+    let id = this.getCurrentPlayerId();
+    this.players[id].played();
     return this.diceVal;
   }
   gatherRemainingCards() {
@@ -230,20 +232,30 @@ class Game {
   updateSuspicionOf(id,combination) {
     this.movePlayerToken(combination);
     let playerName = this.players[id].name;
+    this.players[id].played();
     this._currentSuspicion = new Suspicion(combination,playerName);
     this.findCanceller(this.players[id]);
     this.playerMoved = true;
     return true;
   }
   pass() {
+    if (!this.canPass()) {
+      return;
+    }
     let id = this.getCurrentPlayerId();
     this.players[id]._lastSuspicion = this._currentSuspicion;
+    this.players[id].played(false);
     this.playerMoved = false;
     this.diceVal = undefined;
     this._currentSuspicion = {};
     this._currentAccusation = {};
     this._turn = this.getNextPlayerTurn();
     return true;
+  }
+
+  canPass() {
+    let id = this.getCurrentPlayerId();
+    return this.players[id].hasPlayed();
   }
 
   getNextPlayerTurn() {
@@ -389,6 +401,7 @@ class Game {
     this.movePlayerToken(combination);
     let id = this.getCurrentPlayerId();
     let player = this.players[id];
+    player.played();
     let name = player.name;
     this._currentAccusation = new Suspicion(combination,name);
     if(this.isCorrectAccusation()){

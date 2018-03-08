@@ -182,6 +182,7 @@ describe('Game', () => {
 
   describe('#rollDice', () => {
     it('should return value ranging from 1 to 6', () => {
+      game.addPlayer('Patel',1);
       for (let index = 0; index < 10; index++) {
         let val = game.rollDice();
         assert.isAbove(val, 0);
@@ -735,8 +736,15 @@ describe('Game', () => {
       game.addPlayer("Pranav",1);
       game.addPlayer("Patel",2);
       game.start();
+      game.rollDice();
       assert.isOk(game.pass());
     });
+
+    it('should not pass turn if player hasn\'t done any action',()=>{
+      game.addPlayer('Patel',1);
+      game.start();
+      assert.isUndefined(game.pass());
+    })
   });
 
   describe('#murderCombination', function(){
@@ -843,4 +851,17 @@ describe('Game', () => {
     });
   });
 
+  describe('#canPass',function() {
+    it('should return false if player can\'t pass his turn',()=>{
+      game.addPlayer("Pranav",1);
+      game.start();
+      assert.isNotOk(game.canPass());
+    })
+    it('should return true if player can pass his turn',()=>{
+      game.addPlayer("Pranav",1);
+      game.start();
+      game.rollDice();
+      assert.isOk(game.canPass());
+    })
+  })
 });
