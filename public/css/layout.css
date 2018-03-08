@@ -197,7 +197,7 @@ main {
   font-weight: bold;
 }
 
-.close:hover, .close:focus {
+.close span:hover, .close span:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;

@@ -1,7 +1,6 @@
 /* eslint-disable no-empty-function, no-implicit-globals*/
 // let statusUpdaterId;
 const passTurn = function () {
-  console.log("passed");
   let url = getBaseUrl();
   sendAjaxRequest('get', `${url}/pass`, () => {
     disablePopup();
@@ -22,7 +21,8 @@ const endRequests = function(){
 };
 
 const showCompletionMsg = function(msg){
-  document.querySelector('.close').innerHTML = `&times;`;
+  document.querySelector('.close').innerHTML =
+   `<span  onclick="disablePopup()">&times;</span>`;
   document.querySelector('#message-box').innerHTML = msg;
   document.querySelector('.buttonInCenter').innerHTML = `<div
   class="play-again"><a href='/'>Play again</a></div>`;
@@ -42,12 +42,13 @@ const respondWithGameState = function(name,gameState,message=''){
   let playerId = getCookie('playerId');
   if (gameState=='running') {
     showMessage(message);
-    passTurn();
-  }
-  setTimeout(function () {
+    setTimeout(function () {
+      passTurn();
+    },4000);
+  } else {
     let methods={'win':showWinner,'draw':showGameDraw};
     methods[gameState](name);
-  },3200);
+  }
 };
 
 const showInactivePlayers = function(playersStatus){
