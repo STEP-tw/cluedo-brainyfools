@@ -44,8 +44,8 @@ class Game {
   }
   getRandomCharacterId() {
     let id = Math.floor(Math.random() * this._unAssignedChars.length);
-    this._unAssignedChars.splice(id + 1, 1);
-    return id + 1;
+    let index = this._unAssignedChars.splice(id , 1)[0];
+    return index;
   }
   addPlayer(name, id, characterId) {
     let character = characterData[characterId];

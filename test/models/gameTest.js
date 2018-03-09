@@ -49,6 +49,12 @@ describe('Game', () => {
       assert.equal(playerCount, 2);
     });
   });
+  describe('#getRandomCharacterId', () => {
+    it('should return character ID in range of 1 to 6', () => {
+      let index=game.getRandomCharacterId();
+      assert.oneOf(index,[1,2,3,4,5,6]);
+    });
+  });
 
   describe('#haveAllPlayersJoined', function() {
     it('should return true when game is ready to start', function() {
