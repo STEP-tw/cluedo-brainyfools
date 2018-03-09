@@ -8,9 +8,12 @@ describe('boardStatusHandler', () => {
   beforeEach(() => {
     let game = new Game(3);
     app.games['1234'] = game;
-    game.addPlayer('neeraj', 11);
-    game.addPlayer('omkar', 12);
-    game.addPlayer('pranav', 13);
+    game._unAssignedChars.splice(0, 1);
+    game.addPlayer("Pranav", 1, 1);
+    game._unAssignedChars.splice(0, 1);
+    game.addPlayer("Patel", 2, 2);
+    game._unAssignedChars.splice(0, 1);
+    game.addPlayer('neeraj', 3, 3);
     game.start();
   });
 
@@ -22,10 +25,9 @@ describe('boardStatusHandler', () => {
     it('should return number of players who have joined the game', done => {
       request(app)
         .get('/game/1234/boardstatus')
-        .set('cookie', 'playerId=12')
+        .set('cookie', 'playerId=3')
         .expect((res) => {
-          let expected = [
-            {
+          let expected = [{
               "name": "Miss Scarlett",
               "position": 69
             },

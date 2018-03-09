@@ -8,8 +8,8 @@ describe('app', () => {
   before(() => {
     app.games = {'1234': new Game(3)};
     let game = app.games['1234'];
-    game.addPlayer('neeraj', 11);
-    game.addPlayer('omkar', 12);
+    game.addPlayer('neeraj', 11,1);
+    game.addPlayer('omkar', 12,2);
     app.idGenerator = () => {
       return 123;
     };

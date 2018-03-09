@@ -1,20 +1,24 @@
-const getEnrollingForm = function (req, message) {
+const getEnrollingForm = function(req, message) {
   let enrollingForm = req.app.fs.readFileSync('templates/enrollingForm');
-  let {gameId} = req.params;
+  let {
+    gameId
+  } = req.params;
   enrollingForm = enrollingForm.toString()
     .replace('{{ ID }}', gameId)
     .replace('{{ invalidMsg }}', message);
   return enrollingForm;
 };
 
-const serveEnrollingForm = function (req, res) {
+const serveEnrollingForm = function(req, res) {
   res.type('html');
   res.send(getEnrollingForm(req, ''));
 };
 
-const verifyName = function (req, res, next) {
+const verifyName = function(req, res, next) {
   let playerName = req.body.name;
-  let {gameId} = req.params;
+  let {
+    gameId
+  } = req.params;
   playerName = playerName.trim();
   if (!playerName) {
     res.type('html');
@@ -25,18 +29,23 @@ const verifyName = function (req, res, next) {
   next();
 };
 
-const addPlayerToGame = function (req, res) {
-  let playerName = req.body.name.slice(0,9);
-  let {gameId} = req.params;
+const addPlayerToGame = function(req, res) {
+  let playerName = req.body.name.slice(0, 9);
+  let {
+    gameId
+  } = req.params;
   let playerId = req.app.idGenerator();
   let game = req.app.games[gameId];
-  game.addPlayer(playerName, playerId);
+  let characterId = game.getRandomCharacterId();
+  game.addPlayer(playerName, playerId, characterId);
   res.cookie('playerId', playerId);
   res.redirect(`/game/${gameId}/wait`);
 };
 
-const sendPlayerToWaitPage = function (req, res, next) {
-  let {gameId} = req.params;
+const sendPlayerToWaitPage = function(req, res, next) {
+  let {
+    gameId
+  } = req.params;
   let game = req.app.games[gameId];
   let player = game.getPlayer(req.cookies.playerId);
   if (player) {
@@ -46,8 +55,10 @@ const sendPlayerToWaitPage = function (req, res, next) {
   next();
 };
 
-const redirectToGame = function (req, res, next) {
-  let {gameId} = req.params;
+const redirectToGame = function(req, res, next) {
+  let {
+    gameId
+  } = req.params;
   if (!req.app.games[gameId]) {
     res.redirect('/game');
     return;
@@ -55,8 +66,10 @@ const redirectToGame = function (req, res, next) {
   next();
 };
 
-const restrictExtraPlayer = function (req, res, next) {
-  let {gameId} = req.params;
+const restrictExtraPlayer = function(req, res, next) {
+  let {
+    gameId
+  } = req.params;
   let game = req.app.games[gameId];
   if (!game.haveAllPlayersJoined()) {
     next();

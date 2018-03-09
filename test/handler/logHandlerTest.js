@@ -11,9 +11,9 @@ describe('logHandler', function(){
   let game;
   beforeEach(function(){
     game = new Game(3,getTime(1));
-    game.addPlayer("Patel",1);
-    game.addPlayer("Pranav",2);
-    game.addPlayer("AJ",3);
+    game.addPlayer("Patel",1,1);
+    game.addPlayer("Pranav",2,2);
+    game.addPlayer("AJ",3,3);
     app.games[1234] = game;
   });
 

@@ -12,12 +12,12 @@ class Game {
   constructor(numberOfPlayers, getDate = getTime) {
     this.numberOfPlayers = numberOfPlayers;
     this.players = {};
-    this._unAssignedChars = [];
+    this._unAssignedChars = [1, 2, 3, 4, 5, 6];
     this.playerCount = 0;
     this.cardHandler = new CardHandler();
     this._murderCombination = {};
     this.started = false;
-    this._path = new Path(1,86);
+    this._path = new Path(1, 86);
     this._turn = 1;
     this.getDate = getDate;
     this._activityLog = new ActivityLog(getDate);
@@ -28,13 +28,13 @@ class Game {
   get turn() {
     return this._turn;
   }
-  get state(){
-    if(!this.getActivePlayers().length){
+  get state() {
+    if (!this.getActivePlayers().length) {
       this._state = 'draw';
     }
     return this._state;
   }
-  get murderCombination(){
+  get murderCombination() {
     let combination = {
       room: this._murderCombination.room.name,
       weapon: this._murderCombination.weapon.name,
@@ -42,8 +42,14 @@ class Game {
     };
     return combination;
   }
-  addPlayer(name, id) {
-    let character = characterData[++this.playerCount];
+  getRandomCharacterId() {
+    let id = Math.floor(Math.random() * this._unAssignedChars.length);
+    this._unAssignedChars.splice(id + 1, 1);
+    return id + 1;
+  }
+  addPlayer(name, id, characterId) {
+    let character = characterData[characterId];
+    ++this.playerCount;
     character = new Character(character);
     let player = new Player(name, character, this.getDate);
     this.players[id] = player;
@@ -89,7 +95,7 @@ class Game {
   getPlayerData(id) {
     let player = this.players[id];
     let playerDetails = this.getPlayerDetails(id);
-    let cards = player._cards.map((originalCard)=>{
+    let cards = player._cards.map((originalCard) => {
       let card = {};
       card.name = originalCard._name;
       card.type = originalCard._type;
@@ -112,7 +118,7 @@ class Game {
       }
     };
   }
-  getActivePlayersPos(){
+  getActivePlayersPos() {
     return Object.values(this.players).map((player) => {
       let char = player.character;
       return {
@@ -121,21 +127,18 @@ class Game {
       };
     });
   }
-  addInActivePlayers(){
-    let totalChars = Object.keys(characterData).length;
-    let playerCount = this.playerCount + 1;
-    while (playerCount <= totalChars) {
-      let char = characterData[playerCount];
-      this._unAssignedChars.push({
+  addInActivePlayers() {
+    this._unAssignedChars = this._unAssignedChars.map((id) => {
+      let char = characterData[id];
+      return {
         name: char.name,
         position: char.position,
         inactive: true
-      });
-      ++playerCount;
-    }
+      };
+    });
   }
   getPlayersPosition() {
-    let activePlayersPos =this.getActivePlayersPos();
+    let activePlayersPos = this.getActivePlayersPos();
     let nonActivePlayersPos = this._unAssignedChars;
     let allChars = [...activePlayersPos, ...nonActivePlayersPos];
     return allChars;
@@ -182,16 +185,17 @@ class Game {
   gatherRemainingCards() {
     this.cardHandler.gatherRemainingCards();
   }
-  validateMove(pos){
+  validateMove(pos) {
     let player = this.getCurrentPlayerId();
     let val = this.diceVal;
     let curPlayerPos = this.players[player].character.position;
-    return this._path.validateMove(pos,curPlayerPos,val);
+    return this._path.validateMove(pos, curPlayerPos, val);
   }
-  getInvalidMoves(){
-    let rooms = ['hall','kitchen','conservatory','ballroom',
-      'billiard','dining','study','library','lounge'];
-    return [...rooms,...this._path.cells].filter(pos=>{
+  getInvalidMoves() {
+    let rooms = ['hall', 'kitchen', 'conservatory', 'ballroom',
+      'billiard', 'dining', 'study', 'library', 'lounge'
+    ];
+    return [...rooms, ...this._path.cells].filter(pos => {
       return !this.validateMove(pos);
     });
   }
@@ -207,15 +211,15 @@ class Game {
     return currentPlayer.updatePos(pos);
   }
 
-  updateCharPosition(name,pos){
-    this._unAssignedChars.find(char=>{
-      if(char.name == name){
+  updateCharPosition(name, pos) {
+    this._unAssignedChars.find(char => {
+      if (char.name == name) {
         char.position = pos;
         char.inactive = false;
       }
     });
   }
-  movePlayerToken(combination){
+  movePlayerToken(combination) {
     let character = combination.character;
     let players = Object.values(this.players);
     let player = players.find(player => {
@@ -223,17 +227,17 @@ class Game {
     });
     let currentPlayer = this.getCurrentPlayer();
     let pos = currentPlayer.character.position;
-    if (player){
+    if (player) {
       player.updatePos(pos);
-    }else{
-      this.updateCharPosition(character.name,pos);
+    } else {
+      this.updateCharPosition(character.name, pos);
     }
   }
-  updateSuspicionOf(id,combination) {
+  updateSuspicionOf(id, combination) {
     this.movePlayerToken(combination);
     let playerName = this.players[id].name;
     this.players[id].played();
-    this._currentSuspicion = new Suspicion(combination,playerName);
+    this._currentSuspicion = new Suspicion(combination, playerName);
     this.findCanceller(this.players[id]);
     this.playerMoved = true;
     return true;
@@ -266,30 +270,30 @@ class Game {
     if (!player) {
       player = players[0];
     }
-    if(!player){
+    if (!player) {
       return 0;
     }
     return player.character.turn;
   }
-  getActivePlayers(){
+  getActivePlayers() {
     let players = Object.values(this.players);
-    return players.filter((player)=>{
+    return players.filter((player) => {
       return player.isActive();
     });
   }
-  getPlayerByTurn(turn){
+  getPlayerByTurn(turn) {
     let players = Object.values(this.players);
     return players.find(player => {
       return player.character.turn == turn;
     });
   }
-  findCanceller(currentPlayer){
+  findCanceller(currentPlayer) {
     let suspicion = this._currentSuspicion;
     let turn = currentPlayer.character.turn;
     let nextTurn = this.getNextTurn(turn);
     while (turn != nextTurn) {
       let nextPlayer = this.getPlayerByTurn(nextTurn);
-      if(nextPlayer.canCancel(suspicion)){
+      if (nextPlayer.canCancel(suspicion)) {
         suspicion.canBeCancelled = true;
         suspicion.cancellerName = nextPlayer.name;
         suspicion.canceller = this.getPlayerId(nextTurn);
@@ -302,14 +306,14 @@ class Game {
     suspicion.canBeCancelled = false;
     this.addActivity('No one ruled out');
   }
-  getPlayerId(turn){
+  getPlayerId(turn) {
     let playerIds = Object.keys(this.players);
-    return playerIds.find(id=>this.players[id].character.turn==turn);
+    return playerIds.find(id => this.players[id].character.turn == turn);
   }
-  getNextTurn(turn){
-    let players = Object.values(this.players)
-      .sort((player1,player2)=>player1.character.turn > player2.character.turn);
-    let player = players.find(player =>player.character.turn > turn);
+  getNextTurn(turn) {
+    let players = Object.values(this.players).sort((player1, player2) =>
+      player1.character.turn > player2.character.turn);
+    let player = players.find(player => player.character.turn > turn);
     if (!player) {
       player = players[0];
     }
@@ -321,12 +325,12 @@ class Game {
   isAccusing() {
     return !this.isEmpty(this._currentAccusation);
   }
-  isEmpty(suspicion){
+  isEmpty(suspicion) {
     return JSON.stringify(suspicion) == '{}';
   }
-  getCombination(accusation){
+  getCombination(accusation) {
     let suspicion = accusation || this._currentSuspicion;
-    if(this.isEmpty(suspicion)||!suspicion.combination.room){
+    if (this.isEmpty(suspicion) || !suspicion.combination.room) {
       return {};
     }
     let combination = {
@@ -337,27 +341,27 @@ class Game {
     return combination;
   }
 
-  getAccuseCombination(){
+  getAccuseCombination() {
     let accusation = this._currentAccusation;
     return this.getCombination(accusation);
   }
-  addActivity(activity,colour){
-    let timeOfActivity = this._activityLog.addActivity(activity,colour);
+  addActivity(activity, colour) {
+    let timeOfActivity = this._activityLog.addActivity(activity, colour);
     return timeOfActivity;
   }
-  getSuspicion(playerId){
+  getSuspicion(playerId) {
     let suspicion = this._currentSuspicion;
     let result = {
-      combination : suspicion.combination,
-      cancelled : suspicion.cancelled,
-      cancelledBy : suspicion.cancellerName,
-      canBeCancelled : suspicion.canBeCancelled,
-      currentPlayer : suspicion.suspector
+      combination: suspicion.combination,
+      cancelled: suspicion.cancelled,
+      cancelledBy: suspicion.cancellerName,
+      canBeCancelled: suspicion.canBeCancelled,
+      currentPlayer: suspicion.suspector
     };
-    if(suspicion.canceller==playerId){
+    if (suspicion.canceller == playerId) {
       result.cancellingCards = suspicion.cancellingCards;
     }
-    if(playerId == this.getCurrentPlayerId()){
+    if (playerId == this.getCurrentPlayerId()) {
       if (suspicion.ruleOutCard) {
         result.ruleOutCard = suspicion.ruleOutCard.name;
         result.ruleOutCardType = suspicion.ruleOutCard.type;
@@ -371,40 +375,40 @@ class Game {
   getActivitiesAfter(time, playerId) {
     let gameActivities = this._activityLog.getActivitiesAfter(time);
     let playerLog = this.getPlayer(playerId).getActivitiesAfter(time);
-    let allLogs = [...gameActivities,...playerLog];
+    let allLogs = [...gameActivities, ...playerLog];
     return allLogs;
   }
-  canRuleOut(playerId, ruleOutCard){
+  canRuleOut(playerId, ruleOutCard) {
     let suspicion = this.getSuspicion(playerId);
     let card = suspicion.cancellingCards.find(card=>card._name == ruleOutCard);
     return !!card;
   }
-  ruleOut(card){
+  ruleOut(card) {
     let suspicion = this._currentSuspicion;
-    let cardEntity=suspicion.cancellingCards.find(
-      ruleOutCard=>ruleOutCard._name == card);
+    let cardEntity = suspicion.cancellingCards.find(
+      ruleOutCard => ruleOutCard._name == card);
     let id = this.getCurrentPlayerId();
     this.getPlayer(id).addActivity(`Ruled out by ${
       suspicion.cancellerName} using ${cardEntity.name} card`);
     suspicion.cancelled = true;
     suspicion.ruleOutCard = cardEntity;
   }
-  canSuspect(){
+  canSuspect() {
     let currentPlayer = this.getPlayer(this.getCurrentPlayerId());
     return currentPlayer.canSuspect();
   }
-  isPlayerInRoom(){
+  isPlayerInRoom() {
     let currentPlayer = this.getPlayer(this.getCurrentPlayerId());
     return !!this._path.isRoom(currentPlayer.character.position);
   }
-  accuse(combination){
+  accuse(combination) {
     this.movePlayerToken(combination);
     let id = this.getCurrentPlayerId();
     let player = this.players[id];
     player.played();
     let name = player.name;
-    this._currentAccusation = new Suspicion(combination,name);
-    if(this.isCorrectAccusation()){
+    this._currentAccusation = new Suspicion(combination, name);
+    if (this.isCorrectAccusation()) {
       this._state = 'win';
       this.addActivity(`${name} has won the game`);
     } else {
@@ -413,27 +417,27 @@ class Game {
     }
     return true;
   }
-  isCorrectAccusation(){
+  isCorrectAccusation() {
     let combination = this._currentAccusation.combination;
     return this._murderCombination.isEqualTo(combination);
   }
-  getAccusationState(){
-    if(!this.isEmpty(this._currentAccusation)){
+  getAccusationState() {
+    if (!this.isEmpty(this._currentAccusation)) {
       return !this.isCorrectAccusation();
     }
     return false;
   }
-  getPlayersStatus(){
+  getPlayersStatus() {
     let playersStatus = {};
-    Object.keys(this.players).forEach(id=>{
+    Object.keys(this.players).forEach(id => {
       let player = this.players[id];
       playersStatus[player.character.turn] = player.isActive();
     });
     return playersStatus;
   }
-  getSecretPassage(){
+  getSecretPassage() {
     let player = this.getCurrentPlayer();
-    if(player.inRoom){
+    if (player.inRoom) {
       return this._path.getConnectedRoom(player.character.position);
     }
     return '';

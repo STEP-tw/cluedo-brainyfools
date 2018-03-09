@@ -7,8 +7,8 @@ const Player = require('../../src/models/player.js');
 const Card = require('../../src/models/card.js');
 const Suspicion = require('../../src/models/suspicion.js')
 
-let getTime = function(start){
-  return ()=>start++;
+let getTime = function(start) {
+  return () => start++;
 };
 
 describe('Game', () => {
@@ -19,23 +19,23 @@ describe('Game', () => {
 
   describe('#addPlayer', () => {
     it('should create new player with diff. characters', () => {
-      game.addPlayer("suyog", 1);
-      game.addPlayer("omkar", 2);
+      game.addPlayer("suyog", 1, 1);
+      game.addPlayer("omkar", 2, 2);
       let actualOutput = game.players[1];
       let expectedOutput = {
-          "_name":"Miss Scarlett",
-          "_tokenColor":"#bf0000",
-          "_position":69,
-          "_turn":1
-        };
+        "_name": "Miss Scarlett",
+        "_tokenColor": "#bf0000",
+        "_position": 69,
+        "_turn": 1
+      };
       assert.deepEqual(actualOutput.character, expectedOutput);
     });
   });
 
   describe('#getPlayer', () => {
     it('should return player by his/her id', () => {
-      game.addPlayer("suyog", 1);
-      game.addPlayer("omkar", 2);
+      game.addPlayer("suyog", 1, 1);
+      game.addPlayer("omkar", 2, 2);
       let player = game.getPlayer(1);
       assert.equal(player.name, 'suyog');
     });
@@ -43,31 +43,31 @@ describe('Game', () => {
 
   describe('#getPlayerCount', () => {
     it('should return count of players joined', () => {
-      game.addPlayer("suyog", 1);
-      game.addPlayer("omkar", 2);
+      game.addPlayer("suyog", 1, 1);
+      game.addPlayer("omkar", 2, 2);
       let playerCount = game.getPlayerCount();
       assert.equal(playerCount, 2);
     });
   });
 
-  describe('#haveAllPlayersJoined', function () {
-    it('should return true when game is ready to start', function () {
-      game.addPlayer("Pranav", 1);
-      game.addPlayer("Patel", 2);
-      game.addPlayer("JD", 3);
+  describe('#haveAllPlayersJoined', function() {
+    it('should return true when game is ready to start', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("JD", 3, 3);
       assert.isOk(game.haveAllPlayersJoined());
     });
 
-    it('should return false when isnt ready to start', function () {
-      game.addPlayer("Pranav", 1);
-      game.addPlayer("Patel", 2);
+    it('should return false when isnt ready to start', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Pranav", 1, 1);
       assert.isNotOk(game.haveAllPlayersJoined());
     });
   });
 
-  describe('#getAllPlayerDetails', function () {
-    it('should return details of 1 players', function () {
-      game.addPlayer("Madhuri", 1);
+  describe('#getAllPlayerDetails', function() {
+    it('should return details of 1 players', function() {
+      game.addPlayer("Madhuri", 1, 1);
       let expected = {
         1: {
           name: "Madhuri",
@@ -75,23 +75,22 @@ describe('Game', () => {
           character: {
             name: "Miss Scarlett",
             color: "#bf0000",
-            turn:1,
-            position:69
+            turn: 1,
+            position: 69
           },
-          cards:[]
+          cards: []
         }
       };
 
       assert.deepEqual(game.getAllPlayerDetails(1), expected);
     });
-    it('should return empty for no players', function () {
-      let expected = {
-      };
+    it('should return empty for no players', function() {
+      let expected = {};
       assert.deepEqual(game.getAllPlayerDetails(0), expected);
     });
-    it('should return details of 2 players', function () {
-      game.addPlayer("Madhuri", 2);
-      game.addPlayer("Neeraj", 23);
+    it('should return details of 2 players', function() {
+      game.addPlayer("Madhuri", 1, 1);
+      game.addPlayer("Neeraj", 2, 2);
       let expected = {
         1: {
           name: "Madhuri",
@@ -99,74 +98,96 @@ describe('Game', () => {
           character: {
             name: "Miss Scarlett",
             color: "#bf0000",
-            turn:1,
-            position:69
+            turn: 1,
+            position: 69
           }
         },
-        23: {
+        2: {
           name: "Neeraj",
-          cards:[],
+          cards: [],
           inRoom: false,
           character: {
             "color": "#ffff33",
             "name": "Col Mustard",
-            turn:2,
-            position:56
+            turn: 2,
+            position: 56
           }
         }
       };
-      assert.deepEqual(game.getAllPlayerDetails(23), expected);
+      assert.deepEqual(game.getAllPlayerDetails(2), expected);
     });
   });
 
   describe("#getCurrentPlayer", () => {
     it("should return id of player according to turn", () => {
-      game.addPlayer("Suyog", 1);
-      game.addPlayer("Bhanu", 2);
-      game.addPlayer("Omkar", 3);
+      game.addPlayer("Suyog", 1, 1);
+      game.addPlayer("Bhanu", 2, 2);
+      game.addPlayer("Omkar", 3, 3);
       assert.deepEqual(game.getCurrentPlayer(), {
         name: 'Suyog',
         inRoom: false,
         character: {
           "color": "#bf0000",
           "name": "Miss Scarlett",
-          'turn':1,
-          position:69
+          'turn': 1,
+          position: 69
         }
       });
     });
   });
 
-  describe('#getPlayersPosition', function () {
-    it('should return all player\'s positions', function () {
-      game.addPlayer("Pranav", 1);
-      game.addPlayer("Patel", 2);
+  describe('#getPlayersPosition', function() {
+    it('should return all player\'s positions', function() {
+      game._unAssignedChars.splice(0, 1);
+      game.addPlayer("Pranav", 1, 1);
+      game._unAssignedChars.splice(0, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.start();
       let actualOutput = game.getPlayersPosition();
-      let expected = [
-        {
+      let expected = [{
           name: "Miss Scarlett",
           position: 69
         },
         {
           "name": "Col Mustard",
           position: 56
+        },
+        {
+          "inactive": true,
+          "name": "Dr Orchid",
+          "position": 49
+        },
+        {
+          "inactive": true,
+          "name": "Rev Green",
+          "position": 79
+        },
+        {
+          "inactive": true,
+          "name": "Mrs Peacock",
+          "position": 5
+        },
+        {
+          "inactive": true,
+          "name": "Prof Plum",
+          "position": 13
         }
       ];
       assert.deepEqual(actualOutput, expected);
     });
   });
 
-  describe('#hasGameStarted', function () {
-    it('should return true when game has started', function () {
+  describe('#hasGameStarted', function() {
+    it('should return true when game has started', function() {
       assert.isNotOk(game.hasStarted());
-      game.addPlayer('Patel',205);
+      game.addPlayer('Patel', 205, 1);
       game.start();
       assert.isOk(game.hasStarted());
     });
   });
 
-  describe('#selectMurderCombination', function () {
-    it('should select murder combination', function () {
+  describe('#selectMurderCombination', function() {
+    it('should select murder combination', function() {
       let roomCards = game.cardHandler.rooms;
       let weaponCards = game.cardHandler.weapons;
       let characterCards = game.cardHandler.characters;
@@ -182,7 +203,7 @@ describe('Game', () => {
 
   describe('#rollDice', () => {
     it('should return value ranging from 1 to 6', () => {
-      game.addPlayer('Patel',1);
+      game.addPlayer('Patel', 1, 1);
       for (let index = 0; index < 10; index++) {
         let val = game.rollDice();
         assert.isAbove(val, 0);
@@ -191,44 +212,44 @@ describe('Game', () => {
     });
   });
 
-  describe('#collectRemainingCards', function(){
-    it('should collect remaining cards', function(){
+  describe('#collectRemainingCards', function() {
+    it('should collect remaining cards', function() {
       let rooms = game.cardHandler.rooms;
       let weapons = game.cardHandler.weapons;
       let characters = game.cardHandler.characters;
-      let allCards = [...rooms,...weapons,...characters];
+      let allCards = [...rooms, ...weapons, ...characters];
       game.gatherRemainingCards();
-      assert.deepEqual(allCards,game.cardHandler._remainingCards);
-      assert.deepEqual(game.cardHandler.rooms,[]);
-      assert.deepEqual(game.cardHandler.weapons,[]);
-      assert.deepEqual(game.cardHandler.characters,[]);
+      assert.deepEqual(allCards, game.cardHandler._remainingCards);
+      assert.deepEqual(game.cardHandler.rooms, []);
+      assert.deepEqual(game.cardHandler.weapons, []);
+      assert.deepEqual(game.cardHandler.characters, []);
     });
   });
 
-  describe('#getRandomCard', function(){
-    it('should return random card from remaining card', function(){
+  describe('#getRandomCard', function() {
+    it('should return random card from remaining card', function() {
       let rooms = game.cardHandler.rooms;
       let weapons = game.cardHandler.weapons;
       let characters = game.cardHandler.characters;
-      let allCards = [...rooms,...weapons,...characters];
+      let allCards = [...rooms, ...weapons, ...characters];
       game.gatherRemainingCards();
       let randomCard = game.getRandomCard(allCards);
-      assert.notDeepInclude(randomCard,allCards);
+      assert.notDeepInclude(randomCard, allCards);
     });
   });
 
-  describe('#hasRemainingCard', function(){
-    it('should check wheather it has any remaining card', function(){
+  describe('#hasRemainingCard', function() {
+    it('should check wheather it has any remaining card', function() {
       assert.isNotOk(game.hasRemainingCard());
       game.gatherRemainingCards();
       assert.isOk(game.hasRemainingCard());
     });
   });
 
-  describe('#distributeCards', function(){
-    it('should distribute cards among all players', function(){
-      game.addPlayer('Patel',1);
-      game.addPlayer('Pranav',2);
+  describe('#distributeCards', function() {
+    it('should distribute cards among all players', function() {
+      game.addPlayer('Patel', 1, 1);
+      game.addPlayer('Pranav', 2, 2);
       assert.isNotOk(game.hasRemainingCard());
       game.gatherRemainingCards();
       assert.isOk(game.hasRemainingCard());
@@ -239,20 +260,20 @@ describe('Game', () => {
 
   describe('#isCurrentPlayer', () => {
     it('should return true for first player', () => {
-      game.addPlayer("Pranav", 1);
-      game.addPlayer("Patel", 2);
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Pranav", 2, 2);
       assert.isOk(game.isCurrentPlayer(1));
     });
     it('should return false for other player', () => {
-      game.addPlayer("Pranav", 1);
-      game.addPlayer("Patel", 2);
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Pranav", 2, 2);
       assert.isFalse(game.isCurrentPlayer(2));
     });
   });
 
   describe('#validateMove', () => {
     it('should return true for valid forward move', () => {
-      game.addPlayer("Pranav", 1);
+      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 1;
       assert.isOk(game.validateMove(70));
       game.diceVal = 2;
@@ -264,7 +285,7 @@ describe('Game', () => {
       assert.isOk(game.validateMove(1));
     });
     it('should return true for valid backward move', () => {
-      game.addPlayer("Pranav", 1);
+      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 2;
       assert.isOk(game.validateMove(67));
       game.diceVal = 3;
@@ -272,7 +293,7 @@ describe('Game', () => {
       assert.isOk(game.validateMove(1));
     });
     it('should return false for invalid forward move', () => {
-      game.addPlayer("Pranav", 1);
+      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 1;
       assert.isNotOk(game.validateMove(4));
       game.diceVal = 2;
@@ -281,29 +302,29 @@ describe('Game', () => {
       assert.isNotOk(game.validateMove(1));
     });
     it('should return false for invalid backward move', () => {
-      game.addPlayer("Pranav", 1);
+      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 2;
       assert.isNotOk(game.validateMove(76));
       game.diceVal = 5;
       assert.isNotOk(game.validateMove(62));
     });
-    it('should return false for moving to same room',()=>{
-      game.addPlayer('Raghu',1);
+    it('should return false for moving to same room', () => {
+      game.addPlayer('Raghu', 1, 1);
       game.start();
       game.diceVal = 1;
       game.players[1].updatePos('hall');
       assert.isNotOk(game.validateMove('hall'));
       assert.isOk(game.validateMove('53'));
     });
-    it('should return false for moving to invalid room',()=>{
-      game.addPlayer('Raghu',1);
+    it('should return false for moving to invalid room', () => {
+      game.addPlayer('Raghu', 1, 1);
       game.start();
       game.diceVal = 1;
       game.players[1].updatePos('hall');
       assert.isNotOk(game.validateMove('lounge'));
     });
-    it('should return true if player selected valid connected room from room',()=>{
-      game.addPlayer('Raghu',1);
+    it('should return true if player selected valid connected room from room', () => {
+      game.addPlayer('Raghu', 1, 1);
       game.start();
       game.diceVal = 2;
       game.players[1].updatePos('lounge');
@@ -315,8 +336,8 @@ describe('Game', () => {
       game.players[1].updatePos('study');
       assert.isOk(game.validateMove('kitchen'));
     });
-    it('should return false if selected position is same as current position',()=>{
-      game.addPlayer('Raghu',1);
+    it('should return false if selected position is same as current position', () => {
+      game.addPlayer('Raghu', 1, 1);
       game.start();
       game.diceVal = 2;
       game.players[1].updatePos('lounge');
@@ -324,41 +345,43 @@ describe('Game', () => {
     });
   });
 
-  describe('#getPlayerdata', function(){
-    it('should return player data of given id', function(){
-      game.addPlayer("Pranav", 1);
-      game.addPlayer("Madhuri", 2);
-      game.addPlayer("Patel",3);
+  describe('#getPlayerdata', function() {
+    it('should return player data of given id', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Madhuri", 2, 2);
+      game.addPlayer("patel", 3, 3);
       game.setMurderCombination();
       game.gatherRemainingCards();
       game.distributeCards();
       let pranavCards = game.getPlayerData(1).cards;
-      assert.equal(pranavCards.length,6);
-      assert.deepEqual(Object.keys(pranavCards[1]),['name','type']);
+      assert.equal(pranavCards.length, 6);
+      assert.deepEqual(Object.keys(pranavCards[1]), ['name', 'type']);
     });
   });
 
-  describe('#updatePlayerPos',()=>{
-    it('should update player\'s position',()=>{
-      game.addPlayer("Pranav", 1);
+  describe('#updatePlayerPos', () => {
+    it('should update player\'s position', () => {
+      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 2;
       assert.isOk(game.updatePlayerPos(75));
       let player = game.players[1];
       let characterPos = player.character.position;
-      assert.equal(characterPos,75);
+      assert.equal(characterPos, 75);
       assert.isFalse(player.character.start);
     });
-    it('should return false if already moved',()=>{
-      game.addPlayer("Pranav", 1);
+    it('should return false if already moved', () => {
+      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 2;
       game.updatePlayerPos(2);
       assert.isFalse(game.updatePlayerPos(3));
     });
   });
 
-  describe('#isSuspecting',()=>{
-    it('should give true if player is suspecting',()=>{
-      game.addPlayer("Pranav", 1);
+  describe('#isSuspecting', () => {
+    it.skip('should give true if player is suspecting',()=>{
+      let characterId=game.getRandomCharacterId();
+      game.addPlayer("Pranav", 1,characterId);
+      game.start();
       let combination = {
         character:'Dr. Orchid',
         weapon:'Revolver',
@@ -367,46 +390,46 @@ describe('Game', () => {
       game.updateSuspicionOf(1,combination);
       assert.ok(game.isSuspecting());
     });
-    it('should give false if player is not suspecting',()=>{
-      game.addPlayer("Pranav", 1);
+    it('should give false if player is not suspecting', () => {
+      game.addPlayer("Pranav", 1, 1);
       assert.isNotOk(game.isSuspecting());
     });
   });
 
-  describe('#getCurrentSuspicion',()=>{
-    it('should give suspicion combination',()=>{
-      game.addPlayer("Pranav", 1);
+  describe('#getCurrentSuspicion', () => {
+    it('should give suspicion combination', () => {
+      game.addPlayer("Pranav", 1, 1);
       let combination = {
-        character:'Dr. Orchid',
-        weapon:'Revolver',
-        room:"Hall"
+        character: 'Dr. Orchid',
+        weapon: 'Revolver',
+        room: "Hall"
       };
 
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Hall", 'Room');
       let combinationO = new Combination(room, weapon, character);
-      game.updateSuspicionOf(1,combinationO);
-      assert.deepEqual(game.getCombination(),combination);
+      game.updateSuspicionOf(1, combinationO);
+      assert.deepEqual(game.getCombination(), combination);
     });
-    it('should give empty object if combination is not defined',()=>{
-      game.addPlayer("Pranav", 1);
-      assert.deepEqual(game.getCombination(),{});
+    it('should give empty object if combination is not defined', () => {
+      game.addPlayer("Pranav", 1, 1);
+      assert.deepEqual(game.getCombination(), {});
     });
   });
 
-  describe('#getSuspicion',()=>{
-    it('should give suspicion combination with canceller name',()=>{
-      game.addPlayer("Pranav", 1);
-      game.addPlayer("ketan", 2);
+  describe('#getSuspicion', () => {
+    it('should give suspicion combination with canceller name', () => {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("ketan", 2, 2);
       game.players['2'].addCard(new Card("Hall", 'Room'));
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Hall", 'Room');
       let combinationO = new Combination(room, weapon, character);
-      game.updateSuspicionOf(1,combinationO);
+      game.updateSuspicionOf(1, combinationO);
       game.ruleOut('Hall');
-      let suspicion={
+      let suspicion = {
         "canBeCancelled": true,
         "cancelled": true,
         "cancelledBy": "ketan",
@@ -429,21 +452,21 @@ describe('Game', () => {
         "ruleOutCardType": "Room",
         "suspector": "Pranav"
       };
-      assert.deepEqual(game.getSuspicion(1),suspicion);
+      assert.deepEqual(game.getSuspicion(1), suspicion);
     });
   });
 
-  describe('#addActivity', function(){
-    it('should add activity to the activityLog', function(){
+  describe('#addActivity', function() {
+    it('should add activity to the activityLog', function() {
       let activityTime = game.addActivity('activity 1');
       let activities = game._activityLog.activities;
       assert.deepEqual(activities[0],{ time: 1, activity: 'activity 1', color: '' });
     });
   });
 
-  describe('#getActivitiesAfter', function(){
-    it('should return all activities after given time', function(){
-      game.addPlayer("Pranav",1);
+  describe('#getActivitiesAfter', function() {
+    it('should return all activities after given time', function() {
+      game.addPlayer("Pranav", 1, 1);
       game.addActivity('activity 1');
       game.addActivity('activity 2');
       game.addActivity('activity 3');
@@ -451,15 +474,15 @@ describe('Game', () => {
         {time:2,activity:'activity 2', color: ''},
         {time:3,activity:'activity 3', color: ''}
       ];
-      assert.deepEqual(game.getActivitiesAfter(1, 1),expected)
+      assert.deepEqual(game.getActivitiesAfter(1, 1), expected)
     });
   });
 
-  describe('#start', function(){
-    it('should start the game', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+  describe('#start', function() {
+    it('should start the game', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       assert.isNotOk(game.hasStarted());
       game.start();
       assert.isOk(game.hasStarted());
@@ -469,210 +492,199 @@ describe('Game', () => {
         color: '',
         activity:'Game has started'
       }];
-      assert.deepEqual(expectedActivities,activities);
+      assert.deepEqual(expectedActivities, activities);
     });
   });
 
-  describe('#getNextPlayerTurn', function(){
-    it('should give the next player', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+  describe('#getNextPlayerTurn', function() {
+    it('should give the next player', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       assert.isNotOk(game.hasStarted());
       game.start();
       assert.isOk(game.hasStarted());
       game._turn = 1;
-      assert.equal(game.getNextPlayerTurn(),2);
+      assert.equal(game.getNextPlayerTurn(), 2);
       game._turn = 2;
-      assert.equal(game.getNextPlayerTurn(),3);
+      assert.equal(game.getNextPlayerTurn(), 3);
       game._turn = 3;
-      assert.equal(game.getNextPlayerTurn(),1);
+      assert.equal(game.getNextPlayerTurn(), 1);
     });
 
-    it('should give 0 if all players are deactivated', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+    it('should give 0 if all players are deactivated', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       game.start();
       game.players[1].deactivate();
       game.players[2].deactivate();
       game.players[3].deactivate();
-      assert.equal(game.getNextPlayerTurn(),0);
+      assert.equal(game.getNextPlayerTurn(), 0);
     });
 
   });
 
-  describe('#getPlayerId', function(){
-    it('should give id of a player', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
-      assert.equal(game.getPlayerId(1),1);
-      assert.equal(game.getPlayerId(2),2);
-      assert.equal(game.getPlayerId(3),3);
+  describe('#getPlayerId', function() {
+    it('should give id of a player', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
+      assert.equal(game.getPlayerId(1), 1);
+      assert.equal(game.getPlayerId(2), 2);
+      assert.equal(game.getPlayerId(3), 3);
     });
   });
 
-  describe('#updateCharPosition',()=>{
-    it('should update given character position',()=>{
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
-      game.start();
-      game.updateCharPosition('Rev Green',3);
-      assert.deepInclude(game._unAssignedChars,{ name: 'Rev Green', position: 3, inactive: false });
-    });
-  });
-
-  describe('#canRuleOut',()=>{
-    it('should return false if player can not rule out',()=>{
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+  describe('#canRuleOut', () => {
+    it('should return false if player can not rule out', () => {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
-      let currentSuspicion = new Suspicion(combination,'Patel');
+      let currentSuspicion = new Suspicion(combination, 'Patel');
       currentSuspicion.canceller = 1;
       currentSuspicion.cancellingCards = [weapon];
       game._currentSuspicion = currentSuspicion;
-      assert.isNotOk(game.canRuleOut(1,'Hall'));
+      assert.isNotOk(game.canRuleOut(1, 'Hall'));
     });
 
-    it('should return true if player can rule out',()=>{
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+    it('should return true if player can rule out', () => {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
-      let currentSuspicion = new Suspicion(combination,'Patel');
+      let currentSuspicion = new Suspicion(combination, 'Patel');
       currentSuspicion.canceller = 1;
       currentSuspicion.cancellingCards = [room];
       game._currentSuspicion = currentSuspicion;
-      assert.isOk(game.canRuleOut(1,'Lounge'));
+      assert.isOk(game.canRuleOut(1, 'Lounge'));
     });
   });
 
-  describe('#ruleOut',()=>{
-    it('should set cancelled as true and ruleOutCard as given card',()=>{
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+  describe('#ruleOut', () => {
+    it('should set cancelled as true and ruleOutCard as given card', () => {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
-      let currentSuspicion = new Suspicion(combination,'Patel');
+      let currentSuspicion = new Suspicion(combination, 'Patel');
       game._currentSuspicion = currentSuspicion;
-      let player=game.getPlayer(1);
+      let player = game.getPlayer(1);
       game.players['2'].addCard(room);
       game.findCanceller(player);
       game.ruleOut('Lounge');
       assert.isOk(currentSuspicion.cancelled);
-      assert.deepEqual(currentSuspicion.ruleOutCard.name,'Lounge');
+      assert.deepEqual(currentSuspicion.ruleOutCard.name, 'Lounge');
     });
   });
 
-  describe('#findCanceller',()=>{
-    it('should set canceller in suspicion',()=>{
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+  describe('#findCanceller', () => {
+    it('should set canceller in suspicion', () => {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
-      let currentSuspicion = new Suspicion(combination,'Patel');
+      let currentSuspicion = new Suspicion(combination, 'Patel');
       game._currentSuspicion = currentSuspicion;
       let start = 1;
-      let player = new Player('Patel',{
-        "name":"Col. Mustard",
-        "color":"#ffdb58",
-        "position":11,
-        "start":true,
-        "turn" : 2
-      },()=>start++);
+      let player = new Player('Patel', {
+        "name": "Col. Mustard",
+        "color": "#ffdb58",
+        "position": 11,
+        "start": true,
+        "turn": 2
+      }, () => start++);
       game.players['1'].addCard(weapon);
       game.findCanceller(player);
       assert.isOk(currentSuspicion.canBeCancelled);
-      assert.equal(currentSuspicion.cancellerName,'Pranav');
-      assert.equal(currentSuspicion.canceller,1);
-      assert.deepEqual(currentSuspicion.cancellingCards,[weapon]);
+      assert.equal(currentSuspicion.cancellerName, 'Pranav');
+      assert.equal(currentSuspicion.canceller, 1);
+      assert.deepEqual(currentSuspicion.cancellingCards, [weapon]);
     });
 
-    it('should set canceller in suspicion',()=>{
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+    it('should set canceller in suspicion', () => {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
-      let currentSuspicion = new Suspicion(combination,'Patel');
+      let currentSuspicion = new Suspicion(combination, 'Patel');
       game._currentSuspicion = currentSuspicion;
       let start = 1;
-      let player = new Player('Patel',{
-        "name":"Col. Mustard",
-        "color":"#ffdb58",
-        "position":11,
-        "start":true,
-        "turn" : 2
-      },()=>start++);
+      let player = new Player('Patel', {
+        "name": "Col. Mustard",
+        "color": "#ffdb58",
+        "position": 11,
+        "start": true,
+        "turn": 2
+      }, () => start++);
       game.findCanceller(player);
       assert.isNotOk(currentSuspicion.canBeCancelled);
-      assert.deepEqual(currentSuspicion.cancellingCards,[]);
+      assert.deepEqual(currentSuspicion.cancellingCards, []);
     });
   });
 
-  describe('#accuse',()=>{
-    it('should raise an accusation and should move suspected player to the room which is suspected',()=>{
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+  describe('#accuse', () => {
+    it('should raise an accusation and should move suspected player to the room which is suspected', () => {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       game.players[1].updatePos('lounge');
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
-      game._murderCombination = new Combination(room,weapon,character);
+      game._murderCombination = new Combination(room, weapon, character);
       let combination = new Combination(room, weapon, character);
       assert.isOk(game.accuse(combination));
-      assert.equal(game.players[3].character.position,'lounge');
-      assert.equal(game.players[1].character.position,game.players[3].character.position);
+      assert.equal(game.players[3].character.position, 'lounge');
+      assert.equal(game.players[1].character.position, game.players[3].character.position);
     });
   });
 
-  describe('#getAccuseCombination',()=>{
-    it('should return an accuse combination which has been raised',()=>{
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("AJ",3);
+  describe('#getAccuseCombination', () => {
+    it('should return an accuse combination which has been raised', () => {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("AJ", 3, 3);
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
-      game._murderCombination = new Combination(room,weapon,character);
+      game._murderCombination = new Combination(room, weapon, character);
       let combination = new Combination(room, weapon, character);
       assert.isOk(game.accuse(combination));
       let expected = {
-        character : 'Dr Orchid',
-        room : 'Lounge',
-        weapon : 'Revolver',
+        character: 'Dr Orchid',
+        room: 'Lounge',
+        weapon: 'Revolver',
       };
-      assert.deepEqual(game.getAccuseCombination(),expected);
+      assert.deepEqual(game.getAccuseCombination(), expected);
     });
   });
 
-  describe('#isCorrectAccusation',()=>{
-    it('should return false if given combination is not same as murder combination', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
+  describe('#isCorrectAccusation', () => {
+    it('should return false if given combination is not same as murder combination', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
-      let currentAccusation = new Suspicion(combination,'Patel');
+      let currentAccusation = new Suspicion(combination, 'Patel');
       game._currentAccusation = currentAccusation;
       room = new Card("Hall", 'Room');
       combination = new Combination(room, weapon, character);
@@ -680,35 +692,35 @@ describe('Game', () => {
       assert.isNotOk(game.isCorrectAccusation());
     });
 
-    it('should return true if given combination is same as murder combination', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
+    it('should return true if given combination is same as murder combination', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
-      let currentAccusation = new Suspicion(combination,'Patel');
+      let currentAccusation = new Suspicion(combination, 'Patel');
       game._currentAccusation = currentAccusation;
       game._murderCombination = combination;
       assert.isOk(game.isCorrectAccusation());
     });
   });
 
-  describe('#getAccusationState', function(){
-    it('should return false if current accusation is empty', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
+  describe('#getAccusationState', function() {
+    it('should return false if current accusation is empty', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
       assert.isNotOk(game.getAccusationState());
     });
 
-    it('should return opposite of state if current accusation is not empty', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
+    it('should return opposite of state if current accusation is not empty', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
-      let currentAccusation = new Suspicion(combination,'Patel');
+      let currentAccusation = new Suspicion(combination, 'Patel');
       game._currentAccusation = currentAccusation;
       game._murderCombination = combination;
       assert.isNotOk(game.getAccusationState());
@@ -719,50 +731,53 @@ describe('Game', () => {
     });
   });
 
-  describe('#getActivePlayers', function(){
-    it('should return active players', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      let players = [game.players[1],game.players[2]];
-      assert.deepEqual(players,game.getActivePlayers());
+  describe('#getActivePlayers', function() {
+    it('should return active players', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      let players = [game.players[1], game.players[2]];
+      assert.deepEqual(players, game.getActivePlayers());
       game.players[1].deactivate();
       players = [game.players[2]];
-      assert.deepEqual(players,game.getActivePlayers());
+      assert.deepEqual(players, game.getActivePlayers());
     });
   });
 
-  describe('#pass', function(){
-    it('should return true if turn is passed', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
+  describe('#pass', function() {
+    it('should return true if turn is passed', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
       game.start();
       game.rollDice();
       assert.isOk(game.pass());
     });
 
-    it('should not pass turn if player hasn\'t done any action',()=>{
-      game.addPlayer('Patel',1);
+    it('should not pass turn if player hasn\'t done any action', () => {
+      game.addPlayer('Patel', 1, 1);
       game.start();
       assert.isUndefined(game.pass());
     })
   });
 
-  describe('#murderCombination', function(){
-    it('should return murder combination', function(){
+  describe('#murderCombination', function() {
+    it('should return murder combination', function() {
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       game._murderCombination = new Combination(room, weapon, character);
-      assert.deepEqual(game.murderCombination,{"character": "Dr Orchid",
-      "room": "Lounge","weapon": "Revolver"});
+      assert.deepEqual(game.murderCombination, {
+        "character": "Dr Orchid",
+        "room": "Lounge",
+        "weapon": "Revolver"
+      });
     });
   });
 
-  describe('#movePlayerToken', function(){
-    it('should change assigned or unassigned characters position to given position', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("Patel",3);
+  describe('#movePlayerToken', function() {
+    it('should change assigned or unassigned characters position to given position', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("Pooja", 3, 3);
       game.start();
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
@@ -770,95 +785,99 @@ describe('Game', () => {
       let combination = new Combination(room, weapon, character);
       game.players[1].updatePos('lounge');
       game.movePlayerToken(combination);
-      assert.equal(game.players[3].character.position,'lounge');
+      assert.equal(game.players[3].character.position, 'lounge');
       character = new Card('Prof Plum', 'Character');
       combination = new Combination(room, weapon, character);
       game.movePlayerToken(combination);
-      assert.deepInclude(game._unAssignedChars,{name:"Prof Plum",position:'lounge', inactive: false});
+      assert.deepInclude(game._unAssignedChars, {
+        name: "Prof Plum",
+        position: 'lounge',
+        inactive: false
+      });
     });
   });
 
-  describe('#getSecretPassage', function(){
-    it('should return name of secret passage if the player position is room and it has', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("Patel",3);
+  describe('#getSecretPassage', function() {
+    it('should return name of secret passage if the player position is room and it has', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("Pooja", 3, 3);
       game.start();
       game.players[1].updatePos('lounge');
       game.players[1].inRoom = true;
-      assert.equal(game.getSecretPassage(),'conservatory');
+      assert.equal(game.getSecretPassage(), 'conservatory');
     });
 
-    it('should return "" if the player position is room and it does not have secret passage', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("Patel",3);
+    it('should return "" if the player position is room and it does not have secret passage', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("Pooja", 3, 3);
       game.start();
       game.players[1].updatePos('hall');
       game.players[1].inRoom = true;
-      assert.equal(game.getSecretPassage(),'');
+      assert.equal(game.getSecretPassage(), '');
     });
 
-    it('should return "" if the player position is not room', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("Patel",3);
+    it('should return "" if the player position is not room', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("Pooja", 3, 3);
       game.start();
-      assert.equal(game.getSecretPassage(),'');
+      assert.equal(game.getSecretPassage(), '');
     });
   });
 
-  describe('#state', function(){
-    it('should return current state of game', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("Patel",3);
+  describe('#state', function() {
+    it('should return current state of game', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("Pooja", 3, 3);
       game.start();
-      assert.equal(game.state,'running');
+      assert.equal(game.state, 'running');
       let murderCombination = game.murderCombination;
       let character = new Card(murderCombination.character, 'Character');
       let weapon = new Card(murderCombination.weapon, 'Weapon');
       let room = new Card(murderCombination.room, 'Room');
       let combination = new Combination(room, weapon, character);
       game.accuse(combination);
-      assert.equal(game.state,'win');
+      assert.equal(game.state, 'win');
       game.players[1].deactivate();
       game.players[2].deactivate();
       game.players[3].deactivate();
-      assert.equal(game.state,'draw');
+      assert.equal(game.state, 'draw');
     });
   });
 
-  describe('#getPlayersStatus', function(){
-    it('should return status of every active player', function(){
-      game.addPlayer("Pranav",1);
-      game.addPlayer("Patel",2);
-      game.addPlayer("Patel",3);
+  describe('#getPlayersStatus', function() {
+    it('should return status of every active player', function() {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.addPlayer("Pooja", 3, 3);
       game.start();
       let expectedOutput = {
         1: true,
         2: true,
         3: true
       };
-      assert.deepEqual(game.getPlayersStatus(),expectedOutput);
+      assert.deepEqual(game.getPlayersStatus(), expectedOutput);
       game.players[1].deactivate();
       expectedOutput = {
         1: false,
         2: true,
         3: true
       };
-      assert.deepEqual(game.getPlayersStatus(),expectedOutput);
+      assert.deepEqual(game.getPlayersStatus(), expectedOutput);
     });
   });
 
-  describe('#canPass',function() {
-    it('should return false if player can\'t pass his turn',()=>{
-      game.addPlayer("Pranav",1);
+  describe('#canPass', function() {
+    it('should return false if player can\'t pass his turn', () => {
+      game.addPlayer("Pranav", 1, 1);
       game.start();
       assert.isNotOk(game.canPass());
     })
-    it('should return true if player can pass his turn',()=>{
-      game.addPlayer("Pranav",1);
+    it('should return true if player can pass his turn', () => {
+      game.addPlayer("Pranav", 1, 1);
       game.start();
       game.rollDice();
       assert.isOk(game.canPass());

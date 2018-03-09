@@ -87,9 +87,9 @@ describe('app', () => {
     it('should serve game page',(done)=>{
       app.games['1234'] = new Game(3);
       let game = app.games['1234'];
-      game.addPlayer('Patel',1);
-      game.addPlayer('Pranav',2);
-      game.addPlayer('Madhuri',3);
+      game.addPlayer('Patel',1,1);
+      game.addPlayer('Pranav',2,2);
+      game.addPlayer('Madhuri',3,3);
       request(app)
         .get('/game/1234')
         .set('cookie','playerId=1')
@@ -237,8 +237,8 @@ describe('app', () => {
           .cookie.include('playerId', '1;')
           .end(() => {
             game = app.games['1234'];
-            game.addPlayer('neeraj', 11);
-            game.addPlayer('omkar', 12);
+            game.addPlayer('neeraj', 11,1);
+            game.addPlayer('omkar', 12,2);
             request(app)
               .get('/game/1234/wait')
               .set('cookie', 'playerId=1')

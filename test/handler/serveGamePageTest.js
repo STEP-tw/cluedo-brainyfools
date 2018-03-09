@@ -7,9 +7,9 @@ describe('gameHandlers', function () {
   beforeEach(function () {
     let game = new Game(3);
     app.games['1234'] = game;
-    game.addPlayer('neeraj', 11);
-    game.addPlayer('omkar', 12);
-    game.addPlayer('pranav', 13);
+    game.addPlayer('neeraj', 11,1);
+    game.addPlayer('omkar', 12,2);
+    game.addPlayer('pranav', 13,3);
   });
 
   describe('POST /game/join/1234', () => {

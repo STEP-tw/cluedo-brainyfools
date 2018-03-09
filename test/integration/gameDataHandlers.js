@@ -14,9 +14,9 @@ describe('gameDataHandlers', () => {
       .send('numberOfPlayers=3')
       .end(() => {
         let game = app.games['1234'];
-        game.addPlayer('neeraj', 11);
-        game.addPlayer('omkar', 12);
-        game.addPlayer('pranav', 13);
+        game.addPlayer('neeraj', 11,1);
+        game.addPlayer('omkar', 12,2);
+        game.addPlayer('pranav', 13,3);
         done();
       });
     let playerId = 0;
