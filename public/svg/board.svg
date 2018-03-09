@@ -173,21 +173,24 @@
   <image class="room" href="/images/rooms/conservatory.png" y="567.17935" x="45.75" width="237.00001" height="200" id="conservatory"/>
   <image class="room" href="/images/rooms/dining_Room.png" y="295.75" x="45.75" width="237.00001" height="200" id="dining"/>
 
-  <image fill="#fff" x="85" y="127" width="70" height="70" href="" id="weapon-kitchen"/>
-  <image fill="#fff" x="600" y="127" width="70" height="70" href="" id="weapon-ballroom"/>
-  <image fill="#fff" x="1030" y="680" width="70" height="70" href="" id="weapon-study"/>
-  <image fill="#fff" x="720" y="650" width="70" height="70" href="" id="weapon-library"/>
-  <image fill="#fff" x="450" y="680" width="70" height="70" href="" id="weapon-billiard"/>
-  <image fill="#fff" x="100" y="600" width="70" height="70" href="" id="weapon-conservatory"/>
-  <image fill="#fff" x="150" y="380" width="70" height="70" href="" id="weapon-dining"/>
-  <image fill="#fff" x="1060" y="380" width="70" height="70" href="" id="weapon-hall"/>
-  <image fill="#fff" x="1020" y="150" width="70" height="70" href="" id="weapon-lounge"/>
-
   <ellipse ry="18" rx="18" cy="144.933334" cx="-77.924997" fill="#da70d6" id="orchid"/>
   <ellipse ry="18" rx="18" cy="221.933334" cx="-77.924997" fill="#007f00" id="green"/>
   <ellipse ry="18" rx="18" cy="288.933334" cx="-77.924997" fill="#005fbf" id="peacock"/>
   <ellipse ry="18" rx="18" cy="369.933334" cx="-77.924997" fill="#3f007f" id="plum"/>
   <ellipse ry="18" rx="18" cy="460.933334" cx="-77.924997" fill="#bf0000" id="scarlett"/>
-  <ellipse ry="18" rx="18" cy="541.933334" cx="-77.924997" fill="#ffff33" id="mustard"/>
+  <ellipse ry="18" rx="18" cy="541.933334" cx="-77.924997" fill="#ffff33"
+    id="mustard"/>
+  <image x="300" y="100" width="70" height="70"
+    href="/images/weapons/Dagger.png" id="Dagger" opacity="0"/>
+  <image x="300" y="100" width="70" height="70"
+    href="/images/weapons/Wrench.png" id="Wrench" opacity="0"/>
+  <image x="300" y="100" width="70" height="70"
+    href="/images/weapons/Rope.png" id="Rope" opacity="0"/>
+  <image x="300" y="100" width="70" height="70"
+    href="/images/weapons/Revolver.png" id="Revolver" opacity="0"/>
+  <image x="300" y="100" width="70" height="70"
+    href="/images/weapons/Candlestick.png" id="Candlestick" opacity="0"/>
+  <image x="300" y="100" width="70" height="70"
+    href="/images/weapons/Lead_pipe.png" id="Lead_pipe" opacity="0"/>
  </g>
 </svg>

@@ -165,21 +165,32 @@ const showSuspicionCards = function(cards,message='') {
 };
 
 const showWeapon = function (room,weapon) {
-  let weaponImg=weapon.replace(/[.\s]+/,'_');
-  let imagePath = `/images/weapons/${weaponImg}.png`;
-  document.getElementById(`weapon-${room}`).setAttribute("href", imagePath);
+  let weaponPos = {
+    kitchen : {xPos:"100" , yPos:"150"},
+    hall : {xPos:"1060" , yPos:"380"},
+    ballroom : {xPos:"600" , yPos:"127"},
+    library : {xPos:"720" , yPos:"650"},
+    conservatory : {xPos:"100" , yPos:"600"},
+    study : {xPos:"1030" , yPos:"680"},
+    billiard : {xPos:"450" , yPos:"680"},
+    lounge : {xPos:"1020" , yPos:"150"},
+    dining : {xPos:"150" , yPos:"380"}
+  };
+  let weaponName=weapon.replace(/[.\s]+/,'_');
+  let weaponImg = document.getElementById(weaponName);
+  weaponImg.setAttribute('x',weaponPos[room].xPos);
+  weaponImg.setAttribute('y',weaponPos[room].yPos);
+  weaponImg.setAttribute('opacity',1);
 };
 
 const disableWeapon = function () {
-  document.getElementById(`weapon-hall`).setAttribute("href", "");
-  document.getElementById(`weapon-kitchen`).setAttribute("href", "");
-  document.getElementById(`weapon-dining`).setAttribute("href", "");
-  document.getElementById(`weapon-billiard`).setAttribute("href", "");
-  document.getElementById(`weapon-ballroom`).setAttribute("href", "");
-  document.getElementById(`weapon-study`).setAttribute("href", "");
-  document.getElementById(`weapon-lounge`).setAttribute("href", "");
-  document.getElementById(`weapon-conservatory`).setAttribute("href", "");
-  document.getElementById(`weapon-library`).setAttribute("href", "");
+  let weapons = ['Dagger','Revolver','Candlestick','Wrench','Rope','Lead_pipe'];
+  weapons.forEach(weaponName=>{
+    let weaponImg = document.getElementById(weaponName);
+    weaponImg.setAttribute('x',"300");
+    weaponImg.setAttribute('y',"150");
+    weaponImg.setAttribute('opacity',0);
+  });
 };
 
 window.addEventListener('load',()=>{
