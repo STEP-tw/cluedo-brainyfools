@@ -15,9 +15,9 @@ describe('ActivityLog', function(){
   describe('addActivity', function(){
     it('should add the given activity to log', function(){
       activityLog.addActivity('activity 1');
-      assert.deepEqual(activityLog.activities[0],{time:1,activity:'activity 1', color: "#fff0"});
+      assert.deepEqual(activityLog.activities[0],{time:1,activity:'activity 1', color: ''});
       activityLog.addActivity('activity 2');
-      assert.deepEqual(activityLog.activities[1],{time:2,activity:'activity 2',color: "#fff0"});
+      assert.deepEqual(activityLog.activities[1],{time:2,activity:'activity 2',color: ''});
     });
   });
 
@@ -29,9 +29,9 @@ describe('ActivityLog', function(){
       activityLog.addActivity('activity 4');
       activityLog.addActivity('activity 5');
       let expected = [
-        {time:3,activity:'activity 3', color: "#fff0"},
-        {time:4,activity:'activity 4', color: "#fff0"},
-        {time:5,activity:'activity 5', color: "#fff0"}
+        {time:3,activity:'activity 3', color: ''},
+        {time:4,activity:'activity 4', color: ''},
+        {time:5,activity:'activity 5', color: ''}
       ];
       assert.deepEqual(activityLog.getActivitiesAfter(2),expected);
     });

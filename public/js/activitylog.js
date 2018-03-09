@@ -16,7 +16,7 @@ const updateLog = function(){
       logDiv.innerHTML = `<div>
         <span class='time'>${time.toLocaleTimeString()}</span>
         <span class='activity'>${activity.activity}</span>
-        <span class='token' ${color}>${token}</span>
+        ${activity.color? `<span class='token' ${color}>${token}</span>` :''}
       </div>` + logDiv.innerHTML;
     });
   });

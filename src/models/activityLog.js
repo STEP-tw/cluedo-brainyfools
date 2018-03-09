@@ -4,8 +4,8 @@ class ActivityLog{
     this.activities = [];
   }
 
-  addActivity(activity,colour){
-    let color = colour || "#fff0";
+  addActivity(activity,colour = ''){
+    let color = colour ;
     let time = this.getTime();
     this.activities.push({time,activity,color});
     return time;

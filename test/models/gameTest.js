@@ -437,7 +437,7 @@ describe('Game', () => {
     it('should add activity to the activityLog', function(){
       let activityTime = game.addActivity('activity 1');
       let activities = game._activityLog.activities;
-      assert.deepEqual(activities[0],{ time: 1, activity: 'activity 1', color: "#fff0" });
+      assert.deepEqual(activities[0],{ time: 1, activity: 'activity 1', color: '' });
     });
   });
 
@@ -448,8 +448,8 @@ describe('Game', () => {
       game.addActivity('activity 2');
       game.addActivity('activity 3');
       let expected = [
-        {time:2,activity:'activity 2', color: "#fff0"},
-        {time:3,activity:'activity 3', color: "#fff0"}
+        {time:2,activity:'activity 2', color: ''},
+        {time:3,activity:'activity 3', color: ''}
       ];
       assert.deepEqual(game.getActivitiesAfter(1, 1),expected)
     });
@@ -466,7 +466,7 @@ describe('Game', () => {
       let activities = game.getActivitiesAfter(0, 1)
       let expectedActivities = [{
         time:1,
-        color: "#fff0",
+        color: '',
         activity:'Game has started'
       }];
       assert.deepEqual(expectedActivities,activities);

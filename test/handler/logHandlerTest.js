@@ -27,7 +27,7 @@ describe('logHandler', function(){
       request(app)
         .get('/game/1234/log/0')
         .set('cookie','playerId=1')
-        .expect(res=>assert.deepEqual(res.body, [{"activity":"Game has started" , "time": 1 , color:"#fff0"}]))
+        .expect(res=>assert.deepEqual(res.body, [{"activity":"Game has started" , "time": 1 , color:''}]))
         .expect(200)
         .end(done);
     });
