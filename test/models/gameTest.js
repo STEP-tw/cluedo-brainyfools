@@ -129,6 +129,7 @@ describe('Game', () => {
       game.addPlayer("Suyog", 1, 1);
       game.addPlayer("Bhanu", 2, 2);
       game.addPlayer("Omkar", 3, 3);
+      game.start();
       assert.deepEqual(game.getCurrentPlayer(), {
         name: 'Suyog',
         inRoom: false,
@@ -210,6 +211,7 @@ describe('Game', () => {
   describe('#rollDice', () => {
     it('should return value ranging from 1 to 6', () => {
       game.addPlayer('Patel', 1, 1);
+      game.start();
       for (let index = 0; index < 10; index++) {
         let val = game.rollDice();
         assert.isAbove(val, 0);
@@ -265,21 +267,25 @@ describe('Game', () => {
   });
 
   describe('#isCurrentPlayer', () => {
-    it('should return true for first player', () => {
+    beforeEach(()=>{
       game.addPlayer("Pranav", 1, 1);
       game.addPlayer("Pranav", 2, 2);
+      game.start();
+    });
+    it('should return true for first player', () => {
       assert.isOk(game.isCurrentPlayer(1));
     });
     it('should return false for other player', () => {
-      game.addPlayer("Pranav", 1, 1);
-      game.addPlayer("Pranav", 2, 2);
       assert.isFalse(game.isCurrentPlayer(2));
     });
   });
 
   describe('#validateMove', () => {
-    it('should return true for valid forward move', () => {
+    beforeEach(()=>{
       game.addPlayer("Pranav", 1, 1);
+      game.start();
+    })
+    it('should return true for valid forward move', () => {
       game.diceVal = 1;
       assert.isOk(game.validateMove(70));
       game.diceVal = 2;
@@ -291,7 +297,6 @@ describe('Game', () => {
       assert.isOk(game.validateMove(1));
     });
     it('should return true for valid backward move', () => {
-      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 2;
       assert.isOk(game.validateMove(67));
       game.diceVal = 3;
@@ -299,7 +304,6 @@ describe('Game', () => {
       assert.isOk(game.validateMove(1));
     });
     it('should return false for invalid forward move', () => {
-      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 1;
       assert.isNotOk(game.validateMove(4));
       game.diceVal = 2;
@@ -308,30 +312,23 @@ describe('Game', () => {
       assert.isNotOk(game.validateMove(1));
     });
     it('should return false for invalid backward move', () => {
-      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 2;
       assert.isNotOk(game.validateMove(76));
       game.diceVal = 5;
       assert.isNotOk(game.validateMove(62));
     });
     it('should return false for moving to same room', () => {
-      game.addPlayer('Raghu', 1, 1);
-      game.start();
       game.diceVal = 1;
       game.players[1].updatePos('hall');
       assert.isNotOk(game.validateMove('hall'));
       assert.isOk(game.validateMove('53'));
     });
     it('should return false for moving to invalid room', () => {
-      game.addPlayer('Raghu', 1, 1);
-      game.start();
       game.diceVal = 1;
       game.players[1].updatePos('hall');
       assert.isNotOk(game.validateMove('lounge'));
     });
     it('should return true if player selected valid connected room from room', () => {
-      game.addPlayer('Raghu', 1, 1);
-      game.start();
       game.diceVal = 2;
       game.players[1].updatePos('lounge');
       assert.isOk(game.validateMove('conservatory'));
@@ -343,8 +340,6 @@ describe('Game', () => {
       assert.isOk(game.validateMove('kitchen'));
     });
     it('should return false if selected position is same as current position', () => {
-      game.addPlayer('Raghu', 1, 1);
-      game.start();
       game.diceVal = 2;
       game.players[1].updatePos('lounge');
       assert.isNotOk(game.validateMove('lounge'));
@@ -366,8 +361,11 @@ describe('Game', () => {
   });
 
   describe('#updatePlayerPos', () => {
-    it('should update player\'s position', () => {
+    beforeEach(function () {
       game.addPlayer("Pranav", 1, 1);
+      game.start();
+    })
+    it('should update player\'s position', () => {
       game.diceVal = 2;
       assert.isOk(game.updatePlayerPos(75));
       let player = game.players[1];
@@ -376,7 +374,6 @@ describe('Game', () => {
       assert.isFalse(player.character.start);
     });
     it('should return false if already moved', () => {
-      game.addPlayer("Pranav", 1, 1);
       game.diceVal = 2;
       game.updatePlayerPos(2);
       assert.isFalse(game.updatePlayerPos(3));
@@ -384,7 +381,7 @@ describe('Game', () => {
   });
 
   describe('#isSuspecting', () => {
-    it.skip('should give true if player is suspecting',()=>{
+    it('should give true if player is suspecting',()=>{
       let characterId=game.getRandomCharacterId();
       game.addPlayer("Pranav", 1,characterId);
       game.start();
@@ -405,6 +402,7 @@ describe('Game', () => {
   describe('#getCurrentSuspicion', () => {
     it('should give suspicion combination', () => {
       game.addPlayer("Pranav", 1, 1);
+      game.start();
       let combination = {
         character: 'Dr. Orchid',
         weapon: 'Revolver',
@@ -428,6 +426,7 @@ describe('Game', () => {
     it('should give suspicion combination with canceller name', () => {
       game.addPlayer("Pranav", 1, 1);
       game.addPlayer("ketan", 2, 2);
+      game.start();
       game.players['2'].addCard(new Card("Hall", 'Room'));
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
@@ -526,6 +525,7 @@ describe('Game', () => {
       game.players[1].deactivate();
       game.players[2].deactivate();
       game.players[3].deactivate();
+      game._activePlayers=[];
       assert.equal(game.getNextPlayerTurn(), 0);
     });
 
@@ -579,6 +579,7 @@ describe('Game', () => {
       game.addPlayer("Pranav", 1, 1);
       game.addPlayer("Patel", 2, 2);
       game.addPlayer("AJ", 3, 3);
+      game.start();
       let character = new Card('Dr. Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
@@ -650,6 +651,7 @@ describe('Game', () => {
       game.addPlayer("Pranav", 1, 1);
       game.addPlayer("Patel", 2, 2);
       game.addPlayer("AJ", 3, 3);
+      game.start();
       game.players[1].updatePos('lounge');
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
@@ -667,6 +669,7 @@ describe('Game', () => {
       game.addPlayer("Pranav", 1, 1);
       game.addPlayer("Patel", 2, 2);
       game.addPlayer("AJ", 3, 3);
+      game.start();
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
@@ -686,6 +689,7 @@ describe('Game', () => {
     it('should return false if given combination is not same as murder combination', function() {
       game.addPlayer("Pranav", 1, 1);
       game.addPlayer("Patel", 2, 2);
+      game.start();
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');

@@ -27,6 +27,9 @@ describe('turnHandler', () => {
   });
 
   describe('POST /game/1234/move',()=>{
+    beforeEach(()=>{
+      app.games['1234'].start();
+    })
     it('should return error for invalid pos',(done)=>{
       app.games['1234'].rollDice();
       request(app)
@@ -38,7 +41,7 @@ describe('turnHandler', () => {
         }).end(done);
     });
     it('should add activity if player entered into room',(done)=>{
-      app.games['1234'].start();
+      // app.games['1234'].start();
       app.games['1234'].players['11'].updatePos(9);
       app.games['1234'].rollDice();
       request(app)
@@ -82,6 +85,9 @@ describe('turnHandler', () => {
   });
 
   describe('GET game/1234/rolldice', () => {
+    beforeEach(()=>{
+      app.games['1234'].start();
+    });
     it('should give a value when player rolls a dice', done => {
       request(app)
         .get('/game/1234/rolldice')
@@ -134,6 +140,9 @@ describe('turnHandler', () => {
   });
 
   describe('GET /game/1234/pass',()=>{
+    beforeEach(()=>{
+      app.games['1234'].start();
+    });
     it('should pass turn to the next player',done=>{
       request(app)
         .get('/game/1234/rolldice')
@@ -161,11 +170,15 @@ describe('turnHandler', () => {
   });
 
   describe('POST /game/1234/suspect',()=>{
+    beforeEach(()=>{
+      app.games['1234'].start();
+      app.games['1234'].updatePlayerPos('Hall');
+    });
     it('should create a suspicion',done=>{
       request(app)
         .post('/game/1234/suspect')
         .set('cookie', 'playerId=11')
-        .send({character:'a',weapon:'b'})
+        .send({character:'Miss Scarlett',weapon:'Dragger'})
         .expect(res=>{
           assert.deepEqual(res.body, {
             suspected: true,
@@ -177,8 +190,11 @@ describe('turnHandler', () => {
   });
 
   describe('GET game/1234/suspicion',()=>{
+    beforeEach(()=>{
+      app.games['1234'].start();
+      app.games['1234'].updatePlayerPos('c');
+    });
     it('should give suspicion that has been raised',done=>{
-
       request(app)
         .post('/game/1234/suspect')
         .set('cookie', 'playerId=11')
@@ -195,10 +211,10 @@ describe('turnHandler', () => {
             .set('cookie', 'playerId=11')
             .expect(res=>{
               assert.deepEqual(res.body,{combination:
-                {_room: {_name: 69, _type: 'Room'},
+                {_room: {_name: 'c', _type: 'Room'},
                  _weapon: {_name: 'b', _type: 'Weapon'},
                  _character: {_name: 'a', _type: 'Character'}},
-              canBeCancelled: false,
+              "canBeCancelled": false,
               "currentPlayer": "neeraj",
               "suspector": "neeraj"});
             })

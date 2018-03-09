@@ -16,6 +16,7 @@ describe('#gameStatusHandler', () => {
     game.addPlayer('neeraj', 11,1);
     game.addPlayer('omkar', 12,2);
     game.addPlayer('pranav', 13,3);
+    game.start();
     app.idGenerator = () => {
       return 123;
     };

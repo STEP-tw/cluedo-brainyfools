@@ -18,7 +18,9 @@ class Game {
     this._murderCombination = {};
     this.started = false;
     this._path = new Path(1, 86);
-    this._turn = 1;
+    this._turn;
+    this._activePlayers=[];
+    this._assignedChars=[];
     this.getDate = getDate;
     this._activityLog = new ActivityLog(getDate);
     this._currentSuspicion = {};
@@ -50,6 +52,8 @@ class Game {
   addPlayer(name, id, characterId) {
     let character = characterData[characterId];
     ++this.playerCount;
+    this._activePlayers.push(characterId);
+    this._assignedChars.push(characterId);
     character = new Character(character);
     let player = new Player(name, character, this.getDate);
     this.players[id] = player;
@@ -152,8 +156,12 @@ class Game {
     this.distributeCards();
     this.addInActivePlayers();
     this._path.addRooms(rooms);
+    this.setTurn();
     this.addActivity("Game has started");
     this.started = true;
+  }
+  setTurn(){
+    this._turn=this._activePlayers.sort()[0];
   }
   setMurderCombination() {
     this._murderCombination = this.cardHandler.getRandomCombination();
@@ -263,17 +271,9 @@ class Game {
   }
 
   getNextPlayerTurn() {
-    let players = this.getActivePlayers();
-    let player = players.find(player => {
-      return player.character.turn > this.turn;
-    });
-    if (!player) {
-      player = players[0];
-    }
-    if (!player) {
-      return 0;
-    }
-    return player.character.turn;
+    let series = this._activePlayers.sort();
+    let turn = series.indexOf(this.turn);
+    return series[turn+1] || series[0] || 0;
   }
   getActivePlayers() {
     let players = Object.values(this.players);
@@ -311,13 +311,9 @@ class Game {
     return playerIds.find(id => this.players[id].character.turn == turn);
   }
   getNextTurn(turn) {
-    let players = Object.values(this.players).sort((player1, player2) =>
-      player1.character.turn > player2.character.turn);
-    let player = players.find(player => player.character.turn > turn);
-    if (!player) {
-      player = players[0];
-    }
-    return player.character.turn;
+    let series = this._assignedChars.sort();
+    let turnIndex = series.indexOf(turn);
+    return series[turnIndex+1] || series[0];
   }
   isSuspecting() {
     return !this.isEmpty(this._currentSuspicion);
@@ -413,6 +409,8 @@ class Game {
       this.addActivity(`${name} has won the game`);
     } else {
       player.deactivate();
+      let index = this._activePlayers.indexOf(this._turn);
+      this._activePlayers.splice(index,1);
       this.addActivity(`${name} accusation failed`);
     }
     return true;
