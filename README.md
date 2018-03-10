@@ -9,12 +9,12 @@ Do you want to play ?
 
 Welcome buddy, We are happy to see you here. We request you to read all guides before contributing.
 
-For styling guide [click here](/wiki/Style)
+For styling guide [click here](../../wiki/Style)
 
 ## Table of Contents
 
-* [Prerequisites](#prerequisites)
-* [Project Skeleton](#project-Skeleton)
+* [Prerequisites](#Prerequisites)
+* [Project Skeleton](#Project-Skeleton)
 * [Setup for development](#setup-for-development)
 * [Contribution](#contribution)
 
