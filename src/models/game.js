@@ -208,6 +208,11 @@ class Game {
     });
   }
   updatePlayerPos(pos) {
+    let player = this.getCurrentPlayer();
+    if(player.character.turn ==this._turn ){
+      let id = this.getCurrentPlayerId();
+      this.players[id].played();
+    }
     if (this.playerMoved) {
       return false;
     }

@@ -191,6 +191,6 @@
   <image x="300" y="100" width="70" height="70"
     href="/images/weapons/Candlestick.png" id="Candlestick" opacity="0"/>
   <image x="300" y="100" width="70" height="70"
-    href="/images/weapons/Lead_pipe.png" id="Lead_Pipe" opacity="0"/>
+    href="/images/weapons/Lead_Pipe.png" id="Lead_Pipe" opacity="0"/>
  </g>
 </svg>
