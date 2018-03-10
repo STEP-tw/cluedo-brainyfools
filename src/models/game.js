@@ -398,6 +398,7 @@ class Game {
     return !!this._path.isRoom(currentPlayer.character.position);
   }
   accuse(combination) {
+    this._currentSuspicion = {};
     this.movePlayerToken(combination);
     let id = this.getCurrentPlayerId();
     let player = this.players[id];

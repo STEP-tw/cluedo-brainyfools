@@ -175,7 +175,7 @@
 
   <ellipse ry="18" rx="18" cy="144.933334" cx="-77.924997" fill="#da70d6" id="orchid"/>
   <ellipse ry="18" rx="18" cy="221.933334" cx="-77.924997" fill="#007f00" id="green"/>
-  <ellipse ry="18" rx="18" cy="288.933334" cx="-77.924997" fill="#005fbf" id="peacock"/>
+  <ellipse ry="18" rx="18" cy="288.933334" cx="-77.924997" fill="#005FBF" id="peacock"/>
   <ellipse ry="18" rx="18" cy="369.933334" cx="-77.924997" fill="#3f007f" id="plum"/>
   <ellipse ry="18" rx="18" cy="460.933334" cx="-77.924997" fill="#bf0000" id="scarlett"/>
   <ellipse ry="18" rx="18" cy="541.933334" cx="-77.924997" fill="#ffff33"

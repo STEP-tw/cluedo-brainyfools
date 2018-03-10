@@ -12,9 +12,9 @@ const passTurn = function () {
 
 const endRequests = function(){
   getMurderCombination();
-  enablePopup();
   currentActivity = ()=>{ };
   updateLog();
+  enablePopup();
   clearInterval(statusUpdaterId);
   clearInterval(boardStatusId);
   clearInterval(activityLogId);
@@ -126,11 +126,13 @@ const getSuspicion = function (name) {
       currentActivity = getCurrentPlayer;
     }
     let suspicion = JSON.parse(res);
-    let roomName = suspicion.combination._room._name;
-    let weaponName = suspicion.combination._weapon._name;
-    let charName = suspicion.combination._character._name;
-    showWeapon(roomName,weaponName);
-    showSuspicion([roomName,weaponName,charName],suspicion.currentPlayer);
+    if(suspicion.combination){
+      let roomName = suspicion.combination._room._name;
+      let weaponName = suspicion.combination._weapon._name;
+      let charName = suspicion.combination._character._name;
+      showWeapon(roomName,weaponName);
+      showSuspicion([roomName,weaponName,charName],suspicion.currentPlayer);
+    }
     if (suspicion.ruleOutCard) {
       showRuleOutCard(suspicion);
       currentActivity = () => { };
