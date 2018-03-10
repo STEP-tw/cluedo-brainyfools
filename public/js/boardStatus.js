@@ -184,7 +184,7 @@ const showWeapon = function (room,weapon) {
 };
 
 const disableWeapon = function () {
-  let weapons = ['Dagger','Revolver','Candlestick','Wrench','Rope','Lead_pipe'];
+  let weapons = ['Dagger','Revolver','Candlestick','Wrench','Rope','Lead_Pipe'];
   weapons.forEach(weaponName=>{
     let weaponImg = document.getElementById(weaponName);
     weaponImg.setAttribute('x',"300");
