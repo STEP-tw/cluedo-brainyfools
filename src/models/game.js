@@ -200,8 +200,8 @@ class Game {
     return this._path.validateMove(pos, curPlayerPos, val);
   }
   getInvalidMoves() {
-    let rooms = ['hall', 'kitchen', 'conservatory', 'ballroom',
-      'billiard', 'dining', 'study', 'library', 'lounge'
+    let rooms = ['Hall', 'Kitchen', 'Conservatory', 'Ballroom',
+      'Billiard', 'Dining', 'Study', 'Library', 'Lounge'
     ];
     return [...rooms, ...this._path.cells].filter(pos => {
       return !this.validateMove(pos);

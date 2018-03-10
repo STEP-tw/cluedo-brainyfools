@@ -88,7 +88,7 @@ const enableRuleOut = function(cards){
   let room = document.getElementById('room-card').
     setAttribute('style','opacity:0.3');
   cards.forEach(card=>{
-    let cardName = card._name.replace(/[\s]+/,'_').toLowerCase();
+    let cardName = card._name.replace(/[\s]+/,'_');
     let image=document.getElementsByClassName(cardName)[0];
     if(image){
       image.setAttribute('style','opacity:');

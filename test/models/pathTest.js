@@ -39,7 +39,7 @@ describe("Path",()=>{
   });
   describe("#getRoom",()=>{
     it('should give room by name',()=>{
-      let actual=path.getRoom('lounge');
+      let actual=path.getRoom('Lounge');
       let room={
         "name":"Lounge",
         "doorPosition" : 6,
@@ -54,7 +54,7 @@ describe("Path",()=>{
       let args = {
         val:3,
         curPlayerPos: 2,
-        clickpos: 'lounge',
+        clickpos: 'Lounge',
         forwardDis: 76,
         backDis: 4,
         atStart: false
@@ -63,7 +63,7 @@ describe("Path",()=>{
       args = {
         val:2,
         curPlayerPos: 1,
-        clickpos: 'lounge',
+        clickpos: 'Lounge',
         forwardDis: 3,
         backDis: 75,
         atStart: false
@@ -74,7 +74,7 @@ describe("Path",()=>{
       let args = {
         val:3,
         curPlayerPos: 3,
-        clickpos: 'kitchen',
+        clickpos: 'Kitchen',
         forwardDis: 75,
         backDis: 1,
         atStart: false
@@ -83,7 +83,7 @@ describe("Path",()=>{
       args = {
         val:2,
         curPlayerPos: 1,
-        clickpos: 'lounge',
+        clickpos: 'Lounge',
         forwardDis: 0,
         backDis: 0,
         atStart: false
@@ -93,11 +93,11 @@ describe("Path",()=>{
   });
   describe('#canGoToConnectedRoom',()=>{
     it('should return true when given both inputs are rooms and room is connected',()=>{
-      assert.isOk(path.canGoToConnectedRoom(3,'lounge',35));
+      assert.isOk(path.canGoToConnectedRoom(3,'Lounge',35));
     });
 
     it('should return false when given both inputs are rooms and room is not connected',()=>{
-      assert.isNotOk(path.canGoToConnectedRoom(2,'hall','conservatory'));
+      assert.isNotOk(path.canGoToConnectedRoom(2,'Hall','Conservatory'));
     });
   });
   describe('#distanceForward',()=>{
@@ -107,12 +107,12 @@ describe("Path",()=>{
   });
   describe('#getConnectedRoom', function(){
     it('should return connected room name if it has', function(){
-      assert.equal(path.getConnectedRoom('lounge'),'conservatory');
-      assert.equal(path.getConnectedRoom('conservatory'),'lounge');
+      assert.equal(path.getConnectedRoom('Lounge'),'Conservatory');
+      assert.equal(path.getConnectedRoom('Conservatory'),'Lounge');
     });
     it('should return "" if it doesn\'t have', function(){
-      assert.equal(path.getConnectedRoom('hall'),'');
-      assert.equal(path.getConnectedRoom('dining'),'');
+      assert.equal(path.getConnectedRoom('Hall'),'');
+      assert.equal(path.getConnectedRoom('Dining'),'');
     });
   });
 });

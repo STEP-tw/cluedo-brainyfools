@@ -46,7 +46,7 @@ class Path {
 
   getRoom(name){
     return this._rooms.find(room=>{
-      return name && room.name.toLowerCase().includes(name);
+      return name && room.name.includes(name);
     });
   }
   addRooms(rooms){
@@ -76,7 +76,7 @@ class Path {
 
   getConnectedRoom(roomName){
     let room = this.getRoom(roomName);
-    return room.connectedRoom.toLowerCase();
+    return room.connectedRoom;
   }
 
   isSameDistance(forwardDistance,backDistance){

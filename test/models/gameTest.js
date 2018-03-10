@@ -319,30 +319,30 @@ describe('Game', () => {
     });
     it('should return false for moving to same room', () => {
       game.diceVal = 1;
-      game.players[1].updatePos('hall');
-      assert.isNotOk(game.validateMove('hall'));
+      game.players[1].updatePos('Hall');
+      assert.isNotOk(game.validateMove('Hall'));
       assert.isOk(game.validateMove('53'));
     });
     it('should return false for moving to invalid room', () => {
       game.diceVal = 1;
-      game.players[1].updatePos('hall');
-      assert.isNotOk(game.validateMove('lounge'));
+      game.players[1].updatePos('Hall');
+      assert.isNotOk(game.validateMove('Lounge'));
     });
     it('should return true if player selected valid connected room from room', () => {
       game.diceVal = 2;
-      game.players[1].updatePos('lounge');
-      assert.isOk(game.validateMove('conservatory'));
-      game.players[1].updatePos('conservatory');
-      assert.isOk(game.validateMove('lounge'));
-      game.players[1].updatePos('kitchen');
-      assert.isOk(game.validateMove('study'));
-      game.players[1].updatePos('study');
-      assert.isOk(game.validateMove('kitchen'));
+      game.players[1].updatePos('Lounge');
+      assert.isOk(game.validateMove('Conservatory'));
+      game.players[1].updatePos('Conservatory');
+      assert.isOk(game.validateMove('Lounge'));
+      game.players[1].updatePos('Kitchen');
+      assert.isOk(game.validateMove('Study'));
+      game.players[1].updatePos('Study');
+      assert.isOk(game.validateMove('Kitchen'));
     });
     it('should return false if selected position is same as current position', () => {
       game.diceVal = 2;
-      game.players[1].updatePos('lounge');
-      assert.isNotOk(game.validateMove('lounge'));
+      game.players[1].updatePos('Lounge');
+      assert.isNotOk(game.validateMove('Lounge'));
     });
   });
 
@@ -652,14 +652,14 @@ describe('Game', () => {
       game.addPlayer("Patel", 2, 2);
       game.addPlayer("AJ", 3, 3);
       game.start();
-      game.players[1].updatePos('lounge');
+      game.players[1].updatePos('Lounge');
       let character = new Card('Dr Orchid', 'Character');
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       game._murderCombination = new Combination(room, weapon, character);
       let combination = new Combination(room, weapon, character);
       assert.isOk(game.accuse(combination));
-      assert.equal(game.players[3].character.position, 'lounge');
+      assert.equal(game.players[3].character.position, 'Lounge');
       assert.equal(game.players[1].character.position, game.players[3].character.position);
     });
   });
@@ -793,15 +793,15 @@ describe('Game', () => {
       let weapon = new Card('Revolver', 'Weapon');
       let room = new Card("Lounge", 'Room');
       let combination = new Combination(room, weapon, character);
-      game.players[1].updatePos('lounge');
+      game.players[1].updatePos('Lounge');
       game.movePlayerToken(combination);
-      assert.equal(game.players[3].character.position, 'lounge');
+      assert.equal(game.players[3].character.position, 'Lounge');
       character = new Card('Prof Plum', 'Character');
       combination = new Combination(room, weapon, character);
       game.movePlayerToken(combination);
       assert.deepInclude(game._unAssignedChars, {
         name: "Prof Plum",
-        position: 'lounge',
+        position: 'Lounge',
         inactive: false
       });
     });
@@ -813,9 +813,9 @@ describe('Game', () => {
       game.addPlayer("Patel", 2, 2);
       game.addPlayer("Pooja", 3, 3);
       game.start();
-      game.players[1].updatePos('lounge');
+      game.players[1].updatePos('Lounge');
       game.players[1].inRoom = true;
-      assert.equal(game.getSecretPassage(), 'conservatory');
+      assert.equal(game.getSecretPassage(), 'Conservatory');
     });
 
     it('should return "" if the player position is room and it does not have secret passage', function() {
@@ -823,7 +823,7 @@ describe('Game', () => {
       game.addPlayer("Patel", 2, 2);
       game.addPlayer("Pooja", 3, 3);
       game.start();
-      game.players[1].updatePos('hall');
+      game.players[1].updatePos('Hall');
       game.players[1].inRoom = true;
       assert.equal(game.getSecretPassage(), '');
     });

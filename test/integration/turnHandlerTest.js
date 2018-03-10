@@ -46,7 +46,7 @@ describe('turnHandler', () => {
       app.games['1234'].rollDice();
       request(app)
         .post('/game/1234/move')
-        .send({position:'dining'})
+        .send({position:'Dining'})
         .set('cookie','playerId=11')
         .expect((res)=>{
           assert.deepEqual(res.body, {moved:true});

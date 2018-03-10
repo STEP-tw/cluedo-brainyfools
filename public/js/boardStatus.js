@@ -148,9 +148,9 @@ const getBaseUrl = function(){
 };
 
 const showSuspicionCards = function(cards,message='') {
-  let characterCard = cards.character.replace(/[.\s]+/,'_').toLowerCase();
-  let weaponCard = cards.weapon.replace(/[.\s]+/,'_').toLowerCase();
-  let roomCard = cards.room.replace(/[.\s]+/,'_').split('_')[0].toLowerCase();
+  let characterCard = cards.character.replace(/[.\s]+/,'_');
+  let weaponCard = cards.weapon.replace(/[.\s]+/,'_');
+  let roomCard = cards.room.replace(/[.\s]+/,'_').split('_')[0];
   document.querySelector("#activity-box").innerHTML=
   `<div class='murderCombination'>${message}</div>
   <div class='combination'>
@@ -166,15 +166,15 @@ const showSuspicionCards = function(cards,message='') {
 
 const showWeapon = function (room,weapon) {
   let weaponPos = {
-    kitchen : {xPos:"100" , yPos:"150"},
-    hall : {xPos:"1060" , yPos:"380"},
-    ballroom : {xPos:"600" , yPos:"127"},
-    library : {xPos:"720" , yPos:"650"},
-    conservatory : {xPos:"100" , yPos:"600"},
-    study : {xPos:"1030" , yPos:"680"},
-    billiard : {xPos:"450" , yPos:"680"},
-    lounge : {xPos:"1020" , yPos:"150"},
-    dining : {xPos:"150" , yPos:"380"}
+    Kitchen : {xPos:"100" , yPos:"150"},
+    Hall : {xPos:"1060" , yPos:"380"},
+    Ballroom : {xPos:"600" , yPos:"127"},
+    Library : {xPos:"720" , yPos:"650"},
+    Conservatory : {xPos:"100" , yPos:"600"},
+    Study : {xPos:"1030" , yPos:"680"},
+    Billiard : {xPos:"450" , yPos:"680"},
+    Lounge : {xPos:"1020" , yPos:"150"},
+    Dining : {xPos:"150" , yPos:"380"}
   };
   let weaponName=weapon.replace(/[.\s]+/,'_');
   let weaponImg = document.getElementById(weaponName);
