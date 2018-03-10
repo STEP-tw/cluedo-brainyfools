@@ -148,7 +148,6 @@ const getBaseUrl = function(){
 };
 
 const showSuspicionCards = function(cards,message='') {
-  enablePopup();
   let characterCard = cards.character.replace(/[.\s]+/,'_').toLowerCase();
   let weaponCard = cards.weapon.replace(/[.\s]+/,'_').toLowerCase();
   let roomCard = cards.room.replace(/[.\s]+/,'_').split('_')[0].toLowerCase();
@@ -162,6 +161,7 @@ const showSuspicionCards = function(cards,message='') {
   <img id='room-card' class="${roomCard}"
   src="/images/cards/Room/${roomCard}.jpg"></img>
   </div>`;
+  enablePopup();
 };
 
 const showWeapon = function (room,weapon) {

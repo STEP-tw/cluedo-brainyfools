@@ -146,7 +146,7 @@ const getSuspicion = function (name) {
     } else if(suspicion.cancelledBy) {
       showMessage(`${suspicion.cancelledBy} has ruled
         out ${suspicion.currentPlayer}\'s suspicion`);
-    } else {
+    } else if(suspicion.currentPlayer) {
       showMessage(`No one ruled out ${suspicion.currentPlayer}\'s suspicion`);
     }
   });
