@@ -26,6 +26,7 @@ class Game {
     this._currentSuspicion = {};
     this._currentAccusation = {};
     this._state = 'running';
+    this._lastInactivePlayer = -1;
   }
   get turn() {
     return this._turn;
@@ -209,14 +210,13 @@ class Game {
   }
   updatePlayerPos(pos) {
     let player = this.getCurrentPlayer();
+    let currentPlayerId = this.getCurrentPlayerId();
     if(player.character.turn ==this._turn ){
-      let id = this.getCurrentPlayerId();
-      this.players[id].played();
+      this.players[currentPlayerId].played();
     }
     if (this.playerMoved) {
       return false;
     }
-    let currentPlayerId = this.getCurrentPlayerId();
     let currentPlayer = this.getPlayer(currentPlayerId);
     let room = this._path.getRoom(pos);
     currentPlayer.inRoom = !!room;
@@ -278,6 +278,11 @@ class Game {
   getNextPlayerTurn() {
     let series = this._activePlayers.sort();
     let turn = series.indexOf(this.turn);
+    if(this._lastInactivePlayer >=0){
+      turn = this._lastInactivePlayer - 1;
+      this._activePlayers.splice(this._lastInactivePlayer,1);
+      this._lastInactivePlayer = -1;
+    }
     return series[turn+1] || series[0] || 0;
   }
   getActivePlayers() {
@@ -415,8 +420,7 @@ class Game {
       this.addActivity(`${name} has won the game`);
     } else {
       player.deactivate();
-      let index = this._activePlayers.indexOf(this._turn);
-      this._activePlayers.splice(index,1);
+      this._lastInactivePlayer = this._activePlayers.indexOf(this._turn);
       this.addActivity(`${name} accusation failed`);
     }
     return true;

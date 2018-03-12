@@ -529,6 +529,18 @@ describe('Game', () => {
       assert.equal(game.getNextPlayerTurn(), 0);
     });
 
+    it('should return next turn, of the deactivated player in previous turn',()=>{
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 5);
+      game.addPlayer("Patel", 3, 3);
+      game.start();
+      game._lastInactivePlayer = 1;
+      assert.equal(game.getNextPlayerTurn(),5);
+      assert.equal(game._lastInactivePlayer,-1)
+      game._lastInactivePlayer = 1;
+      assert.equal(game.getNextPlayerTurn(),1);
+      assert.equal(game._lastInactivePlayer,-1)
+    });
   });
 
   describe('#getPlayerId', function() {
@@ -766,7 +778,7 @@ describe('Game', () => {
       game.addPlayer('Patel', 1, 1);
       game.start();
       assert.isUndefined(game.pass());
-    })
+    });
   });
 
   describe('#murderCombination', function() {
