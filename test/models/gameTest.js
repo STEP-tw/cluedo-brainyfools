@@ -113,7 +113,7 @@ describe('Game', () => {
           cards: [],
           inRoom: false,
           character: {
-            "color": "#ffff33",
+            "color": "#ffff00",
             "name": "Col Mustard",
             turn: 2,
             position: 56

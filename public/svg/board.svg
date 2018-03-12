@@ -173,12 +173,12 @@
   <image class="room" href="/images/rooms/conservatory.png" y="567.17935" x="45.75" width="237.00001" height="200" id="Conservatory"/>
   <image class="room" href="/images/rooms/dining_Room.png" y="295.75" x="45.75" width="237.00001" height="200" id="Dining"/>
 
-  <ellipse ry="18" rx="18" cy="144.933334" cx="-77.924997" fill="#da70d6" id="orchid"/>
-  <ellipse ry="18" rx="18" cy="221.933334" cx="-77.924997" fill="#007f00" id="green"/>
-  <ellipse ry="18" rx="18" cy="288.933334" cx="-77.924997" fill="#005FBF" id="peacock"/>
-  <ellipse ry="18" rx="18" cy="369.933334" cx="-77.924997" fill="#3f007f" id="plum"/>
+  <ellipse ry="18" rx="18" cy="144.933334" cx="-77.924997" fill="#ff69ff" id="orchid"/>
+  <ellipse ry="18" rx="18" cy="221.933334" cx="-77.924997" fill="#009900" id="green"/>
+  <ellipse ry="18" rx="18" cy="288.933334" cx="-77.924997" fill="#0d85ff" id="peacock"/>
+  <ellipse ry="18" rx="18" cy="369.933334" cx="-77.924997" fill="#6f04f6" id="plum"/>
   <ellipse ry="18" rx="18" cy="460.933334" cx="-77.924997" fill="#bf0000" id="scarlett"/>
-  <ellipse ry="18" rx="18" cy="541.933334" cx="-77.924997" fill="#ffff33"
+  <ellipse ry="18" rx="18" cy="541.933334" cx="-77.924997" fill="#ffff00"
     id="mustard"/>
   <image x="300" y="100" width="70" height="70"
     href="/images/weapons/Dagger.png" id="Dagger" opacity="0"/>

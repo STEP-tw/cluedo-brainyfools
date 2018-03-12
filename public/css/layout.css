@@ -469,3 +469,7 @@ select::-ms-expand {
 .buttonInCenter {
   text-align: center;
 }
+
+.room {
+  filter:grayscale(40%);
+}

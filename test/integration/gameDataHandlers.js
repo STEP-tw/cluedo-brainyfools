@@ -48,7 +48,7 @@ describe('gameDataHandlers', () => {
           name: "omkar",
           inRoom: false,
           character: {
-            "color": "#ffff33",
+            "color": "#ffff00",
             "name": "Col Mustard",
             turn: 2,
             position: 56
@@ -58,7 +58,7 @@ describe('gameDataHandlers', () => {
           name: "pranav",
           inRoom: false,
           character: {
-            "color": "#da70d6",
+            "color": "#ff69ff",
             "name": "Dr Orchid",
             "position": 49,
             "turn": 3

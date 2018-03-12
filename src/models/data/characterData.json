@@ -7,31 +7,31 @@
   },
   "2":{
     "name":"Col Mustard",
-    "color":"#ffff33",
+    "color":"#ffff00",
     "position":56,
     "turn" : 2
   },
   "3":{
     "name":"Dr Orchid",
-    "color":"#da70d6",
+    "color":"#ff69ff",
     "position":49,
     "turn" : 3
   },
   "4":{
     "name":"Rev Green",
-    "color":"#3a7e4a",
+    "color":"#009900",
     "position":79,
     "turn" : 4
   },
   "5":{
     "name":"Mrs Peacock",
-    "color":"#005fbf",
+    "color":"#0d85ff",
     "position":5,
     "turn" : 5
   },
   "6":{
     "name":"Prof Plum",
-    "color":"#3f007f",
+    "color":"#6f04f6",
     "position":13,
     "turn" : 6
   }
