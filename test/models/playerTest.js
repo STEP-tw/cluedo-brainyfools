@@ -113,6 +113,12 @@ describe('Player',()=>{
     });
   });
 
+  describe('#shutDown',()=>{
+    it('should deactivate player',()=>{
+      assert.ok(player.shutDown());
+    });
+  });
+
   describe('#Played',()=>{
     it('should set true if nothing is given',()=>{
       player.played();

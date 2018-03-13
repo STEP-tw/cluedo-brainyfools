@@ -450,6 +450,11 @@ class Game {
     }
     return '';
   }
+  shutPlayerDown(id) {
+    let player = this.getPlayerDetails(id);
+    this.addActivity(`${player.name} left the game`);
+    return this.players[id].shutDown();
+  }
 }
 
 module.exports = Game;

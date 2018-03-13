@@ -82,6 +82,10 @@ class Player {
   played(val=true){
     this._played=val;
   }
+  shutDown(){
+    this.deactivate();
+    return true;
+  }
 }
 
 module.exports = Player;

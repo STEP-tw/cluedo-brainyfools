@@ -189,6 +189,25 @@ describe('turnHandler', () => {
     });
   });
 
+  describe('POST /game/1234/leave',()=>{
+    it('should respond with player status',done=>{
+      app.games = {'1234': new Game(3)};
+      app.games['1234'].addPlayer('Pranav',1,1);
+      app.games['1234'].addPlayer('Patel',2,2);
+      app.games['1234'].addPlayer('Raghu',3,3);
+      app.games['1234'].start();
+      request(app)
+        .post('/game/1234/leave')
+        .set('cookie', 'playerId=1')
+        .expect(res=>{
+          assert.deepEqual(res.body, {
+            playersStatus: { '1': false, '2': true, '3': true }
+          });
+        })
+        .end(done);
+    });
+  });
+
   describe('GET game/1234/suspicion',()=>{
     beforeEach(()=>{
       app.games['1234'].start();

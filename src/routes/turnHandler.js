@@ -143,6 +143,13 @@ const getMurderCombination = function(req,res){
   res.json(murderCombination);
 };
 
+const leaveGame = function (req,res) {
+  let playerId = req.cookies.playerId;
+  req.game.shutPlayerDown(playerId);
+  res.clearCookie('playerId');
+  res.json({'playersStatus': req.game.getPlayersStatus()});
+};
+
 module.exports = {
   rollDice : [checkTurn, rollDice],
   move : [checkTurn,validateData ,validateMove, updatePos],
@@ -152,5 +159,6 @@ module.exports = {
   getAccusation : [getAccusation],
   getSuspicion : [getSuspicion],
   ruleOut : [canRuleOut, ruleOut],
-  getMurderCombination : [checkState, getMurderCombination]
+  getMurderCombination : [checkState, getMurderCombination],
+  leave : [leaveGame]
 };

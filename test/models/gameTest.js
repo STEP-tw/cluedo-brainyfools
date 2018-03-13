@@ -905,4 +905,12 @@ describe('Game', () => {
       assert.isOk(game.canPass());
     })
   })
+
+  describe('#shutPlayerDown', function() {
+    it('should return if valid player is give', () => {
+      game.addPlayer("Pranav", 1, 1);
+      game.start();
+      assert.isOk(game.shutPlayerDown(1));
+    })
+  })
 });

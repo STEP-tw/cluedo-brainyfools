@@ -49,15 +49,17 @@ const setOtherPlayer = function (player) {
 
 const leave = function(){
   let url = getBaseUrl();
-  console.log('sending');
-  // sendAjaxRequest('post',`${url}/leave`,res=>{
-  // })
-}
+  sendAjaxRequest('post',`${url}/leave`,res=>{
+    res = JSON.parse(res);
+    showInactivePlayers(res.playersStatus);
+    location.href = '/';
+  });
+};
 
 const setLeaveButton = function(){
   document.getElementById('leave').innerHTML =
   `<a onclick="leave()">Leave Game</a>`;
-}
+};
 
 const objectValues = function (obj) {
   return Object.keys(obj).map(key => obj[key]);
