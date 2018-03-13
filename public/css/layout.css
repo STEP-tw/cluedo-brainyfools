@@ -471,5 +471,5 @@ select::-ms-expand {
 }
 
 .room {
-  filter:grayscale(40%);
+  filter:grayscale(60%);
 }
