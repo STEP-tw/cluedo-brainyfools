@@ -39,7 +39,6 @@ const showWinner = function(name){
 };
 
 const respondWithGameState = function(name,gameState,message=''){
-  let playerId = getCookie('playerId');
   if (gameState=='running') {
     showMessage(message);
     setTimeout(function () {

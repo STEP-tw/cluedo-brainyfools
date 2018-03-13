@@ -94,6 +94,7 @@ app.post('/game/:gameId/ruleout', turnHandler.ruleOut);
 app.post('/game/:gameId/accuse',turnHandler.accuse);
 app.get('/game/:gameId/accusation',turnHandler.getAccusation);
 app.get('/game/:gameId/murderCombination',turnHandler.getMurderCombination);
+// app.post('/game/:gameId/leave',turnHandler.leave);
 
 app.use(express.static('public'));
 

@@ -47,6 +47,18 @@ const setOtherPlayer = function (player) {
   </div>`;
 };
 
+const leave = function(){
+  let url = getBaseUrl();
+  console.log('sending');
+  // sendAjaxRequest('post',`${url}/leave`,res=>{
+  // })
+}
+
+const setLeaveButton = function(){
+  document.getElementById('leave').innerHTML =
+  `<a onclick="leave()">Leave Game</a>`;
+}
+
 const objectValues = function (obj) {
   return Object.keys(obj).map(key => obj[key]);
 };
@@ -182,6 +194,7 @@ window.onload = function () {
     startStatusUpdater();
     getPlayerDetails();
     showBoardStatus();
+    setLeaveButton();
   });
   let modal = document.getElementById('myModal');
 };

@@ -80,7 +80,7 @@ body {
   height: auto;
   justify-content: center;
   margin-top: 8px;
-  margin-left: 140px;
+  margin-left: 50px;
   max-height: 20%;
   width: auto;
 }
@@ -472,4 +472,20 @@ select::-ms-expand {
 
 .room {
   filter:grayscale(60%);
+}
+
+#leave {
+  align-self:  center;
+  margin-left: 30px;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+#leave a {
+  text-decoration:  none;
+  border-radius: 10%;
+  font-size: 23px;
+  color: #000000;
+  border-bottom-color:  black;
+  padding: 3px;
 }
