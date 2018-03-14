@@ -58,7 +58,7 @@ const leave = function(){
 
 const setLeaveButton = function(){
   document.getElementById('leave').innerHTML =
-  `<a onclick="leave()">Leave Game</a>`;
+  `<button onclick="leave()">Leave Game</button>`;
 };
 
 const objectValues = function (obj) {

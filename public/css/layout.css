@@ -3,13 +3,32 @@ html {
   height: 100%;
 }
 
-body {
+body{
+  display: flex;
+  flex-direction: column;
+}
+
+header{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.cluedo{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.container {
   display: flex;
   font-family: 'Acme';
 }
 
 .board {
-  width: 63%;
+  width: 58%;
+  /* width: auto; */
+  margin-right: 50px;
 }
 
 #board {
@@ -22,7 +41,7 @@ body {
 #all-players {
   box-sizing: border-box;
   display: flex;
-  height: 140px;
+  height: 125px;
   justify-content: center;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -33,7 +52,7 @@ body {
   background-repeat: no-repeat;
   background-size: contain;
   height: 95px;
-  min-width: 64px;
+  min-width: 53px;
 }
 
 #all-players div {
@@ -41,7 +60,7 @@ body {
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  margin: 2px 3px;
+  margin: 2px 5px;
   padding: 2px 2px;
 }
 
@@ -59,7 +78,7 @@ body {
   padding: 1px 2px;
   margin: 2px 2px;
   border-radius: 4%;
-  height: 140px;
+  height: 120px;
   display: flex;
   text-align: center;
   font-weight: bold;
@@ -70,8 +89,8 @@ body {
   align-self: center;
   background-repeat: no-repeat;
   background-size: contain;
-  height: 120px;
-  min-width: 75px;
+  height: 100px;
+  min-width: 60px;
 }
 
 .board #cards {
@@ -87,9 +106,9 @@ body {
 
 .board #cards img {
   border: 3px solid black;
-  height: 120px;
+  height: 115px;
   margin: 0px 5px;
-  width: 80px;
+  width: 75px;
 }
 
 .title {
@@ -111,7 +130,7 @@ main {
 #log {
   border: 5px solid #1A0800;
   display: flex;
-  height: 701px;
+  height: 490px;
   background-color: #DFB577;
   position: relative;
   flex-direction: column;
@@ -183,7 +202,7 @@ main {
   -webkit-border-radius: 5px 5px 5px 5px;
   background-color: #c19e67;
   border: 5px solid #8b4513;
-  margin: 0px 270px;
+  margin: 0px 200px;
   padding: 0px 20px 20px 20px;
   border: 1px solid #c19e67;
   width: 30%;
@@ -238,6 +257,7 @@ main {
   border: none;
   background-color: #8B4513;
   color: #dfb577;
+  cursor: pointer;
 }
 
 .popup div input {
@@ -475,17 +495,16 @@ select::-ms-expand {
 }
 
 #leave {
-  align-self:  center;
-  margin-left: 30px;
-  border: 2px solid black;
-  cursor: pointer;
+  margin-left: 500px;
+  margin-right: 25px;
+  margin-bottom: 7px;
+  padding: 2px;
 }
 
-#leave a {
-  text-decoration:  none;
-  border-radius: 10%;
-  font-size: 23px;
-  color: #000000;
-  border-bottom-color:  black;
-  padding: 3px;
+#leave button {
+  font-size: 20px;
+  background-color: #dfb577;
+  border: 2px solid black;
+  cursor: pointer;
+  border-radius: 5px;
 }
