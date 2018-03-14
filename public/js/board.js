@@ -58,7 +58,27 @@ const leave = function(){
 
 const setLeaveButton = function(){
   document.getElementById('leave').innerHTML =
-  `<button onclick="leave()">Leave Game</button>`;
+  `<button onclick="askConfirmation()">Leave Game</button>`;
+};
+
+const askConfirmation = function(){
+  let popup = `<div id ="confirmation" class='modal' style="display:block">
+    <div class="modal-content">
+      <div id="message-box">Are you sure you want to leave the game?</div>
+      <div id="activity">
+        <div>
+          <button onclick=leave()>Yes</button>
+          <button onclick=disableconfirmation()>No</button>
+        <div>
+      </div>
+    </div>
+  </div>`;
+  document.body.innerHTML += popup;
+};
+
+const disableconfirmation = function(){
+  let popup = document.querySelector('#confirmation');
+  document.body.removeChild(popup);
 };
 
 const objectValues = function (obj) {

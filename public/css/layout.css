@@ -369,6 +369,26 @@ select::-ms-expand {
   margin-top: 10px;
 }
 
+#activity {
+  /* width: auto; */
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+#activity button {
+  margin: 20px;
+  font-size: 20px;
+  width: 100px;
+  height: 30px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border: none;
+  background-color: #8B4513;
+  color: #dfb577;
+  cursor: pointer;
+}
+
 .combination {
   display: flex;
   justify-content: center;
