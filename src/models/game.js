@@ -453,6 +453,12 @@ class Game {
   shutPlayerDown(id) {
     let player = this.getPlayerDetails(id);
     this.addActivity(`${player.name} left the game`);
+    let turn = player.character.turn;
+    let index = this._activePlayers.indexOf(turn);
+    if (turn==this._turn) {
+      this._turn = this._activePlayers[index+1];
+    }
+    this._activePlayers.splice(index,1);
     return this.players[id].shutDown();
   }
 }
