@@ -912,5 +912,31 @@ describe('Game', () => {
       game.start();
       assert.isOk(game.shutPlayerDown(1));
     })
+    it('current turn should get change if current player leaves the game',function () {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.start();
+      game.shutPlayerDown(1);
+      assert.equal(game._turn,2);
+    })
+  })
+
+  describe('#_hasLeft', function () {
+    it('game should cancel suspicion on behalf of player if player has left the game',function () {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Ketan", 2, 2);
+      game.addPlayer("Patel", 3, 3);
+      game.players[2].addCard(new Card("Hall", 'Room'));
+      game.start();
+      game.shutPlayerDown(2);
+      game.shutPlayerDown(3);
+      let character = new Card('Dr. Orchid', 'Character');
+      let weapon = new Card('Revolver', 'Weapon');
+      let room = new Card("Hall", 'Room');
+      let combinationO = new Combination(room, weapon, character);
+      game.updateSuspicionOf(1, combinationO);
+      assert.isOk(game._currentSuspicion.cancelled);
+      assert.deepInclude(game._currentSuspicion.cancellingCards,room);
+    })
   })
 });

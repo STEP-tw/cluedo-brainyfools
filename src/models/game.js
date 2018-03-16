@@ -211,7 +211,7 @@ class Game {
   updatePlayerPos(pos) {
     let player = this.getCurrentPlayer();
     let currentPlayerId = this.getCurrentPlayerId();
-    if(player.character.turn ==this._turn ){
+    if(player.character.turn == this._turn ){
       this.players[currentPlayerId].played();
     }
     if (this.playerMoved) {
@@ -308,6 +308,11 @@ class Game {
         suspicion.cancellerName = nextPlayer.name;
         suspicion.canceller = this.getPlayerId(nextTurn);
         suspicion.cancellingCards = nextPlayer.getCancellingCards(suspicion);
+        if (nextPlayer._hasLeft) {
+          let cards = suspicion.cancellingCards;
+          let randomCard=cards[Math.floor(Math.random()*cards.length)];
+          this.ruleOut(randomCard.name);
+        }
         return;
       }
       nextTurn = this.getNextTurn(nextTurn);

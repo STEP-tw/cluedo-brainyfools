@@ -11,6 +11,7 @@ class Player {
     this._log = new ActivityLog(getDate);
     this._active = true;
     this._played=false;
+    this._hasLeft=false;
   }
   get name(){
     return this._name;
@@ -83,6 +84,7 @@ class Player {
     this._played=val;
   }
   shutDown(){
+    this._hasLeft=true;
     this.deactivate();
     return true;
   }
