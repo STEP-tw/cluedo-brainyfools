@@ -82,6 +82,7 @@ form input[type=submit] {
 
 form input[type=submit]:hover {
   background-color: #8B4513;
+  cursor: pointer;
 }
 
 form .error {

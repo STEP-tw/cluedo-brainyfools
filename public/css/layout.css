@@ -28,7 +28,8 @@ header{
 .board {
   width: 58%;
   /* width: auto; */
-  margin-right: 50px;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 #board {
@@ -439,6 +440,7 @@ select::-ms-expand {
   border: none;
   background-color: #8B4513;
   color: #dfb577;
+  cursor: pointer;
 }
 
 .back-button {
@@ -504,6 +506,7 @@ select::-ms-expand {
   border: none;
   background-color: #8B4513;
   color: #dfb577;
+  cursor: pointer;
 }
 
 .buttonInCenter {
