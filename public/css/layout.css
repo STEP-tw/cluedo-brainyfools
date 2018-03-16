@@ -510,10 +510,6 @@ select::-ms-expand {
   text-align: center;
 }
 
-.room {
-  filter:grayscale(60%);
-}
-
 #leave {
   margin-left: 500px;
   margin-right: 25px;
