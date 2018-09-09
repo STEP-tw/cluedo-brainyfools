@@ -463,7 +463,7 @@ class Game {
     if (turn==this._turn) {
       this._turn = this._activePlayers[index+1];
     }
-    this._activePlayers.splice(index,1);
+    index >= 0 && this._activePlayers.splice(index,1);
     return this.players[id].shutDown();
   }
 }
