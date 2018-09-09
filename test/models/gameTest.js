@@ -919,6 +919,14 @@ describe('Game', () => {
       game.shutPlayerDown(1);
       assert.equal(game._turn,2);
     })
+    it('should not remove active players if inactive player leaves the game',function () {
+      game.addPlayer("Pranav", 1, 1);
+      game.addPlayer("Patel", 2, 2);
+      game.start();
+      game.players[1].deactivate();
+      game.shutPlayerDown(1);
+      assert.notEqual(game.getActivePlayers(),[]);
+    })
   })
 
   describe('#_hasLeft', function () {
